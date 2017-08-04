@@ -47,7 +47,7 @@ public class MainApp  {
             primaryStage.setScene(scene);
             RootLayoutController controller = loader.getController();
             primaryStage.centerOnScreen();
-            //primaryStage.setFullScreen(true);
+            primaryStage.setMaximized(true);
             controller.setMainApp(this);
             primaryStage.show();
         } catch (IOException e) {

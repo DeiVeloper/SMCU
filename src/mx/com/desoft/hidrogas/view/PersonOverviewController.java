@@ -1,5 +1,8 @@
 package mx.com.desoft.hidrogas.view;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -7,6 +10,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import mx.com.desoft.hidrogas.MainApp;
+import mx.com.desoft.hidrogas.model.Empleados;
+import mx.com.desoft.hidrogas.model.HibernateUtil;
 import mx.com.desoft.hidrogas.model.Person;
 import mx.com.desoft.hidrogas.util.DateUtil;
 
@@ -32,6 +37,8 @@ public class PersonOverviewController {
     private Label cityLabel;
     @FXML
     private Label birthdayLabel;
+    
+    
 
     // Reference to the main application.
     private MainApp mainApp;
@@ -111,11 +118,19 @@ public class PersonOverviewController {
      */
     @FXML
     private void handleNewPerson() {
-        Person tempPerson = new Person();
-        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
-        if (okClicked) {
-            mainApp.getPersonData().add(tempPerson);
-        }
+    	Empleados profesor=new Empleados(01, "David");  //Creamos el objeto
+    	 
+    	HibernateUtil.openSession().beginTransaction();
+    	 
+    	HibernateUtil.openSession().save(profesor); //<|--- Aqui guardamos el objeto en la base de datos.
+    	 
+    	HibernateUtil.openSession().getTransaction().commit();
+    	HibernateUtil.openSession().close();
+//        Person tempPerson = new Person();
+//        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+//        if (okClicked) {
+//            mainApp.getPersonData().add(tempPerson);
+//        }
     }
 
     /**
