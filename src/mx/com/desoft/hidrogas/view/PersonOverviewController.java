@@ -13,7 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import mx.com.desoft.hidrogas.MainApp;
 import mx.com.desoft.hidrogas.dao.EmpleadosDAO;
 import mx.com.desoft.hidrogas.dao.EmpleadosImplDAO;
-import mx.com.desoft.hidrogas.model.Empleados;
+import mx.com.desoft.hidrogas.model.Empleado;
 import mx.com.desoft.hidrogas.model.Person;
 import mx.com.desoft.hidrogas.util.DateUtil;
 
@@ -122,8 +122,9 @@ public class PersonOverviewController {
      */
     @FXML
     private void handleNewPerson() {
-    	Empleados empleado = new Empleados(03, "castro");  //Creamos el objeto
+    	Empleado empleado = new Empleado(1,"david");  //Creamos el objeto
     	empleadoDAO = new EmpleadosImplDAO();
+    	
     	empleadoDAO.saveOrUpdate(empleado);
     
 

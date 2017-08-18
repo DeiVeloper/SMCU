@@ -10,7 +10,7 @@
 			<property name="hibernate.show_sql">true</property>
 			<property name="hibernate.current_session_context_class">thread</property>
 
-			<mapping class="mx.com.desoft.hidrogas.model.Empleados"/>
+			<mapping class="mx.com.desoft.hidrogas.model.Empleado"/>
 
 		</session-factory>
 	</hibernate-configuration>
