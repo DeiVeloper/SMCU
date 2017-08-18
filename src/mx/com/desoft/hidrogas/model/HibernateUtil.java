@@ -8,13 +8,12 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 public class HibernateUtil {
-	
-     public static final  SessionFactory sessionFactory;
+
+     private static final  SessionFactory sessionFactory;
      private static final  ServiceRegistry serviceRegistry;
-     
+
      static {
           try {
-
                Configuration config = new Configuration();
                config.configure();
                serviceRegistry = new ServiceRegistryBuilder().applySettings(config.getProperties()).buildServiceRegistry();
@@ -39,5 +38,9 @@ public class HibernateUtil {
 
      public static  Session openSession() {
           return sessionFactory.openSession();
+     }
+
+     public static SessionFactory getSessionfactory() {
+    	 return sessionFactory;
      }
 }

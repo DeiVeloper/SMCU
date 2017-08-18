@@ -7,14 +7,14 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="Profesor")
+@Table(name="Empleados")
 public class Empleados {
 	
 	@Id
-	@Column(name="NoNomina")
+	@Column(name="NO_NOMINA")
 	private int id;
 	
-	@Column(name="Nombre")
+	@Column(name="NOMBRE")
 	private String nombre;
 	
 	public Empleados() {

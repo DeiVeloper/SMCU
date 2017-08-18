@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class Login extends Application {
 	public static Stage stageLogin;
 	private BorderPane login;
- 
+
 	@Override
 	public void start(Stage primaryStage) {
 		stageLogin = primaryStage;

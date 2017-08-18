@@ -1,7 +1,8 @@
 package mx.com.desoft.hidrogas.view;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
+
+
+import org.springframework.stereotype.Component;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,12 +11,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import mx.com.desoft.hidrogas.MainApp;
+import mx.com.desoft.hidrogas.dao.EmpleadosDAO;
+import mx.com.desoft.hidrogas.dao.EmpleadosImplDAO;
 import mx.com.desoft.hidrogas.model.Empleados;
-import mx.com.desoft.hidrogas.model.HibernateUtil;
 import mx.com.desoft.hidrogas.model.Person;
 import mx.com.desoft.hidrogas.util.DateUtil;
 
-
+@Component
 public class PersonOverviewController {
 
     @FXML
@@ -37,11 +39,13 @@ public class PersonOverviewController {
     private Label cityLabel;
     @FXML
     private Label birthdayLabel;
-    
-    
+
+
 
     // Reference to the main application.
     private MainApp mainApp;
+    
+    private EmpleadosDAO empleadoDAO;
 
     /**
      * The constructor.
@@ -85,12 +89,12 @@ public class PersonOverviewController {
             birthdayLabel.setText(DateUtil.format(person.getBirthday()));
         } else {
             // Person is null, remove all the text.
-            firstNameLabel.setText("");
-            lastNameLabel.setText("");
-            streetLabel.setText("");
-            postalCodeLabel.setText("");
-            cityLabel.setText("");
-            birthdayLabel.setText("");
+//            firstNameLabel.setText("");
+//            lastNameLabel.setText("");
+//            streetLabel.setText("");
+//            postalCodeLabel.setText("");
+//            cityLabel.setText("");
+//            birthdayLabel.setText("");
         }
     }
 
@@ -118,14 +122,11 @@ public class PersonOverviewController {
      */
     @FXML
     private void handleNewPerson() {
-    	Empleados profesor=new Empleados(01, "David");  //Creamos el objeto
-    	 
-    	HibernateUtil.openSession().beginTransaction();
-    	 
-    	HibernateUtil.openSession().save(profesor); //<|--- Aqui guardamos el objeto en la base de datos.
-    	 
-    	HibernateUtil.openSession().getTransaction().commit();
-    	HibernateUtil.openSession().close();
+    	Empleados empleado = new Empleados(03, "castro");  //Creamos el objeto
+    	empleadoDAO = new EmpleadosImplDAO();
+    	empleadoDAO.saveOrUpdate(empleado);
+    
+
 //        Person tempPerson = new Person();
 //        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
 //        if (okClicked) {
@@ -167,4 +168,12 @@ public class PersonOverviewController {
         // Add observable list data to the table
         personTable.setItems(mainApp.getPersonData());
     }
+
+	public EmpleadosDAO getEmpleadoDAO() {
+		return empleadoDAO;
+	}
+
+	public void setEmpleadoDAO(EmpleadosDAO empleadoDAO) {
+		this.empleadoDAO = empleadoDAO;
+	}
 }
