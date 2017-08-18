@@ -26,7 +26,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button id="btn" layoutX="178.0" layoutY="378.0" mnemonicParsing="false" onAction="#iniciarSession" prefHeight="47.0" prefWidth="299.0" styleClass="btn" text="Iniciar sesión" />
+            <Button id="btn" fx:id="iniciarSession" layoutX="178.0" layoutY="378.0" mnemonicParsing="false"  prefHeight="47.0" prefWidth="299.0" styleClass="btn" text="Iniciar sesión" />
             <ImageView fitHeight="64.0" fitWidth="45.0" layoutX="201.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../resources/images/user.png" />
@@ -43,3 +43,4 @@
       </AnchorPane>
    </top>
 </BorderPane>
+
