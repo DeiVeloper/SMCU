@@ -10,9 +10,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.stereotype.Repository;
 
 import mx.com.desoft.hidrogas.model.HibernateUtil;
 
+@Repository
 public class HibernateImplDAO<T, ID extends Serializable> implements HibernateDAO<T, ID> {
 
 	SessionFactory sessionFactory;

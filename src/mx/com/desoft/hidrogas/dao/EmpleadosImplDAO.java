@@ -12,7 +12,7 @@ import mx.com.desoft.hidrogas.ApplicationReporter;
 import mx.com.desoft.hidrogas.hibernate.HibernateImplDAO;
 import mx.com.desoft.hidrogas.model.Empleado;
 
-@Component
+@Repository
 public class EmpleadosImplDAO extends HibernateImplDAO<Empleado, Long> implements EmpleadosDAO {
 	
 	
@@ -24,9 +24,7 @@ public class EmpleadosImplDAO extends HibernateImplDAO<Empleado, Long> implement
 	        LOGGER.info("La aplicacion esta corriendo.");
 	    }
 	    
-	    public EmpleadosImplDAO() {
-			
-		}
+	    
 	    
 	   
 	

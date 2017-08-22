@@ -7,15 +7,13 @@
  
  <!-- Habilita el uso de anotaciones -->
  	<context:annotation-config/>
- 	<bean id="log4jInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
-        <property name="targetMethod" value="initLogging" />
-        <property name="arguments">
-            <list>
-                <value>classpath:log4j.properties</value>
-                <value>180000</value>
-            </list>
-        </property>
-    </bean>
+ 	<bean id="empleadosDAO" class="mx.com.desoft.hidrogas.dao.EmpleadosImplDAO">
+ 	
+ 	</bean>
+ 	
+ 	
+ 	<bean id="bussinesImpl" class="mx.com.desoft.hidrogas.bussines.BussinesImpl">
+ 		<property name="empleadosImplDAO" ref="empleadosDAO"></property>
+ 	</bean>
  
 </beans>

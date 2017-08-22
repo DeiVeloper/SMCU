@@ -2,6 +2,8 @@ package mx.com.desoft.hidrogas.view;
 
 
 
+import javax.annotation.PostConstruct;
+
 import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
+import mx.com.desoft.hidrogas.bussines.BussinesApp;
+import mx.com.desoft.hidrogas.bussines.BussinesImpl;
 import mx.com.desoft.hidrogas.dao.EmpleadosDAO;
 import mx.com.desoft.hidrogas.dao.EmpleadosImplDAO;
 import mx.com.desoft.hidrogas.model.Empleado;
@@ -53,8 +57,8 @@ public class PersonOverviewController {
     // Reference to the main application.
     private MainApp mainApp;
     
-    @Autowired
-    private EmpleadosDAO empleadosImplDAO = Login.appContext.getBean(EmpleadosImplDAO.class);
+    
+    private BussinesApp bussinesApp = Login.appContext.getBean(BussinesImpl.class);
 
     /**
      * The constructor.
@@ -62,7 +66,9 @@ public class PersonOverviewController {
      */
     public PersonOverviewController() {
     }
-
+    
+    
+   
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
@@ -132,8 +138,7 @@ public class PersonOverviewController {
     @FXML
     private void handleNewPerson() {
     	try {
-    		Empleado empleado = new Empleado(1,"David");
-    		empleadosImplDAO.saveOrUpdate(empleado);
+    		bussinesApp.agregarEMplado();
         
 		} catch (Exception e) {
 			new Throwable(e.getMessage());
@@ -188,14 +193,15 @@ public class PersonOverviewController {
         personTable.setItems(mainApp.getPersonData());
     }
 
-    
-	public EmpleadosImplDAO getEmpleadosImplDAO() {
-		return  (EmpleadosImplDAO) empleadosImplDAO;
+
+	public BussinesApp getBussinesApp() {
+		return bussinesApp;
 	}
 
-	@Required
-	public void setEmpleadosImplDAO(EmpleadosImplDAO empleadosImplDAO) {
-		this.empleadosImplDAO = empleadosImplDAO;
+
+
+	public void setBussinesApp(BussinesApp bussinesApp) {
+		this.bussinesApp = bussinesApp;
 	}
 
 	
