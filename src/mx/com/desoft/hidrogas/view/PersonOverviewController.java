@@ -2,7 +2,14 @@ package mx.com.desoft.hidrogas.view;
 
 
 
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.hibernate.service.spi.InjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.objenesis.instantiator.annotations.Instantiator;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
 import mx.com.desoft.hidrogas.dao.EmpleadosDAO;
 import mx.com.desoft.hidrogas.dao.EmpleadosImplDAO;
@@ -17,7 +25,7 @@ import mx.com.desoft.hidrogas.model.Empleado;
 import mx.com.desoft.hidrogas.model.Person;
 import mx.com.desoft.hidrogas.util.DateUtil;
 
-@Component
+
 public class PersonOverviewController {
 
     @FXML
@@ -45,7 +53,8 @@ public class PersonOverviewController {
     // Reference to the main application.
     private MainApp mainApp;
     
-    private EmpleadosDAO empleadoDAO;
+    @Autowired
+    private EmpleadosDAO empleadosImplDAO = Login.appContext.getBean(EmpleadosImplDAO.class);
 
     /**
      * The constructor.
@@ -122,11 +131,20 @@ public class PersonOverviewController {
      */
     @FXML
     private void handleNewPerson() {
-    	Empleado empleado = new Empleado(1,"david");  //Creamos el objeto
-    	empleadoDAO = new EmpleadosImplDAO();
+    	try {
+    		Empleado empleado = new Empleado(1,"David");
+    		empleadosImplDAO.saveOrUpdate(empleado);
+        
+		} catch (Exception e) {
+			new Throwable(e.getMessage());
+			e.printStackTrace();
+			Alert alert = new Alert(AlertType.INFORMATION);
+	    	alert.setTitle("DeSoft.ink");
+	    	alert.setHeaderText(null);
+	    	alert.setContentText("Error.." + e);
+	    	alert.showAndWait();
+		}
     	
-    	empleadoDAO.saveOrUpdate(empleado);
-    
 
 //        Person tempPerson = new Person();
 //        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
@@ -170,11 +188,15 @@ public class PersonOverviewController {
         personTable.setItems(mainApp.getPersonData());
     }
 
-	public EmpleadosDAO getEmpleadoDAO() {
-		return empleadoDAO;
+    
+	public EmpleadosImplDAO getEmpleadosImplDAO() {
+		return  (EmpleadosImplDAO) empleadosImplDAO;
 	}
 
-	public void setEmpleadoDAO(EmpleadosDAO empleadoDAO) {
-		this.empleadoDAO = empleadoDAO;
+	@Required
+	public void setEmpleadosImplDAO(EmpleadosImplDAO empleadosImplDAO) {
+		this.empleadosImplDAO = empleadosImplDAO;
 	}
+
+	
 }

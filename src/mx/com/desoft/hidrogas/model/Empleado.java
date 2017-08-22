@@ -2,6 +2,9 @@ package mx.com.desoft.hidrogas.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 import java.util.List;
 

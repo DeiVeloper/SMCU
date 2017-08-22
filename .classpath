@@ -20,5 +20,7 @@
 	<classpathentry kind="lib" path="lib/spring-core-4.3.9.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-expression-4.3.9.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-orm-4.3.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/apache-logging-log4j.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
