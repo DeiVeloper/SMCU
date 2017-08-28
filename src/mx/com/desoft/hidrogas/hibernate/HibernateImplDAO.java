@@ -38,7 +38,7 @@ public class HibernateImplDAO<T, ID extends Serializable> implements HibernateDA
 	}
 
 	@Override
-	public void saveOrUpdate(T entity) {
+	public T saveOrUpdate(T entity) {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			session.beginTransaction();
@@ -71,7 +71,9 @@ public class HibernateImplDAO<T, ID extends Serializable> implements HibernateDA
 				LOGGER.log(Level.WARNING, "Fall� al hacer un rollback", exc);
 			}
 			throw new RuntimeException(ex);
-		}
+		} 
+		
+		return entity;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -111,7 +113,8 @@ public class HibernateImplDAO<T, ID extends Serializable> implements HibernateDA
 				LOGGER.log(Level.WARNING, "Fall� al hacer un rollback", exc);
 			}
 			throw new RuntimeException(ex);
-		}
+		} 
+		
 		return null;
 	}
 
@@ -152,11 +155,11 @@ public class HibernateImplDAO<T, ID extends Serializable> implements HibernateDA
 	@Override
 	public List<T> findAll() {
 		Session session = sessionFactory.getCurrentSession();
-		try {
-
+		try{
+			session.beginTransaction();
 			Query query = session.createQuery("SELECT e FROM " + getEntityClass().getName() + " e");
 			List<T> entities = query.list();
-
+			session.getTransaction().commit();
 			return entities;
 		} catch (ConstraintViolationException cve) {
 			try {
@@ -185,7 +188,8 @@ public class HibernateImplDAO<T, ID extends Serializable> implements HibernateDA
 				LOGGER.log(Level.WARNING, "Fall� al hacer un rollback", exc);
 			}
 			throw new RuntimeException(ex);
-		}
+		} 
+		
 		return null;
 	}
 

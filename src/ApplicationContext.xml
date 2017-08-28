@@ -7,13 +7,4 @@
  
  <!-- Habilita el uso de anotaciones -->
  	<context:annotation-config/>
- 	<bean id="empleadosDAO" class="mx.com.desoft.hidrogas.dao.EmpleadosImplDAO">
- 	
- 	</bean>
- 	
- 	
- 	<bean id="bussinesImpl" class="mx.com.desoft.hidrogas.bussines.BussinesImpl">
- 		<property name="empleadosImplDAO" ref="empleadosDAO"></property>
- 	</bean>
- 
 </beans>

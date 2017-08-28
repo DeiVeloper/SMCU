@@ -7,7 +7,7 @@ public interface HibernateDAO <T,ID extends Serializable> {
 
 	T create();
 
-	void saveOrUpdate(T entity) ;
+	T saveOrUpdate(T entity) ;
 
 	T get(ID id) ;
 

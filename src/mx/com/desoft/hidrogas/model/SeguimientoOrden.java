@@ -123,18 +123,18 @@ public class SeguimientoOrden implements Serializable {
 		this.seguimientosEmpleados = seguimientosEmpleados;
 	}
 
-	public SeguimientosEmpleado addSeguimientosEmpleado(SeguimientosEmpleado seguimientosEmpleado) {
-		getSeguimientosEmpleados().add(seguimientosEmpleado);
-		seguimientosEmpleado.setSeguimientoOrden(this);
-
-		return seguimientosEmpleado;
-	}
-
-	public SeguimientosEmpleado removeSeguimientosEmpleado(SeguimientosEmpleado seguimientosEmpleado) {
-		getSeguimientosEmpleados().remove(seguimientosEmpleado);
-		seguimientosEmpleado.setSeguimientoOrden(null);
-
-		return seguimientosEmpleado;
-	}
+//	public SeguimientosEmpleado addSeguimientosEmpleado(SeguimientosEmpleado seguimientosEmpleado) {
+//		getSeguimientosEmpleados().add(seguimientosEmpleado);
+//		seguimientosEmpleado.setSeguimientoOrden(this);
+//
+//		return seguimientosEmpleado;
+//	}
+//
+//	public SeguimientosEmpleado removeSeguimientosEmpleado(SeguimientosEmpleado seguimientosEmpleado) {
+//		getSeguimientosEmpleados().remove(seguimientosEmpleado);
+//		seguimientosEmpleado.setSeguimientoOrden(null);
+//
+//		return seguimientosEmpleado;
+//	}
 
 }

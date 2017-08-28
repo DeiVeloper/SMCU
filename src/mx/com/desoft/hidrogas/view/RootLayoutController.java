@@ -38,7 +38,7 @@ public class RootLayoutController {
      */
     @FXML
     private void handleNew() {
-        mainApp.getPersonData().clear();
+        mainApp.getData().clear();
         mainApp.setPersonFilePath(null);
     }
 
@@ -104,10 +104,10 @@ public class RootLayoutController {
     private void showPersonOverview() {
     	try {
     		FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/PersonOverView.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/AdminEmpleados.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
             mainApp.getRootLayout().setCenter(personOverview);
-            PersonOverviewController controller = loader.getController();
+            AministrarEmpleados controller = loader.getController();
             controller.setMainApp(mainApp);
         } catch (IOException e) {
             e.printStackTrace();

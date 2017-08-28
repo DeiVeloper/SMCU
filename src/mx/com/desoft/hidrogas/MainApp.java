@@ -17,17 +17,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import mx.com.desoft.hidrogas.controller.OrdenTrabajoController;
+import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
 import mx.com.desoft.hidrogas.model.Person;
 import mx.com.desoft.hidrogas.model.PersonListWrapper;
-import mx.com.desoft.hidrogas.view.PersonEditDialogController;
+import mx.com.desoft.hidrogas.property.EmpleadoProperty;
+import mx.com.desoft.hidrogas.view.OrdenTrabajoController;
+import mx.com.desoft.hidrogas.view.AgregarEditarEmpleadoController;
 import mx.com.desoft.hidrogas.view.RootLayoutController;
 
 public class MainApp  {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-	private ObservableList<Person> personData = FXCollections.observableArrayList();
+	private ObservableList<EmpleadoDTO> data = FXCollections.observableArrayList();
 
     public MainApp() {
     	this.primaryStage = new Stage();
@@ -69,11 +71,11 @@ public class MainApp  {
      * @param person the person object to be edited
      * @return true if the user clicked OK, false otherwise.
      */
-    public boolean showPersonEditDialog(Person person) {
+    public boolean showPersonEditDialog(EmpleadoProperty person) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/AgregarEditarEmpleado.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -85,14 +87,14 @@ public class MainApp  {
             dialogStage.setScene(scene);
 
             // Set the person into the controller.
-            PersonEditDialogController controller = loader.getController();
+            AgregarEditarEmpleadoController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setPerson(person);
+//            controller.setPerson(person);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
-            return controller.isOkClicked();
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -219,8 +221,8 @@ public class MainApp  {
             // Reading XML from the file and unmarshalling.
             PersonListWrapper wrapper = (PersonListWrapper) um.unmarshal(file);
 
-            personData.clear();
-            personData.addAll(wrapper.getPersons());
+            data.clear();
+            data.addAll(wrapper.getPersons());
 
             // Save the file path to the registry.
             setPersonFilePath(file);
@@ -244,7 +246,7 @@ public class MainApp  {
 
             // Wrapping our person data.
             PersonListWrapper wrapper = new PersonListWrapper();
-            wrapper.setPersons(personData);
+            wrapper.setPersons(data);
 
             // Marshalling and saving XML to the file.
             m.marshal(wrapper, file);
@@ -268,8 +270,8 @@ public class MainApp  {
      * Returns the data as an observable list of Persons.
      * @return
      */
-    public ObservableList<Person> getPersonData() {
-        return personData;
+    public ObservableList<EmpleadoDTO> getData() {
+        return data;
     }
 
     public BorderPane getRootLayout() {

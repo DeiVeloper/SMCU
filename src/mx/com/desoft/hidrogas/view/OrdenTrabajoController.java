@@ -1,4 +1,4 @@
-package mx.com.desoft.hidrogas.controller;
+package mx.com.desoft.hidrogas.view;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;

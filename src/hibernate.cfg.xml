@@ -11,6 +11,16 @@
 			<property name="hibernate.current_session_context_class">thread</property>
 
 			<mapping class="mx.com.desoft.hidrogas.model.Empleado"/>
+			<mapping class="mx.com.desoft.hidrogas.model.CatTipoEmpleado"/>
+			<mapping class="mx.com.desoft.hidrogas.model.Economico"/>
+			<!--<mapping class="mx.com.desoft.hidrogas.model.OrdenTrabajo"/>
+			<mapping class="mx.com.desoft.hidrogas.model.CatTipoListaRefaccion"/>
+			<mapping class="mx.com.desoft.hidrogas.model.CatTipoNecesidad"/>
+			<mapping class="mx.com.desoft.hidrogas.model.ListaRefacciones"/>
+			<mapping class="mx.com.desoft.hidrogas.model.CatEstatusOrden"/>
+			<mapping class="mx.com.desoft.hidrogas.model.SeguimientoOrden"/>
+			<mapping class="mx.com.desoft.hidrogas.model.SeguimientosEmpleado"/>
+			<mapping class="mx.com.desoft.hidrogas.model.SeguimientosEmpleadoPK"/>-->
 
 		</session-factory>
 	</hibernate-configuration>

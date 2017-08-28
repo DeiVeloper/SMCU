@@ -3,19 +3,16 @@ package mx.com.desoft.hidrogas;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.apache.log4j.Logger;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.scheduling.annotation.EnableScheduling;
+//import org.springframework.scheduling.annotation.EnableScheduling;
 
-import mx.com.desoft.hidrogas.dao.EmpleadosImplDAO;
- 
 /*
  * Leemos los archivos de configuraci&oacute;n.
  */
 @ImportResource(value = {
-    "classpath:app-context.xml"
+    "classpath:ApplicationContext.xml"
 })
 /*
  * Cargamos los beans desde los paquetes.
@@ -30,17 +27,13 @@ import mx.com.desoft.hidrogas.dao.EmpleadosImplDAO;
 /*
  * Habilita el scheduling en la aplicaci&oacute;n.
  */
-@EnableScheduling
+//@EnableScheduling
 /**
  * Clase que carga el contexto de Spring.
  */
 public class SpringConfig { 
 	
-	@Bean
-	public EmpleadosImplDAO empleadosImplDAO(){
-		return new EmpleadosImplDAO();
-	}
-     
+	     
     /**
      * Logger para la clase.
      */

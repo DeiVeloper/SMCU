@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="root2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.controller.OrdenTrabajoController">
+<AnchorPane id="root2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.OrdenTrabajoController">
    <children>
       <Label layoutX="294.0" layoutY="23.0" text="Administrar Órdenes de Trabajo" />
       <Label layoutX="42.0" layoutY="72.0" text="Fecha" />

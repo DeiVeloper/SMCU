@@ -3,7 +3,6 @@ package mx.com.desoft.hidrogas.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -12,15 +11,14 @@ import java.util.List;
  */
 @Entity
 @Table(name="cat_tipo_empleados")
-@NamedQuery(name="CatTipoEmpleado.findAll", query="SELECT c FROM CatTipoEmpleado c")
 public class CatTipoEmpleado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="tipo_empleado_id")
-	private int tipoEmpleadoId;
+	private Integer tipoEmpleadoId;
 
+	@Column(name="descripcion")
 	private String descripcion;
 
 	@Temporal(TemporalType.DATE)
@@ -28,20 +26,29 @@ public class CatTipoEmpleado implements Serializable {
 	private Date fechaRegistro;
 
 	@Column(name="nomina_registro")
-	private int nominaRegistro;
+	private Integer nominaRegistro;
 
 	//bi-directional many-to-one association to Empleado
-	@OneToMany(mappedBy="catTipoEmpleado")
-	private List<Empleado> empleados;
+//	@OneToMany(mappedBy="catTipoEmpleado")
+//	private List<Empleado> empleados;
 
 	public CatTipoEmpleado() {
 	}
+	
+	public CatTipoEmpleado(Integer tipoEmpleadoId, String descripcion, Date fechaRegistro, Integer nominaRegistro) {
+		this.tipoEmpleadoId = tipoEmpleadoId;
+		this.descripcion = descripcion;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = nominaRegistro;
+	}
+
+
 
 	public int getTipoEmpleadoId() {
 		return this.tipoEmpleadoId;
 	}
 
-	public void setTipoEmpleadoId(int tipoEmpleadoId) {
+	public void setTipoEmpleadoId(Integer tipoEmpleadoId) {
 		this.tipoEmpleadoId = tipoEmpleadoId;
 	}
 
@@ -65,17 +72,17 @@ public class CatTipoEmpleado implements Serializable {
 		return this.nominaRegistro;
 	}
 
-	public void setNominaRegistro(int nominaRegistro) {
+	public void setNominaRegistro(Integer nominaRegistro) {
 		this.nominaRegistro = nominaRegistro;
 	}
 
-	public List<Empleado> getEmpleados() {
-		return this.empleados;
-	}
-
-	public void setEmpleados(List<Empleado> empleados) {
-		this.empleados = empleados;
-	}
+//	public List<Empleado> getEmpleados() {
+//		return this.empleados;
+//	}
+//
+//	public void setEmpleados(List<Empleado> empleados) {
+//		this.empleados = empleados;
+//	}
 
 	/*public Empleado addEmpleado(Empleado empleado) {
 		getEmpleados().add(empleado);

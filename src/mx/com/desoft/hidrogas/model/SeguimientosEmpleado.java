@@ -15,7 +15,9 @@ import java.util.Date;
 public class SeguimientosEmpleado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
+	 @EmbeddedId
+	    @AttributeOverrides({ @AttributeOverride(name = "folio", column = @Column(name = "folio", nullable = false, precision = 9, scale = 0)),
+	            @AttributeOverride(name = "nominaEmpleado", column = @Column(name = "nomina_empledado", nullable = false, precision = 5, scale = 0)) })
 	private SeguimientosEmpleadoPK id;
 
 	@Temporal(TemporalType.DATE)
@@ -23,14 +25,14 @@ public class SeguimientosEmpleado implements Serializable {
 	private Date fechaRegistro;
 
 	//bi-directional many-to-one association to SeguimientoOrden
-	@ManyToOne
-	@JoinColumn(name="folio")
-	private SeguimientoOrden seguimientoOrden;
+//	@ManyToOne
+//	@JoinColumn(name="folio")
+//	private SeguimientoOrden seguimientoOrden;
 
 	//bi-directional many-to-one association to Empleado
-	@ManyToOne
-	@JoinColumn(name="nomina_empleado")
-	private Empleado empleado;
+//	@ManyToOne
+//	@JoinColumn(name="nomina_empleado")
+//	private Empleado empleado;
 
 	public SeguimientosEmpleado() {
 	}
@@ -51,20 +53,20 @@ public class SeguimientosEmpleado implements Serializable {
 		this.fechaRegistro = fechaRegistro;
 	}
 
-	public SeguimientoOrden getSeguimientoOrden() {
-		return this.seguimientoOrden;
-	}
-
-	public void setSeguimientoOrden(SeguimientoOrden seguimientoOrden) {
-		this.seguimientoOrden = seguimientoOrden;
-	}
-
-	public Empleado getEmpleado() {
-		return this.empleado;
-	}
-
-	public void setEmpleado(Empleado empleado) {
-		this.empleado = empleado;
-	}
+//	public SeguimientoOrden getSeguimientoOrden() {
+//		return this.seguimientoOrden;
+//	}
+//
+//	public void setSeguimientoOrden(SeguimientoOrden seguimientoOrden) {
+//		this.seguimientoOrden = seguimientoOrden;
+//	}
+//
+//	public Empleado getEmpleado() {
+//		return this.empleado;
+//	}
+//
+//	public void setEmpleado(Empleado empleado) {
+//		this.empleado = empleado;
+//	}
 
 }

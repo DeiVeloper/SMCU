@@ -24,7 +24,7 @@ public class CatTipoListaRefaccion implements Serializable {
 
 	//bi-directional many-to-one association to ListaRefaccione
 	@OneToMany(mappedBy="catTipoListaRefaccion")
-	private List<ListaRefaccione> listaRefacciones;
+	private List<ListaRefacciones> listaRefacciones;
 
 	public CatTipoListaRefaccion() {
 	}
@@ -45,22 +45,22 @@ public class CatTipoListaRefaccion implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public List<ListaRefaccione> getListaRefacciones() {
+	public List<ListaRefacciones> getListaRefacciones() {
 		return this.listaRefacciones;
 	}
 
-	public void setListaRefacciones(List<ListaRefaccione> listaRefacciones) {
+	public void setListaRefacciones(List<ListaRefacciones> listaRefacciones) {
 		this.listaRefacciones = listaRefacciones;
 	}
 
-	public ListaRefaccione addListaRefaccione(ListaRefaccione listaRefaccione) {
+	public ListaRefacciones addListaRefaccione(ListaRefacciones listaRefaccione) {
 		getListaRefacciones().add(listaRefaccione);
 		listaRefaccione.setCatTipoListaRefaccion(this);
 
 		return listaRefaccione;
 	}
 
-	public ListaRefaccione removeListaRefaccione(ListaRefaccione listaRefaccione) {
+	public ListaRefacciones removeListaRefaccione(ListaRefacciones listaRefaccione) {
 		getListaRefacciones().remove(listaRefaccione);
 		listaRefaccione.setCatTipoListaRefaccion(null);
 

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="437.0" prefWidth="367.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AgregarEditarEmpleadoController">
+   <children>
+      <GridPane layoutX="14.0" layoutY="60.0" prefHeight="261.0" prefWidth="347.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="23.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Nombre(s)" GridPane.rowIndex="2" />
+            <Label text="Apellido Paterno" GridPane.rowIndex="3" />
+            <Label text="Apellido Materno" GridPane.rowIndex="4" />
+            <Label text="Económico" GridPane.rowIndex="5" />
+            <Label text="No. Nomina Registro" GridPane.rowIndex="6" />
+            <TextField fx:id="nombre" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="apellidoPaterno" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="apellidoMaterno" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Tipo empledado" GridPane.rowIndex="7" />
+            <TextField fx:id="noNominaRegistro" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="tipoEmpleado" onAction="#eventoTipoEmpleado" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ComboBox fx:id="economico" onAction="#seleccionarEconomico" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="No. Nomina" GridPane.rowIndex="1" />
+            <TextField fx:id="noNomina" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <HBox layoutX="175.0" layoutY="211.0" prefHeight="0.0" prefWidth="0.0" spacing="15.0" />
+      <Button defaultButton="true" layoutX="158.0" layoutY="398.0" mnemonicParsing="false" onAction="#guardarEmpleado" prefWidth="80.0" text="Guardar" />
+      <Button layoutX="257.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleCancel" prefWidth="100.0" text="Cancel" />
+      <Label layoutX="93.0" layoutY="14.0" text="Agregar / Editar Personal">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <HBox fx:id="a" layoutX="14.0" layoutY="332.0" prefHeight="41.0" prefWidth="323.0">
+         <children>
+            <Label fx:id="passwordLabel" text="Contraseña">
+               <padding>
+                  <Insets right="110.0" />
+               </padding>
+            </Label>
+            <PasswordField fx:id="password" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

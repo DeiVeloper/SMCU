@@ -39,7 +39,7 @@ public class OrdenTrabajo implements Serializable {
 
 	//bi-directional one-to-one association to ListaRefaccione
 	@OneToOne(mappedBy="ordenTrabajo")
-	private ListaRefaccione listaRefaccione;
+	private ListaRefacciones listaRefaccione;
 
 	//bi-directional many-to-one association to Economico
 	@ManyToOne
@@ -129,11 +129,11 @@ public class OrdenTrabajo implements Serializable {
 		this.nombreOperador = nombreOperador;
 	}
 
-	public ListaRefaccione getListaRefaccione() {
+	public ListaRefacciones getListaRefaccione() {
 		return this.listaRefaccione;
 	}
 
-	public void setListaRefaccione(ListaRefaccione listaRefaccione) {
+	public void setListaRefaccione(ListaRefacciones listaRefaccione) {
 		this.listaRefaccione = listaRefaccione;
 	}
 

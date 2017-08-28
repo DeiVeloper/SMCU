@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane id="root2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.controller.OrdenTrabajoController">
+<AnchorPane id="root2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.OrdenTrabajoController">
    <children>
       <Label layoutX="14.0" layoutY="95.0" text="Fecha" />
       <TextField layoutX="143.0" layoutY="91.0" maxWidth="-Infinity" />

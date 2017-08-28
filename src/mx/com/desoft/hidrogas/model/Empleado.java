@@ -2,12 +2,7 @@ package mx.com.desoft.hidrogas.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import org.springframework.stereotype.Component;
-
 import java.util.Date;
-import java.util.List;
-
 
 /**
  * The persistent class for the empleados database table.
@@ -15,42 +10,44 @@ import java.util.List;
  */
 @Entity
 @Table(name="empleados")
-@NamedQuery(name="Empleado.findAll", query="SELECT e FROM Empleado e")
 public class Empleado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="nomina_empleado")
 	private int nominaEmpleado;
-
-	@Column(name="apellido_mat_empleado")
-	private String apellidoMatEmpleado;
-
+	
+	@Column(name="nombre_empleado")
+	private String nombreEmpleado;
+	
 	@Column(name="apellido_pat_empleado")
 	private String apellidoPatEmpleado;
 
-	private int economico;
+	@Column(name="apellido_mat_empleado")
+	private String apellidoMatEmpleado;
+	
+	@Column(name="password")
+	private String password;
+
+	@ManyToOne
+	@JoinColumn(name="economico")
+	private Economico economico;
+
+	@ManyToOne
+	@JoinColumn(name="tipo_empleado_id")
+	private CatTipoEmpleado catTipoEmpleado;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_registro")
 	private Date fechaRegistro;
 
-	@Column(name="nombre_empleado")
-	private String nombreEmpleado;
 
 	@Column(name="nomina_registro")
 	private int nominaRegistro;
 
-	private String password;
-
-	//bi-directional many-to-one association to CatTipoEmpleado
-	/*@ManyToOne
-	@JoinColumn(name="tipo_empleado_id")
-	private CatTipoEmpleado catTipoEmpleado;
 
 	//bi-directional many-to-one association to OrdenTrabajo
-	@OneToMany(mappedBy="empleado1")
+	/*@OneToMany(mappedBy="empleado1")
 	private List<OrdenTrabajo> ordenTrabajos1;
 
 	//bi-directional many-to-one association to OrdenTrabajo
@@ -61,16 +58,20 @@ public class Empleado implements Serializable {
 	@OneToMany(mappedBy="empleado")
 	private List<SeguimientosEmpleado> seguimientosEmpleados;*/
 
-	public Empleado() {
-	}
-	
-	
+	public Empleado() {}
 
-	public Empleado(int nominaEmpleado, String nombreEmpleado) {
+	public Empleado(int nominaEmpleado, String nombreEmpleado, String apellidoPaterno, String apellidoMaterno, String password, Economico economico, 
+			CatTipoEmpleado catTipoEmpleado, Date fechaRegistro, Integer nominaRegistro) {
 		this.nominaEmpleado = nominaEmpleado;
 		this.nombreEmpleado = nombreEmpleado;
+		this.apellidoPatEmpleado = apellidoPaterno;
+		this.apellidoMatEmpleado = apellidoMaterno;
+		this.password = password;
+		this.economico = economico;
+		this.catTipoEmpleado = catTipoEmpleado;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = nominaRegistro;
 	}
-
 
 
 	public int getNominaEmpleado() {
@@ -97,11 +98,11 @@ public class Empleado implements Serializable {
 		this.apellidoPatEmpleado = apellidoPatEmpleado;
 	}
 
-	public int getEconomico() {
+	public Economico getEconomico() {
 		return this.economico;
 	}
 
-	public void setEconomico(int economico) {
+	public void setEconomico(Economico economico) {
 		this.economico = economico;
 	}
 
@@ -137,7 +138,7 @@ public class Empleado implements Serializable {
 		this.password = password;
 	}
 
-	/*public CatTipoEmpleado getCatTipoEmpleado() {
+	public CatTipoEmpleado getCatTipoEmpleado() {
 		return this.catTipoEmpleado;
 	}
 
@@ -145,7 +146,7 @@ public class Empleado implements Serializable {
 		this.catTipoEmpleado = catTipoEmpleado;
 	}
 
-	public List<OrdenTrabajo> getOrdenTrabajos1() {
+	/*public List<OrdenTrabajo> getOrdenTrabajos1() {
 		return this.ordenTrabajos1;
 	}
 
