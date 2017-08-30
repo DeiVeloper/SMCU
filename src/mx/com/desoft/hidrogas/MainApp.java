@@ -22,7 +22,9 @@ import mx.com.desoft.hidrogas.model.Person;
 import mx.com.desoft.hidrogas.model.PersonListWrapper;
 import mx.com.desoft.hidrogas.property.EmpleadoProperty;
 import mx.com.desoft.hidrogas.view.OrdenTrabajoController;
+import mx.com.desoft.hidrogas.view.AdministrarOrdenTrabajoController;
 import mx.com.desoft.hidrogas.view.AgregarEditarEmpleadoController;
+import mx.com.desoft.hidrogas.view.AgregarEditarOrdenController;
 import mx.com.desoft.hidrogas.view.RootLayoutController;
 
 public class MainApp  {
@@ -100,7 +102,7 @@ public class MainApp  {
             return false;
         }
     }
-    
+
     /**
      * Abre la pantlla de orden de trabajo.
      */
@@ -115,14 +117,14 @@ public class MainApp  {
             rootLayout.setCenter(orden);
 
             // Give the controller access to the main app.
-            OrdenTrabajoController controller = loader.getController();
+            AdministrarOrdenTrabajoController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Abre la pantlla de seguimiento de orden de trabajo.
      */
@@ -144,7 +146,29 @@ public class MainApp  {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * Regresa a la pantalla de administracion de orden de trabajo.
+     */
+    public void cancelarOrdenTrabajo() {
+    	try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AdministrarOrdenTrabajo.fxml"));
+            AnchorPane orden = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(orden);
+
+            // Give the controller access to the main app.
+            AdministrarOrdenTrabajoController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Abre la pantlla de orden de trabajo.
      */
@@ -159,7 +183,7 @@ public class MainApp  {
             rootLayout.setCenter(orden);
 
             // Give the controller access to the main app.
-            OrdenTrabajoController controller = loader.getController();
+            AgregarEditarOrdenController controller = loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {

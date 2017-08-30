@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * The persistent class for the seguimiento_orden database table.
- * 
+ *
  */
 @Entity
 @Table(name="seguimiento_orden")
@@ -45,8 +45,8 @@ public class SeguimientoOrden implements Serializable {
 	private OrdenTrabajo ordenTrabajo;
 
 	//bi-directional many-to-one association to SeguimientosEmpleado
-	@OneToMany(mappedBy="seguimientoOrden")
-	private List<SeguimientosEmpleado> seguimientosEmpleados;
+//	@OneToMany(mappedBy="seguimientoOrden")
+//	private List<SeguimientosEmpleado> seguimientosEmpleados;
 
 	public SeguimientoOrden() {
 	}
@@ -115,13 +115,13 @@ public class SeguimientoOrden implements Serializable {
 		this.ordenTrabajo = ordenTrabajo;
 	}
 
-	public List<SeguimientosEmpleado> getSeguimientosEmpleados() {
-		return this.seguimientosEmpleados;
-	}
-
-	public void setSeguimientosEmpleados(List<SeguimientosEmpleado> seguimientosEmpleados) {
-		this.seguimientosEmpleados = seguimientosEmpleados;
-	}
+//	public List<SeguimientosEmpleado> getSeguimientosEmpleados() {
+//		return this.seguimientosEmpleados;
+//	}
+//
+//	public void setSeguimientosEmpleados(List<SeguimientosEmpleado> seguimientosEmpleados) {
+//		this.seguimientosEmpleados = seguimientosEmpleados;
+//	}
 
 //	public SeguimientosEmpleado addSeguimientosEmpleado(SeguimientosEmpleado seguimientosEmpleado) {
 //		getSeguimientosEmpleados().add(seguimientosEmpleado);

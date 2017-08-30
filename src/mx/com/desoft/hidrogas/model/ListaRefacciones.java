@@ -7,11 +7,11 @@ import java.util.Date;
 
 /**
  * The persistent class for the lista_refacciones database table.
- * 
+ *
  */
 @Entity
 @Table(name="lista_refacciones")
-@NamedQuery(name="ListaRefaccione.findAll", query="SELECT l FROM ListaRefaccione l")
+@NamedQuery(name="ListaRefacciones.findAll", query="SELECT l FROM ListaRefacciones l")
 public class ListaRefacciones implements Serializable {
 	private static final long serialVersionUID = 1L;
 

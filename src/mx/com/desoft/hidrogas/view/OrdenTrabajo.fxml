@@ -6,30 +6,32 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane id="root2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.OrdenTrabajoController">
+<AnchorPane id="root2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AgregarEditarOrdenController">
    <children>
-      <Label layoutX="14.0" layoutY="95.0" text="Fecha" />
-      <TextField layoutX="143.0" layoutY="91.0" maxWidth="-Infinity" />
-      <Label layoutX="16.0" layoutY="143.0" text="Operador" />
-      <Label layoutX="223.0" layoutY="268.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="ORDEN DE TRABAJO" AnchorPane.bottomAnchor="540.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="310.0" AnchorPane.topAnchor="10.0">
+      <Label layoutX="34.0" layoutY="85.0" text="Fecha" />
+      <Label layoutX="535.0" layoutY="136.0" text="Nómina operador" />
+      <Label layoutX="406.0" layoutY="26.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="ORDEN DE TRABAJO">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField layoutX="144.0" layoutY="139.0" />
-      <TextField layoutX="528.0" layoutY="186.0" />
-      <TextField layoutX="528.0" layoutY="232.0" />
-      <TextArea layoutX="150.0" layoutY="303.0" prefHeight="100.0" prefWidth="500.0" />
-      <Label layoutX="410.0" layoutY="95.0" text="Económico" />
-      <Label layoutX="409.0" layoutY="190.0" text="Kilometraje" />
-      <Label layoutX="409.0" layoutY="236.0" text="Horas de trabajo" />
-      <Label layoutX="14.0" layoutY="236.0" text="Tipo de necesidad" />
-      <Label layoutX="16.0" layoutY="345.0" text="Falla mecánica" />
-      <Label layoutX="410.0" layoutY="143.0" text="Nombre" />
-      <ComboBox layoutX="143.0" layoutY="232.0" prefWidth="150.0" />
-      <Label layoutX="17.0" layoutY="190.0" text="Apellidos" />
-      <TextField layoutX="528.0" layoutY="139.0" />
-      <TextField layoutX="143.0" layoutY="186.0" />
-      <Button layoutX="645.0" layoutY="560.0" mnemonicParsing="false" text="Guardar Orden" />
+      <ComboBox fx:id="economico" layoutX="169.0" layoutY="132.0" prefWidth="150.0" />
+      <TextField id="txtNombre" fx:id="nominaOperador" layoutX="722.0" layoutY="132.0" />
+      <TextField id="txtApellidos" fx:id="nombreOperador" layoutX="168.0" layoutY="182.0" />
+      <TextField id="txtEconomico" fx:id="apellidoPaterno" layoutX="723.0" layoutY="184.0" />
+      <TextField fx:id="apellidoMaterno" layoutX="168.0" layoutY="229.0" />
+      <TextField id="txtKilometraje" fx:id="kilometrajeHoras" layoutX="722.0" layoutY="229.0" />
+      <ComboBox id="lstTipoNecesidad" fx:id="tipoNecesidadOrden" layoutX="169.0" layoutY="275.0" prefWidth="150.0" />
+      <TextArea id="txtAFalla" fx:id="fallaMecanica" layoutX="168.0" layoutY="335.0" prefHeight="100.0" prefWidth="500.0" />
+      <Label layoutX="36.0" layoutY="136.0" text="Económico" />
+      <Label layoutX="538.0" layoutY="233.0" text="Kilometraje/Hrs de trabajo" />
+      <Label layoutX="32.0" layoutY="279.0" text="Tipo de necesidad" />
+      <Label layoutX="34.0" layoutY="377.0" text="Falla mecánica" />
+      <Label layoutX="36.0" layoutY="186.0" text="Nombre" />
+      <Label layoutX="538.0" layoutY="186.0" text="Apellido paterno" />
+      <Button id="btnGuardar" layoutX="787.0" layoutY="593.0" mnemonicParsing="false" onAction="#guardarOrden" text="Guardar Orden" />
+      <Button id="btnCancelar" layoutX="699.0" layoutY="593.0" mnemonicParsing="false" onAction="#cancelarOrden" text="Cancelar" />
+      <Label layoutX="36.0" layoutY="233.0" text="Apellido Materno" />
+
    </children>
 </AnchorPane>

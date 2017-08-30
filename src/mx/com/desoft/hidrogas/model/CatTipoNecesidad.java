@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * The persistent class for the cat_tipo_necesidad database table.
- * 
+ *
  */
 @Entity
 @Table(name="cat_tipo_necesidad")
@@ -18,7 +18,7 @@ public class CatTipoNecesidad implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="tipo_necesidad_id")
-	private int tipoNecesidadId;
+	private Long tipoNecesidadId;
 
 	private String descripcion;
 
@@ -29,11 +29,11 @@ public class CatTipoNecesidad implements Serializable {
 	public CatTipoNecesidad() {
 	}
 
-	public int getTipoNecesidadId() {
+	public Long getTipoNecesidadId() {
 		return this.tipoNecesidadId;
 	}
 
-	public void setTipoNecesidadId(int tipoNecesidadId) {
+	public void setTipoNecesidadId(Long tipoNecesidadId) {
 		this.tipoNecesidadId = tipoNecesidadId;
 	}
 

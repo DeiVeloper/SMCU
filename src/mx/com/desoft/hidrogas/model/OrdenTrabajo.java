@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * The persistent class for the orden_trabajo database table.
- * 
+ *
  */
 @Entity
 @Table(name="orden_trabajo")
@@ -37,9 +37,9 @@ public class OrdenTrabajo implements Serializable {
 	@Column(name="nombre_operador")
 	private String nombreOperador;
 
-	//bi-directional one-to-one association to ListaRefaccione
-	@OneToOne(mappedBy="ordenTrabajo")
-	private ListaRefacciones listaRefaccione;
+//	//bi-directional one-to-one association to ListaRefaccione
+//	@OneToOne(mappedBy="ordenTrabajo")
+//	private ListaRefacciones listaRefaccione;
 
 	//bi-directional many-to-one association to Economico
 	@ManyToOne
@@ -71,6 +71,24 @@ public class OrdenTrabajo implements Serializable {
 	private SeguimientoOrden seguimientoOrden;
 
 	public OrdenTrabajo() {
+	}
+
+	public OrdenTrabajo(String apellidoMatOperador, String apellidoPatOperador, String fallaMecanica,
+			Date fechaRegistro, int kilometraje, String nombreOperador, Economico economico,
+			CatEstatusOrden catEstatusOrden, Empleado empleado1, Empleado empleado2,
+			CatTipoNecesidad catTipoNecesidad) {
+		super();
+		this.apellidoMatOperador = apellidoMatOperador;
+		this.apellidoPatOperador = apellidoPatOperador;
+		this.fallaMecanica = fallaMecanica;
+		this.fechaRegistro = fechaRegistro;
+		this.kilometraje = kilometraje;
+		this.nombreOperador = nombreOperador;
+		this.economico = economico;
+		this.catEstatusOrden = catEstatusOrden;
+		this.empleado1 = empleado1;
+		this.empleado2 = empleado2;
+		this.catTipoNecesidad = catTipoNecesidad;
 	}
 
 	public int getFolio() {
@@ -129,13 +147,13 @@ public class OrdenTrabajo implements Serializable {
 		this.nombreOperador = nombreOperador;
 	}
 
-	public ListaRefacciones getListaRefaccione() {
-		return this.listaRefaccione;
-	}
-
-	public void setListaRefaccione(ListaRefacciones listaRefaccione) {
-		this.listaRefaccione = listaRefaccione;
-	}
+//	public ListaRefacciones getListaRefaccione() {
+//		return this.listaRefaccione;
+//	}
+//
+//	public void setListaRefaccione(ListaRefacciones listaRefaccione) {
+//		this.listaRefaccione = listaRefaccione;
+//	}
 
 	public Economico getEconomico() {
 		return this.economico;

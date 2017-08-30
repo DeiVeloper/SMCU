@@ -5,24 +5,24 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="root2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.OrdenTrabajoController">
+<AnchorPane id="root2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AdministrarOrdenTrabajoController">
    <children>
       <Label layoutX="294.0" layoutY="23.0" text="Administrar Órdenes de Trabajo" />
       <Label layoutX="42.0" layoutY="72.0" text="Fecha" />
       <Label layoutX="657.0" layoutY="74.0" text="Tipo" />
       <Label layoutX="42.0" layoutY="133.0" text="Empleado" />
       <Label layoutX="658.0" layoutY="133.0" text="Estatus" />
-      <DatePicker id="dateFechaOrden" layoutX="133.0" layoutY="70.0" />
-      <ComboBox id="lstTipoNecesidad" layoutX="761.0" layoutY="72.0" prefWidth="150.0" />
-      <TextField id="txtEmpleado" layoutX="133.0" layoutY="131.0" />
-      <ComboBox id="lstEstatusOrden" layoutX="761.0" layoutY="133.0" prefWidth="150.0" />
-      <TableView layoutX="41.0" layoutY="325.0" prefHeight="250.0" prefWidth="870.0">
+      <DatePicker fx:id="fechaOrdenBusqueda" layoutX="133.0" layoutY="70.0" />
+      <ComboBox fx:id="tipoNecesidadOrdenBusqueda" layoutX="761.0" layoutY="72.0" prefWidth="150.0" />
+      <TextField fx:id="empleadoOrdenBusqueda" layoutX="133.0" layoutY="131.0" />
+      <ComboBox fx:id="estatusOrdenBusqueda" layoutX="761.0" layoutY="133.0" prefWidth="150.0" />
+      <TableView fx:id="tablaOrdenes" layoutX="41.0" layoutY="325.0" prefHeight="250.0" prefWidth="870.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Folio" />
-          <TableColumn prefWidth="85.0" text="Fecha" />
-          <TableColumn prefWidth="75.0" text="Económico" />
-          <TableColumn prefWidth="75.0" text="Empleado" />
-          <TableColumn prefWidth="145.0" text="Tipo de necesidad" />
+          <TableColumn fx:id="folioColumn" prefWidth="75.0" text="Folio" />
+          <TableColumn fx:id="fechaColumn" prefWidth="85.0" text="Fecha" />
+          <TableColumn fx:id="economicoColumn" prefWidth="75.0" text="Económico" />
+          <TableColumn fx:id="empleadoColumn" prefWidth="75.0" text="Empleado" />
+          <TableColumn fx:id="necesidadColumn" prefWidth="145.0" text="Tipo de necesidad" />
           <TableColumn prefWidth="90.0" text="Seguimiento" />
           <TableColumn prefWidth="75.0" text="Editar" />
           <TableColumn prefWidth="75.0" text="Imprimir" />
@@ -31,11 +31,11 @@
           <TableColumn prefWidth="75.0" text="Eliminar" />
         </columns>
       </TableView>
-      <Button id="btnBuscar" layoutX="848.0" layoutY="199.0" mnemonicParsing="false" text="Buscar" textAlignment="CENTER" />
+      <Button id="btnBuscar" layoutX="848.0" layoutY="199.0" mnemonicParsing="false" onAction="#buscarOrden" text="Buscar" textAlignment="CENTER" />
       <Button id="btnAgregar" layoutX="740.0" layoutY="274.0" mnemonicParsing="false" onAction="#agregarOrden" text="Agregar " />
       <Button id="btnImprimir" layoutX="835.0" layoutY="274.0" mnemonicParsing="false" text="Imprimir" />
       <Button layoutX="42.0" layoutY="274.0" mnemonicParsing="false" onAction="#seguimientoOrden" text="Seguimiento" />
       <Label layoutX="41.0" layoutY="203.0" text="Económico" />
-      <TextField id="txtEconomico" layoutX="135.0" layoutY="199.0" />
+      <TextField fx:id="economicoOrdenBusqueda" layoutX="135.0" layoutY="199.0" />
    </children>
 </AnchorPane>
