@@ -1,12 +1,16 @@
 package mx.com.desoft.hidrogas.view;
 
+import java.util.List;
+
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
@@ -16,29 +20,26 @@ import mx.com.desoft.hidrogas.bussines.AgregarEditarOrdenBusinessImpl;
 import mx.com.desoft.hidrogas.bussines.IAdministrarOrdenBusiness;
 import mx.com.desoft.hidrogas.dto.CatEstatusOrdenDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
+import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.property.OrdenProperty;
 
 public class AdministrarOrdenTrabajoController {
 
 	@FXML
     private TableView<OrdenProperty> tablaOrdenes;
-
     @FXML
     private TableColumn<OrdenProperty, String> folioColumn;
-
     @FXML
     private TableColumn<OrdenProperty, String> fechaColumn;
-
     @FXML
     private TableColumn<OrdenProperty, String> economicoColumn;
-
     @FXML
     private TableColumn<OrdenProperty, String> empleadoColumn;
-
     @FXML
     private TableColumn<OrdenProperty, String> necesidadColumn;
-
-	@FXML
+    @FXML
+    private TableColumn<OrdenProperty, String> seguimientoColumn;
+    @FXML
 	private DatePicker fechaOrdenBusqueda;
 
 	@FXML
@@ -55,6 +56,8 @@ public class AdministrarOrdenTrabajoController {
 
 	private AgregarEditarOrdenBusinessApp agregarEditarOrdenBusinessApp = Login.appContext.getBean(AgregarEditarOrdenBusinessImpl.class);
 	private IAdministrarOrdenBusiness administrarOrdenBusiness = Login.appContext.getBean(AdministrarOrdenBusinessImpl.class);
+	private ObservableList<OrdenProperty> data = FXCollections.observableArrayList();
+	private OrdenTrabajoDTO ordenTo;
 	private MainApp mainApp;
 
 
@@ -62,23 +65,37 @@ public class AdministrarOrdenTrabajoController {
 
 	}
 
-	public AdministrarOrdenTrabajoController(MainApp mainApp) {
-		super();
-		this.mainApp = mainApp;
-	}
+//	public AdministrarOrdenTrabajoController(MainApp mainApp) {
+//		super();
+//		this.mainApp = mainApp;
+//	}
 
 	@FXML
 	public void initialize () {
 		this.llenarComboNecesidad();
 		this.llenarComboEstatus();
+
+
 	}
 
 	@FXML
 	public void buscarOrden () {
-		tipoNecesidadOrdenBusqueda.setOnAction((event) -> {
-			CatTipoNecesidadDTO tipoSeleccionado = tipoNecesidadOrdenBusqueda.getSelectionModel().getSelectedItem();
-		    System.out.println("ComboBox: " + tipoSeleccionado.getId() + " - " + tipoSeleccionado.getDescripcion());
-		});
+		ordenTo = new OrdenTrabajoDTO();
+		ordenTo.setFolio(0);
+		ordenTo.setFechaRegistro(null);
+		ordenTo.setEconomicoId(0);
+		ordenTo.setNominaRegistro(0);
+		ordenTo.setDescripcionTipoNecesidad(null);
+		List<OrdenProperty> dto = administrarOrdenBusiness.buscarOrdenByVista(ordenTo, mainApp);
+    	data.clear();
+    	data.addAll(dto);
+		tablaOrdenes.setItems(getData());
+    	folioColumn.setCellValueFactory(cellData -> cellData.getValue().getFolioOrden());
+    	fechaColumn.setCellValueFactory(cellData -> cellData.getValue().getFechaOrden());
+    	economicoColumn.setCellValueFactory(cellData -> cellData.getValue().getEconomicoOrden());
+    	empleadoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleadoOrden());
+    	necesidadColumn.setCellValueFactory(cellData -> cellData.getValue().getNecesidadOrden());
+    	seguimientoColumn.setCellValueFactory(new PropertyValueFactory<OrdenProperty, String> ("seguimiento"));
 	}
 
 	private void llenarComboNecesidad() {
@@ -228,10 +245,10 @@ public class AdministrarOrdenTrabajoController {
      * Called when the user clicks the new button. Opens a dialog to edit
      * details for a new person.
      */
-    @FXML
-    private void seguimientoOrden() {
-        mainApp.showSeguimientoOrdenTrabajo();
-    }
+//    @FXML
+//    private void seguimientoOrden() {
+//        mainApp.showSeguimientoOrdenTrabajo();
+//    }
 
     /**
      * Called when the user clicks the new button. Opens a dialog to edit
@@ -252,5 +269,13 @@ public class AdministrarOrdenTrabajoController {
         this.mainApp = mainApp;
 
     }
+
+	public ObservableList<OrdenProperty> getData() {
+		return data;
+	}
+
+	public void setData(ObservableList<OrdenProperty> data) {
+		this.data = data;
+	}
 
 }

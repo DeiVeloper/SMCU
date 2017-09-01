@@ -11,6 +11,7 @@ public class OrdenTrabajoDTO {
 	private String apellidoPatOperador;
 	private String apellidoMatOperador;
 	private Long tipoNecesidadId;
+	private String descripcionTipoNecesidad;
 	private int kilometraje;
 	private String fallaMecanica;
 	private int estatusOrden;
@@ -19,6 +20,13 @@ public class OrdenTrabajoDTO {
 
 	public OrdenTrabajoDTO() {
 		super();
+	}
+
+	public OrdenTrabajoDTO(int folio, int economicoId, int nominaRegistro) {
+		super();
+		this.folio = folio;
+		this.economicoId = economicoId;
+		this.nominaRegistro = nominaRegistro;
 	}
 
 	public OrdenTrabajoDTO(int folio, int economicoId, int nominaOperador, String nombreOperador,
@@ -81,6 +89,15 @@ public class OrdenTrabajoDTO {
 	public void setTipoNecesidadId(Long tipoNecesidadId) {
 		this.tipoNecesidadId = tipoNecesidadId;
 	}
+
+	public String getDescripcionTipoNecesidad() {
+		return descripcionTipoNecesidad;
+	}
+
+	public void setDescripcionTipoNecesidad(String descripcionTipoNecesidad) {
+		this.descripcionTipoNecesidad = descripcionTipoNecesidad;
+	}
+
 	public int getKilometraje() {
 		return kilometraje;
 	}

@@ -23,7 +23,7 @@
           <TableColumn fx:id="economicoColumn" prefWidth="75.0" text="Económico" />
           <TableColumn fx:id="empleadoColumn" prefWidth="75.0" text="Empleado" />
           <TableColumn fx:id="necesidadColumn" prefWidth="145.0" text="Tipo de necesidad" />
-          <TableColumn prefWidth="90.0" text="Seguimiento" />
+          <TableColumn fx:id="seguimientoColumn" prefWidth="90.0" text="Seguimiento" />
           <TableColumn prefWidth="75.0" text="Editar" />
           <TableColumn prefWidth="75.0" text="Imprimir" />
           <TableColumn prefWidth="50.0" text="R-U" />
@@ -34,7 +34,6 @@
       <Button id="btnBuscar" layoutX="848.0" layoutY="199.0" mnemonicParsing="false" onAction="#buscarOrden" text="Buscar" textAlignment="CENTER" />
       <Button id="btnAgregar" layoutX="740.0" layoutY="274.0" mnemonicParsing="false" onAction="#agregarOrden" text="Agregar " />
       <Button id="btnImprimir" layoutX="835.0" layoutY="274.0" mnemonicParsing="false" text="Imprimir" />
-      <Button layoutX="42.0" layoutY="274.0" mnemonicParsing="false" onAction="#seguimientoOrden" text="Seguimiento" />
       <Label layoutX="41.0" layoutY="203.0" text="Económico" />
       <TextField fx:id="economicoOrdenBusqueda" layoutX="135.0" layoutY="199.0" />
    </children>

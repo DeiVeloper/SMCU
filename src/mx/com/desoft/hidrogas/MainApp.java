@@ -18,10 +18,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
+import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.model.Person;
 import mx.com.desoft.hidrogas.model.PersonListWrapper;
 import mx.com.desoft.hidrogas.property.EmpleadoProperty;
-import mx.com.desoft.hidrogas.view.OrdenTrabajoController;
+import mx.com.desoft.hidrogas.view.SeguimientoOrdenTrabajoController;
 import mx.com.desoft.hidrogas.view.AdministrarOrdenTrabajoController;
 import mx.com.desoft.hidrogas.view.AgregarEditarEmpleadoController;
 import mx.com.desoft.hidrogas.view.AgregarEditarOrdenController;
@@ -36,6 +37,7 @@ public class MainApp  {
     public MainApp() {
     	this.primaryStage = new Stage();
     }
+
 
     /**
      * Initializes the root layout.
@@ -128,7 +130,7 @@ public class MainApp  {
     /**
      * Abre la pantlla de seguimiento de orden de trabajo.
      */
-    public void showSeguimientoOrdenTrabajo() {
+    public void showSeguimientoOrdenTrabajo(OrdenTrabajoDTO ordenDTO) {
     	try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
@@ -139,8 +141,10 @@ public class MainApp  {
             rootLayout.setCenter(orden);
 
             // Give the controller access to the main app.
-            OrdenTrabajoController controller = loader.getController();
+            SeguimientoOrdenTrabajoController controller = loader.getController();
             controller.setMainApp(this);
+            controller.setOrdenDTO(ordenDTO);
+            controller.cargarInformacion();
 
         } catch (IOException e) {
             e.printStackTrace();

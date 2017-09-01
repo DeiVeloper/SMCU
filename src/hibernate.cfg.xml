@@ -4,8 +4,8 @@
 		<session-factory>
 			<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 	 		<property name="connection.url">jdbc:mysql://localhost/SMCU</property>
-	      	<property name="connection.username">USR_SMCU</property>
-	 		<property name="connection.password">Deiveloper13#</property>
+	      	<property name="connection.username">root</property>
+	 		<property name="connection.password">USR_SMCU</property>
 	 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 			<property name="hibernate.show_sql">true</property>
 			<property name="hibernate.current_session_context_class">thread</property>
@@ -13,14 +13,15 @@
 			<mapping class="mx.com.desoft.hidrogas.model.Empleado"/>
 			<mapping class="mx.com.desoft.hidrogas.model.CatTipoEmpleado"/>
 			<mapping class="mx.com.desoft.hidrogas.model.Economico"/>
-			<!--<mapping class="mx.com.desoft.hidrogas.model.OrdenTrabajo"/>
+			<mapping class="mx.com.desoft.hidrogas.model.CatTipoNecesidad"/>
+			<mapping class="mx.com.desoft.hidrogas.model.OrdenTrabajo"/>
 			<mapping class="mx.com.desoft.hidrogas.model.CatTipoListaRefaccion"/>
 			<mapping class="mx.com.desoft.hidrogas.model.CatTipoNecesidad"/>
 			<mapping class="mx.com.desoft.hidrogas.model.ListaRefacciones"/>
 			<mapping class="mx.com.desoft.hidrogas.model.CatEstatusOrden"/>
 			<mapping class="mx.com.desoft.hidrogas.model.SeguimientoOrden"/>
 			<mapping class="mx.com.desoft.hidrogas.model.SeguimientosEmpleado"/>
-			<mapping class="mx.com.desoft.hidrogas.model.SeguimientosEmpleadoPK"/>-->
+			<mapping class="mx.com.desoft.hidrogas.model.SeguimientosEmpleadoPK"/>
 
 		</session-factory>
 	</hibernate-configuration>
