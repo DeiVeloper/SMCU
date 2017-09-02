@@ -96,7 +96,7 @@ public class AgregarEditarOrdenController {
         	errorMessage = "Favor de seleccionar un Económico.";
         }
 		if(nominaOperador.getText() == Constantes.NULL || nominaOperador.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Nomina de operador no puede ir vacío.";
+			errorMessage = "El campo Nómina de operador no puede ir vacío.";
 		}
 		if(!nominaOperador.getText().matches("[0-9]*")) {
 			errorMessage = "El campo Nomina de operador debe ser numérico.";
@@ -117,7 +117,7 @@ public class AgregarEditarOrdenController {
 			errorMessage = "El campo Kilometraje/Hrs de trabajo debe ser numérico.";
 		}
 		if(tipoNecesidadOrden.getSelectionModel().getSelectedItem() == Constantes.NULL) {
-        	errorMessage = "Favor de seleccionar un Tipo de necesidad ";
+        	errorMessage = "Favor de seleccionar un Tipo de necesidad.";
         }
 		if(fallaMecanica.getText() == Constantes.NULL || fallaMecanica.getText().length() == Constantes.CERO) {
 			errorMessage = "El campo Falla mecanica no puede ir vacío.";

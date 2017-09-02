@@ -16,6 +16,8 @@
       <ComboBox fx:id="tipoNecesidadOrdenBusqueda" layoutX="761.0" layoutY="72.0" prefWidth="150.0" />
       <TextField fx:id="empleadoOrdenBusqueda" layoutX="133.0" layoutY="131.0" />
       <ComboBox fx:id="estatusOrdenBusqueda" layoutX="761.0" layoutY="133.0" prefWidth="150.0" />
+      <Label layoutX="41.0" layoutY="203.0" text="Económico" />
+      <TextField fx:id="economicoOrdenBusqueda" layoutX="133.0" layoutY="208.0" />
       <TableView fx:id="tablaOrdenes" layoutX="41.0" layoutY="325.0" prefHeight="250.0" prefWidth="870.0">
         <columns>
           <TableColumn fx:id="folioColumn" prefWidth="75.0" text="Folio" />
@@ -34,7 +36,5 @@
       <Button id="btnBuscar" layoutX="848.0" layoutY="199.0" mnemonicParsing="false" onAction="#buscarOrden" text="Buscar" textAlignment="CENTER" />
       <Button id="btnAgregar" layoutX="740.0" layoutY="274.0" mnemonicParsing="false" onAction="#agregarOrden" text="Agregar " />
       <Button id="btnImprimir" layoutX="835.0" layoutY="274.0" mnemonicParsing="false" text="Imprimir" />
-      <Label layoutX="41.0" layoutY="203.0" text="Económico" />
-      <TextField fx:id="economicoOrdenBusqueda" layoutX="135.0" layoutY="199.0" />
    </children>
 </AnchorPane>
