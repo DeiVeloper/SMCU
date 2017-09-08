@@ -44,12 +44,6 @@ public class AdministrarOrdenBusinessImpl implements IAdministrarOrdenBusiness {
 			OrdenProperty dto = new OrdenProperty(new SimpleStringProperty(String.valueOf(lista.getFolio())), new SimpleStringProperty(String.valueOf(lista.getFechaRegistro())),
 					new SimpleStringProperty(String.valueOf(lista.getEconomico().getEconomicoId())), new SimpleStringProperty(String.valueOf(lista.getEmpleado2().getNominaEmpleado())),
 					new SimpleStringProperty(lista.getCatTipoNecesidad().getDescripcion()), new Button("Seguimiento"), mainApp);
-//			dto.setFolioOrden();
-//			dto.setFechaOrden();
-//			dto.setEconomicoOrden();
-//			dto.setEmpleadoOrden(new SimpleStringProperty(String.valueOf(lista.getEmpleado2().getNominaEmpleado())));
-//			dto.setNecesidadOrden();
-//			dto.setSeguimiento();
 			listaDTO.add(dto);
 		}
 		return listaDTO;
