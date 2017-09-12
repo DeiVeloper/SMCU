@@ -39,12 +39,12 @@
       <TableView fx:id="tablaPartesSolicitadas" layoutX="33.0" layoutY="422.0" prefHeight="120.0" prefWidth="550.0">
          <columns>
             <TableColumn fx:id="cantidadSolicitadaColumn" prefWidth="60.0" text="Cantidad" />
-            <TableColumn fx:id="marcaSolicitadaColumn" prefWidth="170.0" text="Marca" />
+            <TableColumn fx:id="marcaSolicitadaColumn" prefWidth="160.0" text="Marca" />
             <TableColumn fx:id="descripcionSolicitadaColumn" prefWidth="250.0" text="Descripción" />
-            <TableColumn fx:id="eliminarSolicitadaColumn" prefWidth="70.0" text="Eliminar" />
+            <TableColumn fx:id="eliminarSolicitadaColumn" prefWidth="80.0" text="Eliminar" />
          </columns>
       </TableView>
-      <Button layoutX="827.0" layoutY="500.0" mnemonicParsing="false" text="Agregar parte" />
+      <Button layoutX="827.0" layoutY="500.0" mnemonicParsing="false" text="Agregar parte" onAction="#agregarPartesSolicitadas" />
       <TextField fx:id="cantidadPS" layoutX="118.0" layoutY="388.0" prefHeight="10.0" prefWidth="50.0" />
       <TextField fx:id="marcaPS" layoutX="392.0" layoutY="386.0" />
       <TextArea fx:id="descripcionPS" layoutX="717.0" layoutY="376.0" prefHeight="50.0" prefWidth="200.0" />
