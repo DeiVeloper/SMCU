@@ -72,6 +72,11 @@ public class AgregarEditarOrdenController {
 			try {
 				agregarEditarOrdenBusinessApp.guardarOrden(ordenTrabajoTO);
 				this.limpiarCampos();
+				Alert alert = new Alert(AlertType.WARNING);
+	        	alert.setTitle("Guardando Orden de Trabajo");
+	        	alert.setHeaderText(null);
+	        	alert.setContentText("¡El registro se guardó exitosamente!");
+	        	alert.showAndWait();
 			} catch (Exception e) {
     			e.printStackTrace();
     			Alert alert = new Alert(AlertType.WARNING);
@@ -80,11 +85,6 @@ public class AgregarEditarOrdenController {
             	alert.setContentText("Ocurrio un error, " + e.getMessage());
             	alert.showAndWait();
     		}
-			Alert alert = new Alert(AlertType.WARNING);
-        	alert.setTitle("Guardando Orden de Trabajo");
-        	alert.setHeaderText(null);
-        	alert.setContentText("¡El registro se guardó exitosamente!");
-        	alert.showAndWait();
 		} else {
 			return;
 		}

@@ -1,25 +1,29 @@
 package mx.com.desoft.hidrogas.view;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import mx.com.desoft.hidrogas.MainApp;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
+import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
 import mx.com.desoft.hidrogas.property.SeguimientoOrdenPartesProperty;
 import mx.com.desoft.hidrogas.util.Constantes;
 
@@ -37,7 +41,16 @@ public class SeguimientoOrdenTrabajoController {
     @FXML
     private TableColumn<SeguimientoOrdenPartesProperty, String> descripcionUsadaColumn;
     @FXML
-    private TableColumn<SeguimientoOrdenPartesProperty, String> eliminarUsadaColumn;
+    private TableColumn<SeguimientoOrdenPartesProperty, Boolean> eliminarUsadaColumn;
+
+    @FXML
+	private TextField cantidadPU;
+	@FXML
+	private TextField noPU;
+	@FXML
+	private TextField marcaPU;
+	@FXML
+	private TextArea descripcionPU;
 
     //variables para tabla partes solicitadas
     @FXML
@@ -49,7 +62,14 @@ public class SeguimientoOrdenTrabajoController {
     @FXML
     private TableColumn<SeguimientoOrdenPartesProperty, String> descripcionSolicitadaColumn;
     @FXML
-    private TableColumn<SeguimientoOrdenPartesProperty, String> eliminarSolicitadaColumn;
+    private TableColumn<SeguimientoOrdenPartesProperty, Boolean> eliminarSolicitadaColumn;
+
+    @FXML
+	private TextField cantidadPS;
+	@FXML
+	private TextField marcaPS;
+	@FXML
+	private TextArea descripcionPS;
 
 	@FXML
 	private Label folio;
@@ -60,20 +80,6 @@ public class SeguimientoOrdenTrabajoController {
 	@FXML
 	private TextArea trabajosRealizados;
 	@FXML
-	private TextField cantidadPU;
-	@FXML
-	private TextField noPU;
-	@FXML
-	private TextField marcaPU;
-	@FXML
-	private TextArea descripcionPU;
-	@FXML
-	private TextField cantidadPS;
-	@FXML
-	private TextField marcaPS;
-	@FXML
-	private TextArea descripcionPS;
-	@FXML
 	private DatePicker reparacionMayor;
 	@FXML
 	private TextArea observaciones;
@@ -83,18 +89,25 @@ public class SeguimientoOrdenTrabajoController {
 	private OrdenTrabajoDTO ordenDTO;
 	private ObservableList<SeguimientoOrdenPartesProperty> dataPartesUsadas = FXCollections.observableArrayList();
 	private ObservableList<SeguimientoOrdenPartesProperty> dataPartesSolicitadas = FXCollections.observableArrayList();
-	private List<SeguimientoOrdenPartesProperty> dtoPartesUsadas;
-	private List<SeguimientoOrdenPartesProperty> dtoPartesSolicitadas;
+	private List<SeguimientoOrdenPartesProperty> dtoTablaPartesUsadas;
+	private List<SeguimientoOrdenPartesDTO> dtoPartesUsadas;
+	private List<SeguimientoOrdenPartesProperty> dtoTablaPartesSolicitadas;
+	private List<SeguimientoOrdenPartesDTO> dtoPartesSolicitadas;
 
-	public SeguimientoOrdenTrabajoController () {
 
+	public SeguimientoOrdenTrabajoController() {
+		super();
+	}
+
+	public SeguimientoOrdenTrabajoController (List<SeguimientoOrdenPartesProperty> dtoPartesUsadas) {
+		this.dtoTablaPartesUsadas = dtoPartesUsadas;
 	}
 
 	@FXML
 	public void initialize () {
 		System.out.println("entra a seguimiento");
-		dtoPartesUsadas = new ArrayList<>();
-		dtoPartesSolicitadas = new ArrayList<>();
+		dtoTablaPartesUsadas = new ArrayList<>();
+		dtoTablaPartesSolicitadas = new ArrayList<>();
 	}
 
 	public void cargarInformacion() {
@@ -105,31 +118,52 @@ public class SeguimientoOrdenTrabajoController {
 
 	public void agregarPartesUsadas() {
 		if(this.validarAgregarPartes((byte)1)) {
-			dtoPartesUsadas.add(new SeguimientoOrdenPartesProperty(new SimpleStringProperty(cantidadPU.getText()), new SimpleStringProperty(noPU.getText()),
-					new SimpleStringProperty(marcaPU.getText()), new SimpleStringProperty(descripcionPU.getText()), new Button("Eliminar")));
+			dtoTablaPartesUsadas.add(new SeguimientoOrdenPartesProperty(new SimpleStringProperty(cantidadPU.getText()), new SimpleStringProperty(noPU.getText()),
+					new SimpleStringProperty(marcaPU.getText()), new SimpleStringProperty(descripcionPU.getText())));
 			dataPartesUsadas.clear();
-	    	dataPartesUsadas.addAll(dtoPartesUsadas);
+	    	dataPartesUsadas.addAll(dtoTablaPartesUsadas);
 			tablaPartesUsadas.setItems(getDataPartesUsadas());
 	    	cantidadUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getCantidad());
 	    	parteUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getParte());
 	    	marcaUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getMarca());
 	    	descripcionUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
-	    	eliminarUsadaColumn.setCellValueFactory(new PropertyValueFactory<SeguimientoOrdenPartesProperty, String> ("Eliminar"));
+	    	eliminarUsadaColumn.setSortable(false);
+	    	eliminarUsadaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean>, ObservableValue<Boolean>>() {
+	    		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean> features) {
+	    			return new SimpleBooleanProperty(features.getValue() != null);
+    	      }
+    	    });
+	    	eliminarUsadaColumn.setCellFactory(new Callback<TableColumn<SeguimientoOrdenPartesProperty, Boolean>, TableCell<SeguimientoOrdenPartesProperty, Boolean>>() {
+	    		@Override public TableCell<SeguimientoOrdenPartesProperty, Boolean> call(TableColumn<SeguimientoOrdenPartesProperty, Boolean> personBooleanTableColumn) {
+	    			return new ButtonCell(dataPartesUsadas, dtoTablaPartesUsadas);
+	    		}
+    	    });
 		}
 
 	}
 
 	public void agregarPartesSolicitadas() {
 		if(this.validarAgregarPartes((byte)2)) {
-			dtoPartesSolicitadas.add(new SeguimientoOrdenPartesProperty(new SimpleStringProperty(cantidadPS.getText()), new SimpleStringProperty(marcaPS.getText()),
-					new SimpleStringProperty(descripcionPS.getText()), new Button("Eliminar")));
+			dtoTablaPartesSolicitadas.add(new SeguimientoOrdenPartesProperty(new SimpleStringProperty(cantidadPS.getText()), new SimpleStringProperty(marcaPS.getText()),
+					new SimpleStringProperty(descripcionPS.getText())));
 			dataPartesSolicitadas.clear();
-	    	dataPartesSolicitadas.addAll(dtoPartesSolicitadas);
+	    	dataPartesSolicitadas.addAll(dtoTablaPartesSolicitadas);
 			tablaPartesSolicitadas.setItems(getDataPartesSolicitadas());
 	    	cantidadSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getCantidad());
 	    	marcaSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getMarca());
 	    	descripcionSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
-	    	eliminarSolicitadaColumn.setCellValueFactory(new PropertyValueFactory<SeguimientoOrdenPartesProperty, String> ("Eliminar"));
+	    	eliminarSolicitadaColumn.setSortable(false);
+
+	    	eliminarSolicitadaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean>, ObservableValue<Boolean>>() {
+	    		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean> features) {
+	    			return new SimpleBooleanProperty(features.getValue() != null);
+	    		}
+    	    });
+	    	eliminarSolicitadaColumn.setCellFactory(new Callback<TableColumn<SeguimientoOrdenPartesProperty, Boolean>, TableCell<SeguimientoOrdenPartesProperty, Boolean>>() {
+	    		@Override public TableCell<SeguimientoOrdenPartesProperty, Boolean> call(TableColumn<SeguimientoOrdenPartesProperty, Boolean> personBooleanTableColumn) {
+	    			return new ButtonCell(dataPartesSolicitadas, dtoTablaPartesSolicitadas);
+	    		}
+    	    });
 		}
 	}
 
@@ -182,6 +216,44 @@ public class SeguimientoOrdenTrabajoController {
 		return esCorrecto;
 	}
 
+	public void guardarSeguimiento() {
+		if(this.validarFormulario()) {
+			this.convertirCamposDTO();
+		}
+	}
+
+	private boolean validarFormulario() {
+		String errorMessage = "";
+		boolean esCorrecto = false;
+		if(trabajosRealizados.getText() == Constantes.NULL || trabajosRealizados.getText().length() == Constantes.CERO) {
+			errorMessage = "El campo Trabajos Realizados no puede ir vacío.";
+		} else if(observaciones.getText() == Constantes.NULL || observaciones.getText().length() == Constantes.CERO) {
+			errorMessage = "El campo Observaciones no puede ir vacío.";
+		} else if(errorMessage.length() == Constantes.CERO) {
+			esCorrecto = true;
+		} else {
+			Alert alert = new Alert(AlertType.WARNING);
+	    	alert.setTitle("Validando Formulario");
+	    	alert.setHeaderText(null);
+	    	alert.setContentText(errorMessage);
+	    	alert.showAndWait();
+		}
+		return esCorrecto;
+	}
+
+	private void convertirCamposDTO() {
+		dtoPartesUsadas = new ArrayList<>();
+		dtoPartesSolicitadas = new ArrayList<>();
+		for(SeguimientoOrdenPartesProperty parteUsada : dtoTablaPartesUsadas) {
+			dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().toString()), parteUsada.getParte().toString(),
+					parteUsada.getMarca().toString(), parteUsada.getDescripcion().toString(), 1, new Date(), 2));
+		}
+		for(SeguimientoOrdenPartesProperty parteSolicitada : dtoTablaPartesSolicitadas) {
+			dtoPartesSolicitadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteSolicitada.getCantidad().toString()),
+					parteSolicitada.getMarca().toString(), parteSolicitada.getDescripcion().toString(), 1, new Date(), 2));
+		}
+	}
+
 	/**
      * Called when the user clicks the new button. Opens a dialog to edit
      * details for a new person.
@@ -228,20 +300,36 @@ public class SeguimientoOrdenTrabajoController {
 		this.dataPartesSolicitadas = dataPartesSolicitadas;
 	}
 
-	public List<SeguimientoOrdenPartesProperty> getDtoPartesUsadas() {
+	public List<SeguimientoOrdenPartesDTO> getDtoPartesUsadas() {
 		return dtoPartesUsadas;
 	}
 
-	public void setDtoPartesUsadas(List<SeguimientoOrdenPartesProperty> dtoPartesUsadas) {
+	public void setDtoPartesUsadas(List<SeguimientoOrdenPartesDTO> dtoPartesUsadas) {
 		this.dtoPartesUsadas = dtoPartesUsadas;
 	}
 
-	public List<SeguimientoOrdenPartesProperty> getDtoPartesSolicitadas() {
+	public List<SeguimientoOrdenPartesDTO> getDtoPartesSolicitadas() {
 		return dtoPartesSolicitadas;
 	}
 
-	public void setDtoPartesSolicitadas(List<SeguimientoOrdenPartesProperty> dtoPartesSolicitadas) {
+	public void setDtoPartesSolicitadas(List<SeguimientoOrdenPartesDTO> dtoPartesSolicitadas) {
 		this.dtoPartesSolicitadas = dtoPartesSolicitadas;
+	}
+
+	public List<SeguimientoOrdenPartesProperty> getDtoTablaPartesUsadas() {
+		return dtoTablaPartesUsadas;
+	}
+
+	public void setDtoTablaPartesUsadas(List<SeguimientoOrdenPartesProperty> dtoTablaPartesUsadas) {
+		this.dtoTablaPartesUsadas = dtoTablaPartesUsadas;
+	}
+
+	public List<SeguimientoOrdenPartesProperty> getDtoTablaPartesSolicitadas() {
+		return dtoTablaPartesSolicitadas;
+	}
+
+	public void setDtoTablaPartesSolicitadas(List<SeguimientoOrdenPartesProperty> dtoTablaPartesSolicitadas) {
+		this.dtoTablaPartesSolicitadas = dtoTablaPartesSolicitadas;
 	}
 
 }
