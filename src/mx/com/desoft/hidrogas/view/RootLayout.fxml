@@ -22,10 +22,10 @@
             <items>
                   <Menu mnemonicParsing="false" text="Catálogos">
                     <items>
-                    <MenuItem mnemonicParsing="false" onAction="#showPersonOverview" text="Empleados" />
-                        <MenuItem mnemonicParsing="false" text="Economicos" />
-                      <MenuItem mnemonicParsing="false" text="Tipo de Necesidad" />
-                        <MenuItem mnemonicParsing="false" text="Refaccciones" />
+                    <MenuItem mnemonicParsing="false" onAction="#showEmpleadosOverView" text="Empleados" />
+                        <MenuItem mnemonicParsing="false" onAction="#showEconomicosOverView" text="Economicos" />
+                      <MenuItem mnemonicParsing="false" onAction="#showTipoNecesidadView" text="Tipo de Necesidad" />
+                        <MenuItem mnemonicParsing="false" onAction="#showTipoRefaccionesView" text="Refaccciones" />
                     </items>
                   </Menu>
             </items>

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import mx.com.desoft.hidrogas.dao.EmpleadosDAO;
 
 @Service
-public class LoginBussinesServiceImpl implements LoginBussinesService {
+public class LoginBusinessImpl implements ILoginBusiness {
 
 	/**
 	 * 
@@ -17,8 +17,8 @@ public class LoginBussinesServiceImpl implements LoginBussinesService {
 	private EmpleadosDAO empleadosImplDAO;
 
 	@Override
-	public Boolean validarsesion(Integer usuario, String password) {
-		return empleadosImplDAO.getUsuarioByCretential(usuario, password);
+	public Boolean validarSesion(Integer usuario, String password) {
+		return empleadosImplDAO.getUsuarioByCredential(usuario, password);
 	}
 
 }

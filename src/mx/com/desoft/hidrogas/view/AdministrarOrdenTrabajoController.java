@@ -24,6 +24,7 @@ import mx.com.desoft.hidrogas.bussines.AdministrarOrdenBusinessImpl;
 import mx.com.desoft.hidrogas.bussines.AgregarEditarOrdenBusinessApp;
 import mx.com.desoft.hidrogas.bussines.AgregarEditarOrdenBusinessImpl;
 import mx.com.desoft.hidrogas.bussines.IAdministrarOrdenBusiness;
+import mx.com.desoft.hidrogas.bussines.IAgregarEditarOrdenBusinessApp;
 import mx.com.desoft.hidrogas.dto.CatEstatusOrdenDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
@@ -61,7 +62,7 @@ public class AdministrarOrdenTrabajoController {
 	@FXML
 	private TextField economicoOrdenBusqueda;
 
-	private AgregarEditarOrdenBusinessApp agregarEditarOrdenBusinessApp = Login.appContext.getBean(AgregarEditarOrdenBusinessImpl.class);
+	private IAgregarEditarOrdenBusinessApp agregarEditarOrdenBusinessApp = Login.appContext.getBean(AgregarEditarOrdenBusinessImpl.class);
 	private IAdministrarOrdenBusiness administrarOrdenBusiness = Login.appContext.getBean(AdministrarOrdenBusinessImpl.class);
 	private ObservableList<OrdenProperty> data = FXCollections.observableArrayList();
 	private MainApp mainApp;

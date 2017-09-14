@@ -12,8 +12,8 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
-import mx.com.desoft.hidrogas.bussines.LoginBussinesService;
-import mx.com.desoft.hidrogas.bussines.LoginBussinesServiceImpl;
+import mx.com.desoft.hidrogas.bussines.ILoginBusiness;
+import mx.com.desoft.hidrogas.bussines.LoginBusinessImpl;
 import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
 
@@ -30,7 +30,7 @@ public class LoginController {
 	@FXML
 	private Button iniciarSession;
 	
-	private LoginBussinesService loginBussinesServiceImpl = Login.appContext.getBean(LoginBussinesServiceImpl.class);
+	private ILoginBusiness loginBussinesServiceImpl = Login.appContext.getBean(LoginBusinessImpl.class);
 	
 	@FXML
 	private void initialize() {
@@ -45,13 +45,13 @@ public class LoginController {
 				app.initRootLayout();
 				Login.stageLogin.close();
 //			}	else	{
-//				new Alerta("Iniciar Sesión", "Usuario y/o Contraseña incorrectos, Favor de validar", AlertType.ERROR);
+//				Alerta.crearAlertaUsuario("Iniciar Sesión", "Usuario y/o Contraseña incorrectos, Favor de validar", AlertType.ERROR);
 //			}
 //		}
 	}
 	
 	private Boolean validarSesion(Integer usuario, String password) {
-		return loginBussinesServiceImpl.validarsesion(usuario, password);
+		return loginBussinesServiceImpl.validarSesion(usuario, password);
 	}
 	
 	private Boolean validarFormulario() {
@@ -67,7 +67,7 @@ public class LoginController {
 		if (errorMessage.length() == Constantes.CERO) {
             return true;
         } else {
-        	new Alerta("Validando Formulario", errorMessage, AlertType.WARNING);
+        	Alerta.crearAlertaUsuario("Validando Formulario", errorMessage, AlertType.WARNING);
             return false;
         }
 	}

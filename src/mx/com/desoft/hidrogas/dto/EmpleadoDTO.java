@@ -23,6 +23,33 @@ public class EmpleadoDTO implements Serializable {
 	private Integer tipoEmpleadoId;
 	private String descripcionTipoEmpleado;
 	
+	public EmpleadoDTO() {
+	}
+	
+	public EmpleadoDTO(Integer nominaEmpleado, String nombreEmpleado, String apellidoPatEmpleado,
+			String apellidoMatEmpleado, String password, Integer economicoId, Date fechaRegistro,
+			Integer nominaRegistro, Integer tipoEmpleadoId, String descripcionTipoEmpleado) {
+		this.nominaEmpleado = nominaEmpleado;
+		this.nombreEmpleado = nombreEmpleado;
+		this.apellidoPatEmpleado = apellidoPatEmpleado;
+		this.apellidoMatEmpleado = apellidoMatEmpleado;
+		this.password = password;
+		this.economicoId = economicoId;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = nominaRegistro;
+		this.tipoEmpleadoId = tipoEmpleadoId;
+		this.descripcionTipoEmpleado = descripcionTipoEmpleado;
+	}
+
+
+
+	public EmpleadoDTO(Integer nominaEmpleado, String nombreEmpleado, Integer economicoId, Integer tipoEmpleadoId) {
+		this.nominaEmpleado = nominaEmpleado;
+		this.nombreEmpleado = nombreEmpleado;
+		this.economicoId = economicoId;
+		this.tipoEmpleadoId = tipoEmpleadoId;
+	}
+
 	public Integer getNominaEmpleado() {
 		return nominaEmpleado;
 	}

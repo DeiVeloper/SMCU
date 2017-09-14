@@ -15,7 +15,7 @@ public class Economico implements Serializable {
 
 	@Id
 	@Column(name="economico_id")
-	private int economicoId;
+	private Integer economicoId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_registro")
@@ -32,12 +32,18 @@ public class Economico implements Serializable {
 
 	public Economico() {
 	}
+	
+	public Economico(Integer economicoId, Date fechaRegistro, int nominaRegistro) {
+		this.economicoId = economicoId;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = nominaRegistro;
+	}
 
-	public int getEconomicoId() {
+	public Integer getEconomicoId() {
 		return this.economicoId;
 	}
 
-	public void setEconomicoId(int economicoId) {
+	public void setEconomicoId(Integer economicoId) {
 		this.economicoId = economicoId;
 	}
 

@@ -9,7 +9,7 @@ import mx.com.desoft.hidrogas.model.Empleado;
 
 public interface EmpleadosDAO extends HibernateDAO<Empleado, Integer> {
 	
-	Boolean getUsuarioByCretential(Integer usuario, String password);
+	Boolean getUsuarioByCredential(Integer usuario, String password);
 	
 	List<Empleado> getEmpleadoByVista(EmpleadoDTO empleadoDTO);
 	

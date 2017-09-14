@@ -13,10 +13,10 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
-import mx.com.desoft.hidrogas.bussines.AgregarEditarOrdenBusinessApp;
+import mx.com.desoft.hidrogas.bussines.IAgregarEditarOrdenBusinessApp;
 import mx.com.desoft.hidrogas.bussines.AgregarEditarOrdenBusinessImpl;
-import mx.com.desoft.hidrogas.bussines.BussinesService;
-import mx.com.desoft.hidrogas.bussines.BussinesServiceImpl;
+import mx.com.desoft.hidrogas.bussines.ICatalogoBusiness;
+import mx.com.desoft.hidrogas.bussines.CatalogoBusinessImpl;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
@@ -27,13 +27,13 @@ public class AgregarEditarOrdenController {
 
 	public static Stage stageOrden;
 
-	private AgregarEditarOrdenBusinessApp agregarEditarOrdenBusinessApp = Login.appContext.getBean(AgregarEditarOrdenBusinessImpl.class);
+	private IAgregarEditarOrdenBusinessApp agregarEditarOrdenBusinessApp = Login.appContext.getBean(AgregarEditarOrdenBusinessImpl.class);
 
 	private OrdenTrabajoDTO ordenTrabajoTO;
 
 	private MainApp mainApp;
 
-	private BussinesService bussinesServiceImpl = Login.appContext.getBean(BussinesServiceImpl.class);
+	private ICatalogoBusiness bussinesServiceImpl = Login.appContext.getBean(CatalogoBusinessImpl.class);
 
 	@FXML
 	private ComboBox<EconomicoDTO> economico;
@@ -96,7 +96,7 @@ public class AgregarEditarOrdenController {
         	errorMessage = "Favor de seleccionar un Económico.";
         }
 		if(nominaOperador.getText() == Constantes.NULL || nominaOperador.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Nómina de operador no puede ir vacío.";
+			errorMessage = "El campo Nomina de operador no puede ir vacío.";
 		}
 		if(!nominaOperador.getText().matches("[0-9]*")) {
 			errorMessage = "El campo Nomina de operador debe ser numérico.";
@@ -117,7 +117,7 @@ public class AgregarEditarOrdenController {
 			errorMessage = "El campo Kilometraje/Hrs de trabajo debe ser numérico.";
 		}
 		if(tipoNecesidadOrden.getSelectionModel().getSelectedItem() == Constantes.NULL) {
-        	errorMessage = "Favor de seleccionar un Tipo de necesidad.";
+        	errorMessage = "Favor de seleccionar un Tipo de necesidad ";
         }
 		if(fallaMecanica.getText() == Constantes.NULL || fallaMecanica.getText().length() == Constantes.CERO) {
 			errorMessage = "El campo Falla mecanica no puede ir vacío.";
@@ -213,11 +213,11 @@ public class AgregarEditarOrdenController {
 		this.ordenTrabajoTO = ordenTrabajoTO;
 	}
 
-	public AgregarEditarOrdenBusinessApp getAgregarEditarOrdenBusinessApp() {
+	public IAgregarEditarOrdenBusinessApp getAgregarEditarOrdenBusinessApp() {
 		return agregarEditarOrdenBusinessApp;
 	}
 
-	public void setAgregarEditarOrdenBusinessApp(AgregarEditarOrdenBusinessApp agregarEditarOrdenBusinessApp) {
+	public void setAgregarEditarOrdenBusinessApp(IAgregarEditarOrdenBusinessApp agregarEditarOrdenBusinessApp) {
 		this.agregarEditarOrdenBusinessApp = agregarEditarOrdenBusinessApp;
 	}
 

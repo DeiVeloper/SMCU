@@ -6,6 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import mx.com.desoft.hidrogas.MainApp;
 
@@ -38,7 +44,6 @@ public class RootLayoutController {
      */
     @FXML
     private void handleNew() {
-        mainApp.getData().clear();
         mainApp.setPersonFilePath(null);
     }
 
@@ -101,14 +106,60 @@ public class RootLayoutController {
     }
 
     @FXML
-    private void showPersonOverview() {
+    private void showEmpleadosOverView() {
     	try {
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/AdminEmpleados.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
+            personOverview.setBorder(new Border(new BorderStroke(Color.BLACK, 
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
-            AministrarEmpleados controller = loader.getController();
-            controller.setMainApp(mainApp);
+//            AministrarEmpleadosController controller = loader.getController();
+//            controller.setMainApp(mainApp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void showEconomicosOverView() {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AdminEconomicos.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+            personOverview.setBorder(new Border(new BorderStroke(Color.BLACK, 
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+            mainApp.getRootLayout().setCenter(personOverview);
+//            controller.setMainApp(mainApp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void showTipoNecesidadView() {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AdminTipoNecesidad.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+            personOverview.setBorder(new Border(new BorderStroke(Color.BLACK, 
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+            mainApp.getRootLayout().setCenter(personOverview);
+//            controller.setMainApp(mainApp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void showTipoRefaccionesView() {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AdminTipoRefacciones.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+            personOverview.setBorder(new Border(new BorderStroke(Color.BLACK, 
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+            mainApp.getRootLayout().setCenter(personOverview);
         } catch (IOException e) {
             e.printStackTrace();
         }

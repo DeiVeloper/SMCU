@@ -3,6 +3,9 @@ package mx.com.desoft.hidrogas.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class EconomicoDTO implements Serializable {
 
 	/**
@@ -14,7 +17,28 @@ public class EconomicoDTO implements Serializable {
 	private Date fechaRegistro;
 	private Integer nominaRegistro;
 	private Integer reparaciones;
+	private String nombreChofer;
 	
+	public EconomicoDTO() {
+	}
+	
+	
+	public EconomicoDTO(Integer economicoId) {
+		this.economicoId = economicoId;
+	}
+	
+	
+
+	public EconomicoDTO(Integer economicoId, Date fechaRegistro, Integer nominaRegistro, Integer reparaciones,
+			String nombreChofer) {
+		this.economicoId = economicoId;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = nominaRegistro;
+		this.reparaciones = reparaciones;
+		this.nombreChofer = nombreChofer;
+	}
+
+
 	public Integer getEconomicoId() {
 		return economicoId;
 	}
@@ -38,6 +62,12 @@ public class EconomicoDTO implements Serializable {
 	}
 	public void setReparaciones(Integer reparaciones) {
 		this.reparaciones = reparaciones;
+	}
+	public String getNombreChofer() {
+		return nombreChofer;
+	}
+	public void setNombreChofer(String nombreChofer) {
+		this.nombreChofer = nombreChofer;
 	}
 
 }

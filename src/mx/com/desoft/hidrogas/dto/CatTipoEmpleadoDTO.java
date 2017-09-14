@@ -3,6 +3,9 @@ package mx.com.desoft.hidrogas.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CatTipoEmpleadoDTO implements Serializable {
 	
 	/**
@@ -14,6 +17,14 @@ public class CatTipoEmpleadoDTO implements Serializable {
 	private String descripcion;
 	private Date fechaRegistro;
 	private Integer nominaRegistro;
+	
+	public CatTipoEmpleadoDTO() {
+	}
+
+	public CatTipoEmpleadoDTO(Integer tipoEmpleadoId, String descripcion) {
+		this.tipoEmpleadoId = tipoEmpleadoId;
+		this.descripcion = descripcion;
+	}
 	
 	public Integer getTipoEmpleadoId() {
 		return tipoEmpleadoId;

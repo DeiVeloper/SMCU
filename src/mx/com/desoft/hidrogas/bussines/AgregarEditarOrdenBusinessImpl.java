@@ -24,7 +24,7 @@ import mx.com.desoft.hidrogas.model.Empleado;
 import mx.com.desoft.hidrogas.model.OrdenTrabajo;
 
 @Service
-public class AgregarEditarOrdenBusinessImpl implements AgregarEditarOrdenBusinessApp {
+public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusinessApp {
 
 	@Autowired
 	private CatTipoNecesidadDAO catTipoNecesidadDAO;
