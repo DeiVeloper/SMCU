@@ -20,7 +20,6 @@ import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
-import mx.com.desoft.hidrogas.model.Economico;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AgregarEditarOrdenController {
@@ -75,7 +74,7 @@ public class AgregarEditarOrdenController {
 				Alert alert = new Alert(AlertType.WARNING);
 	        	alert.setTitle("Guardando Orden de Trabajo");
 	        	alert.setHeaderText(null);
-	        	alert.setContentText("¡El registro se guardó exitosamente!");
+	        	alert.setContentText("ï¿½El registro se guardï¿½ exitosamente!");
 	        	alert.showAndWait();
 			} catch (Exception e) {
     			e.printStackTrace();
@@ -93,34 +92,34 @@ public class AgregarEditarOrdenController {
 	private boolean validarFormulario() {
 		String errorMessage = "";
 		if(economico.getSelectionModel().getSelectedItem() == Constantes.NULL) {
-        	errorMessage = "Favor de seleccionar un Económico.";
+        	errorMessage = "Favor de seleccionar un Econï¿½mico.";
         }
 		if(nominaOperador.getText() == Constantes.NULL || nominaOperador.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Nomina de operador no puede ir vacío.";
+			errorMessage = "El campo Nomina de operador no puede ir vacï¿½o.";
 		}
 		if(!nominaOperador.getText().matches("[0-9]*")) {
-			errorMessage = "El campo Nomina de operador debe ser numérico.";
+			errorMessage = "El campo Nomina de operador debe ser numï¿½rico.";
 		}
 		if(nombreOperador.getText() == Constantes.NULL || nombreOperador.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Nombre no puede ir vacío.";
+			errorMessage = "El campo Nombre no puede ir vacï¿½o.";
 		}
 		if(apellidoPaterno.getText() == Constantes.NULL || apellidoPaterno.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Apellido paterno no puede ir vacío.";
+			errorMessage = "El campo Apellido paterno no puede ir vacï¿½o.";
 		}
 		if(apellidoMaterno.getText() == Constantes.NULL || apellidoMaterno.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Apellido materno de operador no puede ir vacío.";
+			errorMessage = "El campo Apellido materno de operador no puede ir vacï¿½o.";
 		}
 		if(kilometrajeHoras.getText() == Constantes.NULL || kilometrajeHoras.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Kilometraje/Hrs de trabajo de operador no puede ir vacío.";
+			errorMessage = "El campo Kilometraje/Hrs de trabajo de operador no puede ir vacï¿½o.";
 		}
 		if(!kilometrajeHoras.getText().matches("[0-9]*")) {
-			errorMessage = "El campo Kilometraje/Hrs de trabajo debe ser numérico.";
+			errorMessage = "El campo Kilometraje/Hrs de trabajo debe ser numï¿½rico.";
 		}
 		if(tipoNecesidadOrden.getSelectionModel().getSelectedItem() == Constantes.NULL) {
         	errorMessage = "Favor de seleccionar un Tipo de necesidad ";
         }
 		if(fallaMecanica.getText() == Constantes.NULL || fallaMecanica.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Falla mecanica no puede ir vacío.";
+			errorMessage = "El campo Falla mecanica no puede ir vacï¿½o.";
 		}
 		if(errorMessage.length() == Constantes.CERO) {
 			return true;

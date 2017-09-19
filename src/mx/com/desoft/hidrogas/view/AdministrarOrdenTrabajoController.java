@@ -21,7 +21,6 @@ import javafx.util.StringConverter;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
 import mx.com.desoft.hidrogas.business.AdministrarOrdenBusinessImpl;
-import mx.com.desoft.hidrogas.business.AgregarEditarOrdenBusinessApp;
 import mx.com.desoft.hidrogas.business.AgregarEditarOrdenBusinessImpl;
 import mx.com.desoft.hidrogas.business.IAdministrarOrdenBusiness;
 import mx.com.desoft.hidrogas.business.IAgregarEditarOrdenBusinessApp;
@@ -146,10 +145,10 @@ public class AdministrarOrdenTrabajoController {
 	private boolean validarCampos() {
 		String errorMessage = "";
 		if(!empleadoOrdenBusqueda.getText().matches("[0-9]*")) {
-			errorMessage = "El campo Empleado debe ser numérico.";
+			errorMessage = "El campo Empleado debe ser numï¿½rico.";
 		}
 		if(!economicoOrdenBusqueda.getText().matches("[0-9]*")) {
-			errorMessage = "El campo Económico debe ser numérico.";
+			errorMessage = "El campo Econï¿½mico debe ser numï¿½rico.";
 		}
 		if(errorMessage.length() == Constantes.CERO) {
 			return true;

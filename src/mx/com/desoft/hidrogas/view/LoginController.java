@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -14,7 +13,6 @@ import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
 import mx.com.desoft.hidrogas.business.ILoginBusiness;
 import mx.com.desoft.hidrogas.business.LoginBusinessImpl;
-import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class LoginController {
@@ -64,7 +62,7 @@ public class LoginController {
 		}
 
 		if(passordField.getText() == Constantes.NULL || passordField.getText().length() == Constantes.CERO)	{
-			mensaje = "Favor de capturar una Contraseña";
+			mensaje = "Favor de capturar una Contraseï¿½a";
 			return false;
 		}
         return true;
