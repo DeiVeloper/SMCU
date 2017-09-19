@@ -13,10 +13,10 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
-import mx.com.desoft.hidrogas.bussines.IAgregarEditarOrdenBusinessApp;
-import mx.com.desoft.hidrogas.bussines.AgregarEditarOrdenBusinessImpl;
-import mx.com.desoft.hidrogas.bussines.ICatalogoBusiness;
-import mx.com.desoft.hidrogas.bussines.CatalogoBusinessImpl;
+import mx.com.desoft.hidrogas.business.AgregarEditarOrdenBusinessImpl;
+import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
+import mx.com.desoft.hidrogas.business.IAgregarEditarOrdenBusinessApp;
+import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
@@ -139,7 +139,7 @@ public class AgregarEditarOrdenController {
 		ordenTrabajoTO.setNombreOperador(nombreOperador.getText());
 		ordenTrabajoTO.setApellidoPatOperador(apellidoPaterno.getText());
 		ordenTrabajoTO.setApellidoMatOperador(apellidoMaterno.getText());
-		ordenTrabajoTO.setTipoNecesidadId(tipoNecesidadOrden.getSelectionModel().getSelectedItem().getId());
+		ordenTrabajoTO.setTipoNecesidadId(tipoNecesidadOrden.getSelectionModel().getSelectedItem().getTipoNecesidadId());
 		ordenTrabajoTO.setKilometraje(Integer.parseInt(kilometrajeHoras.getText()));
 		ordenTrabajoTO.setFallaMecanica(fallaMecanica.getText());
 		ordenTrabajoTO.setFechaRegistro(new Date());
@@ -191,7 +191,7 @@ public class AgregarEditarOrdenController {
 		nombreOperador.setText("");
 		apellidoPaterno.setText("");
 		apellidoMaterno.setText("");
-		tipoNecesidadOrden.getSelectionModel().getSelectedItem().setId(null);
+		tipoNecesidadOrden.getSelectionModel().getSelectedItem().setTipoNecesidadId(null);
 		kilometrajeHoras.setText("");
 		fallaMecanica.setText("");
 	}

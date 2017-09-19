@@ -26,48 +26,49 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
-import mx.com.desoft.hidrogas.business.ITipoNecesidadBusiness;
-import mx.com.desoft.hidrogas.business.TipoNecesidadBusinessImpl;
-import mx.com.desoft.hidrogas.buttons.EliminarButtonTipoNecesidad;
-import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
-import mx.com.desoft.hidrogas.property.TipoNecesidadProperty;
+import mx.com.desoft.hidrogas.business.ITipoRefaccionesBusiness;
+import mx.com.desoft.hidrogas.business.TipoRefaccionesBusinessImpl;
+import mx.com.desoft.hidrogas.buttons.EliminarButtonTipoRefaccion;
+import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
+import mx.com.desoft.hidrogas.property.TipoRefaccionProperty;
 import mx.com.desoft.hidrogas.util.Alerta;
 
-public class AdministrarTipoNecesidadController {
+public class AdministrarTipoRefaccionController {
 
-	private static final Logger log = Logger.getLogger(AdministrarTipoNecesidadController.class);
+	private static final Logger log = Logger.getLogger(AdministrarTipoRefaccionController.class);
 
 	@FXML
-	private TextField tipoNecesidadField;
+	private TextField tipoRefaccionField;
 
 	@FXML
 	private Label contadorLista;
 
 	@FXML
-    private TableView<TipoNecesidadProperty> tablaTipoNecesidad;
+    private TableView<TipoRefaccionProperty> tablaTipoRefaccion;
 
     @FXML
-    private TableColumn<TipoNecesidadProperty, String> tipoNecesidadIdColumn;
+    private TableColumn<TipoRefaccionProperty, String> tipoRefaccionIdColumn;
 
     @FXML
-    private TableColumn<TipoNecesidadProperty, String> descripcionColumn;
+    private TableColumn<TipoRefaccionProperty, String> descripcionColumn;
 
     @FXML
-    private TableColumn<TipoNecesidadProperty, Boolean> eliminarColumn;
+    private TableColumn<TipoRefaccionProperty, Boolean> eliminarColumn;
 
-    private ITipoNecesidadBusiness tipoNecesidadBusinessImpl = Login.appContext.getBean(TipoNecesidadBusinessImpl.class);
-    private CatTipoNecesidadDTO catTipoNecesidadDTO;
-    private ObservableList<TipoNecesidadProperty> data = FXCollections.observableArrayList();
+
+    private ITipoRefaccionesBusiness tipoRefaccionesBusinessImpl = Login.appContext.getBean(TipoRefaccionesBusinessImpl.class);
+    private CatTipoRefaccionesDTO catTipoRefaccionesDTO;
+    private ObservableList<TipoRefaccionProperty> data = FXCollections.observableArrayList();
 
 	 /**
      * The constructor.
      * The constructor is called before the initialize() method.
      */
-    public AdministrarTipoNecesidadController() {
-    	tablaTipoNecesidad = new TableView<>(data);
-    	tipoNecesidadIdColumn = new TableColumn<TipoNecesidadProperty, String>();
-    	descripcionColumn = new TableColumn<TipoNecesidadProperty, String>();
-    	eliminarColumn = new TableColumn<TipoNecesidadProperty, Boolean>();
+    public AdministrarTipoRefaccionController() {
+    	tablaTipoRefaccion = new TableView<>(data);
+    	tipoRefaccionIdColumn = new TableColumn<TipoRefaccionProperty, String>();
+    	descripcionColumn = new TableColumn<TipoRefaccionProperty, String>();
+    	eliminarColumn = new TableColumn<TipoRefaccionProperty, Boolean>();
     	contadorLista = new Label();
     }
 
@@ -80,58 +81,57 @@ public class AdministrarTipoNecesidadController {
     }
 
     @FXML
-    private void buscarTipoNecesidad() {
+    private void buscarTipoRefaccion() {
 		convertirCamposToDTO();
-		List<TipoNecesidadProperty> dto = tipoNecesidadBusinessImpl.getTipoNecesidadByView(catTipoNecesidadDTO);
+		List<TipoRefaccionProperty> dto = tipoRefaccionesBusinessImpl.getTipoRefaccionByView(catTipoRefaccionesDTO);
 		data.clear();
 		data.removeAll(data);
-    	tipoNecesidadIdColumn.setCellValueFactory(cellData -> cellData.getValue().getTipoNecesidadId());
+		tipoRefaccionIdColumn.setCellValueFactory(cellData -> cellData.getValue().getTipoRefaccionId());
     	descripcionColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
     	eliminarColumn.setStyle("-fx-alignment: CENTER;");
-    	eliminarColumn.setSortable(false);
-    	eliminarColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TipoNecesidadProperty, Boolean>, ObservableValue<Boolean>>() {
-    		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<TipoNecesidadProperty, Boolean> features) {
+    	eliminarColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TipoRefaccionProperty, Boolean>, ObservableValue<Boolean>>() {
+    		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<TipoRefaccionProperty, Boolean> features) {
     			return new SimpleBooleanProperty(features.getValue() != null);
 	      }
 	    });
-    	eliminarColumn.setCellFactory(new Callback<TableColumn<TipoNecesidadProperty, Boolean>, TableCell<TipoNecesidadProperty, Boolean>>() {
-    		@Override public TableCell<TipoNecesidadProperty, Boolean> call(TableColumn<TipoNecesidadProperty, Boolean> personBooleanTableColumn) {
-    			return new EliminarButtonTipoNecesidad(data);
+    	eliminarColumn.setCellFactory(new Callback<TableColumn<TipoRefaccionProperty, Boolean>, TableCell<TipoRefaccionProperty, Boolean>>() {
+    		@Override public TableCell<TipoRefaccionProperty, Boolean> call(TableColumn<TipoRefaccionProperty, Boolean> personBooleanTableColumn) {
+    			return new EliminarButtonTipoRefaccion(data);
     		}
 	    });
     	data.addAll(dto);
-    	tablaTipoNecesidad.setItems(data);
+    	tablaTipoRefaccion.setItems(data);
     	contadorLista.setText(dto.size() + "");
     }
     @FXML
     private void limpiarCamposView() {
-    	tipoNecesidadField.clear();
-    	tablaTipoNecesidad.getItems().clear();
+    	tipoRefaccionField.clear();
+    	tablaTipoRefaccion.getItems().clear();
     	contadorLista.setText(null);
     }
 
     @FXML
-    private void agregarTipoNecesidad() {
+    private void agregarTipoRefaccion() {
     	try {
     		 FXMLLoader loader = new FXMLLoader();
-             loader.setLocation(MainApp.class.getResource("view/AgregarEditarTipoNecesidad.fxml"));
+             loader.setLocation(MainApp.class.getResource("view/AgregarEditarTipoRefacciones.fxml"));
              AnchorPane page = (AnchorPane) loader.load();
              Stage dialogStage = new Stage();
              dialogStage.initModality(Modality.WINDOW_MODAL);
              Scene scene = new Scene(page);
              dialogStage.setScene(scene);
-             AgregarEditarTipoNecesidadController controller = loader.getController();
+             AgregarEditarTipoRefaccionesController controller = loader.getController();
              controller.setDialogStage(dialogStage);
              dialogStage.showAndWait();
 		} catch (Exception e) {
-			log.error("Ocurrio un error al agregar un nuevo tipo de necesidad",e);
+			log.error("Ocurrio un error al agregar un nuevo tipo de refaccion",e);
 			Alerta.crearAlertaUsuario("Error", e.getMessage(), AlertType.ERROR);
 
 		}
     }
 
     private void convertirCamposToDTO() {
-    	catTipoNecesidadDTO = new CatTipoNecesidadDTO(tipoNecesidadField.getText());
+    	catTipoRefaccionesDTO = new CatTipoRefaccionesDTO(tipoRefaccionField.getText());
     }
 
     public boolean eliminarTipoNecesidad(Integer id) {
@@ -143,7 +143,7 @@ public class AdministrarTipoNecesidadController {
     	alert.setHeaderText(null);
     	Optional<ButtonType> result = alert.showAndWait();
     	 if (result.isPresent() && result.get().getText() == "Aceptar") {
-    		 tipoNecesidadBusinessImpl.eliminarTipoNecesidadById(id);
+    		 tipoRefaccionesBusinessImpl.eliminarTipoRefaccionById(id);
     	 }	else	{
     		 return false;
     	 }

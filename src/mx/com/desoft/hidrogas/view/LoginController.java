@@ -12,8 +12,8 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
-import mx.com.desoft.hidrogas.bussines.ILoginBusiness;
-import mx.com.desoft.hidrogas.bussines.LoginBusinessImpl;
+import mx.com.desoft.hidrogas.business.ILoginBusiness;
+import mx.com.desoft.hidrogas.business.LoginBusinessImpl;
 import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
 
@@ -29,13 +29,14 @@ public class LoginController {
 	private TextField passordField;
 	@FXML
 	private Button iniciarSession;
-	
+
 	private ILoginBusiness loginBussinesServiceImpl = Login.appContext.getBean(LoginBusinessImpl.class);
-	
+	private String mensaje = "";
+
 	@FXML
 	private void initialize() {
 		this.inicializarEventosBoton();
-		
+
 	}
 
 	private void iniciarSession() {
@@ -45,31 +46,28 @@ public class LoginController {
 				app.initRootLayout();
 				Login.stageLogin.close();
 //			}	else	{
-//				Alerta.crearAlertaUsuario("Iniciar Sesión", "Usuario y/o Contraseña incorrectos, Favor de validar", AlertType.ERROR);
+//				Alerta.crearAlertaUsuario(Constantes.INICIAR_SESION, Constantes.LOGIN, AlertType.ERROR);
 //			}
+//		}	else	{
+//				Alerta.crearAlertaUsuario(Constantes.VALIDANDO_FORMULARIO, mensaje, AlertType.WARNING);
 //		}
 	}
-	
-	private Boolean validarSesion(Integer usuario, String password) {
+
+	private boolean validarSesion(Integer usuario, String password) {
 		return loginBussinesServiceImpl.validarSesion(usuario, password);
 	}
-	
-	private Boolean validarFormulario() {
-		String errorMessage = "";
+
+	private boolean validarFormulario() {
 		if(userNameField.getText() == Constantes.NULL || userNameField.getText().length() == Constantes.CERO)	{
-			errorMessage += "Favor de capturar un Ususario";
+			mensaje = "Favor de capturar un Usuario";
+			return false;
 		}
-		
+
 		if(passordField.getText() == Constantes.NULL || passordField.getText().length() == Constantes.CERO)	{
-			errorMessage += "Favor de capturar una Contraseña";
+			mensaje = "Favor de capturar una Contraseña";
+			return false;
 		}
-		
-		if (errorMessage.length() == Constantes.CERO) {
-            return true;
-        } else {
-        	Alerta.crearAlertaUsuario("Validando Formulario", errorMessage, AlertType.WARNING);
-            return false;
-        }
+        return true;
 	}
 
 	private void inicializarEventosBoton(){

@@ -28,6 +28,11 @@ public class CatTipoNecesidad implements Serializable {
 
 	public CatTipoNecesidad() {
 	}
+	
+	public CatTipoNecesidad(Long tipoNecesidadId, String descripcion) {
+		this.tipoNecesidadId = tipoNecesidadId;
+		this.descripcion = descripcion;
+	}
 
 	public Long getTipoNecesidadId() {
 		return this.tipoNecesidadId;

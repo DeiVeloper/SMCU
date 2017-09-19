@@ -14,10 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import mx.com.desoft.hidrogas.Login;
-import mx.com.desoft.hidrogas.bussines.ICatalogoBusiness;
-import mx.com.desoft.hidrogas.bussines.CatalogoBusinessImpl;
-import mx.com.desoft.hidrogas.bussines.IEmpleadoBusiness;
-import mx.com.desoft.hidrogas.bussines.EmpleadoBusinessImpl;
+import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
+import mx.com.desoft.hidrogas.business.EmpleadoBusinessImpl;
+import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
+import mx.com.desoft.hidrogas.business.IEmpleadoBusiness;
 import mx.com.desoft.hidrogas.dto.CatTipoEmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
@@ -25,47 +25,60 @@ import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AgregarEditarEmpleadoController {
-	
-	@SuppressWarnings("unused")
+
 	private static final Logger log = Logger.getLogger(AgregarEditarEmpleadoController.class);
 
     @FXML
     private TextField noNomina;
-    
+
     @FXML
     private TextField nombre;
-    
+
     @FXML
     private TextField apellidoPaterno;
-    
+
     @FXML
     private TextField apellidoMaterno;
-    
+
     @FXML
     private ComboBox<EconomicoDTO> economico;
-    
+
     @FXML
     private TextField noNominaRegistro;
-    
+
     @FXML
     private ComboBox<CatTipoEmpleadoDTO> tipoEmpleado;
-    
+
     @FXML
     private PasswordField password;
-    
+
     @FXML
     private Label passwordLabel;
-    
+
     @FXML
     private Label economicoLabel;
 
-    private Stage dialogStage;
-    private EmpleadoDTO empleadoDTO;
-    private CatTipoEmpleadoDTO catTipoEmpleadoDTO;
     private ICatalogoBusiness bussinesServiceImpl = Login.appContext.getBean(CatalogoBusinessImpl.class);
     private IEmpleadoBusiness empleadoBussinesServiceImpl = Login.appContext.getBean(EmpleadoBusinessImpl.class);
+    private EmpleadoDTO empleadoDTO;
+    private CatTipoEmpleadoDTO catTipoEmpleadoDTO;
+    private Stage dialogStage;
     private String mensaje = "";
-    private AdministrarEmpleadosController controller;
+
+    public AgregarEditarEmpleadoController(){
+    	noNomina = new TextField();
+    	noNomina.requestFocus();
+    	nombre = new TextField();
+    	apellidoPaterno = new TextField();
+    	apellidoMaterno = new TextField();
+    	economico = new ComboBox<>();
+    	noNominaRegistro = new TextField();
+    	tipoEmpleado = new ComboBox<>();
+    	password = new PasswordField();
+    	passwordLabel = new Label();
+    	economicoLabel = new Label();
+
+    }
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -73,7 +86,6 @@ public class AgregarEditarEmpleadoController {
      */
     @FXML
     private void initialize() {
-    	controller = new AdministrarEmpleadosController();
     	inciciarComponentes();
     	llenarComboEconomico();
     	llenarComboCatTipoEmpleado();
@@ -82,29 +94,26 @@ public class AgregarEditarEmpleadoController {
     @FXML
     private void guardarEmpleado() {
     	if	(validarFormulario())	{
-    		convertirCamposViewToDTO();
     		try {
     			empleadoBussinesServiceImpl.guardarEmpleado(empleadoDTO);
-    			empleadoDTO = new EmpleadoDTO(null, null, null, null);
-    	        controller.busquedaEmpleadosView(empleadoDTO);
     	        dialogStage.close();
     	        Alerta.crearAlertaUsuario("Guardando", Constantes.MENSAJE_EXITOSO, AlertType.CONFIRMATION);
-    			
+
     		} catch (Exception e) {
     			log.error("Error al momento de guardar un empleado" ,e);
     			Alerta.crearAlertaUsuario("Error", e.getMessage(), AlertType.ERROR);
     		}
     	}	else	{
-    		Alerta.crearAlertaUsuario("Validando", mensaje, AlertType.CONFIRMATION);
+    		Alerta.crearAlertaUsuario("Validando", mensaje, AlertType.WARNING);
     	}
-        
+
     }
-    
+
     @FXML
     private void handleCancel() {
         dialogStage.close();
     }
-    
+
     @FXML
     private void eventoTipoEmpleado() {
     	catTipoEmpleadoDTO = tipoEmpleado.getSelectionModel().getSelectedItem();
@@ -115,7 +124,7 @@ public class AgregarEditarEmpleadoController {
     		passwordLabel.setVisible(false);
     		password.setVisible(false);
     	}
-    	
+
     	if(catTipoEmpleadoDTO.getDescripcion().equals(Constantes.ADMINISTRADOR)) {
     		economico.setVisible(false);
     		economicoLabel.setVisible(false);
@@ -123,54 +132,59 @@ public class AgregarEditarEmpleadoController {
     		economico.setVisible(true);
     		economicoLabel.setVisible(true);
     	}
-    	
+
     }
-    
+
     private boolean validarFormulario() {
+    	if	(!noNomina.getText().matches("[0-9]*"))	{
+    		mensaje = "El Campo No. Nomina debe de ser numerico, favor de validar ";
+    		return false;
+    	}
+
         if	(noNomina.getText() == Constantes.NULL || noNomina.getText().length() == Constantes.CERO) {
         	mensaje = "El Campo No. Nomina no puede ir vacio ";
         	return false;
         }
-        
+
         if	(nombre.getText() == Constantes.NULL || nombre.getText().length() == Constantes.CERO) {
         	mensaje =  "El Campo Nombre(s) no puede ir vacio ";
         	return false;
         }
-        
+
         if	(apellidoPaterno.getText() == Constantes.NULL || apellidoPaterno.getText().length() == Constantes.CERO) {
         	mensaje =  "El Campo Apellido Paterno no puede ir vacio ";
         	return false;
         }
-        
+
         if	(apellidoMaterno.getText() == Constantes.NULL || apellidoMaterno.getText().length() == Constantes.CERO) {
         	mensaje =  "El Campo Apellido Materno no puede ir vacio ";
         	return false;
         }
-        
+
         if	(tipoEmpleado.getSelectionModel().getSelectedItem() == Constantes.NULL) {
         	mensaje =  "Favor de seleccionar un Tipo de Empleado ";
         	return false;
         }
-        
+
         if	(noNominaRegistro.getText() == Constantes.NULL || noNominaRegistro.getText().length() == Constantes.CERO) {
         	mensaje =  "El Campo No. Nomina Registro no puede ir vacio ";
         	return false;
         }
-        
+
         if	(!economico.isDisabled() && !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ADMINISTRADOR) &&(economico.getSelectionModel().getSelectedItem() == Constantes.NULL)) {
         	mensaje =  "Favor de seleccionar un Economico ";
         	return false;
         }
-        
+
         if	(!password.isDisabled() && (password.getText() == Constantes.NULL || password.getText().length() == Constantes.CERO)) {
         	mensaje =  "Favor de capturar su contraseña ";
         	return false;
         }
-        
+        this.convertirCamposViewToDTO();
         return true;
     }
-    
-    private void convertirCamposViewToDTO() {
+
+    public EmpleadoDTO convertirCamposViewToDTO() {
     	empleadoDTO = new EmpleadoDTO();
     	empleadoDTO.setNominaEmpleado(Integer.parseInt(noNomina.getText().toString()));
     	empleadoDTO.setNombreEmpleado(nombre.getText());
@@ -180,12 +194,14 @@ public class AgregarEditarEmpleadoController {
     		empleadoDTO.setEconomicoId(economico.getSelectionModel().getSelectedItem().getEconomicoId());
     	}
     	empleadoDTO.setTipoEmpleadoId(catTipoEmpleadoDTO.getTipoEmpleadoId());
+    	empleadoDTO.setDescripcionTipoEmpleado(catTipoEmpleadoDTO.getDescripcion());
     	empleadoDTO.setFechaRegistro(new Date());
     	empleadoDTO.setNominaRegistro(Integer.parseInt(noNominaRegistro.getText().toString()));
     	if(password.getText() != Constantes.NULL && !password.getText().isEmpty()) {
     		empleadoDTO.setPassword(password.getText());
     	}
-    	
+    	return empleadoDTO;
+
     }
 
     private void llenarComboCatTipoEmpleado() {
@@ -206,7 +222,7 @@ public class AgregarEditarEmpleadoController {
             }
     	});
     }
-    
+
     private void llenarComboEconomico() {
     	economico.setItems(FXCollections.observableArrayList(bussinesServiceImpl.findAllEconomicos()));
     	economico.setConverter(new StringConverter<EconomicoDTO>() {
@@ -225,12 +241,12 @@ public class AgregarEditarEmpleadoController {
             }
     	});
     }
-    
+
     private void inciciarComponentes() {
     	passwordLabel.setVisible(false);
     	password.setVisible(false);
     }
-    
+
     public void setearEdicionEmpleado(EmpleadoDTO empleado) {
     	noNomina.setDisable(true);
     	noNomina.setText(empleado.getNominaEmpleado().toString());
@@ -251,5 +267,5 @@ public class AgregarEditarEmpleadoController {
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
-    
+
 }

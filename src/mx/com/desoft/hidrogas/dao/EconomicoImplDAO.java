@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.hibernate.HibernateImplDAO;
 import mx.com.desoft.hidrogas.model.Economico;
-import mx.com.desoft.hidrogas.model.Empleado;
 import mx.com.desoft.hidrogas.model.HibernateUtil;
 import mx.com.desoft.hidrogas.util.Constantes;
 
@@ -18,20 +17,16 @@ public class EconomicoImplDAO extends HibernateImplDAO<Economico, Integer> imple
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Empleado> getEconomicosByView(EconomicoDTO economicoDTO) {
-		Criteria criteria = HibernateUtil.openSession().createCriteria(Empleado.class);
+	public List<Economico> getEconomicosByView(EconomicoDTO economicoDTO) {
+		Criteria criteria = HibernateUtil.openSession().createCriteria(Economico.class);
 		if(economicoDTO.getEconomicoId() != Constantes.NULL) {
-			criteria.createAlias("economico", "economico");
-			criteria.add(Restrictions.eq("economico.economicoId", economicoDTO.getEconomicoId()));
+			criteria.add(Restrictions.eq("economicoId", economicoDTO.getEconomicoId()));
 		}
-		
-		if(economicoDTO.getNombreChofer() != Constantes.NULL && !economicoDTO.getNombreChofer().isEmpty()) {
-			criteria.add(Restrictions.like("nombreEmpleado", economicoDTO.getNombreChofer()));
+
+		if(economicoDTO.getFechaRegistro() != Constantes.NULL) {
+			criteria.add(Restrictions.eq("fechaRegistro", economicoDTO.getFechaRegistro()));
 		}
-		
-		criteria.createAlias("catTipoEmpleado", "catTipoEmpleado");
-		criteria.add(Restrictions.eq("catTipoEmpleado.descripcion", Constantes.CHOFER));
-		return (List<Empleado>)criteria.list();
+		return (List<Economico>)criteria.list();
 	}
 
 }

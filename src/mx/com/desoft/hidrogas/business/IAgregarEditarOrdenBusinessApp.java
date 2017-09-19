@@ -1,4 +1,4 @@
-package mx.com.desoft.hidrogas.bussines;
+package mx.com.desoft.hidrogas.business;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 //import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 
-public interface AgregarEditarOrdenBusinessApp {
+public interface IAgregarEditarOrdenBusinessApp {
 
 	void AgregarOrden();
 

@@ -2,81 +2,78 @@ package mx.com.desoft.hidrogas.view;
 
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import mx.com.desoft.hidrogas.Login;
-import mx.com.desoft.hidrogas.bussines.IEconomicoBusiness;
-import mx.com.desoft.hidrogas.bussines.EconomicoBusinessImpl;
+import mx.com.desoft.hidrogas.business.EconomicoBusinessImpl;
+import mx.com.desoft.hidrogas.business.IEconomicoBusiness;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AgregarEditarEconomicoController {
-	
+
+	private static final Logger log = Logger.getLogger(AgregarEditarEconomicoController.class);
+
 	@FXML
 	private TextField economicoField;
-	    
+
 	@FXML
 	private TextField noNominaRegistroField;
-	
-	
-	
+
+	private IEconomicoBusiness economicoBussinesServiceImpl = Login.appContext.getBean(EconomicoBusinessImpl.class);
 	private EconomicoDTO economicoDTO;
 	private Stage dialogStage;
-	private IEconomicoBusiness economicoBussinesServiceImpl = Login.appContext.getBean(EconomicoBusinessImpl.class);
-	
-	
+	private String mensaje = "";
+
 	public AgregarEditarEconomicoController() {
-		
+
 	}
-	
+
 	@FXML
     private void initialize() {
-		 
+
     }
-	
-	
+
 	@FXML
     private void guardarEconomico() {
     	if	(validarFormulario())	{
-    		convertirCamposViewToDTO();
     		try {
     			economicoBussinesServiceImpl.guardarEconomico(economicoDTO);
+    			dialogStage.close();
+    			Alerta.crearAlertaUsuario("Guardando", Constantes.MENSAJE_EXITOSO, AlertType.CONFIRMATION);
     		} catch (Exception e) {
-    			Alerta.crearAlertaUsuario("Error", e.getMessage(), AlertType.WARNING);
+    			log.error("Ocurrio un error al guardar un economico", e);
+    			Alerta.crearAlertaUsuario("Error", e.getMessage(), AlertType.ERROR);
     		}
-    		Alerta.crearAlertaUsuario("Guardando Empleado", "El registro se guardo exitosamente!", AlertType.CONFIRMATION);
-        	dialogStage.close();
+    	}	else	{
+    		Alerta.crearAlertaUsuario("Validando Formulario", mensaje, AlertType.WARNING);
     	}
-        
+
     }
-	 
+
 	@FXML
     private void handleCancel() {
         dialogStage.close();
     }
-	
-	
-	
+
 	private boolean validarFormulario() {
-        String errorMessage = "";
         if	(economicoField.getText() == Constantes.NULL || economicoField.getText().length() == Constantes.CERO) {
-        	errorMessage += "El campo Economico no puede ir vacio";
+        	mensaje = "El campo Economico no puede ir vacio";
+        	return false;
         }
         if	(noNominaRegistroField.getText() == Constantes.NULL || noNominaRegistroField.getText().length() == Constantes.CERO) {
-        	errorMessage += "El campo No. Nomina Registro no puede ir vacio ";
+        	mensaje =  "El campo No. Nomina Registro no puede ir vacio ";
+        	return false;
         }
-
-        if (errorMessage.length() == Constantes.CERO) {
-            return true;
-        } else {
-        	Alerta.crearAlertaUsuario("Validando Formulario", errorMessage, AlertType.WARNING);
-            return false;
-        }
+        this.convertirCamposViewToDTO();
+        return true;
     }
-	
+
 	 private void convertirCamposViewToDTO() {
 		 economicoDTO = new EconomicoDTO();
 		 economicoDTO.setEconomicoId(economicoField.getText() != Constantes.NULL ? Integer.parseInt(economicoField.getText()) : null);

@@ -31,20 +31,20 @@
             <Label text="Apellido Materno" GridPane.rowIndex="4" />
             <Label fx:id="economicoLabel" text="Económico" GridPane.rowIndex="7" />
             <Label text="No. Nomina Registro" GridPane.rowIndex="6" />
-            <TextField fx:id="nombre" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="apellidoPaterno" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="apellidoMaterno" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Tipo empledado" GridPane.rowIndex="5" />
-            <TextField fx:id="noNominaRegistro" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ComboBox fx:id="tipoEmpleado" onAction="#eventoTipoEmpleado" prefWidth="150.0" promptText="Seleccione..." GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ComboBox fx:id="economico" prefWidth="150.0" promptText="Seleccione..." GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label text="No. Nomina" GridPane.rowIndex="1" />
-            <TextField fx:id="noNomina" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="passwordLabel" prefHeight="17.0" prefWidth="175.0" text="Contraseña" GridPane.rowIndex="8">
                <padding>
                   <Insets right="110.0" />
                </padding>
             </Label>
+            <TextField fx:id="noNomina" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="nombre" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="apellidoPaterno" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="apellidoMaterno" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="tipoEmpleado" prefWidth="150.0" promptText="Seleccione..." GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="noNominaRegistro" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="economico" prefWidth="150.0" promptText="Seleccione..." GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
       </GridPane>

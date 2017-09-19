@@ -20,11 +20,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
-import mx.com.desoft.hidrogas.bussines.AdministrarOrdenBusinessImpl;
-import mx.com.desoft.hidrogas.bussines.AgregarEditarOrdenBusinessApp;
-import mx.com.desoft.hidrogas.bussines.AgregarEditarOrdenBusinessImpl;
-import mx.com.desoft.hidrogas.bussines.IAdministrarOrdenBusiness;
-import mx.com.desoft.hidrogas.bussines.IAgregarEditarOrdenBusinessApp;
+import mx.com.desoft.hidrogas.business.AdministrarOrdenBusinessImpl;
+import mx.com.desoft.hidrogas.business.AgregarEditarOrdenBusinessApp;
+import mx.com.desoft.hidrogas.business.AgregarEditarOrdenBusinessImpl;
+import mx.com.desoft.hidrogas.business.IAdministrarOrdenBusiness;
+import mx.com.desoft.hidrogas.business.IAgregarEditarOrdenBusinessApp;
 import mx.com.desoft.hidrogas.dto.CatEstatusOrdenDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
@@ -123,7 +123,7 @@ public class AdministrarOrdenTrabajoController {
 		if(tipoNecesidadOrdenBusqueda.getSelectionModel().getSelectedItem() == Constantes.NULL) {
 			ordenTO.setTipoNecesidadId(null);
 		} else {
-			ordenTO.setTipoNecesidadId(tipoNecesidadOrdenBusqueda.getSelectionModel().getSelectedItem().getId());
+			ordenTO.setTipoNecesidadId(tipoNecesidadOrdenBusqueda.getSelectionModel().getSelectedItem().getTipoNecesidadId());
 		}
 		if(empleadoOrdenBusqueda.getText() == Constantes.NULL || empleadoOrdenBusqueda.getText().length() == Constantes.CERO) {
 			ordenTO.setNominaRegistro(0);

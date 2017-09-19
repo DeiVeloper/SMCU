@@ -1,4 +1,4 @@
-package mx.com.desoft.hidrogas.bussines;
+package mx.com.desoft.hidrogas.business;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +21,16 @@ import mx.com.desoft.hidrogas.model.Economico;
 
 @Service
 public class CatalogoBusinessImpl implements ICatalogoBusiness {
-	
+
 	@Autowired
 	private CatTipoEmpleadoDAO catTipoEmpleadoImplDAO;
-	
+
 	@Autowired
 	private EconomicoDAO economicoImplDAO;
-	
+
 	@Autowired
 	private CatTipoNecesidadDAO catTipoNecesidadImplDAO;
-	
+
 	@Autowired
 	private CatTipoRefaccionesDAO catTipoRefaccionesImplDAO;
 
@@ -47,7 +47,7 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 		}
 		return listCatTipoEmpleado;
 	}
-	
+
 	@Override
 	public List<EconomicoDTO> findAllEconomicos() {
 		List<EconomicoDTO> listaEconomico = new ArrayList<>();
@@ -64,7 +64,7 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 		List<CatTipoNecesidadDTO> listaTipoNecesidad = new ArrayList<>();
 		for(CatTipoNecesidad lista : catTipoNecesidadImplDAO.findAll()) {
 			CatTipoNecesidadDTO dto = new CatTipoNecesidadDTO();
-			dto.setId(lista.getTipoNecesidadId());
+			dto.setTipoNecesidadId(lista.getTipoNecesidadId());
 			dto.setDescripcion(lista.getDescripcion());
 			listaTipoNecesidad.add(dto);
 		}
@@ -88,5 +88,5 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 		CatTipoEmpleado tipoEmpleado = catTipoEmpleadoImplDAO.get(tipoEmpleadoId);
 		return new CatTipoEmpleadoDTO(tipoEmpleado.getTipoEmpleadoId(), tipoEmpleado.getDescripcion());
 	}
-	
+
 }

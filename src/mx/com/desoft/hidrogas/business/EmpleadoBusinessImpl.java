@@ -1,4 +1,4 @@
-package mx.com.desoft.hidrogas.bussines;
+package mx.com.desoft.hidrogas.business;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import mx.com.desoft.hidrogas.dao.CatTipoEmpleadoDAO;
 import mx.com.desoft.hidrogas.dao.EconomicoDAO;
 import mx.com.desoft.hidrogas.dao.EmpleadosDAO;
@@ -24,19 +21,19 @@ import mx.com.desoft.hidrogas.util.Constantes;
 public class EmpleadoBusinessImpl implements IEmpleadoBusiness {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private EmpleadosDAO empleadosImplDAO;
-	
+
 	@Autowired
 	private EconomicoDAO economicoImplDAO;
-	
+
 	@Autowired
 	private CatTipoEmpleadoDAO catTipoEmpleadoImplDAO;
-	
+
 	@Override
 	public void guardarEmpleado(EmpleadoDTO empleadoDTO) {
 		empleadosImplDAO.saveOrUpdate(this.convertirDTOToEntidad(empleadoDTO));
@@ -46,8 +43,6 @@ public class EmpleadoBusinessImpl implements IEmpleadoBusiness {
 	@Override
 	public List<EmpleadoProperty> buscarEmpleadoByVista(EmpleadoDTO empleadoDTO) {
 		List<EmpleadoProperty> listaDTO = new ArrayList<>();
-		Image imageEditar = new Image("file:resources/images/edit.png");
-		Image imageEliminar = new Image("file:resources/images/delete.png");
 		List<Empleado> empleado = empleadosImplDAO.getEmpleadoByVista(empleadoDTO);
 		for (Empleado lista : empleado) {
 			EmpleadoProperty dto = new EmpleadoProperty(new SimpleStringProperty(String.valueOf(lista.getNominaEmpleado())),
@@ -59,10 +54,7 @@ public class EmpleadoBusinessImpl implements IEmpleadoBusiness {
 					new SimpleStringProperty(lista.getFechaRegistro().toString()),
 					new SimpleStringProperty(String.valueOf(lista.getNominaRegistro())),
 					new SimpleStringProperty(String.valueOf(lista.getCatTipoEmpleado().getTipoEmpleadoId())),
-					new SimpleStringProperty(lista.getCatTipoEmpleado().getDescripcion()),
-					new Button("", new ImageView(imageEditar)),
-					new Button("", new ImageView(imageEliminar))
-					);
+					new SimpleStringProperty(lista.getCatTipoEmpleado().getDescripcion()));
 			listaDTO.add(dto);
 		}
 		return listaDTO;
@@ -71,8 +63,8 @@ public class EmpleadoBusinessImpl implements IEmpleadoBusiness {
 	private Empleado convertirDTOToEntidad(EmpleadoDTO empleadoDTO) {
 		final CatTipoEmpleado catTipoEmpleado = catTipoEmpleadoImplDAO.get(empleadoDTO.getTipoEmpleadoId());
 		final Economico economico = empleadoDTO.getEconomicoId() != Constantes.NULL ? economicoImplDAO.get(empleadoDTO.getEconomicoId()) : null;
-		final Empleado empleado = new Empleado(empleadoDTO.getNominaEmpleado(), empleadoDTO.getNombreEmpleado(), empleadoDTO.getApellidoPatEmpleado(), 
-				empleadoDTO.getApellidoMatEmpleado(), empleadoDTO.getPassword(),economico, catTipoEmpleado, 
+		final Empleado empleado = new Empleado(empleadoDTO.getNominaEmpleado(), empleadoDTO.getNombreEmpleado(), empleadoDTO.getApellidoPatEmpleado(),
+				empleadoDTO.getApellidoMatEmpleado(), empleadoDTO.getPassword(),economico, catTipoEmpleado,
 				empleadoDTO.getFechaRegistro(), empleadoDTO.getNominaRegistro());
 		return empleado;
 	}

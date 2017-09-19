@@ -2,24 +2,27 @@ package mx.com.desoft.hidrogas.dto;
 
 public class CatTipoNecesidadDTO {
 
-	private Long id;
+	private Long tipoNecesidadId;
     private String descripcion;
 
     public CatTipoNecesidadDTO() {
-		super();
 	}
 
-	public CatTipoNecesidadDTO(Long id, String descripcion) {
-        this.id = id;
+	public CatTipoNecesidadDTO(Long tipoNecesidadId, String descripcion) {
+        this.tipoNecesidadId = tipoNecesidadId;
         this.descripcion = descripcion;
     }
 
-	public Long getId() {
-		return id;
+	public CatTipoNecesidadDTO(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+	public Long getTipoNecesidadId() {
+		return tipoNecesidadId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setTipoNecesidadId(Long tipoNecesidadId) {
+		this.tipoNecesidadId = tipoNecesidadId;
 	}
 
 	public String getDescripcion() {
@@ -29,5 +32,6 @@ public class CatTipoNecesidadDTO {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 
 }

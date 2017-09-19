@@ -1,4 +1,4 @@
-package mx.com.desoft.hidrogas.bussines;
+package mx.com.desoft.hidrogas.business;
 
 import java.io.Serializable;
 import java.util.List;
