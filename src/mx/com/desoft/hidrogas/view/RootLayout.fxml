@@ -37,9 +37,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Reportes">
             <items>
-              <MenuItem mnemonicParsing="false" text="Orden de Servicio" />
-                  <MenuItem mnemonicParsing="false" text="Refacciones" />
-                  <MenuItem mnemonicParsing="false" text="Programación de Reparación" />
+              <MenuItem mnemonicParsing="false" onAction="#showReportesView" text="Imprimir Reportes" />
             </items>
           </Menu>
         </menus>

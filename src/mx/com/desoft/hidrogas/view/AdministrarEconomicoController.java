@@ -93,7 +93,12 @@ public class AdministrarEconomicoController {
     private void buscarEconomicos() {
 		convertirCamposToDTO();
     	List<EconomicoProperty> dto = economicoBusinessImpl.getEconomicoByView(economicoDTO);
-    	economicoColumn.setCellValueFactory(cellData -> cellData.getValue().getEconomicoId());
+    	this.llenarTabla(dto);
+    	
+    }
+	
+	private void llenarTabla(List<EconomicoProperty> dto){
+		economicoColumn.setCellValueFactory(cellData -> cellData.getValue().getEconomicoId());
     	fechaRegistroColumn.setCellValueFactory(cellData -> cellData.getValue().getFechaRegistro());
     	fechaRegistroColumn.setStyle("-fx-alignment: CENTER;");
     	eliminarColumn.setStyle("-fx-alignment: CENTER;");
@@ -111,8 +116,7 @@ public class AdministrarEconomicoController {
     	data.clear();
     	data.addAll(dto);
     	tablaEconomicos.setItems(data);
-    	contadorLista.setText(dto.size() + "");
-    }
+	}
 
 	private void llenarComboEconomico() {
 		economicoComboBox.setItems(FXCollections.observableArrayList(catalogoBusinessImpl.findAllEconomicos()));
@@ -168,11 +172,11 @@ public class AdministrarEconomicoController {
     }
 
     public boolean eliminarEconomico(Integer id) {
-    	String context ="¿Esta seguro de eliminar el registro?";
+    	String context ="ï¿½Esta seguro de eliminar el registro?";
 		ButtonType aceptar = new ButtonType("Aceptar");
 		ButtonType cancelar = new ButtonType("Cancelar");
 		Alert alert = new Alert(AlertType.CONFIRMATION,context, aceptar, cancelar);
-    	alert.setTitle("Confirmación");
+    	alert.setTitle("Confirmaciï¿½n");
     	alert.setHeaderText(null);
     	Optional<ButtonType> result = alert.showAndWait();
     	 if (result.isPresent() && result.get().getText() == "Aceptar") {

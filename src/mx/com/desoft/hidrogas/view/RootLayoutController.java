@@ -82,6 +82,20 @@ public class RootLayoutController {
             e.printStackTrace();
         }
     }
+    
+    @FXML
+    private void showReportesView() {
+    	try {
+    		FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AdminReportes.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+            personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+            mainApp.getRootLayout().setCenter(personOverview);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Abre pantalla de orden de trabajo

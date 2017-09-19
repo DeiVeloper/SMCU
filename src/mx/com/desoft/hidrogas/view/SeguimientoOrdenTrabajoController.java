@@ -22,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import mx.com.desoft.hidrogas.MainApp;
+import mx.com.desoft.hidrogas.buttons.ButtonCell;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
 import mx.com.desoft.hidrogas.property.SeguimientoOrdenPartesProperty;
@@ -174,33 +175,33 @@ public class SeguimientoOrdenTrabajoController {
 			case 1:
 				if(cantidadPU.getText().matches("[0-9]*")) {
 					if(cantidadPU.getText() == Constantes.NULL || cantidadPU.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Cantidad no puede ir vacío.";
+						errorMessage = "El campo Cantidad no puede ir vacï¿½o.";
 					} else if(noPU.getText() == Constantes.NULL || noPU.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo No de parte no puede ir vacío.";
+						errorMessage = "El campo No de parte no puede ir vacï¿½o.";
 					} else if(marcaPU.getText() == Constantes.NULL || marcaPU.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Marca no puede ir vacío.";
+						errorMessage = "El campo Marca no puede ir vacï¿½o.";
 					} else if(descripcionPU.getText() == Constantes.NULL || descripcionPU.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Descripción no puede ir vacío.";
+						errorMessage = "El campo Descripciï¿½n no puede ir vacï¿½o.";
 					} else {
 						esCorrecto = true;
 					}
 				} else {
-					errorMessage = "El campo Cantidad debe ser numérico.";
+					errorMessage = "El campo Cantidad debe ser numï¿½rico.";
 				}
 				break;
 			case 2:
 				if(cantidadPS.getText().matches("[0-9]*")) {
 					if(cantidadPS.getText() == Constantes.NULL || cantidadPS.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Cantidad no puede ir vacío.";
+						errorMessage = "El campo Cantidad no puede ir vacï¿½o.";
 					} else if(marcaPS.getText() == Constantes.NULL || marcaPS.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Marca no puede ir vacío.";
+						errorMessage = "El campo Marca no puede ir vacï¿½o.";
 					} else if(descripcionPS.getText() == Constantes.NULL || descripcionPS.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Descripción no puede ir vacío.";
+						errorMessage = "El campo Descripciï¿½n no puede ir vacï¿½o.";
 					} else {
 						esCorrecto = true;
 					}
 				} else {
-					errorMessage = "El campo Cantidad debe ser numérico.";
+					errorMessage = "El campo Cantidad debe ser numï¿½rico.";
 				}
 				break;
 			default:
@@ -226,9 +227,9 @@ public class SeguimientoOrdenTrabajoController {
 		String errorMessage = "";
 		boolean esCorrecto = false;
 		if(trabajosRealizados.getText() == Constantes.NULL || trabajosRealizados.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Trabajos Realizados no puede ir vacío.";
+			errorMessage = "El campo Trabajos Realizados no puede ir vacï¿½o.";
 		} else if(observaciones.getText() == Constantes.NULL || observaciones.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Observaciones no puede ir vacío.";
+			errorMessage = "El campo Observaciones no puede ir vacï¿½o.";
 		} else if(errorMessage.length() == Constantes.CERO) {
 			esCorrecto = true;
 		} else {

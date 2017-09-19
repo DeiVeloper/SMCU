@@ -3,7 +3,7 @@
 	<hibernate-configuration>
 		<session-factory>
 			<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-	 		<property name="connection.url">jdbc:mysql://localhost/SMCU</property>
+	 		<property name="connection.url">jdbc:mysql://localhost/SMCU?useSSL=false</property>
 	      	<property name="connection.username">USR_SMCU</property>
 	 		<property name="connection.password">Deiveloper13#</property>
 	 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
