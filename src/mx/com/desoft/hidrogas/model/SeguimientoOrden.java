@@ -16,33 +16,34 @@ import java.util.List;
 public class SeguimientoOrden implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int folio;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_registro")
-	private Date fechaRegistro;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_repara_mayor")
-	private Date fechaReparaMayor;
-
-	@Column(name="nomina_registro")
-	private int nominaRegistro;
-
-	private String observaciones;
-
-	@Column(name="reparacion_mayor")
-	private int reparacionMayor;
-
-	@Column(name="trabajos_realizados")
-	private String trabajosRealizados;
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	private int folio;
 
 	//bi-directional one-to-one association to OrdenTrabajo
 	@OneToOne
 	@JoinColumn(name="folio")
 	private OrdenTrabajo ordenTrabajo;
+
+	@Column(name="trabajos_realizados")
+	private String trabajosRealizados;
+
+	@Column(name="observaciones")
+	private String observaciones;
+
+	@Column(name="reparacion_mayor")
+	private int reparacionMayor;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_repara_mayor")
+	private Date fechaReparaMayor;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_registro")
+	private Date fechaRegistro;
+
+	@Column(name="nomina_registro")
+	private int nominaRegistro;
 
 	//bi-directional many-to-one association to SeguimientosEmpleado
 //	@OneToMany(mappedBy="seguimientoOrden")
@@ -51,13 +52,25 @@ public class SeguimientoOrden implements Serializable {
 	public SeguimientoOrden() {
 	}
 
-	public int getFolio() {
-		return this.folio;
+	public SeguimientoOrden(OrdenTrabajo ordenTrabajo, String trabajosRealizados, String observaciones,
+			int reparacionMayor, Date fechaReparaMayor, Date fechaRegistro, int nominaRegistro) {
+		super();
+		this.ordenTrabajo = ordenTrabajo;
+		this.trabajosRealizados = trabajosRealizados;
+		this.observaciones = observaciones;
+		this.reparacionMayor = reparacionMayor;
+		this.fechaReparaMayor = fechaReparaMayor;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = nominaRegistro;
 	}
 
-	public void setFolio(int folio) {
-		this.folio = folio;
-	}
+//	public int getFolio() {
+//		return this.folio;
+//	}
+//
+//	public void setFolio(int folio) {
+//		this.folio = folio;
+//	}
 
 	public Date getFechaRegistro() {
 		return this.fechaRegistro;

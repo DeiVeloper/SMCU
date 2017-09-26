@@ -19,31 +19,34 @@ public class ListaRefacciones implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int folio;
 
+	//bi-directional one-to-one association to OrdenTrabajo
+	@OneToOne
+	@JoinColumn(name="folio")
+	private OrdenTrabajo ordenTrabajo;
+
+	@Column(name="cantidad")
 	private int cantidad;
-
-	private String descripcion;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_registro")
-	private Date fechaRegistro;
-
-	private String marca;
 
 	@Column(name="no_parte")
 	private String noParte;
 
-	@Column(name="nomina_registro")
-	private int nominaRegistro;
+	@Column(name="marca")
+	private String marca;
+
+	@Column(name="descripcion")
+	private String descripcion;
 
 	//bi-directional many-to-one association to CatTipoListaRefaccion
 	@ManyToOne
 	@JoinColumn(name="tipo_refaccion_id")
 	private CatTipoListaRefaccion catTipoListaRefaccion;
 
-	//bi-directional one-to-one association to OrdenTrabajo
-	@OneToOne
-	@JoinColumn(name="folio")
-	private OrdenTrabajo ordenTrabajo;
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_registro")
+	private Date fechaRegistro;
+
+	@Column(name="nomina_registro")
+	private int nominaRegistro;
 
 	public ListaRefacciones() {
 	}
@@ -54,6 +57,31 @@ public class ListaRefacciones implements Serializable {
 
 	public void setFolio(int folio) {
 		this.folio = folio;
+	}
+
+	public ListaRefacciones(OrdenTrabajo ordenTrabajo, int cantidad, String noParte, String marca, String descripcion,
+			CatTipoListaRefaccion catTipoListaRefaccion, Date fechaRegistro, int nominaRegistro) {
+		super();
+		this.ordenTrabajo = ordenTrabajo;
+		this.cantidad = cantidad;
+		this.noParte = noParte;
+		this.marca = marca;
+		this.descripcion = descripcion;
+		this.catTipoListaRefaccion = catTipoListaRefaccion;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = nominaRegistro;
+	}
+
+	public ListaRefacciones(OrdenTrabajo ordenTrabajo, int cantidad, String marca, String descripcion,
+			CatTipoListaRefaccion catTipoListaRefaccion, Date fechaRegistro, int nominaRegistro) {
+		super();
+		this.ordenTrabajo = ordenTrabajo;
+		this.cantidad = cantidad;
+		this.marca = marca;
+		this.descripcion = descripcion;
+		this.catTipoListaRefaccion = catTipoListaRefaccion;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = nominaRegistro;
 	}
 
 	public int getCantidad() {
