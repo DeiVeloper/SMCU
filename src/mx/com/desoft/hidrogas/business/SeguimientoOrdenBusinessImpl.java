@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.com.desoft.hidrogas.bussines.ISeguimientoOrdenBusiness;
+import mx.com.desoft.hidrogas.business.ISeguimientoOrdenBusiness;
 import mx.com.desoft.hidrogas.dao.CatTipoRefaccionesDAO;
 import mx.com.desoft.hidrogas.dao.IListaRefaccionesDAO;
 import mx.com.desoft.hidrogas.dao.IOrdenTrabajoDAO;
