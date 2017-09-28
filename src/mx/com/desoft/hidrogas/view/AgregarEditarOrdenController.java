@@ -159,7 +159,7 @@ public class AgregarEditarOrdenController {
 		ordenTrabajoTO.setNombreOperador(nombreOperador.getText());
 		ordenTrabajoTO.setApellidoPatOperador(apellidoPaterno.getText());
 		ordenTrabajoTO.setApellidoMatOperador(apellidoMaterno.getText());
-		ordenTrabajoTO.setTipoNecesidadId(tipoNecesidadOrden.getSelectionModel().getSelectedItem().getId());
+		ordenTrabajoTO.setTipoNecesidadId(tipoNecesidadOrden.getSelectionModel().getSelectedItem().getTipoNecesidadId());
 		ordenTrabajoTO.setKilometraje(Integer.parseInt(kilometrajeHoras.getText()));
 		ordenTrabajoTO.setFallaMecanica(fallaMecanica.getText());
 		ordenTrabajoTO.setFechaRegistro(new Date());
@@ -211,7 +211,7 @@ public class AgregarEditarOrdenController {
 		nombreOperador.setText("");
 		apellidoPaterno.setText("");
 		apellidoMaterno.setText("");
-		tipoNecesidadOrden.getSelectionModel().getSelectedItem().setId(null);
+		tipoNecesidadOrden.getSelectionModel().getSelectedItem().setTipoNecesidadId(null);
 		kilometrajeHoras.setText("");
 		fallaMecanica.setText("");
 	}
