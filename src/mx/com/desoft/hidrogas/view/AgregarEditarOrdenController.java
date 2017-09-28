@@ -2,6 +2,8 @@ package mx.com.desoft.hidrogas.view;
 
 import java.util.Date;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -13,26 +15,24 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
-import mx.com.desoft.hidrogas.business.AgregarEditarOrdenBusinessImpl;
-import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
 import mx.com.desoft.hidrogas.business.IAgregarEditarOrdenBusinessApp;
+import mx.com.desoft.hidrogas.business.AgregarEditarOrdenBusinessImpl;
 import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
+import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
+import mx.com.desoft.hidrogas.model.Empleado;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AgregarEditarOrdenController {
 
 	public static Stage stageOrden;
-
 	private IAgregarEditarOrdenBusinessApp agregarEditarOrdenBusinessApp = Login.appContext.getBean(AgregarEditarOrdenBusinessImpl.class);
-
 	private OrdenTrabajoDTO ordenTrabajoTO;
-
 	private MainApp mainApp;
-
 	private ICatalogoBusiness bussinesServiceImpl = Login.appContext.getBean(CatalogoBusinessImpl.class);
+
 
 	@FXML
 	private ComboBox<EconomicoDTO> economico;
@@ -63,6 +63,27 @@ public class AgregarEditarOrdenController {
 		ordenTrabajoTO = new OrdenTrabajoDTO();
 		this.llenarComboNecesidad();
 		this.llenarComboEconomico();
+		nominaOperador.focusedProperty().addListener(new ChangeListener<Boolean>(){
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue){
+		        if (oldPropertyValue && nominaOperador.getText() != Constantes.NULL && nominaOperador.getText().length() != Constantes.CERO && nominaOperador.getText().matches("[0-9]*")){
+			    	Empleado empleado = agregarEditarOrdenBusinessApp.getEmpleadoByNomina(Integer.parseInt(nominaOperador.getText()));
+			    	if(empleado == Constantes.NULL) {
+			    		nombreOperador.setText(null);
+			    		apellidoPaterno.setText(null);
+			    		apellidoMaterno.setText(null);
+			    	} else {
+			    		nombreOperador.setText(empleado.getNombreEmpleado());
+			    		apellidoPaterno.setText(empleado.getApellidoPatEmpleado());
+			    		apellidoMaterno.setText(empleado.getApellidoMatEmpleado());
+			    	}
+		        } else {
+		        	nombreOperador.setText(null);
+		    		apellidoPaterno.setText(null);
+		    		apellidoMaterno.setText(null);
+		        }
+		    }
+		});
 	}
 
 	public void guardarOrden() {
@@ -74,7 +95,7 @@ public class AgregarEditarOrdenController {
 				Alert alert = new Alert(AlertType.WARNING);
 	        	alert.setTitle("Guardando Orden de Trabajo");
 	        	alert.setHeaderText(null);
-	        	alert.setContentText("ï¿½El registro se guardï¿½ exitosamente!");
+	        	alert.setContentText("¡El registro se guardó exitosamente!");
 	        	alert.showAndWait();
 			} catch (Exception e) {
     			e.printStackTrace();
@@ -92,34 +113,34 @@ public class AgregarEditarOrdenController {
 	private boolean validarFormulario() {
 		String errorMessage = "";
 		if(economico.getSelectionModel().getSelectedItem() == Constantes.NULL) {
-        	errorMessage = "Favor de seleccionar un Econï¿½mico.";
+        	errorMessage = "Favor de seleccionar un Económico.";
         }
 		if(nominaOperador.getText() == Constantes.NULL || nominaOperador.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Nomina de operador no puede ir vacï¿½o.";
+			errorMessage = "El campo Nomina de operador no puede ir vacío.";
 		}
 		if(!nominaOperador.getText().matches("[0-9]*")) {
-			errorMessage = "El campo Nomina de operador debe ser numï¿½rico.";
+			errorMessage = "El campo Nomina de operador debe ser numérico.";
 		}
 		if(nombreOperador.getText() == Constantes.NULL || nombreOperador.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Nombre no puede ir vacï¿½o.";
+			errorMessage = "El campo Nombre no puede ir vacío.";
 		}
 		if(apellidoPaterno.getText() == Constantes.NULL || apellidoPaterno.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Apellido paterno no puede ir vacï¿½o.";
+			errorMessage = "El campo Apellido paterno no puede ir vacío.";
 		}
 		if(apellidoMaterno.getText() == Constantes.NULL || apellidoMaterno.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Apellido materno de operador no puede ir vacï¿½o.";
+			errorMessage = "El campo Apellido materno de operador no puede ir vacío.";
 		}
 		if(kilometrajeHoras.getText() == Constantes.NULL || kilometrajeHoras.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Kilometraje/Hrs de trabajo de operador no puede ir vacï¿½o.";
+			errorMessage = "El campo Kilometraje/Hrs de trabajo de operador no puede ir vacío.";
 		}
 		if(!kilometrajeHoras.getText().matches("[0-9]*")) {
-			errorMessage = "El campo Kilometraje/Hrs de trabajo debe ser numï¿½rico.";
+			errorMessage = "El campo Kilometraje/Hrs de trabajo debe ser numérico.";
 		}
 		if(tipoNecesidadOrden.getSelectionModel().getSelectedItem() == Constantes.NULL) {
         	errorMessage = "Favor de seleccionar un Tipo de necesidad ";
         }
 		if(fallaMecanica.getText() == Constantes.NULL || fallaMecanica.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Falla mecanica no puede ir vacï¿½o.";
+			errorMessage = "El campo Falla mecanica no puede ir vacío.";
 		}
 		if(errorMessage.length() == Constantes.CERO) {
 			return true;
@@ -138,7 +159,7 @@ public class AgregarEditarOrdenController {
 		ordenTrabajoTO.setNombreOperador(nombreOperador.getText());
 		ordenTrabajoTO.setApellidoPatOperador(apellidoPaterno.getText());
 		ordenTrabajoTO.setApellidoMatOperador(apellidoMaterno.getText());
-		ordenTrabajoTO.setTipoNecesidadId(tipoNecesidadOrden.getSelectionModel().getSelectedItem().getTipoNecesidadId());
+		ordenTrabajoTO.setTipoNecesidadId(tipoNecesidadOrden.getSelectionModel().getSelectedItem().getId());
 		ordenTrabajoTO.setKilometraje(Integer.parseInt(kilometrajeHoras.getText()));
 		ordenTrabajoTO.setFallaMecanica(fallaMecanica.getText());
 		ordenTrabajoTO.setFechaRegistro(new Date());
@@ -190,10 +211,11 @@ public class AgregarEditarOrdenController {
 		nombreOperador.setText("");
 		apellidoPaterno.setText("");
 		apellidoMaterno.setText("");
-		tipoNecesidadOrden.getSelectionModel().getSelectedItem().setTipoNecesidadId(null);
+		tipoNecesidadOrden.getSelectionModel().getSelectedItem().setId(null);
 		kilometrajeHoras.setText("");
 		fallaMecanica.setText("");
 	}
+
 
 	/**
      * Called when the user clicks the new button. Opens a dialog to edit
