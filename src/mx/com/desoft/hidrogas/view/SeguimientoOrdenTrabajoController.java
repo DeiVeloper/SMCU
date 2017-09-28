@@ -259,7 +259,8 @@ public class SeguimientoOrdenTrabajoController {
 			errorMessage = "El campo Trabajos Realizados no puede ir vacío.";
 		} else if(observaciones.getText() == Constantes.NULL || observaciones.getText().length() == Constantes.CERO) {
 			errorMessage = "El campo Observaciones no puede ir vacío.";
-		} else if(errorMessage.length() == Constantes.CERO) {
+		}
+		if(errorMessage.length() == Constantes.CERO) {
 			esCorrecto = true;
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);

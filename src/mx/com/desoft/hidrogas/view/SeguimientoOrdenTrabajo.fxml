@@ -56,7 +56,7 @@
       <DatePicker fx:id="reparacionMayor" layoutX="168.0" layoutY="564.0" />
       <Label layoutX="386.0" layoutY="570.0" text="Observaciones" />
       <TextArea fx:id="observaciones" layoutX="487.0" layoutY="554.0" prefHeight="50.0" prefWidth="200.0" />
-      <Button layoutX="856.0" layoutY="604.0" mnemonicParsing="false" text="Guardar" />
+      <Button layoutX="856.0" layoutY="604.0" mnemonicParsing="false" onAction="#guardarSeguimiento" text="Guardarrrr" />
       <Button layoutX="784.0" layoutY="604.0" mnemonicParsing="false" onAction="#cancelarSeguimiento" text="Cancelar" />
    </children>
 </AnchorPane>
