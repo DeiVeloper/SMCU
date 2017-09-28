@@ -16,13 +16,13 @@ import java.util.List;
 public class SeguimientoOrden implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-//	@Id
-//	@GeneratedValue(strategy=GenerationType.IDENTITY)
-//	private int folio;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id_seguimiento;
 
 	//bi-directional one-to-one association to OrdenTrabajo
 	@OneToOne
-	@JoinColumn(name="folio")
+	@JoinColumn(name="folio", referencedColumnName = "folio", nullable = false)
 	private OrdenTrabajo ordenTrabajo;
 
 	@Column(name="trabajos_realizados")
@@ -52,6 +52,19 @@ public class SeguimientoOrden implements Serializable {
 	public SeguimientoOrden() {
 	}
 
+	public SeguimientoOrden(int id_seguimiento, OrdenTrabajo ordenTrabajo, String trabajosRealizados, String observaciones,
+			int reparacionMayor, Date fechaReparaMayor, Date fechaRegistro, int nominaRegistro) {
+		super();
+		this.id_seguimiento = id_seguimiento;
+		this.ordenTrabajo = ordenTrabajo;
+		this.trabajosRealizados = trabajosRealizados;
+		this.observaciones = observaciones;
+		this.reparacionMayor = reparacionMayor;
+		this.fechaReparaMayor = fechaReparaMayor;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = nominaRegistro;
+	}
+
 	public SeguimientoOrden(OrdenTrabajo ordenTrabajo, String trabajosRealizados, String observaciones,
 			int reparacionMayor, Date fechaReparaMayor, Date fechaRegistro, int nominaRegistro) {
 		super();
@@ -64,13 +77,13 @@ public class SeguimientoOrden implements Serializable {
 		this.nominaRegistro = nominaRegistro;
 	}
 
-//	public int getFolio() {
-//		return this.folio;
-//	}
-//
-//	public void setFolio(int folio) {
-//		this.folio = folio;
-//	}
+	public int getId_seguimiento() {
+		return id_seguimiento;
+	}
+
+	public void setId_seguimiento(int id_seguimiento) {
+		this.id_seguimiento = id_seguimiento;
+	}
 
 	public Date getFechaRegistro() {
 		return this.fechaRegistro;
