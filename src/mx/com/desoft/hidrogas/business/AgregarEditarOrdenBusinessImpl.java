@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mx.com.desoft.hidrogas.business.IAgregarEditarOrdenBusinessApp;
 import mx.com.desoft.hidrogas.dao.AgregarEditarOrdenDAO;
 import mx.com.desoft.hidrogas.dao.CatEstatusOrdenDAO;
 import mx.com.desoft.hidrogas.dao.CatTipoNecesidadDAO;
@@ -71,6 +72,12 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 		final CatTipoNecesidad necesidad = catTipoNecesidadImplDAO.get(ordenTrabajoTO.getTipoNecesidadId());
 		final OrdenTrabajo ordenTrabajo = new OrdenTrabajo(ordenTrabajoTO.getApellidoMatOperador(), ordenTrabajoTO.getApellidoPatOperador(), ordenTrabajoTO.getFallaMecanica(), new Date(), ordenTrabajoTO.getKilometraje(), ordenTrabajoTO.getNombreOperador(), economico, estatus, empleado, empleado, necesidad);
 		return ordenTrabajo;
+	}
+
+	public Empleado getEmpleadoByNomina(int nomina) {
+		System.out.println("nomina 2: " + nomina);
+		Empleado empleado = empleadosImplDAO.getEmpleadoByNomina(nomina);
+		return empleado;
 	}
 
 	public CatTipoNecesidadDAO getCatTipoNecesidadDAO() {
