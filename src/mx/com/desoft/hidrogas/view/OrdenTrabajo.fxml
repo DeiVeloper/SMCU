@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="root2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AgregarEditarOrdenController">
-   <children>
-      <Label layoutX="34.0" layoutY="85.0" text="Fecha" />
-      <Label layoutX="535.0" layoutY="136.0" text="Nómina operador" />
-      <Label layoutX="406.0" layoutY="26.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="ORDEN DE TRABAJO">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="economico" layoutX="169.0" layoutY="132.0" prefWidth="150.0" />
-      <TextField id="txtNombre" fx:id="nominaOperador" layoutX="722.0" layoutY="132.0" />
-      <TextField id="txtApellidos" fx:id="nombreOperador" layoutX="168.0" layoutY="182.0" />
-      <TextField id="txtEconomico" fx:id="apellidoPaterno" layoutX="723.0" layoutY="184.0" />
-      <TextField fx:id="apellidoMaterno" layoutX="168.0" layoutY="229.0" />
-      <TextField id="txtKilometraje" fx:id="kilometrajeHoras" layoutX="722.0" layoutY="229.0" />
-      <ComboBox id="lstTipoNecesidad" fx:id="tipoNecesidadOrden" layoutX="169.0" layoutY="275.0" prefWidth="150.0" />
-      <TextArea id="txtAFalla" fx:id="fallaMecanica" layoutX="168.0" layoutY="335.0" prefHeight="100.0" prefWidth="500.0" />
-      <Label layoutX="36.0" layoutY="136.0" text="Económico" />
-      <Label layoutX="538.0" layoutY="233.0" text="Kilometraje/Hrs de trabajo" />
-      <Label layoutX="32.0" layoutY="279.0" text="Tipo de necesidad" />
-      <Label layoutX="34.0" layoutY="377.0" text="Falla mecánica" />
-      <Label layoutX="36.0" layoutY="186.0" text="Nombre" />
-      <Label layoutX="538.0" layoutY="186.0" text="Apellido paterno" />
-      <Button id="btnGuardar" layoutX="787.0" layoutY="593.0" mnemonicParsing="false" onAction="#guardarOrden" text="Guardar Orden" />
-      <Button id="btnCancelar" layoutX="699.0" layoutY="593.0" mnemonicParsing="false" onAction="#cancelarOrden" text="Cancelar" />
-      <Label layoutX="36.0" layoutY="233.0" text="Apellido Materno" />
-
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AgregarEditarOrdenController">
+	<children>
+   		<SplitPane dividerPositions="0.35" orientation="VERTICAL" prefHeight="650.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+   			<items>
+   				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="257.0" prefWidth="948.0">
+               		<children>
+               			<Label layoutX="406.0" layoutY="26.0" styleClass="label-header" text="Agregar Órden de Trabajo" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+               				<font>
+                        		<Font size="20.0" />
+                     		</font>
+                     	</Label>
+                     	<Label layoutX="34.0" layoutY="85.0" text="Fecha" />
+      					<Label layoutX="535.0" layoutY="136.0" text="Nómina operador" />
+      					<ComboBox fx:id="economico" layoutX="169.0" layoutY="132.0" prefWidth="150.0" />
+				      	<TextField id="txtNombre" fx:id="nominaOperador" layoutX="722.0" layoutY="132.0" />
+				      	<TextField id="txtApellidos" fx:id="nombreOperador" layoutX="168.0" layoutY="182.0" />
+				      	<TextField id="txtEconomico" fx:id="apellidoPaterno" layoutX="723.0" layoutY="184.0" />
+				      	<TextField fx:id="apellidoMaterno" layoutX="168.0" layoutY="229.0" />
+				      	<TextField id="txtKilometraje" fx:id="kilometrajeHoras" layoutX="722.0" layoutY="229.0" />
+				      	<ComboBox id="lstTipoNecesidad" fx:id="tipoNecesidadOrden" layoutX="169.0" layoutY="275.0" prefWidth="150.0" />
+				      	<TextArea id="txtAFalla" fx:id="fallaMecanica" layoutX="168.0" layoutY="335.0" prefHeight="100.0" prefWidth="500.0" />
+				      	<Label layoutX="36.0" layoutY="136.0" text="Económico" />
+				      	<Label layoutX="538.0" layoutY="233.0" text="Kilometraje/Hrs de trabajo" />
+				      	<Label layoutX="32.0" layoutY="279.0" text="Tipo de necesidad" />
+				      	<Label layoutX="34.0" layoutY="377.0" text="Falla mecánica" />
+				      	<Label layoutX="36.0" layoutY="186.0" text="Nombre" />
+				      	<Label layoutX="538.0" layoutY="186.0" text="Apellido paterno" />
+				      	<Button id="btnGuardar" layoutX="787.0" layoutY="593.0" mnemonicParsing="false" onAction="#guardarOrden" text="Guardar Orden" />
+				      	<Button id="btnCancelar" layoutX="699.0" layoutY="593.0" mnemonicParsing="false" onAction="#cancelarOrden" text="Cancelar" />
+				      	<Label layoutX="36.0" layoutY="233.0" text="Apellido Materno" />
+               		</children>
+               	</AnchorPane>
+           	</items>
+       	</SplitPane>
+   	</children>
 </AnchorPane>

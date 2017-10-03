@@ -5,10 +5,21 @@ import javafx.beans.property.StringProperty;
 
 public class SeguimientoOrdenPartesProperty {
 
+	private int idRefaccion;
 	private StringProperty cantidad;
 	private StringProperty parte;
 	private StringProperty marca;
 	private StringProperty descripcion;
+
+	public SeguimientoOrdenPartesProperty(int idRefaccion, StringProperty cantidad, StringProperty parte,
+			StringProperty marca, StringProperty descripcion) {
+		super();
+		this.idRefaccion = idRefaccion;
+		this.cantidad = cantidad;
+		this.parte = parte;
+		this.marca = marca;
+		this.descripcion = descripcion;
+	}
 
 	public SeguimientoOrdenPartesProperty(StringProperty cantidad, StringProperty parte, StringProperty marca,
 			StringProperty descripcion) {
@@ -19,11 +30,28 @@ public class SeguimientoOrdenPartesProperty {
 		this.descripcion = descripcion;
 	}
 
+	public SeguimientoOrdenPartesProperty(int idRefaccion, StringProperty cantidad, StringProperty marca,
+			StringProperty descripcion) {
+		super();
+		this.idRefaccion = idRefaccion;
+		this.cantidad = cantidad;
+		this.marca = marca;
+		this.descripcion = descripcion;
+	}
+
 	public SeguimientoOrdenPartesProperty(StringProperty cantidad, StringProperty marca, StringProperty descripcion) {
 		super();
 		this.cantidad = cantidad;
 		this.marca = marca;
 		this.descripcion = descripcion;
+	}
+
+	public int getIdRefaccion() {
+		return idRefaccion;
+	}
+
+	public void setIdRefaccion(int idRefaccion) {
+		this.idRefaccion = idRefaccion;
 	}
 
 	public StringProperty getCantidad() {

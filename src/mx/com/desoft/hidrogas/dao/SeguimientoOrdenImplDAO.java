@@ -20,7 +20,8 @@ public class SeguimientoOrdenImplDAO extends HibernateImplDAO<SeguimientoOrden, 
 	public List<ListaRefacciones> getListaRefaccionesByFolioTipo(int folio, int tipo) {
 		Criteria criteria = HibernateUtil.openSession().createCriteria(ListaRefacciones.class);
 		if(folio > Constantes.CERO) {
-			criteria.add(Restrictions.eq("folio", folio));
+			criteria.createAlias("ordenTrabajo", "ordenTrabajo");
+			criteria.add(Restrictions.eq("ordenTrabajo.folio", folio));
 		}
 		if(tipo > Constantes.CERO) {
 			criteria.createAlias("catTipoListaRefaccion", "catTipoListaRefaccion");
@@ -29,4 +30,13 @@ public class SeguimientoOrdenImplDAO extends HibernateImplDAO<SeguimientoOrden, 
 		return (List<ListaRefacciones>)criteria.list();
 	}
 
+	@Override
+	public SeguimientoOrden getSeguimientoByFolio(int folio) {
+		Criteria criteria = HibernateUtil.openSession().createCriteria(SeguimientoOrden.class);
+		if(folio > Constantes.CERO) {
+			criteria.createAlias("ordenTrabajo", "ordenTrabajo");
+			criteria.add(Restrictions.eq("ordenTrabajo.folio", folio));
+		}
+		return (SeguimientoOrden)criteria.uniqueResult();
+	}
 }

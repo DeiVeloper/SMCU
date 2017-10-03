@@ -17,7 +17,7 @@ public class ListaRefacciones implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int folio;
+	private int id_refaccion;
 
 	//bi-directional one-to-one association to OrdenTrabajo
 	@OneToOne
@@ -51,12 +51,12 @@ public class ListaRefacciones implements Serializable {
 	public ListaRefacciones() {
 	}
 
-	public int getFolio() {
-		return this.folio;
+	public int getId_refaccion() {
+		return id_refaccion;
 	}
 
-	public void setFolio(int folio) {
-		this.folio = folio;
+	public void setId_refaccion(int id_refaccion) {
+		this.id_refaccion = id_refaccion;
 	}
 
 	public ListaRefacciones(OrdenTrabajo ordenTrabajo, int cantidad, String noParte, String marca, String descripcion,
