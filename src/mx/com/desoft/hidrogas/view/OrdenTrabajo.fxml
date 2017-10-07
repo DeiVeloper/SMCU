@@ -19,7 +19,6 @@
                         		<Font size="20.0" />
                      		</font>
                      	</Label>
-                     	<Label layoutX="34.0" layoutY="85.0" text="Fecha" />
       					<Label layoutX="535.0" layoutY="136.0" text="Nómina operador" />
       					<ComboBox fx:id="economico" layoutX="169.0" layoutY="132.0" prefWidth="150.0" />
 				      	<TextField id="txtNombre" fx:id="nominaOperador" layoutX="722.0" layoutY="132.0" />

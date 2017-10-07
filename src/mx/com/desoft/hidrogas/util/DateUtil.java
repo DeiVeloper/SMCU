@@ -38,6 +38,14 @@ public class DateUtil {
         return DATE_FORMATTER.format(date);
     }
 
+    public static String getStringFromDate(Date date) {
+        if (date == null) {
+            return null;
+        }
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return df.format(date);
+    }
+
     /**
      * Converts a String in the format of the defined {@link DateUtil#DATE_PATTERN}
      * to a {@link LocalDate} object.

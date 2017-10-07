@@ -31,6 +31,7 @@ import mx.com.desoft.hidrogas.buttons.ButtonCell;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
+import mx.com.desoft.hidrogas.model.OrdenTrabajo;
 import mx.com.desoft.hidrogas.property.SeguimientoOrdenPartesProperty;
 import mx.com.desoft.hidrogas.util.Constantes;
 import mx.com.desoft.hidrogas.util.DateUtil;
@@ -99,6 +100,8 @@ public class SeguimientoOrdenTrabajoController {
 	@FXML
 	private Label empleado;
 	@FXML
+	private Label fecha;
+	@FXML
 	private TextArea trabajosRealizados;
 	@FXML
 	private DatePicker reparacionMayor;
@@ -125,6 +128,8 @@ public class SeguimientoOrdenTrabajoController {
 		folio.setText(String.valueOf(ordenDTO.getFolio()));
 		economico.setText(String.valueOf(ordenDTO.getEconomicoId()));
 		empleado.setText(String.valueOf(ordenDTO.getNominaRegistro()));
+		OrdenTrabajo orden = seguimientoOrdenBusiness.getOrdenByFolio(ordenDTO.getFolio());
+		fecha.setText(DateUtil.getStringFromDate(orden.getFechaRegistro()));
 		seguimientoDTO = seguimientoOrdenBusiness.getSeguimientoOrdenByFolio(ordenDTO.getFolio());
 		if(seguimientoDTO.getIdSeguimiento() != Constantes.CERO) {
 			trabajosRealizados.setText(seguimientoDTO.getTrabajosRealizados());
@@ -352,14 +357,14 @@ public class SeguimientoOrdenTrabajoController {
 
 	private void limpiaDatosDeRefaccion(int tipo) {
 		if(tipo == 1) {
-			cantidadPU.setText(null);
-			noPU.setText(null);
-			marcaPU.setText(null);
-			descripcionPU.setText(null);
+			cantidadPU.setText("");
+			noPU.setText("");
+			marcaPU.setText("");
+			descripcionPU.setText("");
 		} else {
-			cantidadPS.setText(null);
-			marcaPS.setText(null);
-			descripcionPS.setText(null);
+			cantidadPS.setText("");
+			marcaPS.setText("");
+			descripcionPS.setText("");
 		}
 	}
 

@@ -116,6 +116,11 @@ public class SeguimientoOrdenBusinessImpl implements ISeguimientoOrdenBusiness {
 	}
 
 	@Override
+	public OrdenTrabajo getOrdenByFolio(int folio) {
+		return ordenTrabajoDAO.get(folio);
+	}
+
+	@Override
 	public boolean eliminaRefaccion(int idRefaccion) {
 		boolean isEliminado = true;
 		try {

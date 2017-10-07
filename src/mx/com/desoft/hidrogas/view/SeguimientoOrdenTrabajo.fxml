@@ -20,9 +20,11 @@
 				      	<Label layoutX="32.0" layoutY="40.0" text="Foilio" />
 				      	<Label layoutX="29.0" layoutY="119.0" text="Empleado" />
 				      	<Label layoutX="29.0" layoutY="81.0" text="Económico" />
+				      	<Label layoutX="280.0" layoutY="81.0" text="Fecha" />
 				      	<Label fx:id="folio" layoutX="129.0" layoutY="40.0" />
 				      	<Label fx:id="economico" layoutX="129.0" layoutY="81.0" />
 				      	<Label fx:id="empleado" layoutX="129.0" layoutY="119.0" />
+				      	<Label fx:id="fecha" layoutX="329.0" layoutY="81.0" />
 				      	<Label layoutX="618.0" layoutY="40.0" text="Trabajos realizados" />
 				      	<TextArea fx:id="trabajosRealizados" layoutX="515.0" layoutY="67.0" prefHeight="80.0" prefWidth="400.0" />
 				    </children>

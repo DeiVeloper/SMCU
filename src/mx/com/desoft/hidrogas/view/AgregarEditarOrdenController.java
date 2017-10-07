@@ -97,6 +97,7 @@ public class AgregarEditarOrdenController {
 	        	alert.setHeaderText(null);
 	        	alert.setContentText("¡El registro se guardó exitosamente!");
 	        	alert.showAndWait();
+	        	mainApp.showAdministrarOrdenTrabajo();
 			} catch (Exception e) {
     			e.printStackTrace();
     			Alert alert = new Alert(AlertType.WARNING);
