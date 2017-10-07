@@ -15,23 +15,25 @@ public class OrdenProperty {
 	private StringProperty economicoOrden;
 	private StringProperty empleadoOrden;
 	private StringProperty necesidadOrden;
+	private int empleadoOrdenId;
 	private Button seguimiento;
 
 	public OrdenProperty(StringProperty folioOrden, StringProperty fechaOrden, StringProperty economicoOrden,
-			StringProperty empleadoOrden, StringProperty necesidadOrden, Button seguimiento, MainApp mainApp) {
+			StringProperty empleadoOrden, StringProperty necesidadOrden, int empleadoOrdenId, Button seguimiento, MainApp mainApp) {
 		super();
 		this.folioOrden = folioOrden;
 		this.fechaOrden = fechaOrden;
 		this.economicoOrden = economicoOrden;
 		this.empleadoOrden = empleadoOrden;
 		this.necesidadOrden = necesidadOrden;
+		this.empleadoOrdenId = empleadoOrdenId;
 		this.seguimiento = seguimiento;
 		seguimiento.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				mainApp.showSeguimientoOrdenTrabajo(new OrdenTrabajoDTO(Integer.parseInt(getFolioOrden().getValue()), Integer.parseInt(getEconomicoOrden().getValue()), Integer.parseInt(getEmpleadoOrden().getValue())));
+				mainApp.showSeguimientoOrdenTrabajo(new OrdenTrabajoDTO(Integer.parseInt(getFolioOrden().getValue()), Integer.parseInt(getEconomicoOrden().getValue()), empleadoOrdenId));
 
 			}
 		});
@@ -65,6 +67,12 @@ public class OrdenProperty {
 	}
 	public void setNecesidadOrden(StringProperty necesidadOrden) {
 		this.necesidadOrden = necesidadOrden;
+	}
+	public int getEmpleadoOrdenId() {
+		return empleadoOrdenId;
+	}
+	public void setEmpleadoOrdenId(int empleadoOrdenId) {
+		this.empleadoOrdenId = empleadoOrdenId;
 	}
 	public Button getSeguimiento() {
 		return seguimiento;

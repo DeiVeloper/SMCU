@@ -7,7 +7,7 @@ import mx.com.desoft.hidrogas.hibernate.HibernateDAO;
 import mx.com.desoft.hidrogas.model.Economico;
 import mx.com.desoft.hidrogas.model.OrdenTrabajo;
 
-public interface AgregarEditarOrdenDAO extends HibernateDAO<OrdenTrabajo, Long> {
+public interface AgregarEditarOrdenDAO extends HibernateDAO<OrdenTrabajo, Integer> {
 
 	List<Economico> buscarEconomicos ();
 

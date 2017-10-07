@@ -21,14 +21,14 @@ public class SeguimientoOrdenPartesProperty {
 		this.descripcion = descripcion;
 	}
 
-	public SeguimientoOrdenPartesProperty(StringProperty cantidad, StringProperty parte, StringProperty marca,
-			StringProperty descripcion) {
-		super();
-		this.cantidad = cantidad;
-		this.parte = parte;
-		this.marca = marca;
-		this.descripcion = descripcion;
-	}
+//	public SeguimientoOrdenPartesProperty(StringProperty cantidad, StringProperty parte, StringProperty marca,
+//			StringProperty descripcion) {
+//		super();
+//		this.cantidad = cantidad;
+//		this.parte = parte;
+//		this.marca = marca;
+//		this.descripcion = descripcion;
+//	}
 
 	public SeguimientoOrdenPartesProperty(int idRefaccion, StringProperty cantidad, StringProperty marca,
 			StringProperty descripcion) {
@@ -39,12 +39,12 @@ public class SeguimientoOrdenPartesProperty {
 		this.descripcion = descripcion;
 	}
 
-	public SeguimientoOrdenPartesProperty(StringProperty cantidad, StringProperty marca, StringProperty descripcion) {
-		super();
-		this.cantidad = cantidad;
-		this.marca = marca;
-		this.descripcion = descripcion;
-	}
+//	public SeguimientoOrdenPartesProperty(StringProperty cantidad, StringProperty marca, StringProperty descripcion) {
+//		super();
+//		this.cantidad = cantidad;
+//		this.marca = marca;
+//		this.descripcion = descripcion;
+//	}
 
 	public int getIdRefaccion() {
 		return idRefaccion;

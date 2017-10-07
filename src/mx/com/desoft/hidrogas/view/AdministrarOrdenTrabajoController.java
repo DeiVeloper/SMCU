@@ -5,18 +5,24 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
@@ -24,6 +30,7 @@ import mx.com.desoft.hidrogas.business.AdministrarOrdenBusinessImpl;
 import mx.com.desoft.hidrogas.business.AgregarEditarOrdenBusinessImpl;
 import mx.com.desoft.hidrogas.business.IAdministrarOrdenBusiness;
 import mx.com.desoft.hidrogas.business.IAgregarEditarOrdenBusinessApp;
+import mx.com.desoft.hidrogas.buttons.ButtonEliminarOrden;
 import mx.com.desoft.hidrogas.dto.CatEstatusOrdenDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
@@ -46,6 +53,8 @@ public class AdministrarOrdenTrabajoController {
     private TableColumn<OrdenProperty, String> necesidadColumn;
     @FXML
     private TableColumn<OrdenProperty, String> seguimientoColumn;
+    @FXML
+    private TableColumn<OrdenProperty, Boolean> eliminarOrdenColumn;
     @FXML
 	private DatePicker fechaOrdenBusqueda;
 
@@ -71,11 +80,6 @@ public class AdministrarOrdenTrabajoController {
 
 	}
 
-//	public AdministrarOrdenTrabajoController(MainApp mainApp) {
-//		super();
-//		this.mainApp = mainApp;
-//	}
-
 	@FXML
 	public void initialize () {
 		this.llenarComboNecesidad();
@@ -96,17 +100,18 @@ public class AdministrarOrdenTrabajoController {
 	    	empleadoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleadoOrden());
 	    	necesidadColumn.setCellValueFactory(cellData -> cellData.getValue().getNecesidadOrden());
 	    	seguimientoColumn.setCellValueFactory(new PropertyValueFactory<OrdenProperty, String> ("seguimiento"));
+	    	eliminarOrdenColumn.setSortable(false);
+	    	eliminarOrdenColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<OrdenProperty, Boolean>, ObservableValue<Boolean>>() {
+	    		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<OrdenProperty, Boolean> features) {
+	    			return new SimpleBooleanProperty(features.getValue() != null);
+    	      }
+    	    });
+	    	eliminarOrdenColumn.setCellFactory(new Callback<TableColumn<OrdenProperty, Boolean>, TableCell<OrdenProperty, Boolean>>() {
+	    		@Override public TableCell<OrdenProperty, Boolean> call(TableColumn<OrdenProperty, Boolean> personBooleanTableColumn) {
+	    			return new ButtonEliminarOrden(data, dto);
+	    		}
+    	    });
 		}
-//		List<OrdenProperty> dto = administrarOrdenBusiness.buscarOrdenByVista(ordenTo, mainApp);
-//    	data.clear();
-//    	data.addAll(dto);
-//		tablaOrdenes.setItems(getData());
-//    	folioColumn.setCellValueFactory(cellData -> cellData.getValue().getFolioOrden());
-//    	fechaColumn.setCellValueFactory(cellData -> cellData.getValue().getFechaOrden());
-//    	economicoColumn.setCellValueFactory(cellData -> cellData.getValue().getEconomicoOrden());
-//    	empleadoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleadoOrden());
-//    	necesidadColumn.setCellValueFactory(cellData -> cellData.getValue().getNecesidadOrden());
-//    	seguimientoColumn.setCellValueFactory(new PropertyValueFactory<OrdenProperty, String> ("seguimiento"));
 	}
 
 	private OrdenTrabajoDTO convertirCamposADTO() {
@@ -203,97 +208,22 @@ public class AdministrarOrdenTrabajoController {
 		});
 	}
 
-//	public TableView<OrdenProperty> getTablaOrdenes() {
-//		return tablaOrdenes;
-//	}
-//
-//	public void setTablaOrdenes(TableView<OrdenProperty> tablaOrdenes) {
-//		this.tablaOrdenes = tablaOrdenes;
-//	}
-//
-//	public TableColumn<OrdenProperty, String> getFolioColumn() {
-//		return folioColumn;
-//	}
-//
-//	public void setFolioColumn(TableColumn<OrdenProperty, String> folioColumn) {
-//		this.folioColumn = folioColumn;
-//	}
-//
-//	public TableColumn<OrdenProperty, String> getFechaColumn() {
-//		return fechaColumn;
-//	}
-
-//	public void setFechaColumn(TableColumn<OrdenProperty, String> fechaColumn) {
-//		this.fechaColumn = fechaColumn;
-//	}
-//
-//	public TableColumn<OrdenProperty, String> getEconomicoColumn() {
-//		return economicoColumn;
-//	}
-//
-//	public void setEconomicoColumn(TableColumn<OrdenProperty, String> economicoColumn) {
-//		this.economicoColumn = economicoColumn;
-//	}
-//
-//	public TableColumn<OrdenProperty, String> getEmpleadoColumn() {
-//		return empleadoColumn;
-//	}
-//
-//	public void setEmpleadoColumn(TableColumn<OrdenProperty, String> empleadoColumn) {
-//		this.empleadoColumn = empleadoColumn;
-//	}
-//
-//	public TableColumn<OrdenProperty, String> getNecesidadColumn() {
-//		return necesidadColumn;
-//	}
-//
-//	public void setNecesidadColumn(TableColumn<OrdenProperty, String> necesidadColumn) {
-//		this.necesidadColumn = necesidadColumn;
-//	}
-//
-//	public MainApp getMainApp() {
-//		return mainApp;
-//	}
-//
-//	public DatePicker getFechaOrdenBusqueda() {
-//		return fechaOrdenBusqueda;
-//	}
-//
-//	public void setFechaOrdenBusqueda(DatePicker fechaOrdenBusqueda) {
-//		this.fechaOrdenBusqueda = fechaOrdenBusqueda;
-//	}
-//
-//	public ComboBox<CatTipoNecesidadDTO> getTipoNecesidadOrdenBusqueda() {
-//		return tipoNecesidadOrdenBusqueda;
-//	}
-//
-//	public void setTipoNecesidadOrdenBusqueda(ComboBox<CatTipoNecesidadDTO> tipoNecesidadOrdenBusqueda) {
-//		this.tipoNecesidadOrdenBusqueda = tipoNecesidadOrdenBusqueda;
-//	}
-//
-//	public TextField getEmpleadoOrdenBusqueda() {
-//		return empleadoOrdenBusqueda;
-//	}
-//
-//	public void setEmpleadoOrdenBusqueda(TextField empleadoOrdenBusqueda) {
-//		this.empleadoOrdenBusqueda = empleadoOrdenBusqueda;
-//	}
-//
-//	public ComboBox<CatEstatusOrdenDTO> getEstatusOrdenBusqueda() {
-//		return estatusOrdenBusqueda;
-//	}
-//
-//	public void setEstatusOrdenBusqueda(ComboBox<CatEstatusOrdenDTO> estatusOrdenBusqueda) {
-//		this.estatusOrdenBusqueda = estatusOrdenBusqueda;
-//	}
-//
-//	public TextField getEconomicoOrdenBusqueda() {
-//		return economicoOrdenBusqueda;
-//	}
-//
-//	public void setEconomicoOrdenBusqueda(TextField economicoOrdenBusqueda) {
-//		this.economicoOrdenBusqueda = economicoOrdenBusqueda;
-//	}
+	public boolean eliminaOrden(int folioOrden) {
+		boolean isCorrecto = true;
+		String context = "¿Está seguro de eliminar el registro?";
+		ButtonType aceptar = new ButtonType("Aceptar");
+		ButtonType cancelar = new ButtonType("Cancelar");
+		Alert alert = new Alert(AlertType.CONFIRMATION, context, aceptar, cancelar);
+		alert.setTitle("Confirmación");
+		alert.setHeaderText(null);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.isPresent() && result.get().getText() == "Aceptar") {
+			isCorrecto = agregarEditarOrdenBusinessApp.eliminaOrden(folioOrden);
+		} else{
+			isCorrecto = false;
+		}
+		return isCorrecto;
+	}
 
 	/**
      * Called when the user clicks the new button. Opens a dialog to edit
@@ -303,24 +233,6 @@ public class AdministrarOrdenTrabajoController {
     private void agregarOrden() {
         mainApp.showOrdenTrabajo();
     }
-
-    /**
-     * Called when the user clicks the new button. Opens a dialog to edit
-     * details for a new person.
-     */
-//    @FXML
-//    private void seguimientoOrden() {
-//        mainApp.showSeguimientoOrdenTrabajo();
-//    }
-
-    /**
-     * Called when the user clicks the new button. Opens a dialog to edit
-     * details for a new person.
-     */
-//    @FXML
-//    private void cancelarOrden() {
-//        mainApp.cancelarOrdenTrabajo();
-//    }
 
 
     /**

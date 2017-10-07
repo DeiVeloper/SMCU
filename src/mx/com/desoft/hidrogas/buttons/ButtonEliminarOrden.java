@@ -1,6 +1,5 @@
 package mx.com.desoft.hidrogas.buttons;
 
-
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -8,33 +7,32 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
-import mx.com.desoft.hidrogas.property.SeguimientoOrdenPartesProperty;
-import mx.com.desoft.hidrogas.view.SeguimientoOrdenTrabajoController;
+import mx.com.desoft.hidrogas.property.OrdenProperty;
+import mx.com.desoft.hidrogas.view.AdministrarOrdenTrabajoController;
 
-public class ButtonCell extends TableCell<SeguimientoOrdenPartesProperty, Boolean> {
+public class ButtonEliminarOrden extends TableCell<OrdenProperty, Boolean> {
 
-	private SeguimientoOrdenTrabajoController seguimientoController;
-
+	private AdministrarOrdenTrabajoController administrarOrdenController;
 	final Button cellButton = new Button("Eliminar");
 	private boolean elimina;
 
-	public ButtonCell(ObservableList<SeguimientoOrdenPartesProperty> dataPartesUsadas,
-			List<SeguimientoOrdenPartesProperty> dtoPartesUsadas) {
+	public ButtonEliminarOrden(ObservableList<OrdenProperty> dataOrdenes,
+			List<OrdenProperty> dtoPartesOrdenes) {
 
 		// Action when the button is pressed
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent t) {
-				seguimientoController = new SeguimientoOrdenTrabajoController();
+				administrarOrdenController = new AdministrarOrdenTrabajoController();
 				// get Selected Item
-				SeguimientoOrdenPartesProperty refaccion = (SeguimientoOrdenPartesProperty) ButtonCell.this
-						.getTableView().getItems().get(ButtonCell.this.getIndex());
-				elimina = seguimientoController.eliminaRefaccion(refaccion.getIdRefaccion());
+				OrdenProperty orden = (OrdenProperty) ButtonEliminarOrden.this
+						.getTableView().getItems().get(ButtonEliminarOrden.this.getIndex());
+				elimina = administrarOrdenController.eliminaOrden(Integer.parseInt(orden.getFolioOrden().getValue()));
 				if(elimina) {
 					// remove selected item from the table list
-					dataPartesUsadas.remove(refaccion);
-					dtoPartesUsadas.remove(refaccion);
+					dataOrdenes.remove(orden);
+					dtoPartesOrdenes.remove(orden);
 				}
 			}
 		});

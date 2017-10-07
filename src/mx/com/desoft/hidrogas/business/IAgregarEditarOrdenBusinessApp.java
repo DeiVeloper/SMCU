@@ -17,4 +17,6 @@ public interface IAgregarEditarOrdenBusinessApp {
 
 	Empleado getEmpleadoByNomina(int nomina);
 
+	boolean eliminaOrden(int folioOrden);
+
 }

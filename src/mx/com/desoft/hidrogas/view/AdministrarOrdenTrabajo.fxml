@@ -42,7 +42,7 @@
 						        <TableColumn fx:id="empleadoColumn" maxWidth="10000.0" text="Empleado" />
 						        <TableColumn fx:id="necesidadColumn" maxWidth="9000.0" text="Tipo de necesidad" />
 						        <TableColumn fx:id="seguimientoColumn" maxWidth="3000.0" text="Seguimiento" />
-						        <TableColumn maxWidth="3000.0" text="Eliminar" />
+						        <TableColumn fx:id="eliminarOrdenColumn" maxWidth="3000.0" text="Eliminar" />
 					        </columns>
 					        <columnResizePolicy>
 		                    	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

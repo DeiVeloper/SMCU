@@ -1,11 +1,9 @@
 package mx.com.desoft.hidrogas.view;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,6 +16,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -34,6 +33,7 @@ import mx.com.desoft.hidrogas.dto.SeguimientoOrdenDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
 import mx.com.desoft.hidrogas.property.SeguimientoOrdenPartesProperty;
 import mx.com.desoft.hidrogas.util.Constantes;
+import mx.com.desoft.hidrogas.util.DateUtil;
 
 public class SeguimientoOrdenTrabajoController {
 
@@ -129,6 +129,9 @@ public class SeguimientoOrdenTrabajoController {
 		if(seguimientoDTO.getIdSeguimiento() != Constantes.CERO) {
 			trabajosRealizados.setText(seguimientoDTO.getTrabajosRealizados());
 			observaciones.setText(seguimientoDTO.getObservaciones());
+			if(seguimientoDTO.getFechaReparacionMayor() != Constantes.NULL) {
+				reparacionMayor.setValue(DateUtil.getLocalDateFromSQLDate(seguimientoDTO.getFechaReparacionMayor()));
+			}
 			dtoTablaPartesUsadas = seguimientoOrdenBusiness.getListaPartesByFolioTipo(ordenDTO.getFolio(), 1);
 			if(!dtoTablaPartesUsadas.isEmpty()) {
 				this.cargarInformacionRefacciones(1);
@@ -143,18 +146,20 @@ public class SeguimientoOrdenTrabajoController {
 
 	public void agregarPartesUsadas() {
 		if(this.validarAgregarPartes((byte)1)) {
-			dtoTablaPartesUsadas.add(new SeguimientoOrdenPartesProperty(new SimpleStringProperty(cantidadPU.getText()), new SimpleStringProperty(noPU.getText()),
+			dtoTablaPartesUsadas.add(new SeguimientoOrdenPartesProperty(0, new SimpleStringProperty(cantidadPU.getText()), new SimpleStringProperty(noPU.getText()),
 					new SimpleStringProperty(marcaPU.getText()), new SimpleStringProperty(descripcionPU.getText())));
 			this.cargarInformacionRefacciones(1);
+			this.limpiaDatosDeRefaccion(1);
 		}
 
 	}
 
 	public void agregarPartesSolicitadas() {
 		if(this.validarAgregarPartes((byte)2)) {
-			dtoTablaPartesSolicitadas.add(new SeguimientoOrdenPartesProperty(new SimpleStringProperty(cantidadPS.getText()), new SimpleStringProperty(marcaPS.getText()),
+			dtoTablaPartesSolicitadas.add(new SeguimientoOrdenPartesProperty(0, new SimpleStringProperty(cantidadPS.getText()), new SimpleStringProperty(marcaPS.getText()),
 					new SimpleStringProperty(descripcionPS.getText())));
 			this.cargarInformacionRefacciones(2);
+			this.limpiaDatosDeRefaccion(2);
 		}
 	}
 
@@ -302,25 +307,60 @@ public class SeguimientoOrdenTrabajoController {
 			seguimientoDTO.setFechaReparacionMayor(null);
 		} else {
 			seguimientoDTO.setReparacionMayor(1);
-			LocalDate localDate = reparacionMayor.getValue();
-			Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-			Date date = Date.from(instant);
-			seguimientoDTO.setFechaReparacionMayor(date);
+			seguimientoDTO.setFechaReparacionMayor(DateUtil.getDateFromLocalDate(reparacionMayor.getValue()));
 		}
-		seguimientoDTO.setFechaRegistro(new Date());
+		if(seguimientoDTO.getIdSeguimiento() == Constantes.CERO) {
+			seguimientoDTO.setFechaRegistro(new Date());
+		}
 		seguimientoDTO.setNominaRegistro(12);
 		dtoPartesUsadas = new ArrayList<>();
 		dtoPartesSolicitadas = new ArrayList<>();
 		for(SeguimientoOrdenPartesProperty parteUsada : dtoTablaPartesUsadas) {
-			dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getParte().getValue(),
-					parteUsada.getMarca().getValue(), parteUsada.getDescripcion().getValue(), 1, new Date(), 12));
+			if(parteUsada.getIdRefaccion() == Constantes.CERO) {
+				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getParte().getValue(),
+						parteUsada.getMarca().getValue(), parteUsada.getDescripcion().getValue(), 1, new Date(), 12));
+			}
 		}
 		for(SeguimientoOrdenPartesProperty parteSolicitada : dtoTablaPartesSolicitadas) {
-			dtoPartesSolicitadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteSolicitada.getCantidad().getValue()),
-					parteSolicitada.getMarca().getValue(), parteSolicitada.getDescripcion().getValue(), 2, new Date(), 12));
+			if(parteSolicitada.getIdRefaccion() == Constantes.CERO) {
+				dtoPartesSolicitadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteSolicitada.getCantidad().getValue()),
+						parteSolicitada.getMarca().getValue(), parteSolicitada.getDescripcion().getValue(), 2, new Date(), 12));
+			}
 		}
 		seguimientoDTO.setListaPartesUsadas(dtoPartesUsadas);
 		seguimientoDTO.setListaPartesSolicitadas(dtoPartesSolicitadas);
+	}
+
+	public boolean eliminaRefaccion(int idRefaccion) {
+		boolean isCorecto = true;
+		String context = "¿Está seguro de eliminar el registro?";
+		ButtonType aceptar = new ButtonType("Aceptar");
+		ButtonType cancelar = new ButtonType("Cancelar");
+		Alert alert = new Alert(AlertType.CONFIRMATION, context, aceptar, cancelar);
+		alert.setTitle("Confirmación");
+		alert.setHeaderText(null);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.isPresent() && result.get().getText() == "Aceptar") {
+			if(idRefaccion != Constantes.CERO) {
+				isCorecto = seguimientoOrdenBusiness.eliminaRefaccion(idRefaccion);
+			}
+		} else {
+			isCorecto = false;
+		}
+		return isCorecto;
+	}
+
+	private void limpiaDatosDeRefaccion(int tipo) {
+		if(tipo == 1) {
+			cantidadPU.setText(null);
+			noPU.setText(null);
+			marcaPU.setText(null);
+			descripcionPU.setText(null);
+		} else {
+			cantidadPS.setText(null);
+			marcaPS.setText(null);
+			descripcionPS.setText(null);
+		}
 	}
 
 	/**

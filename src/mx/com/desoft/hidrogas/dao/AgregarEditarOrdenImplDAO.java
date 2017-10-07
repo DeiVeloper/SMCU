@@ -10,7 +10,7 @@ import mx.com.desoft.hidrogas.model.Economico;
 import mx.com.desoft.hidrogas.model.OrdenTrabajo;
 
 @Repository
-public class AgregarEditarOrdenImplDAO extends HibernateImplDAO<OrdenTrabajo, Long> implements AgregarEditarOrdenDAO {
+public class AgregarEditarOrdenImplDAO extends HibernateImplDAO<OrdenTrabajo, Integer> implements AgregarEditarOrdenDAO {
 
 	@Override
 	public List<Economico> buscarEconomicos() {

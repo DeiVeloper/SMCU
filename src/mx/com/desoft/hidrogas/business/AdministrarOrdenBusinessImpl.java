@@ -42,8 +42,9 @@ public class AdministrarOrdenBusinessImpl implements IAdministrarOrdenBusiness {
 		List<OrdenTrabajo> orden = ordenTrabajoImplDAO.getOrdenByVista(ordenTrabajoDTO);
 		for (OrdenTrabajo lista : orden) {
 			OrdenProperty dto = new OrdenProperty(new SimpleStringProperty(String.valueOf(lista.getFolio())), new SimpleStringProperty(String.valueOf(lista.getFechaRegistro())),
-					new SimpleStringProperty(String.valueOf(lista.getEconomico().getEconomicoId())), new SimpleStringProperty(String.valueOf(lista.getEmpleado2().getNominaEmpleado())),
-					new SimpleStringProperty(lista.getCatTipoNecesidad().getDescripcion()), new Button("Seguimiento"), mainApp);
+					new SimpleStringProperty(String.valueOf(lista.getEconomico().getEconomicoId())),
+					new SimpleStringProperty(lista.getEmpleado2().getNombreEmpleado() + " " + lista.getEmpleado2().getApellidoPatEmpleado() + " " + lista.getEmpleado2().getApellidoMatEmpleado()),
+					new SimpleStringProperty(lista.getCatTipoNecesidad().getDescripcion()), lista.getEmpleado2().getNominaEmpleado(), new Button("Seguimiento"), mainApp);
 			listaDTO.add(dto);
 		}
 		return listaDTO;

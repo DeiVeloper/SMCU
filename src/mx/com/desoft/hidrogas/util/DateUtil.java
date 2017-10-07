@@ -1,8 +1,14 @@
 package mx.com.desoft.hidrogas.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Helper functions for handling dates.
@@ -58,5 +64,31 @@ public class DateUtil {
     public static boolean validDate(String dateString) {
         // Try to parse the String.
         return DateUtil.parse(dateString) != null;
+    }
+
+    @SuppressWarnings("deprecation")
+    public static LocalDate getLocalDateFromSQLDate(Date date) {
+    	LocalDate localDate;
+        try {
+			DateFormat df = new SimpleDateFormat("MM/dd/yyyy", new Locale("es", "ES"));
+			date = new Date(df.format(date));
+			localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        } catch (DateTimeParseException e) {
+        	System.out.println(e);
+        	localDate = null;
+        }
+        return localDate;
+    }
+
+    public static Date getDateFromLocalDate(LocalDate localDate) {
+    	Date date;
+        try {
+			Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+			date = Date.from(instant);
+        } catch (DateTimeParseException e) {
+        	System.out.println(e);
+        	date = null;
+        }
+        return date;
     }
 }

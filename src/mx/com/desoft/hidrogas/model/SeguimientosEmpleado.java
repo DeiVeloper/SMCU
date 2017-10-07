@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * The persistent class for the seguimientos_empleados database table.
- * 
+ *
  */
 @Entity
 @Table(name="seguimientos_empleados")
@@ -16,8 +16,8 @@ public class SeguimientosEmpleado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	 @EmbeddedId
-	    @AttributeOverrides({ @AttributeOverride(name = "folio", column = @Column(name = "folio", nullable = false, precision = 9, scale = 0)),
-	            @AttributeOverride(name = "nominaEmpleado", column = @Column(name = "nomina_empledado", nullable = false, precision = 5, scale = 0)) })
+	    @AttributeOverrides({ @AttributeOverride(name = "idSeguimiento", column = @Column(name = "id_seguimiento", nullable = false, precision = 9, scale = 0)),
+	            @AttributeOverride(name = "nominaEmpleado", column = @Column(name = "nomina_empleado", nullable = false, precision = 5, scale = 0)) })
 	private SeguimientosEmpleadoPK id;
 
 	@Temporal(TemporalType.DATE)
@@ -35,6 +35,12 @@ public class SeguimientosEmpleado implements Serializable {
 //	private Empleado empleado;
 
 	public SeguimientosEmpleado() {
+	}
+
+	public SeguimientosEmpleado(SeguimientosEmpleadoPK id, Date fechaRegistro) {
+		super();
+		this.id = id;
+		this.fechaRegistro = fechaRegistro;
 	}
 
 	public SeguimientosEmpleadoPK getId() {
