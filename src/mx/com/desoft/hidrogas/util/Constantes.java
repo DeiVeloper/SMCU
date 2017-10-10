@@ -9,4 +9,7 @@ public class Constantes {
 	public static final int CERO = 0;
 
 	public static final String MENSAJE_EXITOSO = "El registro se guardo exitosamente!";
+	public static final String INICIAR_SESION ="Iniciar sesión";
+	public static final String LOGIN =  "El usuario y/o contraseña son incorrectos, favor de validar.";
+	public static final String VALIDANDO_FORMULARIO="Validando";
 }

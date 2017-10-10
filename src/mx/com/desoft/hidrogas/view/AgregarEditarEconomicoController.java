@@ -13,6 +13,7 @@ import mx.com.desoft.hidrogas.business.EconomicoBusinessImpl;
 import mx.com.desoft.hidrogas.business.IEconomicoBusiness;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.util.Alerta;
+import mx.com.desoft.hidrogas.util.Authenticator;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AgregarEditarEconomicoController {
@@ -31,12 +32,14 @@ public class AgregarEditarEconomicoController {
 	private String mensaje = "";
 
 	public AgregarEditarEconomicoController() {
-
+		economicoField = new TextField();
+		noNominaRegistroField = new TextField();
 	}
 
 	@FXML
     private void initialize() {
-
+		noNominaRegistroField.setText(Authenticator.noNominaRegistro.toString());
+		noNominaRegistroField.setDisable(true);
     }
 
 	@FXML
@@ -66,10 +69,10 @@ public class AgregarEditarEconomicoController {
         	mensaje = "El campo Economico no puede ir vacio";
         	return false;
         }
-        if	(noNominaRegistroField.getText() == Constantes.NULL || noNominaRegistroField.getText().length() == Constantes.CERO) {
-        	mensaje =  "El campo No. Nomina Registro no puede ir vacio ";
-        	return false;
-        }
+//        if	(noNominaRegistroField.getText() == Constantes.NULL || noNominaRegistroField.getText().length() == Constantes.CERO) {
+//        	mensaje =  "El campo No. Nomina Registro no puede ir vacio ";
+//        	return false;
+//        }
         this.convertirCamposViewToDTO();
         return true;
     }

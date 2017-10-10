@@ -2,7 +2,7 @@ package mx.com.desoft.hidrogas.dto;
 
 public class CatEstatusOrdenDTO {
 
-	private int id;
+	private Integer id;
 	private String descripcion;
 
 	public CatEstatusOrdenDTO() {
@@ -15,11 +15,11 @@ public class CatEstatusOrdenDTO {
 		this.descripcion = descripcion;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

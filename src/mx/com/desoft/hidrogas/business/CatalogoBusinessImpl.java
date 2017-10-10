@@ -7,16 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.com.desoft.hidrogas.dao.CatTipoRefaccionesDAO;
+import mx.com.desoft.hidrogas.dao.CatTipoReporteDAO;
 import mx.com.desoft.hidrogas.dao.CatTipoEmpleadoDAO;
 import mx.com.desoft.hidrogas.dao.CatTipoNecesidadDAO;
 import mx.com.desoft.hidrogas.dao.EconomicoDAO;
+import mx.com.desoft.hidrogas.dao.IOrdenTrabajoDAO;
 import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoEmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
+import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
+import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
 import mx.com.desoft.hidrogas.model.CatTipoEmpleado;
 import mx.com.desoft.hidrogas.model.CatTipoListaRefaccion;
 import mx.com.desoft.hidrogas.model.CatTipoNecesidad;
+import mx.com.desoft.hidrogas.model.CatTipoReporte;
 import mx.com.desoft.hidrogas.model.Economico;
 
 @Service
@@ -33,6 +38,12 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 
 	@Autowired
 	private CatTipoRefaccionesDAO catTipoRefaccionesImplDAO;
+
+	@Autowired
+	private CatTipoReporteDAO catTipoReporteImplDAO;
+
+	@Autowired
+	private IOrdenTrabajoDAO ordenTrabajoImplDAO;
 
 	@Override
 	public List<CatTipoEmpleadoDTO> findAllTipoEmpleados() {
@@ -87,6 +98,20 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 	public CatTipoEmpleadoDTO getById(int tipoEmpleadoId) {
 		CatTipoEmpleado tipoEmpleado = catTipoEmpleadoImplDAO.get(tipoEmpleadoId);
 		return new CatTipoEmpleadoDTO(tipoEmpleado.getTipoEmpleadoId(), tipoEmpleado.getDescripcion());
+	}
+
+	@Override
+	public List<TipoReporteDTO> findAllTipoReporte() {
+		List<TipoReporteDTO> listaTipoReporte = new ArrayList<>();
+		for (CatTipoReporte lista : catTipoReporteImplDAO.findAll()) {
+			TipoReporteDTO dto = new TipoReporteDTO(lista.getTipoReporteId(), lista.getDescripcion());
+			listaTipoReporte.add(dto);
+		}
+		return listaTipoReporte;
+	}
+
+	public void imprimirReporte(OrdenTrabajoDTO ordenTrabajoDTO){
+		ordenTrabajoImplDAO.getOrdenByVista(ordenTrabajoDTO);
 	}
 
 }

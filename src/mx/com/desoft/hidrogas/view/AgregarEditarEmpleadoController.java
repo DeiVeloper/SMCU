@@ -22,6 +22,7 @@ import mx.com.desoft.hidrogas.dto.CatTipoEmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
 import mx.com.desoft.hidrogas.util.Alerta;
+import mx.com.desoft.hidrogas.util.Authenticator;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AgregarEditarEmpleadoController {
@@ -166,10 +167,10 @@ public class AgregarEditarEmpleadoController {
         	return false;
         }
 
-        if	(noNominaRegistro.getText() == Constantes.NULL || noNominaRegistro.getText().length() == Constantes.CERO) {
-        	mensaje =  "El Campo No. Nomina Registro no puede ir vacio ";
-        	return false;
-        }
+//        if	(noNominaRegistro.getText() == Constantes.NULL || noNominaRegistro.getText().length() == Constantes.CERO) {
+//        	mensaje =  "El Campo No. Nomina Registro no puede ir vacio ";
+//        	return false;
+//        }
 
         if	(!economico.isDisabled() && !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ADMINISTRADOR) &&(economico.getSelectionModel().getSelectedItem() == Constantes.NULL)) {
         	mensaje =  "Favor de seleccionar un Economico ";
@@ -243,6 +244,8 @@ public class AgregarEditarEmpleadoController {
     }
 
     private void inciciarComponentes() {
+    	noNominaRegistro.setText(Authenticator.noNominaRegistro.toString());
+    	noNominaRegistro.setDisable(true);
     	passwordLabel.setVisible(false);
     	password.setVisible(false);
     }
