@@ -22,6 +22,7 @@
 			<mapping class="mx.com.desoft.hidrogas.model.SeguimientoOrden"/>
 			<mapping class="mx.com.desoft.hidrogas.model.SeguimientosEmpleado"/>
 			<mapping class="mx.com.desoft.hidrogas.model.SeguimientosEmpleadoPK"/>
+			<mapping class="mx.com.desoft.hidrogas.model.CatTipoReporte"/>
 
 		</session-factory>
 	</hibernate-configuration>
