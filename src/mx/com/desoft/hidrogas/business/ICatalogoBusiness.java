@@ -10,19 +10,21 @@ import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
 
 public interface ICatalogoBusiness {
-	
+
 	List<CatTipoEmpleadoDTO> findAllTipoEmpleados();
-	
+
 	List<EconomicoDTO> findAllEconomicos();
 
 	List<CatTipoNecesidadDTO> findAllTipoNecesidad();
-	
+
 	List<CatTipoRefaccionesDTO> findAllTipoRefacciones();
-	
+
 	CatTipoEmpleadoDTO getById(int tipoEmpleadoId);
 
 	List<TipoReporteDTO> findAllTipoReporte();
 
 	void imprimirReporte(OrdenTrabajoDTO ordenTrabajoDTO);
+
+	List<CatTipoRefaccionesDTO> findAllCatTipoRefacciones();
 
 }

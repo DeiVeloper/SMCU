@@ -11,6 +11,7 @@ import mx.com.desoft.hidrogas.dao.CatTipoReporteDAO;
 import mx.com.desoft.hidrogas.dao.CatTipoEmpleadoDAO;
 import mx.com.desoft.hidrogas.dao.CatTipoNecesidadDAO;
 import mx.com.desoft.hidrogas.dao.EconomicoDAO;
+import mx.com.desoft.hidrogas.dao.ICatTipoRefaccionDAO;
 import mx.com.desoft.hidrogas.dao.IOrdenTrabajoDAO;
 import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoEmpleadoDTO;
@@ -21,6 +22,7 @@ import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
 import mx.com.desoft.hidrogas.model.CatTipoEmpleado;
 import mx.com.desoft.hidrogas.model.CatTipoListaRefaccion;
 import mx.com.desoft.hidrogas.model.CatTipoNecesidad;
+import mx.com.desoft.hidrogas.model.CatTipoRefaccion;
 import mx.com.desoft.hidrogas.model.CatTipoReporte;
 import mx.com.desoft.hidrogas.model.Economico;
 
@@ -44,6 +46,9 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 
 	@Autowired
 	private IOrdenTrabajoDAO ordenTrabajoImplDAO;
+
+	@Autowired
+	private ICatTipoRefaccionDAO catTipoRefaccion;
 
 	@Override
 	public List<CatTipoEmpleadoDTO> findAllTipoEmpleados() {
@@ -114,4 +119,12 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 		ordenTrabajoImplDAO.getOrdenByVista(ordenTrabajoDTO);
 	}
 
+	@Override
+	public List<CatTipoRefaccionesDTO> findAllCatTipoRefacciones() {
+		List<CatTipoRefaccionesDTO> listaRefacciones = new ArrayList<>();
+		for(CatTipoRefaccion refaccion : catTipoRefaccion.findAll()) {
+			listaRefacciones.add(new CatTipoRefaccionesDTO(refaccion.getIdTipoRefaccion(), refaccion.getDescripcion()));
+		}
+		return listaRefacciones;
+	}
 }
