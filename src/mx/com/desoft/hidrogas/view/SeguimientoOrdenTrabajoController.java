@@ -17,28 +17,35 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
+import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
+import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
 import mx.com.desoft.hidrogas.business.ISeguimientoOrdenBusiness;
 import mx.com.desoft.hidrogas.business.SeguimientoOrdenBusinessImpl;
 import mx.com.desoft.hidrogas.buttons.ButtonCell;
+import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
 import mx.com.desoft.hidrogas.model.OrdenTrabajo;
 import mx.com.desoft.hidrogas.property.SeguimientoOrdenPartesProperty;
+import mx.com.desoft.hidrogas.util.Authenticator;
 import mx.com.desoft.hidrogas.util.Constantes;
 import mx.com.desoft.hidrogas.util.DateUtil;
 
 public class SeguimientoOrdenTrabajoController {
 
 	private ISeguimientoOrdenBusiness seguimientoOrdenBusiness = Login.appContext.getBean(SeguimientoOrdenBusinessImpl.class);
+	private ICatalogoBusiness catalogoBusiness = Login.appContext.getBean(CatalogoBusinessImpl.class);
 
 	public static Stage stageOrden;
 	private MainApp mainApp;
@@ -55,11 +62,9 @@ public class SeguimientoOrdenTrabajoController {
 	@FXML
     private TableView<SeguimientoOrdenPartesProperty> tablaPartesUsadas;
 	@FXML
+    private TableColumn<SeguimientoOrdenPartesProperty, String> tipoRefaccionUsadaColumn;
+	@FXML
     private TableColumn<SeguimientoOrdenPartesProperty, String> cantidadUsadaColumn;
-    @FXML
-    private TableColumn<SeguimientoOrdenPartesProperty, String> parteUsadaColumn;
-    @FXML
-    private TableColumn<SeguimientoOrdenPartesProperty, String> marcaUsadaColumn;
     @FXML
     private TableColumn<SeguimientoOrdenPartesProperty, String> descripcionUsadaColumn;
     @FXML
@@ -68,19 +73,15 @@ public class SeguimientoOrdenTrabajoController {
     @FXML
 	private TextField cantidadPU;
 	@FXML
-	private TextField noPU;
-	@FXML
-	private TextField marcaPU;
-	@FXML
 	private TextArea descripcionPU;
 
     //variables para tabla partes solicitadas
     @FXML
     private TableView<SeguimientoOrdenPartesProperty> tablaPartesSolicitadas;
     @FXML
-    private TableColumn<SeguimientoOrdenPartesProperty, String> cantidadSolicitadaColumn;
+    private TableColumn<SeguimientoOrdenPartesProperty, String> tipoRefaccionSolicitadaColumn;
     @FXML
-    private TableColumn<SeguimientoOrdenPartesProperty, String> marcaSolicitadaColumn;
+    private TableColumn<SeguimientoOrdenPartesProperty, String> cantidadSolicitadaColumn;
     @FXML
     private TableColumn<SeguimientoOrdenPartesProperty, String> descripcionSolicitadaColumn;
     @FXML
@@ -88,8 +89,6 @@ public class SeguimientoOrdenTrabajoController {
 
     @FXML
 	private TextField cantidadPS;
-	@FXML
-	private TextField marcaPS;
 	@FXML
 	private TextArea descripcionPS;
 
@@ -107,6 +106,10 @@ public class SeguimientoOrdenTrabajoController {
 	private DatePicker reparacionMayor;
 	@FXML
 	private TextArea observaciones;
+	@FXML
+	private ComboBox<CatTipoRefaccionesDTO> tipoRefaccionUsada;
+	@FXML
+	private ComboBox<CatTipoRefaccionesDTO> tipoRefaccionSolicitada;
 
 
 	public SeguimientoOrdenTrabajoController() {
@@ -122,6 +125,7 @@ public class SeguimientoOrdenTrabajoController {
 		seguimientoDTO = new SeguimientoOrdenDTO();
 		dtoTablaPartesUsadas = new ArrayList<>();
 		dtoTablaPartesSolicitadas = new ArrayList<>();
+		this.llenarComboTipoRefaccion();
 	}
 
 	public void cargarInformacion() {
@@ -137,34 +141,34 @@ public class SeguimientoOrdenTrabajoController {
 			if(seguimientoDTO.getFechaReparacionMayor() != Constantes.NULL) {
 				reparacionMayor.setValue(DateUtil.getLocalDateFromSQLDate(seguimientoDTO.getFechaReparacionMayor()));
 			}
-			dtoTablaPartesUsadas = seguimientoOrdenBusiness.getListaPartesByFolioTipo(ordenDTO.getFolio(), 1);
+			dtoTablaPartesUsadas = seguimientoOrdenBusiness.getListaPartesByFolioTipo(ordenDTO.getFolio(), Constantes.N1);
 			if(!dtoTablaPartesUsadas.isEmpty()) {
-				this.cargarInformacionRefacciones(1);
+				this.cargarInformacionRefacciones(Constantes.N1);
 			}
-			dtoTablaPartesSolicitadas = seguimientoOrdenBusiness.getListaPartesByFolioTipo(ordenDTO.getFolio(), 2);
+			dtoTablaPartesSolicitadas = seguimientoOrdenBusiness.getListaPartesByFolioTipo(ordenDTO.getFolio(), Constantes.N2);
 			if(!dtoTablaPartesSolicitadas.isEmpty()) {
-				this.cargarInformacionRefacciones(2);
+				this.cargarInformacionRefacciones(Constantes.N2);
 			}
 		}
 
 	}
 
 	public void agregarPartesUsadas() {
-		if(this.validarAgregarPartes((byte)1)) {
-			dtoTablaPartesUsadas.add(new SeguimientoOrdenPartesProperty(0, new SimpleStringProperty(cantidadPU.getText()), new SimpleStringProperty(noPU.getText()),
-					new SimpleStringProperty(marcaPU.getText()), new SimpleStringProperty(descripcionPU.getText())));
-			this.cargarInformacionRefacciones(1);
-			this.limpiaDatosDeRefaccion(1);
+		if(this.validarAgregarPartes((byte)Constantes.N1)) {
+			dtoTablaPartesUsadas.add(new SeguimientoOrdenPartesProperty(Constantes.CERO, new SimpleStringProperty(cantidadPU.getText()), tipoRefaccionUsada.getSelectionModel().getSelectedItem().getTipoRefaccionId(),
+					new SimpleStringProperty(tipoRefaccionUsada.getSelectionModel().getSelectedItem().getDescripcion()), new SimpleStringProperty(descripcionPU.getText())));
+			this.cargarInformacionRefacciones(Constantes.N1);
+			this.limpiaDatosDeRefaccion(Constantes.N1);
 		}
 
 	}
 
 	public void agregarPartesSolicitadas() {
-		if(this.validarAgregarPartes((byte)2)) {
-			dtoTablaPartesSolicitadas.add(new SeguimientoOrdenPartesProperty(0, new SimpleStringProperty(cantidadPS.getText()), new SimpleStringProperty(marcaPS.getText()),
-					new SimpleStringProperty(descripcionPS.getText())));
-			this.cargarInformacionRefacciones(2);
-			this.limpiaDatosDeRefaccion(2);
+		if(this.validarAgregarPartes((byte)Constantes.N2)) {
+			dtoTablaPartesSolicitadas.add(new SeguimientoOrdenPartesProperty(Constantes.CERO, new SimpleStringProperty(cantidadPS.getText()), tipoRefaccionSolicitada.getSelectionModel().getSelectedItem().getTipoRefaccionId(),
+					new SimpleStringProperty(tipoRefaccionSolicitada.getSelectionModel().getSelectedItem().getDescripcion()), new SimpleStringProperty(descripcionPS.getText())));
+			this.cargarInformacionRefacciones(Constantes.N2);
+			this.limpiaDatosDeRefaccion(Constantes.N2);
 		}
 	}
 
@@ -172,16 +176,16 @@ public class SeguimientoOrdenTrabajoController {
 		String errorMessage = "";
 		boolean esCorrecto = false;
 		switch (tipo){
-			case 1:
+			case Constantes.N1:
 				if(cantidadPU.getText().matches("[0-9]*")) {
 					if(cantidadPU.getText() == Constantes.NULL || cantidadPU.getText().length() == Constantes.CERO) {
 						errorMessage = "El campo Cantidad no puede ir vacío.";
-					} else if(noPU.getText() == Constantes.NULL || noPU.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo No de parte no puede ir vacío.";
-					} else if(marcaPU.getText() == Constantes.NULL || marcaPU.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Marca no puede ir vacío.";
 					} else if(descripcionPU.getText() == Constantes.NULL || descripcionPU.getText().length() == Constantes.CERO) {
 						errorMessage = "El campo Descripción no puede ir vacío.";
+					} else if(Integer.parseInt(cantidadPU.getText()) > 99) {
+						errorMessage = "El campo Cantidad no puede tener más de 99.";
+					} else if(descripcionPU.getText().length() > 300) {
+						errorMessage = "El campo Descripción no puede tener más de 300 caracteres.";
 					} else {
 						esCorrecto = true;
 					}
@@ -189,14 +193,16 @@ public class SeguimientoOrdenTrabajoController {
 					errorMessage = "El campo Cantidad debe ser numérico.";
 				}
 				break;
-			case 2:
+			case Constantes.N2:
 				if(cantidadPS.getText().matches("[0-9]*")) {
 					if(cantidadPS.getText() == Constantes.NULL || cantidadPS.getText().length() == Constantes.CERO) {
 						errorMessage = "El campo Cantidad no puede ir vacío.";
-					} else if(marcaPS.getText() == Constantes.NULL || marcaPS.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Marca no puede ir vacío.";
 					} else if(descripcionPS.getText() == Constantes.NULL || descripcionPS.getText().length() == Constantes.CERO) {
 						errorMessage = "El campo Descripción no puede ir vacío.";
+					} else if(Integer.parseInt(cantidadPS.getText()) > 99) {
+						errorMessage = "El campo Cantidad no puede tener más de 99.";
+					} else if(descripcionPS.getText().length() > 300) {
+						errorMessage = "El campo Descripción no puede tener más de 300 caracteres.";
 					} else {
 						esCorrecto = true;
 					}
@@ -218,13 +224,12 @@ public class SeguimientoOrdenTrabajoController {
 	}
 
 	private void cargarInformacionRefacciones(int tipo) {
-		if(tipo == 1) {
+		if(tipo == Constantes.N1) {
 			dataPartesUsadas.clear();
 	    	dataPartesUsadas.addAll(dtoTablaPartesUsadas);
 			tablaPartesUsadas.setItems(getDataPartesUsadas());
+			tipoRefaccionUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcionTipoRefaccion());
 	    	cantidadUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getCantidad());
-	    	parteUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getParte());
-	    	marcaUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getMarca());
 	    	descripcionUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
 	    	eliminarUsadaColumn.setSortable(false);
 	    	eliminarUsadaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean>, ObservableValue<Boolean>>() {
@@ -241,8 +246,8 @@ public class SeguimientoOrdenTrabajoController {
 			dataPartesSolicitadas.clear();
 	    	dataPartesSolicitadas.addAll(dtoTablaPartesSolicitadas);
 			tablaPartesSolicitadas.setItems(getDataPartesSolicitadas());
+			tipoRefaccionSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcionTipoRefaccion());
 	    	cantidadSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getCantidad());
-	    	marcaSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getMarca());
 	    	descripcionSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
 	    	eliminarSolicitadaColumn.setSortable(false);
 
@@ -290,10 +295,14 @@ public class SeguimientoOrdenTrabajoController {
 			errorMessage = "El campo Trabajos Realizados no puede ir vacío.";
 		} else if(observaciones.getText() == Constantes.NULL || observaciones.getText().length() == Constantes.CERO) {
 			errorMessage = "El campo Observaciones no puede ir vacío.";
-		}
-		if(errorMessage.length() == Constantes.CERO) {
-			esCorrecto = true;
+		} else if(trabajosRealizados.getText().length() > 300) {
+			errorMessage = "El campo Trabajos Realizados no puede tener más de 300 caracteres.";
+		} else if(observaciones.getText().length() > 300) {
+			errorMessage = "El campo Observaciones no puede tener más de 300 caracteres.";
 		} else {
+			esCorrecto = true;
+		}
+		if(esCorrecto == false) {
 			Alert alert = new Alert(AlertType.WARNING);
 	    	alert.setTitle("Validando Formulario");
 	    	alert.setHeaderText(null);
@@ -308,28 +317,28 @@ public class SeguimientoOrdenTrabajoController {
 		seguimientoDTO.setTrabajosRealizados(trabajosRealizados.getText());
 		seguimientoDTO.setObservaciones(observaciones.getText());
 		if(reparacionMayor.getValue() == Constantes.NULL) {
-			seguimientoDTO.setReparacionMayor(0);
+			seguimientoDTO.setReparacionMayor(Constantes.CERO);
 			seguimientoDTO.setFechaReparacionMayor(null);
 		} else {
-			seguimientoDTO.setReparacionMayor(1);
+			seguimientoDTO.setReparacionMayor(Constantes.N1);
 			seguimientoDTO.setFechaReparacionMayor(DateUtil.getDateFromLocalDate(reparacionMayor.getValue()));
 		}
 		if(seguimientoDTO.getIdSeguimiento() == Constantes.CERO) {
 			seguimientoDTO.setFechaRegistro(new Date());
 		}
-		seguimientoDTO.setNominaRegistro(12);
+		seguimientoDTO.setNominaRegistro(Authenticator.noNominaRegistro);
 		dtoPartesUsadas = new ArrayList<>();
 		dtoPartesSolicitadas = new ArrayList<>();
 		for(SeguimientoOrdenPartesProperty parteUsada : dtoTablaPartesUsadas) {
 			if(parteUsada.getIdRefaccion() == Constantes.CERO) {
-				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getParte().getValue(),
-						parteUsada.getMarca().getValue(), parteUsada.getDescripcion().getValue(), 1, new Date(), 12));
+				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getIdTipoRefaccion(),
+						parteUsada.getDescripcion().getValue(), Constantes.N1, new Date(), Authenticator.noNominaRegistro));
 			}
 		}
 		for(SeguimientoOrdenPartesProperty parteSolicitada : dtoTablaPartesSolicitadas) {
 			if(parteSolicitada.getIdRefaccion() == Constantes.CERO) {
-				dtoPartesSolicitadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteSolicitada.getCantidad().getValue()),
-						parteSolicitada.getMarca().getValue(), parteSolicitada.getDescripcion().getValue(), 2, new Date(), 12));
+				dtoPartesSolicitadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteSolicitada.getCantidad().getValue()), parteSolicitada.getIdTipoRefaccion(),
+						parteSolicitada.getDescripcion().getValue(), Constantes.N2, new Date(), Authenticator.noNominaRegistro));
 			}
 		}
 		seguimientoDTO.setListaPartesUsadas(dtoPartesUsadas);
@@ -356,16 +365,52 @@ public class SeguimientoOrdenTrabajoController {
 	}
 
 	private void limpiaDatosDeRefaccion(int tipo) {
-		if(tipo == 1) {
+		if(tipo == Constantes.N1) {
 			cantidadPU.setText("");
-			noPU.setText("");
-			marcaPU.setText("");
+//			noPU.setText("");
+//			marcaPU.setText("");
 			descripcionPU.setText("");
 		} else {
 			cantidadPS.setText("");
-			marcaPS.setText("");
+//			marcaPS.setText("");
 			descripcionPS.setText("");
 		}
+	}
+
+	private void llenarComboTipoRefaccion() {
+		System.out.println("Entra a carga");
+		tipoRefaccionUsada.setItems(FXCollections.observableArrayList(catalogoBusiness.findAllCatTipoRefacciones()));
+		tipoRefaccionUsada.setConverter(new StringConverter<CatTipoRefaccionesDTO>() {
+			@Override
+			public String toString(CatTipoRefaccionesDTO tipo) {
+				if (tipo == null) {
+		            return null;
+		        } else {
+		            return tipo.getDescripcion();
+		        }
+			}
+			@Override
+			public CatTipoRefaccionesDTO fromString(String string) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+		tipoRefaccionSolicitada.setItems(FXCollections.observableArrayList(catalogoBusiness.findAllCatTipoRefacciones()));
+		tipoRefaccionSolicitada.setConverter(new StringConverter<CatTipoRefaccionesDTO>() {
+			@Override
+			public String toString(CatTipoRefaccionesDTO tipo) {
+				if (tipo == null) {
+		            return null;
+		        } else {
+		            return tipo.getDescripcion();
+		        }
+			}
+			@Override
+			public CatTipoRefaccionesDTO fromString(String string) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
 	}
 
 	/**

@@ -28,6 +28,7 @@ import mx.com.desoft.hidrogas.model.ListaRefacciones;
 import mx.com.desoft.hidrogas.model.OrdenTrabajo;
 import mx.com.desoft.hidrogas.model.SeguimientoOrden;
 import mx.com.desoft.hidrogas.model.SeguimientosEmpleado;
+import mx.com.desoft.hidrogas.util.Constantes;
 
 @Service
 public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusinessApp {
@@ -75,7 +76,7 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 	private OrdenTrabajo convertirDTOToEntidad(OrdenTrabajoDTO ordenTrabajoTO) {
 		final Empleado empleado = empleadosImplDAO.get(ordenTrabajoTO.getNominaOperador());
 		final Economico economico = economicoImplDAO.get(ordenTrabajoTO.getEconomicoId());
-		final CatEstatusOrden estatus = catEstatusImplDAO.get(1);
+		final CatEstatusOrden estatus = catEstatusImplDAO.get(Constantes.N1);
 		final CatTipoNecesidad necesidad = catTipoNecesidadImplDAO.get(ordenTrabajoTO.getTipoNecesidadId());
 		final OrdenTrabajo ordenTrabajo = new OrdenTrabajo(ordenTrabajoTO.getApellidoMatOperador(), ordenTrabajoTO.getApellidoPatOperador(), ordenTrabajoTO.getFallaMecanica(), new Date(), ordenTrabajoTO.getKilometraje(), ordenTrabajoTO.getNombreOperador(), economico, estatus, empleado, empleado, necesidad);
 		return ordenTrabajo;
@@ -106,8 +107,8 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 	public boolean eliminaOrden(int folioOrden) {
 		boolean isEliminado = true;
 		try {
-			List<ListaRefacciones> listaPartesModelUsadas = seguimientoDAO.getListaRefaccionesByFolioTipo(folioOrden, 1);
-			List<ListaRefacciones> listaPartesModelSolicitadas = seguimientoDAO.getListaRefaccionesByFolioTipo(folioOrden, 2);
+			List<ListaRefacciones> listaPartesModelUsadas = seguimientoDAO.getListaRefaccionesByFolioTipo(folioOrden, Constantes.N1);
+			List<ListaRefacciones> listaPartesModelSolicitadas = seguimientoDAO.getListaRefaccionesByFolioTipo(folioOrden, Constantes.N2);
 			for(ListaRefacciones refaccion : listaPartesModelUsadas) {
 				listaRefaccionesDAO.delete(refaccion.getId_refaccion());
 			}

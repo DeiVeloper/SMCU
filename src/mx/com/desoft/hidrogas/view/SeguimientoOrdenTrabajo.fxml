@@ -36,24 +36,27 @@
                         		<Font size="18.0" />
                      		</font>
                      	</Label>
-                     	<Label layoutX="34.0" layoutY="40.0" text="Cantidad" />
-				      	<Label layoutX="287.0" layoutY="40.0" text="No de parte" />
-				      	<Label layoutX="704.0" layoutY="40.0" text="Marca" />
-				      	<Label layoutX="607.0" layoutY="95.0" text="Descripción" />
-				      	<TextField fx:id="cantidadPU" layoutX="115.0" layoutY="38.0" prefHeight="10.0" prefWidth="50.0" />
-				      	<TextField fx:id="noPU" layoutX="393.0" layoutY="38.0" />
-					    <TextField fx:id="marcaPU" layoutX="764.0" layoutY="38.0" />
-				      	<TextArea fx:id="descripcionPU" layoutX="715.0" layoutY="80.0" prefHeight="50.0" prefWidth="200.0" />
+                     	<Label layoutX="590.0" layoutY="30.0" text="Cantidad" />
+<!-- 				      	<Label layoutX="287.0" layoutY="40.0" text="No de parte" /> -->
+<!-- 				      	<Label layoutX="704.0" layoutY="40.0" text="Marca" /> -->
+				      	<Label layoutX="607.0" layoutY="81.0" text="Descripción" />
+				      	<TextField fx:id="cantidadPU" layoutX="644.0" layoutY="26.0" prefHeight="10.0" prefWidth="50.0" />
+<!-- 				      	<TextField fx:id="noPU" layoutX="393.0" layoutY="38.0" /> -->
+<!-- 					    <TextField fx:id="marcaPU" layoutX="764.0" layoutY="38.0" /> -->
+				      	<TextArea fx:id="descripcionPU" layoutX="715.0" layoutY="64.0" prefHeight="80.0" prefWidth="220.0" />
 				      	<Button layoutX="827.0" layoutY="150.0" mnemonicParsing="false" onAction="#agregarPartesUsadas" text="Agregar parte" />
-				      	<TableView fx:id="tablaPartesUsadas" layoutX="30.0" layoutY="73.0" prefHeight="120.0" prefWidth="550.0">
+				      	<TableView fx:id="tablaPartesUsadas" layoutX="31.0" layoutY="38.0" prefHeight="150.0" prefWidth="550.0">
 				        	<columns>
+                        <TableColumn fx:id="tipoRefaccionUsadaColumn" prefWidth="100.0" text="Tipo" />
 				          		<TableColumn fx:id="cantidadUsadaColumn" prefWidth="60.0" text="Cantidad" />
-				          		<TableColumn fx:id="parteUsadaColumn" prefWidth="120.0" text="Parte" />
-				            	<TableColumn fx:id="marcaUsadaColumn" prefWidth="90.0" text="Marca" />
-				            	<TableColumn fx:id="descripcionUsadaColumn" prefWidth="210.0" text="Descripción" />
+<!-- 				          		<TableColumn fx:id="parteUsadaColumn" prefWidth="120.0" text="Parte" /> -->
+<!-- 				            	<TableColumn fx:id="marcaUsadaColumn" prefWidth="90.0" text="Marca" /> -->
+				            	<TableColumn fx:id="descripcionUsadaColumn" prefWidth="320.0" text="Descripción" />
 				            	<TableColumn fx:id="eliminarUsadaColumn" prefWidth="70.0" text="Eliminar" />
 				        	</columns>
 				      	</TableView>
+                  <Label layoutX="721.0" layoutY="30.0" text="Refacción" />
+                  <ComboBox fx:id="tipoRefaccionUsada" layoutX="784.0" layoutY="26.0" prefWidth="150.0" />
                		</children>
                	</AnchorPane>
                	<AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="195.0" prefWidth="948.0">
@@ -65,21 +68,24 @@
                      	</Label>
                     </children>
 					<children>
-                       <TableView fx:id="tablaPartesSolicitadas" layoutX="33.0" layoutY="73.0" prefHeight="120.0" prefWidth="550.0">
+                       <TableView fx:id="tablaPartesSolicitadas" layoutX="34.0" layoutY="38.0" prefHeight="150.0" prefWidth="550.0">
 	   				       	<columns>
+                        <TableColumn fx:id="tipoRefaccionSolicitadaColumn" prefWidth="100.0" text="Tipo" />
 	   				        	<TableColumn fx:id="cantidadSolicitadaColumn" prefWidth="60.0" text="Cantidad" />
-	   				            <TableColumn fx:id="marcaSolicitadaColumn" prefWidth="160.0" text="Marca" />
-	   				            <TableColumn fx:id="descripcionSolicitadaColumn" prefWidth="250.0" text="Descripción" />
-	   				            <TableColumn fx:id="eliminarSolicitadaColumn" prefWidth="80.0" text="Eliminar" />
+<!-- 	   				            <TableColumn fx:id="marcaSolicitadaColumn" prefWidth="160.0" text="Marca" /> -->
+	   				            <TableColumn fx:id="descripcionSolicitadaColumn" prefWidth="320.0" text="Descripción" />
+	   				            <TableColumn fx:id="eliminarSolicitadaColumn" prefWidth="70.0" text="Eliminar" />
 	   				        </columns>
    			      		</TableView>
 	   			      	<Button layoutX="827.0" layoutY="150.0" mnemonicParsing="false" onAction="#agregarPartesSolicitadas" text="Agregar parte" />
-	   			      	<TextField fx:id="cantidadPS" layoutX="118.0" layoutY="38.0" prefHeight="10.0" prefWidth="50.0" />
-	   			      	<TextField fx:id="marcaPS" layoutX="392.0" layoutY="38.0" />
-	   			      	<TextArea fx:id="descripcionPS" layoutX="717.0" layoutY="27.0" prefHeight="50.0" prefWidth="200.0" />
-	   			      	<Label layoutX="620.0" layoutY="40.0" text="Descripción" />
-	   			      	<Label layoutX="305.0" layoutY="40.0" text="Marca" />
-	   			      	<Label layoutX="37.0" layoutY="40.0" text="Cantidad" />
+	   			      	<TextField fx:id="cantidadPS" layoutX="645.0" layoutY="31.0" prefHeight="10.0" prefWidth="50.0" />
+<!-- 	   			      	<TextField fx:id="marcaPS" layoutX="392.0" layoutY="38.0" /> -->
+	   			      	<TextArea fx:id="descripcionPS" layoutX="717.0" layoutY="65.0" prefHeight="80.0" prefWidth="220.0" />
+	   			      	<Label layoutX="608.0" layoutY="82.0" text="Descripción" />
+<!-- 	   			      	<Label layoutX="305.0" layoutY="40.0" text="Marca" /> -->
+	   			      	<Label layoutX="591.0" layoutY="35.0" text="Cantidad" />
+                  <Label layoutX="724.0" layoutY="35.0" text="Refaccion" />
+                  <ComboBox fx:id="tipoRefaccionSolicitada" layoutX="787.0" layoutY="31.0" prefWidth="150.0" />
                   	</children>
 				</AnchorPane>
 				<AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="948.0">

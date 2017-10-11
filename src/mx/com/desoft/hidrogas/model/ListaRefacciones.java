@@ -27,19 +27,24 @@ public class ListaRefacciones implements Serializable {
 	@Column(name="cantidad")
 	private int cantidad;
 
-	@Column(name="no_parte")
-	private String noParte;
-
-	@Column(name="marca")
-	private String marca;
+//	@Column(name="no_parte")
+//	private String noParte;
+//
+//	@Column(name="marca")
+//	private String marca;
 
 	@Column(name="descripcion")
 	private String descripcion;
 
 	//bi-directional many-to-one association to CatTipoListaRefaccion
 	@ManyToOne
-	@JoinColumn(name="tipo_refaccion_id")
+	@JoinColumn(name="tipo_lista_refaccion_id")
 	private CatTipoListaRefaccion catTipoListaRefaccion;
+
+	//bi-directional many-to-one association to CatTipoListaRefaccion
+	@ManyToOne
+	@JoinColumn(name="tipo_refaccion_id")
+	private CatTipoRefaccion catTipoRefaccion;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_registro")
@@ -59,30 +64,29 @@ public class ListaRefacciones implements Serializable {
 		this.id_refaccion = id_refaccion;
 	}
 
-	public ListaRefacciones(OrdenTrabajo ordenTrabajo, int cantidad, String noParte, String marca, String descripcion,
+	public ListaRefacciones(OrdenTrabajo ordenTrabajo, int cantidad, CatTipoRefaccion catTipoRefaccion, String descripcion,
 			CatTipoListaRefaccion catTipoListaRefaccion, Date fechaRegistro, int nominaRegistro) {
 		super();
 		this.ordenTrabajo = ordenTrabajo;
 		this.cantidad = cantidad;
-		this.noParte = noParte;
-		this.marca = marca;
+		this.catTipoRefaccion = catTipoRefaccion;
 		this.descripcion = descripcion;
 		this.catTipoListaRefaccion = catTipoListaRefaccion;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
 	}
 
-	public ListaRefacciones(OrdenTrabajo ordenTrabajo, int cantidad, String marca, String descripcion,
-			CatTipoListaRefaccion catTipoListaRefaccion, Date fechaRegistro, int nominaRegistro) {
-		super();
-		this.ordenTrabajo = ordenTrabajo;
-		this.cantidad = cantidad;
-		this.marca = marca;
-		this.descripcion = descripcion;
-		this.catTipoListaRefaccion = catTipoListaRefaccion;
-		this.fechaRegistro = fechaRegistro;
-		this.nominaRegistro = nominaRegistro;
-	}
+//	public ListaRefacciones(OrdenTrabajo ordenTrabajo, int cantidad, String marca, String descripcion,
+//			CatTipoListaRefaccion catTipoListaRefaccion, Date fechaRegistro, int nominaRegistro) {
+//		super();
+//		this.ordenTrabajo = ordenTrabajo;
+//		this.cantidad = cantidad;
+//		this.marca = marca;
+//		this.descripcion = descripcion;
+//		this.catTipoListaRefaccion = catTipoListaRefaccion;
+//		this.fechaRegistro = fechaRegistro;
+//		this.nominaRegistro = nominaRegistro;
+//	}
 
 	public int getCantidad() {
 		return this.cantidad;
@@ -108,20 +112,12 @@ public class ListaRefacciones implements Serializable {
 		this.fechaRegistro = fechaRegistro;
 	}
 
-	public String getMarca() {
-		return this.marca;
+	public CatTipoRefaccion getCatTipoRefaccion() {
+		return catTipoRefaccion;
 	}
 
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
-
-	public String getNoParte() {
-		return this.noParte;
-	}
-
-	public void setNoParte(String noParte) {
-		this.noParte = noParte;
+	public void setCatTipoRefaccion(CatTipoRefaccion catTipoRefaccion) {
+		this.catTipoRefaccion = catTipoRefaccion;
 	}
 
 	public int getNominaRegistro() {

@@ -7,8 +7,7 @@ public class SeguimientoOrdenPartesDTO {
 
 	private int folio;
 	private int cantidad;
-	private String parte;
-	private String marca;
+	private int idCatTipoRefaccion;
 	private String descripcion;
 	private int tipoRefaccionId;
 	private Date fechaRegistro;
@@ -18,30 +17,29 @@ public class SeguimientoOrdenPartesDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SeguimientoOrdenPartesDTO(int folio, int cantidad, String parte, String marca, String descripcion,
+	public SeguimientoOrdenPartesDTO(int folio, int cantidad, int idCatTipoRefaccion, String descripcion,
 			int tipoRefaccionId, Date fechaRegistro, int nominaRegistro) {
 		super();
 		this.folio = folio;
 		this.cantidad = cantidad;
-		this.parte = parte;
-		this.marca = marca;
+		this.idCatTipoRefaccion = idCatTipoRefaccion;
 		this.descripcion = descripcion;
 		this.tipoRefaccionId = tipoRefaccionId;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
 	}
 
-	public SeguimientoOrdenPartesDTO(int folio, int cantidad, String marca, String descripcion, int tipoRefaccionId,
-			Date fechaRegistro, int nominaRegistro) {
-		super();
-		this.folio = folio;
-		this.cantidad = cantidad;
-		this.marca = marca;
-		this.descripcion = descripcion;
-		this.tipoRefaccionId = tipoRefaccionId;
-		this.fechaRegistro = fechaRegistro;
-		this.nominaRegistro = nominaRegistro;
-	}
+//	public SeguimientoOrdenPartesDTO(int folio, int cantidad, String marca, String descripcion, int tipoRefaccionId,
+//			Date fechaRegistro, int nominaRegistro) {
+//		super();
+//		this.folio = folio;
+//		this.cantidad = cantidad;
+//		this.marca = marca;
+//		this.descripcion = descripcion;
+//		this.tipoRefaccionId = tipoRefaccionId;
+//		this.fechaRegistro = fechaRegistro;
+//		this.nominaRegistro = nominaRegistro;
+//	}
 
 	public int getFolio() {
 		return folio;
@@ -59,20 +57,12 @@ public class SeguimientoOrdenPartesDTO {
 		this.cantidad = cantidad;
 	}
 
-	public String getParte() {
-		return parte;
+	public int getIdCatTipoRefaccion() {
+		return idCatTipoRefaccion;
 	}
 
-	public void setParte(String parte) {
-		this.parte = parte;
-	}
-
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
+	public void setIdCatTipoRefaccion(int idCatTipoRefaccion) {
+		this.idCatTipoRefaccion = idCatTipoRefaccion;
 	}
 
 	public String getDescripcion() {

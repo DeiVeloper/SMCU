@@ -23,6 +23,7 @@ import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.model.Empleado;
+import mx.com.desoft.hidrogas.util.Authenticator;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AgregarEditarOrdenController {
@@ -164,7 +165,7 @@ public class AgregarEditarOrdenController {
 		ordenTrabajoTO.setKilometraje(Integer.parseInt(kilometrajeHoras.getText()));
 		ordenTrabajoTO.setFallaMecanica(fallaMecanica.getText());
 		ordenTrabajoTO.setFechaRegistro(new Date());
-		ordenTrabajoTO.setNominaRegistro(1);
+		ordenTrabajoTO.setNominaRegistro(Authenticator.noNominaRegistro);
 	}
 
 	private void llenarComboNecesidad() {

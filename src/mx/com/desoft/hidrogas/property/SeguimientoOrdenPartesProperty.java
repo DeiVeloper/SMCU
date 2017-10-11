@@ -7,17 +7,16 @@ public class SeguimientoOrdenPartesProperty {
 
 	private int idRefaccion;
 	private StringProperty cantidad;
-	private StringProperty parte;
-	private StringProperty marca;
+	private int idTipoRefaccion;
+	private StringProperty descripcionTipoRefaccion;
 	private StringProperty descripcion;
 
-	public SeguimientoOrdenPartesProperty(int idRefaccion, StringProperty cantidad, StringProperty parte,
-			StringProperty marca, StringProperty descripcion) {
+	public SeguimientoOrdenPartesProperty(int idRefaccion, StringProperty cantidad, int idTipoRefaccion, StringProperty descripcionTipoRefaccion, StringProperty descripcion) {
 		super();
 		this.idRefaccion = idRefaccion;
 		this.cantidad = cantidad;
-		this.parte = parte;
-		this.marca = marca;
+		this.idTipoRefaccion = idTipoRefaccion;
+		this.descripcionTipoRefaccion = descripcionTipoRefaccion;
 		this.descripcion = descripcion;
 	}
 
@@ -30,14 +29,14 @@ public class SeguimientoOrdenPartesProperty {
 //		this.descripcion = descripcion;
 //	}
 
-	public SeguimientoOrdenPartesProperty(int idRefaccion, StringProperty cantidad, StringProperty marca,
-			StringProperty descripcion) {
-		super();
-		this.idRefaccion = idRefaccion;
-		this.cantidad = cantidad;
-		this.marca = marca;
-		this.descripcion = descripcion;
-	}
+//	public SeguimientoOrdenPartesProperty(int idRefaccion, StringProperty cantidad, StringProperty marca,
+//			StringProperty descripcion) {
+//		super();
+//		this.idRefaccion = idRefaccion;
+//		this.cantidad = cantidad;
+//		this.marca = marca;
+//		this.descripcion = descripcion;
+//	}
 
 //	public SeguimientoOrdenPartesProperty(StringProperty cantidad, StringProperty marca, StringProperty descripcion) {
 //		super();
@@ -62,20 +61,20 @@ public class SeguimientoOrdenPartesProperty {
 		this.cantidad = cantidad;
 	}
 
-	public StringProperty getParte() {
-		return parte;
+	public int getIdTipoRefaccion() {
+		return idTipoRefaccion;
 	}
 
-	public void setParte(StringProperty parte) {
-		this.parte = parte;
+	public void setIdTipoRefaccion(int idTipoRefaccion) {
+		this.idTipoRefaccion = idTipoRefaccion;
 	}
 
-	public StringProperty getMarca() {
-		return marca;
+	public StringProperty getDescripcionTipoRefaccion() {
+		return descripcionTipoRefaccion;
 	}
 
-	public void setMarca(StringProperty marca) {
-		this.marca = marca;
+	public void setDescripcionTipoRefaccion(StringProperty descripcionTipoRefaccion) {
+		this.descripcionTipoRefaccion = descripcionTipoRefaccion;
 	}
 
 	public StringProperty getDescripcion() {
