@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -12,20 +13,32 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import mx.com.desoft.hidrogas.Authenticator;
+import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
+import mx.com.desoft.hidrogas.util.Alerta;
+import mx.com.desoft.hidrogas.util.Constantes;
 
-import java.io.IOException;
 
-/**
- * The controller for the root layout. The root layout provides the basic
- * application layout containing a menu bar and space where other JavaFX
- * elements can be placed.
- *
- *
- */
+import org.apache.log4j.Logger;
+
 public class RootLayoutController {
 
+	private static final Logger log = Logger.getLogger(RootLayoutController.class);
+
+	@FXML
+	private MenuItem administradorItem;
+
     private MainApp mainApp;
+
+    public RootLayoutController(){
+    	this.inicializarComponentes();
+    }
+
+    @FXML
+    private void initialize() {
+    	this.validarUsuarioLogin();
+	}
 
     @FXML
     private void showEmpleadosOverView() {
@@ -36,8 +49,8 @@ public class RootLayoutController {
             personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+           log.error("Error: No se puedo iniciar la pantalla de Aministracion de Empleados.", e);
         }
     }
 
@@ -50,8 +63,8 @@ public class RootLayoutController {
             personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+        	log.error("Error: No se puedo iniciar la pantalla de Aministracion de Economicos.", e);
         }
     }
 
@@ -64,8 +77,8 @@ public class RootLayoutController {
             personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+        	log.error("Error: No se puedo iniciar la pantalla de Aministracion de Tipo de Necesidad.", e);
         }
     }
 
@@ -78,8 +91,8 @@ public class RootLayoutController {
             personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+        	log.error("Error: No se puedo iniciar la pantalla de Aministracion de Tipo de Refacciones.", e);
         }
     }
     
@@ -92,8 +105,8 @@ public class RootLayoutController {
             personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+        	log.error("Error: No se puedo iniciar la pantalla de Aministracion de Reportes.", e);
         }
     }
 
@@ -110,27 +123,45 @@ public class RootLayoutController {
      */
     @FXML
     private void handleAbout() {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("DeSoft.ink");
-    	alert.setHeaderText(null);
-    	alert.setContentText("Desarrollo de Software a tu medida..");
-    	alert.showAndWait();
+    	String mensaje = "Sitema de Mantenimiento y Control de Unidades \n"
+    			+ "Powered by DeSoft.ink\n"
+    			+ "\n"
+    			+ "Admnistradores: \n"
+    			+ "Ing. Erick Martinez Veneros, cirek_18@hotmail.com \n"
+    			+ "Ing. Carlos David Castro Aguilar, david.c13@hotmail.com"
+    			+ "\n";
+    	Alerta.crearAlertaUsuario("DeSoft.ink", mensaje, AlertType.INFORMATION);
     }
 
-    /**
-     * Closes the application.
-     */
+    @FXML
+    private void cerrarSesion(){
+    	try {
+    		Login login = new Login();
+    		mainApp.getPrimaryStage().close();
+    		login.inicializarLogin();
+		} catch (Exception e) {
+			log.error("Error: No se puedo cerrar la sesion.", e);
+		}
+    }
+
     @FXML
     private void handleExit() {
         System.exit(0);
     }
 
+    private void inicializarComponentes(){
+    	administradorItem = new MenuItem();
+    }
 
-    /**
-     * Is called by the main application to give a reference back to itself.
-     *
-     * @param mainApp
-     */
+    private void validarUsuarioLogin(){
+    	if(Authenticator.usuarioSesion.getDescripcionTipoEmpleado().equals(Constantes.ADMINISTRADOR))	{
+    		administradorItem.setVisible(true);
+    	}else	{
+    		administradorItem.setDisable(true);
+    		administradorItem.setVisible(false);
+    	}
+    }
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }

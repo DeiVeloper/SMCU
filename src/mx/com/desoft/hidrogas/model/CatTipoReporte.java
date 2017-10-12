@@ -12,7 +12,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="cat_tipo_reportes")
+@Table(name="cat_tipo_reporte")
 public class CatTipoReporte {
 
 	private Integer tipoReporteId;

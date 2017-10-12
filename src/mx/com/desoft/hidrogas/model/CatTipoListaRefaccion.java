@@ -36,6 +36,11 @@ public class CatTipoListaRefaccion implements Serializable {
 	}
 
 
+	public CatTipoListaRefaccion(String descripcion) {
+		 this.descripcion = descripcion;
+	}
+
+
 	public int getTipoRefaccionId() {
 		return this.tipoRefaccionId;
 	}

@@ -57,7 +57,6 @@ public class EmpleadosImplDAO extends HibernateImplDAO<Empleado, Integer> implem
 	public Empleado getEmpleadoByNomina(int nomina) {
 		Criteria criteria = HibernateUtil.openSession().createCriteria(Empleado.class);
 		if(nomina > 0) {
-			System.out.println("nomina: " + nomina);
 			criteria.add(Restrictions.eq("nominaEmpleado", nomina));
 		}
 		return (Empleado)criteria.uniqueResult();

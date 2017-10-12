@@ -13,6 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import mx.com.desoft.hidrogas.Authenticator;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
 import mx.com.desoft.hidrogas.business.EmpleadoBusinessImpl;
@@ -22,7 +23,6 @@ import mx.com.desoft.hidrogas.dto.CatTipoEmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
 import mx.com.desoft.hidrogas.util.Alerta;
-import mx.com.desoft.hidrogas.util.Authenticator;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AgregarEditarEmpleadoController {
@@ -177,8 +177,8 @@ public class AgregarEditarEmpleadoController {
         	return false;
         }
 
-        if	(!password.isDisabled() && (password.getText() == Constantes.NULL || password.getText().length() == Constantes.CERO)) {
-        	mensaje =  "Favor de capturar su contraseña ";
+        if	(!password.isDisabled() && !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.OPERADOR) && (password.getText() == Constantes.NULL || password.getText().length() == Constantes.CERO)) {
+        	mensaje =  "Favor de capturar su contraseÃ±a ";
         	return false;
         }
         this.convertirCamposViewToDTO();
@@ -244,7 +244,7 @@ public class AgregarEditarEmpleadoController {
     }
 
     private void inciciarComponentes() {
-    	noNominaRegistro.setText(Authenticator.noNominaRegistro.toString());
+    	noNominaRegistro.setText(Authenticator.usuarioSesion.getNominaEmpleado().toString());
     	noNominaRegistro.setDisable(true);
     	passwordLabel.setVisible(false);
     	password.setVisible(false);

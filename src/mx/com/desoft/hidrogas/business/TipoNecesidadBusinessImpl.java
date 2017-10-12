@@ -30,7 +30,7 @@ public class TipoNecesidadBusinessImpl implements ITipoNecesidadBusiness {
 	}
 
 	private CatTipoNecesidad convertirDTOToEntidad(CatTipoNecesidadDTO catTipoNecesidadDTO) {
-		return new CatTipoNecesidad(1L,catTipoNecesidadDTO.getDescripcion());
+		return new CatTipoNecesidad(catTipoNecesidadDTO.getDescripcion());
 	}
 
 	@Override

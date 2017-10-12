@@ -1,6 +1,6 @@
 package mx.com.desoft.hidrogas;
 
-import java.io.IOException;
+import org.apache.log4j.Logger;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.view.SeguimientoOrdenTrabajoController;
 import mx.com.desoft.hidrogas.view.AdministrarOrdenTrabajoController;
@@ -15,6 +16,8 @@ import mx.com.desoft.hidrogas.view.AgregarEditarOrdenController;
 import mx.com.desoft.hidrogas.view.RootLayoutController;
 
 public class MainApp  {
+
+	private static final Logger log = Logger.getLogger(MainApp.class);
 
     private Stage primaryStage;
     private BorderPane rootLayout;
@@ -27,17 +30,18 @@ public class MainApp  {
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
             Scene scene = new Scene(rootLayout);
             primaryStage.setTitle("SMCU - Sistema de Mantenimiento y Control de Unidades");
             primaryStage.getIcons().add(new Image("file:resources/images/ic_launcher.png"));
             primaryStage.setScene(scene);
-            RootLayoutController controller = loader.getController();
             primaryStage.centerOnScreen();
             primaryStage.setMaximized(true);
-            controller.setMainApp(this);
+            primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+        	log.error("Error: No se pudo iniciar el Layout.", e);
         }
     }
 
@@ -46,20 +50,15 @@ public class MainApp  {
      */
     public void showAdministrarOrdenTrabajo() {
     	try {
-            // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/AdministrarOrdenTrabajo.fxml"));
             AnchorPane orden = (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
             rootLayout.setCenter(orden);
-
-            // Give the controller access to the main app.
             AdministrarOrdenTrabajoController controller = loader.getController();
             controller.setMainApp(this);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+        	log.error("Error: No se pudo iniciar la pantalla de Aministracion de Orde de Trabajo.", e);
         }
     }
 
@@ -68,22 +67,17 @@ public class MainApp  {
      */
     public void showSeguimientoOrdenTrabajo(OrdenTrabajoDTO ordenDTO) {
     	try {
-            // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/SeguimientoOrdenTrabajo.fxml"));
             AnchorPane orden = (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
             rootLayout.setCenter(orden);
-
-            // Give the controller access to the main app.
             SeguimientoOrdenTrabajoController controller = loader.getController();
             controller.setMainApp(this);
             controller.setOrdenDTO(ordenDTO);
             controller.cargarInformacion();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+        	log.error("Error: No se pudo iniciar la pantalla de Seguimiento Orden de Trabajo.", e);
         }
     }
 
@@ -92,20 +86,15 @@ public class MainApp  {
      */
     public void cancelarOrdenTrabajo() {
     	try {
-            // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/AdministrarOrdenTrabajo.fxml"));
             AnchorPane orden = (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
             rootLayout.setCenter(orden);
-
-            // Give the controller access to the main app.
             AdministrarOrdenTrabajoController controller = loader.getController();
             controller.setMainApp(this);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+        	log.error("Error: No se pudo iniciar la pantalla de Aministracion de Orden de Trabajo.", e);
         }
     }
 
@@ -114,20 +103,16 @@ public class MainApp  {
      */
     public void showOrdenTrabajo() {
     	try {
-            // Load person overview.
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/OrdenTrabajo.fxml"));
             AnchorPane orden = (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
             rootLayout.setCenter(orden);
-
-            // Give the controller access to the main app.
             AgregarEditarOrdenController controller = loader.getController();
             controller.setMainApp(this);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+        	log.error("Error: No se pudo iniciar la pantalla de Orden de Trabajo.", e);
         }
     }
 

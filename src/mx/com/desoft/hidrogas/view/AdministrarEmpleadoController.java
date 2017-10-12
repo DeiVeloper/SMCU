@@ -44,7 +44,7 @@ import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AdministrarEmpleadoController {
 
-	private static final Logger log = Logger.getLogger(AgregarEditarEmpleadoController.class);
+	private static final Logger log = Logger.getLogger(AdministrarEmpleadoController.class);
 
     @FXML
     private TableView<EmpleadoProperty> tablaEmpleados;

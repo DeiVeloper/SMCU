@@ -1,6 +1,8 @@
-package mx.com.desoft.hidrogas.util;
+package mx.com.desoft.hidrogas;
 
 import java.io.Serializable;
+
+import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
 
 public class Authenticator implements Serializable {
 
@@ -8,6 +10,6 @@ public class Authenticator implements Serializable {
 	 *
 	 */
 	private static final long serialVersionUID = 1044512398864299120L;
-	public static Integer noNominaRegistro;
+	public static EmpleadoDTO usuarioSesion;
 
 }

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="437.0" prefWidth="367.0" styleClass="background"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AgregarEditarEmpleadoController">
+<AnchorPane prefHeight="437.0" prefWidth="367.0" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AgregarEditarEmpleadoController">
    <children>
       <GridPane layoutX="14.0" layoutY="60.0" prefHeight="304.0" prefWidth="347.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
         <columnConstraints>
@@ -42,7 +42,7 @@
             <TextField fx:id="nombre" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="apellidoPaterno" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="apellidoMaterno" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox fx:id="tipoEmpleado" prefWidth="150.0" promptText="Seleccione..." GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ComboBox fx:id="tipoEmpleado" onAction="#eventoTipoEmpleado" prefWidth="150.0" promptText="Seleccione..." GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="noNominaRegistro" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <ComboBox fx:id="economico" prefWidth="150.0" promptText="Seleccione..." GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="8" />

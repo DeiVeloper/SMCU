@@ -16,6 +16,7 @@ import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
 import mx.com.desoft.hidrogas.util.Constantes;
+import mx.com.desoft.hidrogas.util.Reportes;
 
 public class AdministrarReportesController {
 
@@ -64,9 +65,10 @@ public class AdministrarReportesController {
 
 	@FXML
 	private void imprimirReporte(){
+		Reportes reporte = new Reportes();
 		if(validarCamposView())	{
 			this.convertirCamosToDTO();
-			catalogoBusinessImpl.imprimirReporte(ordenTrabajoDTO);
+//			reporte.generarReporteIncidencias(catalogoBusinessImpl.imprimirReporte(ordenTrabajoDTO));
 		}
 	}
 

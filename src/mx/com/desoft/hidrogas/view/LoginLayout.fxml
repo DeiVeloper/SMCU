@@ -9,16 +9,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" stylesheets="@../../../../../../resources/css/login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.LoginController">
+<BorderPane id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.LoginController">
    <padding>
       <Insets bottom="10.0" top="10.0" />
    </padding>
    <top>
       <AnchorPane id="root2" prefHeight="500.0" styleClass="root2" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="62.0" fitWidth="83.0" layoutX="284.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="14.0">
+            <ImageView fx:id="logo" fitHeight="62.0" fitWidth="83.0" layoutX="284.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="14.0">
                <image>
-                  <Image url="@../../../../../../resources/images/ic_launcher.png" />
                </image>
             </ImageView>
             <Label layoutX="101.0" layoutY="111.0" text="Sistema de Mantenimiento y Control de Unidades">
@@ -27,15 +26,13 @@
                </font>
             </Label>
             <Button id="btn" fx:id="iniciarSession" layoutX="178.0" layoutY="378.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="299.0" styleClass="btn" text="Iniciar sesión" />
-            <ImageView fitHeight="64.0" fitWidth="45.0" layoutX="201.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="usuarioView" fitHeight="64.0" fitWidth="45.0" layoutX="201.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../resources/images/user.png" />
                </image>
             </ImageView>
             <TextField fx:id="userNameField" layoutX="292.0" layoutY="193.0" prefHeight="30.0" prefWidth="150.0" promptText="Usuario" />
-            <ImageView fitHeight="55.0" fitWidth="44.0" layoutX="202.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="passwordView" fitHeight="55.0" fitWidth="44.0" layoutX="202.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../resources/images/password.png" />
                </image>
             </ImageView>
             <PasswordField fx:id="passordField" layoutX="292.0" layoutY="282.0" prefHeight="30.0" prefWidth="150.0" promptText="Contraseña" />

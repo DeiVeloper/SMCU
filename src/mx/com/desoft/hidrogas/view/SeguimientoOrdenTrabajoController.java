@@ -25,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import mx.com.desoft.hidrogas.Authenticator;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
 import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
@@ -38,7 +39,6 @@ import mx.com.desoft.hidrogas.dto.SeguimientoOrdenDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
 import mx.com.desoft.hidrogas.model.OrdenTrabajo;
 import mx.com.desoft.hidrogas.property.SeguimientoOrdenPartesProperty;
-import mx.com.desoft.hidrogas.util.Authenticator;
 import mx.com.desoft.hidrogas.util.Constantes;
 import mx.com.desoft.hidrogas.util.DateUtil;
 
@@ -179,35 +179,35 @@ public class SeguimientoOrdenTrabajoController {
 			case Constantes.N1:
 				if(cantidadPU.getText().matches("[0-9]*")) {
 					if(cantidadPU.getText() == Constantes.NULL || cantidadPU.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Cantidad no puede ir vacío.";
+						errorMessage = "El campo Cantidad no puede ir vacï¿½o.";
 					} else if(descripcionPU.getText() == Constantes.NULL || descripcionPU.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Descripción no puede ir vacío.";
+						errorMessage = "El campo Descripciï¿½n no puede ir vacï¿½o.";
 					} else if(Integer.parseInt(cantidadPU.getText()) > 99) {
-						errorMessage = "El campo Cantidad no puede tener más de 99.";
+						errorMessage = "El campo Cantidad no puede tener mï¿½s de 99.";
 					} else if(descripcionPU.getText().length() > 300) {
-						errorMessage = "El campo Descripción no puede tener más de 300 caracteres.";
+						errorMessage = "El campo Descripciï¿½n no puede tener mï¿½s de 300 caracteres.";
 					} else {
 						esCorrecto = true;
 					}
 				} else {
-					errorMessage = "El campo Cantidad debe ser numérico.";
+					errorMessage = "El campo Cantidad debe ser numï¿½rico.";
 				}
 				break;
 			case Constantes.N2:
 				if(cantidadPS.getText().matches("[0-9]*")) {
 					if(cantidadPS.getText() == Constantes.NULL || cantidadPS.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Cantidad no puede ir vacío.";
+						errorMessage = "El campo Cantidad no puede ir vacï¿½o.";
 					} else if(descripcionPS.getText() == Constantes.NULL || descripcionPS.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Descripción no puede ir vacío.";
+						errorMessage = "El campo Descripciï¿½n no puede ir vacï¿½o.";
 					} else if(Integer.parseInt(cantidadPS.getText()) > 99) {
-						errorMessage = "El campo Cantidad no puede tener más de 99.";
+						errorMessage = "El campo Cantidad no puede tener mï¿½s de 99.";
 					} else if(descripcionPS.getText().length() > 300) {
-						errorMessage = "El campo Descripción no puede tener más de 300 caracteres.";
+						errorMessage = "El campo Descripciï¿½n no puede tener mï¿½s de 300 caracteres.";
 					} else {
 						esCorrecto = true;
 					}
 				} else {
-					errorMessage = "El campo Cantidad debe ser numérico.";
+					errorMessage = "El campo Cantidad debe ser numï¿½rico.";
 				}
 				break;
 			default:
@@ -272,7 +272,7 @@ public class SeguimientoOrdenTrabajoController {
 				Alert alert = new Alert(AlertType.WARNING);
 	        	alert.setTitle("Guardando Seguimiento de Orden de Trabajo");
 	        	alert.setHeaderText(null);
-	        	alert.setContentText("¡El registro se guardó exitosamente!");
+	        	alert.setContentText("ï¿½El registro se guardï¿½ exitosamente!");
 	        	alert.showAndWait();
 	        	mainApp.showAdministrarOrdenTrabajo();
 			} catch (Exception e) {
@@ -292,13 +292,13 @@ public class SeguimientoOrdenTrabajoController {
 		String errorMessage = "";
 		boolean esCorrecto = false;
 		if(trabajosRealizados.getText() == Constantes.NULL || trabajosRealizados.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Trabajos Realizados no puede ir vacío.";
+			errorMessage = "El campo Trabajos Realizados no puede ir vacï¿½o.";
 		} else if(observaciones.getText() == Constantes.NULL || observaciones.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Observaciones no puede ir vacío.";
+			errorMessage = "El campo Observaciones no puede ir vacï¿½o.";
 		} else if(trabajosRealizados.getText().length() > 300) {
-			errorMessage = "El campo Trabajos Realizados no puede tener más de 300 caracteres.";
+			errorMessage = "El campo Trabajos Realizados no puede tener mï¿½s de 300 caracteres.";
 		} else if(observaciones.getText().length() > 300) {
-			errorMessage = "El campo Observaciones no puede tener más de 300 caracteres.";
+			errorMessage = "El campo Observaciones no puede tener mï¿½s de 300 caracteres.";
 		} else {
 			esCorrecto = true;
 		}
@@ -326,19 +326,19 @@ public class SeguimientoOrdenTrabajoController {
 		if(seguimientoDTO.getIdSeguimiento() == Constantes.CERO) {
 			seguimientoDTO.setFechaRegistro(new Date());
 		}
-		seguimientoDTO.setNominaRegistro(Authenticator.noNominaRegistro);
+		seguimientoDTO.setNominaRegistro(Authenticator.usuarioSesion.getNominaRegistro());
 		dtoPartesUsadas = new ArrayList<>();
 		dtoPartesSolicitadas = new ArrayList<>();
 		for(SeguimientoOrdenPartesProperty parteUsada : dtoTablaPartesUsadas) {
 			if(parteUsada.getIdRefaccion() == Constantes.CERO) {
 				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getIdTipoRefaccion(),
-						parteUsada.getDescripcion().getValue(), Constantes.N1, new Date(), Authenticator.noNominaRegistro));
+						parteUsada.getDescripcion().getValue(), Constantes.N1, new Date(), Authenticator.usuarioSesion.getNominaRegistro()));
 			}
 		}
 		for(SeguimientoOrdenPartesProperty parteSolicitada : dtoTablaPartesSolicitadas) {
 			if(parteSolicitada.getIdRefaccion() == Constantes.CERO) {
 				dtoPartesSolicitadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteSolicitada.getCantidad().getValue()), parteSolicitada.getIdTipoRefaccion(),
-						parteSolicitada.getDescripcion().getValue(), Constantes.N2, new Date(), Authenticator.noNominaRegistro));
+						parteSolicitada.getDescripcion().getValue(), Constantes.N2, new Date(), Authenticator.usuarioSesion.getNominaRegistro()));
 			}
 		}
 		seguimientoDTO.setListaPartesUsadas(dtoPartesUsadas);
@@ -347,11 +347,11 @@ public class SeguimientoOrdenTrabajoController {
 
 	public boolean eliminaRefaccion(int idRefaccion) {
 		boolean isCorecto = true;
-		String context = "¿Está seguro de eliminar el registro?";
+		String context = "ï¿½Estï¿½ seguro de eliminar el registro?";
 		ButtonType aceptar = new ButtonType("Aceptar");
 		ButtonType cancelar = new ButtonType("Cancelar");
 		Alert alert = new Alert(AlertType.CONFIRMATION, context, aceptar, cancelar);
-		alert.setTitle("Confirmación");
+		alert.setTitle("Confirmaciï¿½n");
 		alert.setHeaderText(null);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.isPresent() && result.get().getText() == "Aceptar") {

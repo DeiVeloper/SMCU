@@ -8,12 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import mx.com.desoft.hidrogas.Authenticator;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.business.EconomicoBusinessImpl;
 import mx.com.desoft.hidrogas.business.IEconomicoBusiness;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.util.Alerta;
-import mx.com.desoft.hidrogas.util.Authenticator;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AgregarEditarEconomicoController {
@@ -38,7 +38,7 @@ public class AgregarEditarEconomicoController {
 
 	@FXML
     private void initialize() {
-		noNominaRegistroField.setText(Authenticator.noNominaRegistro.toString());
+		noNominaRegistroField.setText(Authenticator.usuarioSesion.getNominaEmpleado().toString());
 		noNominaRegistroField.setDisable(true);
     }
 

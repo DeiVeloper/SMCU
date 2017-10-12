@@ -41,7 +41,7 @@ public class TipoRefaccionesBusinessImpl implements ITipoRefaccionesBusiness {
 
 
 	private CatTipoListaRefaccion convertirDTOToEntidad(CatTipoRefaccionesDTO catTipoRefaccionesDTO) {
-		return new CatTipoListaRefaccion(1,catTipoRefaccionesDTO.getDescripcion());
+		return new CatTipoListaRefaccion(catTipoRefaccionesDTO.getDescripcion());
 	}
 
 	@Override

@@ -10,19 +10,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import mx.com.desoft.hidrogas.model.HibernateUtil;
 
 @Repository
 public class HibernateImplDAO<T, ID extends Serializable> implements HibernateDAO<T, ID> {
 
-	SessionFactory sessionFactory;
 	private final static Logger LOGGER = Logger.getLogger(HibernateImplDAO.class.getName());
 
-	public HibernateImplDAO() {
-		sessionFactory = HibernateUtil.getSessionfactory();
-	}
+	@Autowired
+	SessionFactory sessionFactory;
 
 	@Override
 	public T create() {

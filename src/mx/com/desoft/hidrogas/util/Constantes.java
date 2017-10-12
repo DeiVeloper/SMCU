@@ -4,7 +4,7 @@ public class Constantes {
 
 	public static final String ADMINISTRADOR = "Administrador";
 	public static final String MECANICO = "Mecanico";
-	public static final String CHOFER = "Chofer";
+	public static final String OPERADOR = "Operador";
 	public static final Object NULL = null;
 	public static final int CERO = 0;
 	public static final int N1 = 1;
