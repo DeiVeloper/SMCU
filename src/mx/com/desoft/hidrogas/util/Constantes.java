@@ -21,4 +21,8 @@ public class Constantes {
 	public static final String INICIAR_SESION ="Iniciar sesión";
 	public static final String LOGIN =  "El usuario y/o contraseña son incorrectos, favor de validar.";
 	public static final String VALIDANDO_FORMULARIO="Validando";
+	
+	public static final String ORDEN = "Orden de Servicio";
+	public static final String INCIDENCIAS = "Incidencias de Unidades";
+	public static final String REPARACIONES = "Tipo de Reparaciones";
 }

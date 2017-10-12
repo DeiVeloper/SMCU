@@ -14,5 +14,7 @@ public interface EmpleadosDAO extends HibernateDAO<Empleado, Integer> {
 	List<Empleado> getEmpleadoByVista(EmpleadoDTO empleadoDTO);
 
 	Empleado getEmpleadoByNomina(int nomina);
+	
+	List<Empleado> getAllOperadores();
 
 }

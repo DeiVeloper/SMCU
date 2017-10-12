@@ -39,19 +39,19 @@
             <Label text="Tipo Reporte:" />
             <ComboBox fx:id="comboBoxTipoReporte" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="1" />
             <Label text="Fecha Registro Fin" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <DatePicker fx:id="datePickerFechaRegistro" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <DatePicker fx:id="datePickerFechaRegistroFin" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Label text="Económico" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="textFieldEconomico" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#imprimirReporte" prefHeight="25.0" prefWidth="70.0" text="Imprimir" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <Label text="Estatus" GridPane.rowIndex="2" />
             <ComboBox fx:id="comboBoxEstatus" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Empleado" GridPane.rowIndex="1" />
-            <TextField fx:id="textFieldEmpleado" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Tipo de Necesidad" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <ComboBox fx:id="comboBoxTipoNecesidad" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" onAction="#limpiarCamposView" prefHeight="25.0" prefWidth="70.0" text="Limpiar" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <Label text="Fecha Registro Inicio" GridPane.rowIndex="3" />
-            <DatePicker prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="datePickerFechaRegistroInicio" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="comboBoxEmpleado" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="comboBoxEconomico" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

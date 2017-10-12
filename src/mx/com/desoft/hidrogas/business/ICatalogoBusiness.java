@@ -6,6 +6,7 @@ import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoEmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
+import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
 
@@ -26,5 +27,7 @@ public interface ICatalogoBusiness {
 	void imprimirReporte(OrdenTrabajoDTO ordenTrabajoDTO);
 
 	List<CatTipoRefaccionesDTO> findAllCatTipoRefacciones();
+	
+	List<EmpleadoDTO> findAllOperadores();
 
 }

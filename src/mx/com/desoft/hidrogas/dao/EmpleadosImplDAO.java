@@ -62,4 +62,13 @@ public class EmpleadosImplDAO extends HibernateImplDAO<Empleado, Integer> implem
 		return (Empleado)criteria.uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Empleado> getAllOperadores() {
+		Criteria criteria = HibernateUtil.openSession().createCriteria(Empleado.class);
+		criteria.createAlias("catTipoEmpleado", "catTipoEmpleado");
+		criteria.add(Restrictions.eq("catTipoEmpleado.descripcion", Constantes.OPERADOR));
+		return (List<Empleado>)criteria.list();
+	}
+
 }

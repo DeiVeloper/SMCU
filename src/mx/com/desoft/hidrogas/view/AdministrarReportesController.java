@@ -13,6 +13,8 @@ import mx.com.desoft.hidrogas.business.IAdministrarOrdenBusiness;
 import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
 import mx.com.desoft.hidrogas.dto.CatEstatusOrdenDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
+import mx.com.desoft.hidrogas.dto.EconomicoDTO;
+import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
 import mx.com.desoft.hidrogas.util.Constantes;
@@ -27,16 +29,19 @@ public class AdministrarReportesController {
 	private ComboBox<TipoReporteDTO> comboBoxTipoReporte;
 
 	@FXML
-	private TextField textFieldEmpleado;
+	private ComboBox<EmpleadoDTO> comboBoxEmpleado;
 
 	@FXML
-	private TextField textFieldEconomico;
+	private ComboBox<EconomicoDTO> comboBoxEconomico;
 
 	@FXML
 	private ComboBox<CatEstatusOrdenDTO> comboBoxEstatus;
 
 	@FXML
-	private DatePicker datePickerFechaRegistro;
+	private DatePicker datePickerFechaRegistroFin;
+	
+	@FXML
+	private DatePicker datePickerFechaRegistroInicio;
 
 	@FXML
 	private ComboBox<CatTipoNecesidadDTO> comboBoxTipoNecesidad;
@@ -58,8 +63,10 @@ public class AdministrarReportesController {
 	@FXML
     private void initialize() {
 		this.llenarComboTipoReorte();
-		this.llenarComboEstatus();
+		this.llenarComboEmpleado();
 		this.llenarComboEconomico();
+		this.llenarComboEstatus();
+		this.llenarComboTipoNecesidad();
 
 	}
 
@@ -77,23 +84,46 @@ public class AdministrarReportesController {
 	private void limpiarCamposView(){
 		textFiedlNofolio.clear();
 		comboBoxTipoReporte.getSelectionModel().clearSelection();
-		textFieldEmpleado.clear();
-		textFieldEconomico.clear();
+		comboBoxEmpleado.getSelectionModel().clearSelection();
+		comboBoxEconomico.getSelectionModel().clearSelection();
 		comboBoxEstatus.getSelectionModel().clearSelection();
-		datePickerFechaRegistro.setValue(null);
 		comboBoxTipoNecesidad.getSelectionModel().clearSelection();
+		datePickerFechaRegistroInicio.setValue(null);
+		datePickerFechaRegistroFin.setValue(null);
 	}
+	
+	@FXML
+	private void seleccionarTipoReporte(){
+		switch (comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion()) {
+		case Constantes.ORDEN:
+			
+			break;
+			
+		case Constantes.INCIDENCIAS:
+			
+			break;
+		case Constantes.REPARACIONES:
+			
+			break;
+
+		default:
+			break;
+		}
+	}
+	
 	private boolean validarCamposView(){
 
 		return true;
 
 	}
+	
+	
 	private void convertirCamosToDTO(){
 		ordenTrabajoDTO = new OrdenTrabajoDTO();
 		System.out.println("textFiedlNofolio.getText()" + textFiedlNofolio.getText() != null && !textFiedlNofolio.getText().isEmpty());
 		System.out.println("textFiedlNofolio.getText()" + textFiedlNofolio.getText().length());
 		System.out.println("textFiedlNofolio.getText().isEmpty()" + !textFiedlNofolio.getText().isEmpty());
-		ordenTrabajoDTO.setFolio((textFiedlNofolio.getText() != null && !textFiedlNofolio.getText().isEmpty()) ? Integer.parseInt(textFieldEconomico.getText()) : 0);
+		ordenTrabajoDTO.setFolio((textFiedlNofolio.getText() != null && !textFiedlNofolio.getText().isEmpty()) ? Integer.parseInt(textFiedlNofolio.getText()) : 0);
 //		ordenTrabajoDTO.setNominaOperador(textFieldEmpleado.getText().length() > 0  ? Integer.parseInt(textFieldEconomico.getText()) : null);
 //		ordenTrabajoDTO.setEstatusOrden(comboBoxEstatus.getSelectionModel().getSelectedItem().getId());
 //		ordenTrabajoDTO.setFechaRegistro(datePickerFechaRegistro.getValue() != null ? java.sql.Date.valueOf(datePickerFechaRegistro.getValue()) : null);
@@ -138,7 +168,7 @@ public class AdministrarReportesController {
     	});
 	}
 
-	private void llenarComboEconomico(){
+	private void llenarComboTipoNecesidad(){
 		comboBoxTipoNecesidad.setItems(FXCollections.observableArrayList(catalogoBusinessImpl.findAllTipoNecesidad()));
 		comboBoxTipoNecesidad.setConverter(new StringConverter<CatTipoNecesidadDTO>() {
 			@Override
@@ -152,6 +182,47 @@ public class AdministrarReportesController {
 
 			@Override
 			public CatTipoNecesidadDTO fromString(String string) {
+				return null;
+            }
+    	});
+	}
+	
+	private void llenarComboEmpleado(){
+		comboBoxEmpleado.setItems(FXCollections.observableArrayList(catalogoBusinessImpl.findAllOperadores()));
+		comboBoxEmpleado.setConverter(new StringConverter<EmpleadoDTO>() {
+			@Override
+			public String toString(EmpleadoDTO tipo) {
+				if (tipo == null) {
+					return null;
+        		} else {
+        			return tipo.getNominaEmpleado().toString().concat(" - ")
+        					.concat(tipo.getNombreEmpleado()).concat(" ")
+        					.concat(tipo.getApellidoPatEmpleado()).concat(" ")
+        					.concat(tipo.getApellidoMatEmpleado()).toString();
+            	}
+            }
+
+			@Override
+			public EmpleadoDTO fromString(String string) {
+				return null;
+            }
+    	});
+	}
+	
+	private void llenarComboEconomico(){
+		comboBoxEconomico.setItems(FXCollections.observableArrayList(catalogoBusinessImpl.findAllEconomicos()));
+		comboBoxEconomico.setConverter(new StringConverter<EconomicoDTO>() {
+			@Override
+			public String toString(EconomicoDTO tipo) {
+				if (tipo == null) {
+					return null;
+        		} else {
+        			return tipo.getEconomicoId().toString();
+            	}
+            }
+
+			@Override
+			public EconomicoDTO fromString(String string) {
 				return null;
             }
     	});

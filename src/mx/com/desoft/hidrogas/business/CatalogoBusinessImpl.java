@@ -11,12 +11,14 @@ import mx.com.desoft.hidrogas.dao.CatTipoReporteDAO;
 import mx.com.desoft.hidrogas.dao.CatTipoEmpleadoDAO;
 import mx.com.desoft.hidrogas.dao.CatTipoNecesidadDAO;
 import mx.com.desoft.hidrogas.dao.EconomicoDAO;
+import mx.com.desoft.hidrogas.dao.EmpleadosDAO;
 import mx.com.desoft.hidrogas.dao.ICatTipoRefaccionDAO;
 import mx.com.desoft.hidrogas.dao.IOrdenTrabajoDAO;
 import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoEmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
+import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
 import mx.com.desoft.hidrogas.model.CatTipoEmpleado;
@@ -25,6 +27,7 @@ import mx.com.desoft.hidrogas.model.CatTipoNecesidad;
 import mx.com.desoft.hidrogas.model.CatTipoRefaccion;
 import mx.com.desoft.hidrogas.model.CatTipoReporte;
 import mx.com.desoft.hidrogas.model.Economico;
+import mx.com.desoft.hidrogas.model.Empleado;
 
 @Service
 public class CatalogoBusinessImpl implements ICatalogoBusiness {
@@ -49,6 +52,9 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 
 	@Autowired
 	private ICatTipoRefaccionDAO catTipoRefaccion;
+	
+	@Autowired
+	private EmpleadosDAO empleadoImplDAO;
 
 	@Override
 	public List<CatTipoEmpleadoDTO> findAllTipoEmpleados() {
@@ -126,5 +132,24 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 			listaRefacciones.add(new CatTipoRefaccionesDTO(refaccion.getIdTipoRefaccion(), refaccion.getDescripcion()));
 		}
 		return listaRefacciones;
+	}
+
+	@Override
+	public List<EmpleadoDTO> findAllOperadores() {
+		List<EmpleadoDTO> listaOperadores = new ArrayList<>();
+		for (Empleado lista : empleadoImplDAO.getAllOperadores()) {
+			EmpleadoDTO dto = new EmpleadoDTO(lista.getNominaEmpleado(), 
+					lista.getNombreEmpleado(), 
+					lista.getApellidoPatEmpleado(), 
+					lista.getApellidoMatEmpleado(), 
+					null, 
+					lista.getEconomico().getEconomicoId(), 
+					lista.getFechaRegistro(), 
+					lista.getNominaRegistro(), 
+					lista.getCatTipoEmpleado().getTipoEmpleadoId(), 
+					lista.getCatTipoEmpleado().getDescripcion());
+			listaOperadores.add(dto);
+		}
+		return listaOperadores;
 	}
 }
