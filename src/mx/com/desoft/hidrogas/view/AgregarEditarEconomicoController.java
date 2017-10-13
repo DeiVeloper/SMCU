@@ -69,10 +69,6 @@ public class AgregarEditarEconomicoController {
         	mensaje = "El campo Economico no puede ir vacio";
         	return false;
         }
-//        if	(noNominaRegistroField.getText() == Constantes.NULL || noNominaRegistroField.getText().length() == Constantes.CERO) {
-//        	mensaje =  "El campo No. Nomina Registro no puede ir vacio ";
-//        	return false;
-//        }
         this.convertirCamposViewToDTO();
         return true;
     }
