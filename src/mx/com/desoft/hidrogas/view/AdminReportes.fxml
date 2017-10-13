@@ -37,7 +37,7 @@
                </opaqueInsets>
             </TextField>
             <Label text="Tipo Reporte:" />
-            <ComboBox fx:id="comboBoxTipoReporte" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="1" />
+            <ComboBox fx:id="comboBoxTipoReporte" onAction="#seleccionarTipoReporte" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="1" />
             <Label text="Fecha Registro Fin" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <DatePicker fx:id="datePickerFechaRegistroFin" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Label text="Económico" GridPane.columnIndex="2" GridPane.rowIndex="1" />
