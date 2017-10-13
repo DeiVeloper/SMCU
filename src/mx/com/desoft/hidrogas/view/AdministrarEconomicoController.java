@@ -23,15 +23,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
-import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
 import mx.com.desoft.hidrogas.business.EconomicoBusinessImpl;
-import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
 import mx.com.desoft.hidrogas.business.IEconomicoBusiness;
 import mx.com.desoft.hidrogas.buttons.EliminarButtonEconomico;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
+import mx.com.desoft.hidrogas.helper.CatalogosHelper;
+import mx.com.desoft.hidrogas.helper.CatalogosHelperImpl;
 import mx.com.desoft.hidrogas.property.EconomicoProperty;
 import mx.com.desoft.hidrogas.util.Alerta;
 
@@ -62,9 +61,9 @@ public class AdministrarEconomicoController {
     @FXML
     private TableColumn<EconomicoProperty, Boolean> eliminarColumn;
 
+    private CatalogosHelper catalogosHelperImpl = Login.appContext.getBean(CatalogosHelperImpl.class);
     private EconomicoDTO economicoDTO = Login.appContext.getBean(EconomicoDTO.class);
     private IEconomicoBusiness economicoBusinessImpl = Login.appContext.getBean(EconomicoBusinessImpl.class);
-    private ICatalogoBusiness catalogoBusinessImpl = Login.appContext.getBean(CatalogoBusinessImpl.class);
     private ObservableList<EconomicoProperty> data = FXCollections.observableArrayList();
 
     /**
@@ -86,18 +85,18 @@ public class AdministrarEconomicoController {
      */
     @FXML
     private void initialize() {
-    	llenarComboEconomico();
+    	catalogosHelperImpl.llenarComboEconomico(economicoComboBox);
     }
 
 	@FXML
     private void buscarEconomicos() {
 		convertirCamposToDTO();
-    	List<EconomicoProperty> dto = economicoBusinessImpl.getEconomicoByView(economicoDTO);
-    	this.llenarTabla(dto);
-    	
+    	this.buscarEconomicosView();
     }
-	
-	private void llenarTabla(List<EconomicoProperty> dto){
+
+	public void buscarEconomicosView(){
+		List<EconomicoProperty> dto = economicoBusinessImpl.getEconomicoByView(economicoDTO);
+		data.clear();
 		economicoColumn.setCellValueFactory(cellData -> cellData.getValue().getEconomicoId());
     	fechaRegistroColumn.setCellValueFactory(cellData -> cellData.getValue().getFechaRegistro());
     	fechaRegistroColumn.setStyle("-fx-alignment: CENTER;");
@@ -113,29 +112,10 @@ public class AdministrarEconomicoController {
     			return new EliminarButtonEconomico(data);
     		}
 	    });
-    	data.clear();
     	data.addAll(dto);
+    	contadorLista.setText(String.valueOf(dto.size()));
     	tablaEconomicos.setItems(data);
 	}
-
-	private void llenarComboEconomico() {
-		economicoComboBox.setItems(FXCollections.observableArrayList(catalogoBusinessImpl.findAllEconomicos()));
-		economicoComboBox.setConverter(new StringConverter<EconomicoDTO>() {
-			@Override
-			public String toString(EconomicoDTO tipo) {
-				if (tipo == null) {
-					return null;
-        		} else {
-        			return tipo.getEconomicoId().toString();
-            	}
-            }
-
-			@Override
-			public EconomicoDTO fromString(String string) {
-				return null;
-            }
-    	});
-    }
 
     private void convertirCamposToDTO() {
     	economicoDTO.setEconomicoId(economicoComboBox.getSelectionModel().getSelectedItem() != null ?
@@ -172,11 +152,11 @@ public class AdministrarEconomicoController {
     }
 
     public boolean eliminarEconomico(Integer id) {
-    	String context ="�Esta seguro de eliminar el registro?";
+    	String context ="ï¿½Esta seguro de eliminar el registro?";
 		ButtonType aceptar = new ButtonType("Aceptar");
 		ButtonType cancelar = new ButtonType("Cancelar");
 		Alert alert = new Alert(AlertType.CONFIRMATION,context, aceptar, cancelar);
-    	alert.setTitle("Confirmaci�n");
+    	alert.setTitle("Confirmaciï¿½n");
     	alert.setHeaderText(null);
     	Optional<ButtonType> result = alert.showAndWait();
     	 if (result.isPresent() && result.get().getText() == "Aceptar") {
