@@ -3,9 +3,10 @@ package mx.com.desoft.hidrogas.view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -29,6 +30,9 @@ public class RootLayoutController {
 	@FXML
 	private MenuItem administradorItem;
 
+	@FXML
+	private ImageView imagenCentral;
+
     private MainApp mainApp;
 
     public RootLayoutController(){
@@ -38,6 +42,8 @@ public class RootLayoutController {
     @FXML
     private void initialize() {
     	this.validarUsuarioLogin();
+    	imagenCentral.setImage(new Image("file:resources/images/presentacion.png"));
+
 	}
 
     @FXML
@@ -95,7 +101,7 @@ public class RootLayoutController {
         	log.error("Error: No se puedo iniciar la pantalla de Aministracion de Tipo de Refacciones.", e);
         }
     }
-    
+
     @FXML
     private void showReportesView() {
     	try {
@@ -124,13 +130,13 @@ public class RootLayoutController {
     @FXML
     private void handleAbout() {
     	String mensaje = "Sitema de Mantenimiento y Control de Unidades \n"
-    			+ "Powered by DeSoft.ink\n"
+    			+ "Powered by DeSoft.inc\n"
     			+ "\n"
     			+ "Admnistradores: \n"
     			+ "Ing. Erick Martinez Veneros, cirek_18@hotmail.com \n"
     			+ "Ing. Carlos David Castro Aguilar, david.c13@hotmail.com"
     			+ "\n";
-    	Alerta.crearAlertaUsuario("DeSoft.ink", mensaje, AlertType.INFORMATION);
+    	Alerta.crearAlertaUsuario("DeSoft.inc", mensaje, AlertType.INFORMATION);
     }
 
     @FXML
@@ -151,6 +157,7 @@ public class RootLayoutController {
 
     private void inicializarComponentes(){
     	administradorItem = new MenuItem();
+    	imagenCentral = new ImageView();
     }
 
     private void validarUsuarioLogin(){
