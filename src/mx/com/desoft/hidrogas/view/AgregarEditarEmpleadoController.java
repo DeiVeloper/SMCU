@@ -4,24 +4,23 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import mx.com.desoft.hidrogas.Authenticator;
 import mx.com.desoft.hidrogas.Login;
-import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
 import mx.com.desoft.hidrogas.business.EmpleadoBusinessImpl;
-import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
 import mx.com.desoft.hidrogas.business.IEmpleadoBusiness;
 import mx.com.desoft.hidrogas.dto.CatTipoEmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
+import mx.com.desoft.hidrogas.helper.CatalogosHelper;
+import mx.com.desoft.hidrogas.helper.CatalogosHelperImpl;
 import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
 
@@ -59,8 +58,11 @@ public class AgregarEditarEmpleadoController {
     @FXML
     private Label economicoLabel;
 
-    private ICatalogoBusiness bussinesServiceImpl = Login.appContext.getBean(CatalogoBusinessImpl.class);
-    private IEmpleadoBusiness empleadoBussinesServiceImpl = Login.appContext.getBean(EmpleadoBusinessImpl.class);
+    @FXML
+    private Button guardarEmpleado;
+
+    private CatalogosHelper catalogosHelperImpl = Login.appContext.getBean(CatalogosHelperImpl.class);
+    private IEmpleadoBusiness empleadoBusinessImpl = Login.appContext.getBean(EmpleadoBusinessImpl.class);
     private EmpleadoDTO empleadoDTO;
     private CatTipoEmpleadoDTO catTipoEmpleadoDTO;
     private Stage dialogStage;
@@ -88,18 +90,15 @@ public class AgregarEditarEmpleadoController {
     @FXML
     private void initialize() {
     	inciciarComponentes();
-    	llenarComboEconomico();
-    	llenarComboCatTipoEmpleado();
     }
 
     @FXML
     private void guardarEmpleado() {
     	if	(validarFormulario())	{
     		try {
-    			empleadoBussinesServiceImpl.guardarEmpleado(empleadoDTO);
-    	        dialogStage.close();
-    	        Alerta.crearAlertaUsuario("Guardando", Constantes.MENSAJE_EXITOSO, AlertType.CONFIRMATION);
-
+    			empleadoBusinessImpl.guardarEmpleado(empleadoDTO);
+    			dialogStage.close();
+    			Alerta.crearAlertaUsuario("Guardando", Constantes.MENSAJE_EXITOSO, AlertType.CONFIRMATION);
     		} catch (Exception e) {
     			log.error("Error al momento de guardar un empleado" ,e);
     			Alerta.crearAlertaUsuario("Error", e.getMessage(), AlertType.ERROR);
@@ -167,18 +166,13 @@ public class AgregarEditarEmpleadoController {
         	return false;
         }
 
-//        if	(noNominaRegistro.getText() == Constantes.NULL || noNominaRegistro.getText().length() == Constantes.CERO) {
-//        	mensaje =  "El Campo No. Nomina Registro no puede ir vacio ";
-//        	return false;
-//        }
-
         if	(!economico.isDisabled() && !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ADMINISTRADOR) &&(economico.getSelectionModel().getSelectedItem() == Constantes.NULL)) {
         	mensaje =  "Favor de seleccionar un Economico ";
         	return false;
         }
 
         if	(!password.isDisabled() && !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.OPERADOR) && (password.getText() == Constantes.NULL || password.getText().length() == Constantes.CERO)) {
-        	mensaje =  "Favor de capturar su contraseña ";
+        	mensaje =  "Favor de capturar su contraseÃ±a ";
         	return false;
         }
         this.convertirCamposViewToDTO();
@@ -205,49 +199,13 @@ public class AgregarEditarEmpleadoController {
 
     }
 
-    private void llenarComboCatTipoEmpleado() {
-    	tipoEmpleado.setItems(FXCollections.observableArrayList(bussinesServiceImpl.findAllTipoEmpleados()));
-    	tipoEmpleado.setConverter(new StringConverter<CatTipoEmpleadoDTO>() {
-    		@Override
-            public String toString(CatTipoEmpleadoDTO tipo) {
-            	if (tipo == null) {
-            		return null;
-            	} else {
-            		return tipo.getDescripcion();
-            	}
-            }
-
-            @Override
-            public CatTipoEmpleadoDTO fromString(String string) {
-                   return null;
-            }
-    	});
-    }
-
-    private void llenarComboEconomico() {
-    	economico.setItems(FXCollections.observableArrayList(bussinesServiceImpl.findAllEconomicos()));
-    	economico.setConverter(new StringConverter<EconomicoDTO>() {
-    		@Override
-            public String toString(EconomicoDTO tipo) {
-            	if (tipo == null) {
-            		return null;
-            	} else {
-            		return tipo.getEconomicoId().toString();
-            	}
-            }
-
-            @Override
-            public EconomicoDTO fromString(String string) {
-                   return null;
-            }
-    	});
-    }
-
     private void inciciarComponentes() {
     	noNominaRegistro.setText(Authenticator.usuarioSesion.getNominaEmpleado().toString());
     	noNominaRegistro.setDisable(true);
     	passwordLabel.setVisible(false);
     	password.setVisible(false);
+    	catalogosHelperImpl.llenarComboEconomico(economico);
+    	catalogosHelperImpl.llenarComboCatTipoEmpleado(tipoEmpleado);
     }
 
     public void setearEdicionEmpleado(EmpleadoDTO empleado) {
