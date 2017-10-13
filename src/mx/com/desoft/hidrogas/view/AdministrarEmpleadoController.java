@@ -23,21 +23,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
-import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
 import mx.com.desoft.hidrogas.business.EmpleadoBusinessImpl;
-import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
 import mx.com.desoft.hidrogas.business.IEmpleadoBusiness;
 import mx.com.desoft.hidrogas.buttons.EditarButtonEmpleado;
 import mx.com.desoft.hidrogas.buttons.EliminarButtonEmpleado;
 import mx.com.desoft.hidrogas.dto.CatTipoEmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
+import mx.com.desoft.hidrogas.helper.CatalogosHelper;
+import mx.com.desoft.hidrogas.helper.CatalogosHelperImpl;
 import mx.com.desoft.hidrogas.property.EmpleadoProperty;
 import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
@@ -83,8 +82,8 @@ public class AdministrarEmpleadoController {
     private Label totalLista;
 
     private EmpleadoDTO empleadoDTO;
+    private CatalogosHelper catalogosHelperImpl = Login.appContext.getBean(CatalogosHelperImpl.class);
     private IEmpleadoBusiness empleadoBusinessImpl = Login.appContext.getBean(EmpleadoBusinessImpl.class);
-    private ICatalogoBusiness catBusinessImpl = Login.appContext.getBean(CatalogoBusinessImpl.class);
     private ObservableList<EmpleadoProperty> data = FXCollections.observableArrayList();
 
     public AdministrarEmpleadoController() {
@@ -104,23 +103,21 @@ public class AdministrarEmpleadoController {
 
     @FXML
     private void initialize() {
-    	this.llenarComboEconomico();
-    	this.llenarComboCatTipoEmpleado();
+    	catalogosHelperImpl.llenarComboEconomico(economicoField);
+    	catalogosHelperImpl.llenarComboCatTipoEmpleado(tipoEmpleadoField);
     }
 
     @FXML
     private void buscarEmpleados() {
     	if(validarFormulario()) {
-    		this.busquedaEmpleadosView(empleadoDTO);
+    		this.busquedaEmpleadosView();
     	}
 
     }
 
-    public void busquedaEmpleadosView(EmpleadoDTO empleadoDTO) {
+    public void busquedaEmpleadosView() {
     	List<EmpleadoProperty> dto = empleadoBusinessImpl.buscarEmpleadoByVista(empleadoDTO);
     	data.clear();
-    	data.removeAll(dto);
-    	tablaEmpleados.getItems().clear();
     	noNominaColumn.setCellValueFactory(cellData -> cellData.getValue().getNominaEmpleado());
     	nombreColumn.setCellValueFactory(cellData -> cellData.getValue().getNombreEmpleado().concat(" ")
     			.concat(cellData.getValue().getApellidoPaterno()).concat(" ")
@@ -152,8 +149,8 @@ public class AdministrarEmpleadoController {
     		}
 	    });
     	totalLista.setText(String.valueOf(dto.size()));
-    	recheck_table();
     	data.addAll(dto);
+    	recheck_table();
     	tablaEmpleados.setItems(data);
     }
 
@@ -176,11 +173,11 @@ public class AdministrarEmpleadoController {
     }
 
     public boolean eliminarEmpleado(Integer id) {
-    	String context ="¿Esta seguro de eliminar el registro?";
+    	String context ="Â¿Esta seguro de eliminar el registro?";
 		ButtonType aceptar = new ButtonType("Aceptar");
 		ButtonType cancelar = new ButtonType("Cancelar");
 		Alert alert = new Alert(AlertType.CONFIRMATION,context, aceptar, cancelar);
-    	alert.setTitle("Confirmación");
+    	alert.setTitle("ConfirmaciÃ³n");
     	alert.setHeaderText(null);
     	Optional<ButtonType> result = alert.showAndWait();
     	 if (result.isPresent() && result.get().getText() == "Aceptar") {
@@ -259,44 +256,6 @@ public class AdministrarEmpleadoController {
     	empleadoDTO.setDescripcionTipoEmpleado(tipoEmpleadoField.getSelectionModel().getSelectedItem() != Constantes.NULL ?
     			tipoEmpleadoField.getSelectionModel().getSelectedItem().getDescripcion() : null);
 
-    }
-
-    private void llenarComboCatTipoEmpleado() {
-    	tipoEmpleadoField.setItems(FXCollections.observableArrayList(catBusinessImpl.findAllTipoEmpleados()));
-    	tipoEmpleadoField.setConverter(new StringConverter<CatTipoEmpleadoDTO>() {
-    		@Override
-            public String toString(CatTipoEmpleadoDTO tipo) {
-            	if (tipo == null) {
-            		return null;
-            	} else {
-            		return tipo.getDescripcion();
-            	}
-            }
-
-            @Override
-            public CatTipoEmpleadoDTO fromString(String string) {
-                   return null;
-            }
-    	});
-    }
-
-    private void llenarComboEconomico() {
-    	economicoField.setItems(FXCollections.observableArrayList(catBusinessImpl.findAllEconomicos()));
-    	economicoField.setConverter(new StringConverter<EconomicoDTO>() {
-    		@Override
-            public String toString(EconomicoDTO tipo) {
-            	if (tipo == null) {
-            		return null;
-            	} else {
-            		return tipo.getEconomicoId().toString();
-            	}
-            }
-
-            @Override
-            public EconomicoDTO fromString(String string) {
-                   return null;
-            }
-    	});
     }
 
 }
