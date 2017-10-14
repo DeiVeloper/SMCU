@@ -8,14 +8,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import mx.com.desoft.hidrogas.property.SeguimientoOrdenPartesProperty;
 import mx.com.desoft.hidrogas.view.SeguimientoOrdenTrabajoController;
 
 public class ButtonCell extends TableCell<SeguimientoOrdenPartesProperty, Boolean> {
 
 	private SeguimientoOrdenTrabajoController seguimientoController;
-
-	final Button cellButton = new Button("Eliminar");
+	final Image imageEliminar = new Image("file:resources/images/delete.png");
+	final Button cellButton = new Button("", new ImageView(imageEliminar));
 	private boolean elimina;
 
 	public ButtonCell(ObservableList<SeguimientoOrdenPartesProperty> dataPartesUsadas,
