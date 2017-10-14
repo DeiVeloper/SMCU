@@ -7,10 +7,10 @@ import java.util.Date;
 
 /**
  * The persistent class for the cat_tipo_empleados database table.
- * 
+ *
  */
 @Entity
-@Table(name="cat_tipo_empleado")
+@Table(name="cat_tipo_empleados")
 public class CatTipoEmpleado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +34,7 @@ public class CatTipoEmpleado implements Serializable {
 
 	public CatTipoEmpleado() {
 	}
-	
+
 	public CatTipoEmpleado(Integer tipoEmpleadoId, String descripcion, Date fechaRegistro, Integer nominaRegistro) {
 		this.tipoEmpleadoId = tipoEmpleadoId;
 		this.descripcion = descripcion;
