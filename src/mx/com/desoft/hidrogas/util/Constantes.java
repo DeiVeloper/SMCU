@@ -3,7 +3,7 @@ package mx.com.desoft.hidrogas.util;
 public class Constantes {
 
 	public static final String ADMINISTRADOR = "Administrador";
-	public static final String MECANICO = "Mecanico";
+	public static final String MECANICO = "Mec" + Constantes.a + "nico";
 	public static final String OPERADOR = "Operador";
 	public static final Object NULL = null;
 	public static final int CERO = 0;
@@ -18,11 +18,25 @@ public class Constantes {
 	public static final int N9 = 9;
 
 	public static final String MENSAJE_EXITOSO = "El registro se guardo exitosamente!";
-	public static final String INICIAR_SESION ="Iniciar sesi√≥n";
+	public static final String INICIAR_SESION ="Iniciar sesi" + Constantes.o + "n";
 	public static final String LOGIN =  "El usuario y/o contrase√±a son incorrectos, favor de validar.";
 	public static final String VALIDANDO_FORMULARIO="Validando";
-	
+	public static final String ELIMINAR_REGISTRO = "øEst· seguro de eliminar el registro?";
+
 	public static final String ORDEN = "Orden de Servicio";
 	public static final String INCIDENCIAS = "Incidencias de Unidades";
 	public static final String REPARACIONES = "Tipo de Reparaciones";
+
+	public static final String a = "\u00E1";
+	public static final String e = "\u00E9";
+	public static final String i = "\u00ED";
+	public static final String o = "\u00F3";
+	public static final String u = "\u00FA";
+	public static final String A = "\u00C1";
+	public static final String E = "\u00C9";
+	public static final String I = "\u00CD";
+	public static final String O = "\u00D3";
+	public static final String U = "\u00DA";
+	public static final String ene = "\u00F1";
+	public static final String ENE = "\u00D1";
 }

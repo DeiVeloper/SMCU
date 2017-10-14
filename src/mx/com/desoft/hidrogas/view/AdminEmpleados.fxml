@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AdministrarEmpleadoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" styleClass="root" stylesheets="@../../../../../../resources/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AdministrarEmpleadoController">
    <children>
       <SplitPane dividerPositions="0.29475308641975306" orientation="VERTICAL" prefHeight="650.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="257.0" prefWidth="948.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="257.0" prefWidth="948.0" styleClass="root2" >
                <children>
                   <Label layoutX="14.0" layoutY="6.0" styleClass="label-header" text="Búsqueda de Personal" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
@@ -57,7 +57,7 @@
                   </GridPane>
                </children>
             </AnchorPane>
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
+            <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="root2" >
                <center>
                   <TableView fx:id="tablaEmpleados" prefHeight="341.0" prefWidth="948.0" BorderPane.alignment="CENTER">
                     <columns>
@@ -74,7 +74,7 @@
                   </TableView>
                </center>
                <top>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="41.0" prefWidth="948.0" BorderPane.alignment="CENTER">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="41.0" prefWidth="948.0" BorderPane.alignment="CENTER" styleClass="root3" >
                      <children>
                         <Label layoutX="14.0" layoutY="12.0" text="Listado de Empleados: " />
                         <Label fx:id="totalLista" layoutX="136.0" layoutY="12.0" />

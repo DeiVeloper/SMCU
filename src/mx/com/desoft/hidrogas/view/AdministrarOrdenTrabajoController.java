@@ -5,14 +5,12 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
@@ -20,7 +18,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -35,6 +32,7 @@ import mx.com.desoft.hidrogas.dto.CatEstatusOrdenDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.property.OrdenProperty;
+import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AdministrarOrdenTrabajoController {
@@ -150,7 +148,7 @@ public class AdministrarOrdenTrabajoController {
 	private boolean validarCampos() {
 		String errorMessage = "";
 		if(!empleadoOrdenBusqueda.getText().matches("[0-9]*")) {
-			errorMessage = "El campo Empleado debe ser numï¿½rico.";
+			errorMessage = "El campo Empleado debe ser num" + Constantes.e + "rico.";
 		}
 		if(!economicoOrdenBusqueda.getText().matches("[0-9]*")) {
 			errorMessage = "El campo Econï¿½mico debe ser numï¿½rico.";
@@ -158,11 +156,7 @@ public class AdministrarOrdenTrabajoController {
 		if(errorMessage.length() == Constantes.CERO) {
 			return true;
 		}
-		Alert alert = new Alert(AlertType.WARNING);
-    	alert.setTitle("Validando Formulario");
-    	alert.setHeaderText(null);
-    	alert.setContentText(errorMessage);
-    	alert.showAndWait();
+		Alerta.crearAlertaUsuario("Validando Formulario", errorMessage, AlertType.WARNING);
 		return false;
 	}
 
@@ -210,14 +204,7 @@ public class AdministrarOrdenTrabajoController {
 
 	public boolean eliminaOrden(int folioOrden) {
 		boolean isCorrecto = true;
-		String context = "¿Está seguro de eliminar el registro?";
-		ButtonType aceptar = new ButtonType("Aceptar");
-		ButtonType cancelar = new ButtonType("Cancelar");
-		Alert alert = new Alert(AlertType.CONFIRMATION, context, aceptar, cancelar);
-		alert.setTitle("Confirmación");
-		alert.setHeaderText(null);
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.isPresent() && result.get().getText() == "Aceptar") {
+		if(Alerta.eliminarRegistro("Confirmación", Constantes.ELIMINAR_REGISTRO, AlertType.CONFIRMATION)) {
 			isCorrecto = agregarEditarOrdenBusinessApp.eliminaOrden(folioOrden);
 		} else{
 			isCorrecto = false;
