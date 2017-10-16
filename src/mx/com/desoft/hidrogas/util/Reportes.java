@@ -11,11 +11,19 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.formula.functions.T;
+import org.springframework.stereotype.Component;
 
-public class Reportes {
+@Component
+public class Reportes implements IReportes {
 
 	private static final Logger log = Logger.getLogger(Reportes.class);
 
+	@Override
+	public void generarTicketOrdenServicio(List<T> lista){
+
+	}
+
+	@Override
 	public void generarReporteIncidencias(List<T> lista){
 		T[] miarray = new T[lista.size()];
         miarray = lista.toArray(miarray);
@@ -41,14 +49,15 @@ public class Reportes {
 		}
 	}
 
-	public void generarReporteTipoReparacion(){
+	@Override
+	public void generarReporteTipoReparacion(List<T> lista){
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFSheet sheet = workbook.createSheet("My Sheet");
 		HSSFRow row = sheet.createRow(0);
 		HSSFCell cell = row.createCell(0);
 		cell.setCellValue("Hello, World!");
 		try {
-			OutputStream out = new FileOutputStream("SimpleExcel.xls");
+			OutputStream out = new FileOutputStream("src/main/resources/SimpleExcel.xls");
 			workbook.write(out);
 			workbook.close();
 			out.flush();
