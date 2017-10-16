@@ -8,17 +8,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" styleClass="root" stylesheets="@../../../../../../resources/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AdministrarTipoNecesidadController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AdministrarTipoNecesidadController">
    <children>
-      <SplitPane dividerPositions="0.1867283950617284" orientation="VERTICAL" prefHeight="650.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.35030864197530864" orientation="VERTICAL" prefHeight="650.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="948.0" styleClass="root2" >
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="134.0" prefWidth="948.0" styleClass="root2">
                <children>
-                  <Label layoutX="14.0" layoutY="6.0" styleClass="label-header" text="Búsqueda de Tipos de Necesidad" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+                  <Label layoutX="5.0" layoutY="5.0" styleClass="label-header" text="Búsqueda de Tipos de Necesidad" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="20.0" />
                      </font></Label>
-                  <GridPane layoutX="5.0" layoutY="38.0" prefHeight="43.0" prefWidth="353.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="590.0" AnchorPane.topAnchor="38.0">
+                  <GridPane layoutX="37.0" layoutY="91.0" prefHeight="43.0" prefWidth="353.0" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="558.0" AnchorPane.topAnchor="91.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="815.0" minWidth="10.0" prefWidth="204.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="815.0" minWidth="10.0" prefWidth="280.0" />
@@ -28,13 +28,13 @@
                     </rowConstraints>
                      <children>
                         <Label prefHeight="17.0" prefWidth="101.0" text="Tipo Necesidad:" />
-                        <TextField fx:id="tipoNecesidadField" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" />
+                        <TextField fx:id="tipoNecesidadField" prefHeight="20.0" prefWidth="180.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-                  <Button layoutX="876.0" layoutY="81.0" mnemonicParsing="false" onAction="#buscarTipoNecesidad" text="Buscar" />
+                  <Button layoutX="841.0" layoutY="81.0" mnemonicParsing="false" onAction="#buscarTipoNecesidad" prefHeight="30.0" prefWidth="70.0" text="Buscar" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                </children>
             </AnchorPane>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="root2" >
+            <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="root2">
                <center>
                   <TableView fx:id="tablaTipoNecesidad" prefHeight="341.0" prefWidth="948.0" BorderPane.alignment="CENTER">
                     <columns>
@@ -48,12 +48,12 @@
                   </TableView>
                </center>
                <top>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="45.0" prefWidth="619.0" BorderPane.alignment="CENTER" styleClass="root3" >
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="950.0" styleClass="root3" BorderPane.alignment="CENTER">
                      <children>
                         <Label layoutY="14.0" text="Listado de Tipos de Necesidad:" />
-                        <Button layoutX="875.0" layoutY="10.0" mnemonicParsing="false" onAction="#limpiarCamposView" text="Limpiar" />
-                        <Button layoutX="806.0" layoutY="10.0" mnemonicParsing="false" onAction="#agregarTipoNecesidad" text="Agregar" />
-                        <Label fx:id="contadorLista" layoutX="165.0" layoutY="14.0" prefHeight="17.0" prefWidth="26.0" />
+                        <Button layoutX="843.0" layoutY="10.0" mnemonicParsing="false" onAction="#limpiarCamposView" prefHeight="30.0" prefWidth="70.0" text="Limpiar" AnchorPane.rightAnchor="10.0" />
+                        <Button layoutX="774.0" layoutY="10.0" mnemonicParsing="false" onAction="#agregarTipoNecesidad" prefHeight="30.0" prefWidth="70.0" text="Agregar" AnchorPane.rightAnchor="100.0" />
+                        <Label fx:id="contadorLista" layoutX="172.0" layoutY="14.0" prefHeight="17.0" prefWidth="26.0" />
                      </children>
                   </AnchorPane>
                </top>

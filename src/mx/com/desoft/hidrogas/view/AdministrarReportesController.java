@@ -14,6 +14,7 @@ import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
 import mx.com.desoft.hidrogas.helper.CatalogosHelper;
 import mx.com.desoft.hidrogas.helper.CatalogosHelperImpl;
 import mx.com.desoft.hidrogas.util.Constantes;
+import mx.com.desoft.hidrogas.util.IReportes;
 import mx.com.desoft.hidrogas.util.Reportes;
 
 public class AdministrarReportesController {
@@ -43,6 +44,7 @@ public class AdministrarReportesController {
 	private ComboBox<CatTipoNecesidadDTO> comboBoxTipoNecesidad;
 
 	private CatalogosHelper catalogosHelperImpl = Login.appContext.getBean(CatalogosHelperImpl.class);
+	private IReportes reporte = Login.appContext.getBean(Reportes.class);
 	private OrdenTrabajoDTO ordenTrabajoDTO;
 
 	public AdministrarReportesController() {
@@ -64,11 +66,26 @@ public class AdministrarReportesController {
 
 	@FXML
 	private void imprimirReporte() {
-		Reportes reporte = new Reportes();
 		if (validarCamposView()) {
-			this.convertirCamosToDTO();
-			reporte.generarReporteTipoReparacion();
-			// reporte.generarReporteIncidencias(catalogoBusinessImpl.imprimirReporte(ordenTrabajoDTO));
+			switch (comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion()) {
+				case Constantes.ORDEN:
+					//busqueda
+					reporte.generarTicketOrdenServicio(null);
+					break;
+
+				case Constantes.INCIDENCIAS:
+					//busqueda
+					reporte.generarReporteIncidencias(null);
+					break;
+
+				case Constantes.REPARACIONES:
+					//busqueda
+					reporte.generarReporteTipoReparacion(null);
+					break;
+
+				default:
+					break;
+			}
 		}
 	}
 
@@ -77,12 +94,19 @@ public class AdministrarReportesController {
 		textFiedlNofolio.clear();
 		textFiedlNofolio.setDisable(false);
 		comboBoxTipoReporte.getSelectionModel().clearSelection();
+		comboBoxTipoReporte.setDisable(false);
 		comboBoxEmpleado.getSelectionModel().clearSelection();
+		comboBoxEmpleado.setDisable(false);
 		comboBoxEconomico.getSelectionModel().clearSelection();
+		comboBoxEconomico.setDisable(false);
 		comboBoxEstatus.getSelectionModel().clearSelection();
+		comboBoxEstatus.setDisable(false);
 		comboBoxTipoNecesidad.getSelectionModel().clearSelection();
+		comboBoxTipoNecesidad.setDisable(false);
 		datePickerFechaRegistroInicio.setValue(null);
+		datePickerFechaRegistroInicio.setDisable(false);
 		datePickerFechaRegistroFin.setValue(null);
+		datePickerFechaRegistroFin.setDisable(false);
 	}
 
 	@FXML
@@ -90,14 +114,15 @@ public class AdministrarReportesController {
 		if(comboBoxTipoReporte.getSelectionModel().getSelectedItem() != null){
 			switch (comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion()) {
 				case Constantes.ORDEN:
-					this.deshabilitarcomponentes();
+					this.componentesOrden();
 					break;
 
 				case Constantes.INCIDENCIAS:
-					this.habilitarComponentes();
+					this.componentesIncidencias();
 					break;
-				case Constantes.REPARACIONES:
 
+				case Constantes.REPARACIONES:
+					this.componentesReparaciones();
 					break;
 
 				default:
@@ -107,6 +132,8 @@ public class AdministrarReportesController {
 	}
 
 	private boolean validarCamposView() {
+
+		this.convertirCamosToDTO();
 		return true;
 	}
 
@@ -136,7 +163,7 @@ public class AdministrarReportesController {
 
 	}
 
-	private void deshabilitarcomponentes(){
+	private void componentesOrden(){
 		textFiedlNofolio.setDisable(false);
 		comboBoxEmpleado.setDisable(true);
 		comboBoxEconomico.setDisable(true);
@@ -146,7 +173,7 @@ public class AdministrarReportesController {
 		datePickerFechaRegistroFin.setDisable(true);
 	}
 
-	private void habilitarComponentes(){
+	private void componentesIncidencias(){
 		textFiedlNofolio.clear();
 		textFiedlNofolio.setDisable(true);
 		comboBoxEmpleado.setDisable(false);
@@ -155,5 +182,17 @@ public class AdministrarReportesController {
 		comboBoxTipoNecesidad.setDisable(false);
 		datePickerFechaRegistroInicio.setDisable(false);
 		datePickerFechaRegistroFin.setDisable(false);
+	}
+
+	private void componentesReparaciones(){
+		textFiedlNofolio.clear();
+		textFiedlNofolio.setDisable(true);
+		comboBoxEmpleado.setDisable(true);
+		comboBoxEconomico.setDisable(true);
+		comboBoxEstatus.setDisable(true);
+		comboBoxTipoNecesidad.setDisable(true);
+		datePickerFechaRegistroInicio.setDisable(false);
+		datePickerFechaRegistroFin.setDisable(false);
+
 	}
 }

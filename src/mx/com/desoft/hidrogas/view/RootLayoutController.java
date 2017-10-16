@@ -52,6 +52,7 @@ public class RootLayoutController {
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/AdminEmpleados.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
+            personOverview.getStylesheets().add("file:resources/css/style.css");
             personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
@@ -66,6 +67,7 @@ public class RootLayoutController {
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/AdminEconomicos.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
+            personOverview.getStylesheets().add("file:resources/css/style.css");
             personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
@@ -80,6 +82,7 @@ public class RootLayoutController {
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/AdminTipoNecesidad.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
+            personOverview.getStylesheets().add("file:resources/css/style.css");
             personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
@@ -94,6 +97,7 @@ public class RootLayoutController {
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/AdminTipoRefacciones.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
+            personOverview.getStylesheets().add("file:resources/css/style.css");
             personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
@@ -108,6 +112,7 @@ public class RootLayoutController {
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/AdminReportes.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
+            personOverview.getStylesheets().add("file:resources/css/style.css");
             personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);

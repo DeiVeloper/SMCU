@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" styleClass="root" stylesheets="@../../../../../../resources/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AgregarEditarOrdenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AgregarEditarOrdenController">
 	<children>
-   		<SplitPane dividerPositions="0.35" orientation="VERTICAL" prefHeight="650.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+   		<SplitPane orientation="VERTICAL" prefHeight="650.0" prefWidth="950.0" styleClass="root2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
    			<items>
-   				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="257.0" prefWidth="948.0" styleClass="root2" >
+   				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="257.0" prefWidth="948.0" styleClass="root2">
                		<children>
                			<Label layoutX="406.0" layoutY="26.0" styleClass="label-header" text="Agregar Órden de Trabajo" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
                				<font>
@@ -34,8 +34,8 @@
 				      	<Label layoutX="34.0" layoutY="377.0" text="Falla mecánica" />
 				      	<Label layoutX="36.0" layoutY="186.0" text="Nombre" />
 				      	<Label layoutX="538.0" layoutY="186.0" text="Apellido paterno" />
-				      	<Button id="btnGuardar" layoutX="787.0" layoutY="593.0" mnemonicParsing="false" onAction="#guardarOrden" text="Guardar Orden" />
-				      	<Button id="btnCancelar" layoutX="699.0" layoutY="593.0" mnemonicParsing="false" onAction="#cancelarOrden" text="Cancelar" />
+				      	<Button id="btnGuardar" layoutX="786.0" layoutY="563.0" mnemonicParsing="false" onAction="#guardarOrden" prefHeight="30.0" prefWidth="100.0" text="Guardar Orden" />
+				      	<Button id="btnCancelar" layoutX="698.0" layoutY="563.0" mnemonicParsing="false" onAction="#cancelarOrden" prefHeight="30.0" prefWidth="70.0" text="Cancelar" />
 				      	<Label layoutX="36.0" layoutY="233.0" text="Apellido Materno" />
                		</children>
                	</AnchorPane>
