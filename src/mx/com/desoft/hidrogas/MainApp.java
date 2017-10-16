@@ -53,6 +53,7 @@ public class MainApp  {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/AdministrarOrdenTrabajo.fxml"));
             AnchorPane orden = (AnchorPane) loader.load();
+            orden.getStylesheets().add("file:resources/css/style.css");
             rootLayout.setCenter(orden);
             AdministrarOrdenTrabajoController controller = loader.getController();
             controller.setMainApp(this);
@@ -70,6 +71,7 @@ public class MainApp  {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/SeguimientoOrdenTrabajo.fxml"));
             AnchorPane orden = (AnchorPane) loader.load();
+            orden.getStylesheets().add("file:resources/css/style.css");
             rootLayout.setCenter(orden);
             SeguimientoOrdenTrabajoController controller = loader.getController();
             controller.setMainApp(this);
@@ -89,6 +91,7 @@ public class MainApp  {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/AdministrarOrdenTrabajo.fxml"));
             AnchorPane orden = (AnchorPane) loader.load();
+            orden.getStylesheets().add("file:resources/css/style.css");
             rootLayout.setCenter(orden);
             AdministrarOrdenTrabajoController controller = loader.getController();
             controller.setMainApp(this);
@@ -107,6 +110,7 @@ public class MainApp  {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/OrdenTrabajo.fxml"));
             AnchorPane orden = (AnchorPane) loader.load();
+            orden.getStylesheets().add("file:resources/css/style.css");
             rootLayout.setCenter(orden);
             AgregarEditarOrdenController controller = loader.getController();
             controller.setMainApp(this);
