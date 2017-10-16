@@ -3,8 +3,10 @@ package mx.com.desoft.hidrogas.util;
 public class Constantes {
 
 	public static final String ADMINISTRADOR = "Administrador";
-	public static final String MECANICO = "Mec" + Constantes.a + "nico";
+	public static final String MECANICO = "Mecanico";
 	public static final String OPERADOR = "Operador";
+	public static final String AYUDANTE = "Ayudante";
+	public static final String SUPLENTE = "Suplente";
 	public static final Object NULL = null;
 	public static final int CERO = 0;
 	public static final int N1 = 1;
