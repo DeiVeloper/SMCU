@@ -124,13 +124,21 @@ public class AgregarEditarEmpleadoController {
     		passwordLabel.setVisible(false);
     		password.setVisible(false);
     	}
+    	System.out.println(catTipoEmpleadoDTO.getDescripcion());
 
-    	if(catTipoEmpleadoDTO.getDescripcion().equals(Constantes.ADMINISTRADOR)) {
+    	if(catTipoEmpleadoDTO.getDescripcion().equals(Constantes.ADMINISTRADOR) || catTipoEmpleadoDTO.getDescripcion().equals(Constantes.MECANICO)) {
     		economico.setVisible(false);
     		economicoLabel.setVisible(false);
     	}	else{
     		economico.setVisible(true);
     		economicoLabel.setVisible(true);
+    	}
+
+    	if(catTipoEmpleadoDTO.getDescripcion().equals(Constantes.SUPLENTE)){
+    		passwordLabel.setVisible(false);
+    		password.setVisible(false);
+    		economico.setVisible(false);
+    		economicoLabel.setVisible(false);
     	}
 
     }
@@ -166,12 +174,18 @@ public class AgregarEditarEmpleadoController {
         	return false;
         }
 
-        if	(!economico.isDisabled() && !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ADMINISTRADOR) &&(economico.getSelectionModel().getSelectedItem() == Constantes.NULL)) {
+        if	(!economico.isDisabled() &&
+        		!tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ADMINISTRADOR)
+        		&& !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.MECANICO)
+        			&& !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.SUPLENTE)
+        				&& (economico.getSelectionModel().getSelectedItem() == Constantes.NULL)) {
         	mensaje =  "Favor de seleccionar un Economico ";
         	return false;
         }
 
-        if	(!password.isDisabled() && !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.OPERADOR) && (password.getText() == Constantes.NULL || password.getText().length() == Constantes.CERO)) {
+        if	(!password.isDisabled() && tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ADMINISTRADOR)
+        		&& tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.MECANICO)
+        			&& (password.getText() == Constantes.NULL || password.getText().length() == Constantes.CERO)) {
         	mensaje =  "Favor de capturar su contraseÃ±a ";
         	return false;
         }

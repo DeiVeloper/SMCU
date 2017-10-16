@@ -31,6 +31,9 @@ public class RootLayoutController {
 	private MenuItem administradorItem;
 
 	@FXML
+	private MenuItem reportesItem;
+
+	@FXML
 	private ImageView imagenCentral;
 
     private MainApp mainApp;
@@ -162,15 +165,17 @@ public class RootLayoutController {
 
     private void inicializarComponentes(){
     	administradorItem = new MenuItem();
+    	reportesItem = new MenuItem();
     	imagenCentral = new ImageView();
     }
 
     private void validarUsuarioLogin(){
     	if(Authenticator.usuarioSesion.getDescripcionTipoEmpleado().equals(Constantes.ADMINISTRADOR))	{
     		administradorItem.setVisible(true);
+    		reportesItem.setVisible(true);
     	}else	{
-    		administradorItem.setDisable(true);
     		administradorItem.setVisible(false);
+    		reportesItem.setVisible(false);
     	}
     }
 
