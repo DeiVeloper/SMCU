@@ -52,9 +52,10 @@ public class OrdenTrabajo implements Serializable {
 	private CatEstatusOrden catEstatusOrden;
 
 	//bi-directional many-to-one association to Empleado
-	@ManyToOne
-	@JoinColumn(name="nomina_operador")
-	private Empleado empleado1;
+//	@ManyToOne
+//	@JoinColumn(name="nomina_operador")
+	@Column(name="nomina_operador")
+	private int nominaOperador;
 
 	//bi-directional many-to-one association to Empleado
 	@ManyToOne
@@ -75,7 +76,7 @@ public class OrdenTrabajo implements Serializable {
 
 	public OrdenTrabajo(String apellidoMatOperador, String apellidoPatOperador, String fallaMecanica,
 			Date fechaRegistro, int kilometraje, String nombreOperador, Economico economico,
-			CatEstatusOrden catEstatusOrden, Empleado empleado1, Empleado empleado2,
+			CatEstatusOrden catEstatusOrden, int nominaOperador, Empleado empleado2,
 			CatTipoNecesidad catTipoNecesidad) {
 		super();
 		this.apellidoMatOperador = apellidoMatOperador;
@@ -86,7 +87,7 @@ public class OrdenTrabajo implements Serializable {
 		this.nombreOperador = nombreOperador;
 		this.economico = economico;
 		this.catEstatusOrden = catEstatusOrden;
-		this.empleado1 = empleado1;
+		this.nominaOperador = nominaOperador;
 		this.empleado2 = empleado2;
 		this.catTipoNecesidad = catTipoNecesidad;
 	}
@@ -171,12 +172,12 @@ public class OrdenTrabajo implements Serializable {
 		this.catEstatusOrden = catEstatusOrden;
 	}
 
-	public Empleado getEmpleado1() {
-		return this.empleado1;
+	public int getNominaOperador() {
+		return nominaOperador;
 	}
 
-	public void setEmpleado1(Empleado empleado1) {
-		this.empleado1 = empleado1;
+	public void setNominaOperador(int nominaOperador) {
+		this.nominaOperador = nominaOperador;
 	}
 
 	public Empleado getEmpleado2() {
