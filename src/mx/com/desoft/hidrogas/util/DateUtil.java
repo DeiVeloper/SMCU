@@ -99,4 +99,17 @@ public class DateUtil {
         }
         return date;
     }
+
+    public static Date plusDaysToDate(Date date, Long days) {
+    	Date dateResult;
+    	LocalDate localDate;
+    	try {
+    		localDate = DateUtil.getLocalDateFromSQLDate(date).plusDays(days);
+    		dateResult = DateUtil.getDateFromLocalDate(localDate);
+    	} catch (Exception e) {
+    		System.out.println(e);
+    		dateResult = null;
+		}
+    	return dateResult;
+    }
 }

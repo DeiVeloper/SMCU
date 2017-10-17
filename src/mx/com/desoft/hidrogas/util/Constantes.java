@@ -19,15 +19,19 @@ public class Constantes {
 	public static final int N8 = 8;
 	public static final int N9 = 9;
 
-	public static final String MENSAJE_EXITOSO = "El registro se guardo exitosamente!";
+	public static final String MENSAJE_EXITOSO = Constantes.ADMIRACION + "El registro se guard" + Constantes.o + " exitosamente!";
 	public static final String INICIAR_SESION ="Iniciar sesi" + Constantes.o + "n";
-	public static final String LOGIN =  "El usuario y/o contraseÃ±a son incorrectos, favor de validar.";
+	public static final String LOGIN =  "El usuario y/o contrase" + Constantes.ene + "a son incorrectos, favor de validar.";
 	public static final String VALIDANDO_FORMULARIO="Validando";
-	public static final String ELIMINAR_REGISTRO = "¿Está seguro de eliminar el registro?";
+	public static final String ELIMINAR_REGISTRO = "¿Est" + Constantes.a + " seguro de eliminar el registro?";
+	public static final String ORDENES_REPARACION_MAYOR = "" + Constantes.O + "rdenes con reparaci" + Constantes.o + "n mayor";
+	public static final String NOTIFICACIONES = "Notificaciones";
 
 	public static final String ORDEN = "Orden de Servicio";
 	public static final String INCIDENCIAS = "Incidencias de Unidades";
 	public static final String REPARACIONES = "Tipo de Reparaciones";
+	public static final int ESTATUS_ORDEN_ACTIVA = 1;
+	public static final int ESTATUS_ORDEN_CERRADA = 2;
 
 	public static final String a = "\u00E1";
 	public static final String e = "\u00E9";
@@ -41,4 +45,6 @@ public class Constantes {
 	public static final String U = "\u00DA";
 	public static final String ene = "\u00F1";
 	public static final String ENE = "\u00D1";
+	public static final String ADMIRACION = "\u00A1";
+
 }
