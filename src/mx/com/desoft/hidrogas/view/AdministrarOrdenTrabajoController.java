@@ -27,6 +27,7 @@ import mx.com.desoft.hidrogas.business.AdministrarOrdenBusinessImpl;
 import mx.com.desoft.hidrogas.business.AgregarEditarOrdenBusinessImpl;
 import mx.com.desoft.hidrogas.business.IAdministrarOrdenBusiness;
 import mx.com.desoft.hidrogas.business.IAgregarEditarOrdenBusinessApp;
+import mx.com.desoft.hidrogas.buttons.ButtonCerrarOrden;
 import mx.com.desoft.hidrogas.buttons.ButtonEliminarOrden;
 import mx.com.desoft.hidrogas.dto.CatEstatusOrdenDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
@@ -54,19 +55,20 @@ public class AdministrarOrdenTrabajoController {
     @FXML
     private TableColumn<OrdenProperty, Boolean> eliminarOrdenColumn;
     @FXML
-	private DatePicker fechaOrdenBusqueda;
+    private TableColumn<OrdenProperty, Boolean> cerrarOrdenColumn;
 
+    @FXML
+	private DatePicker fechaOrdenBusqueda;
 	@FXML
 	private ComboBox<CatTipoNecesidadDTO> tipoNecesidadOrdenBusqueda;
-
 	@FXML
 	private TextField empleadoOrdenBusqueda;
-
 	@FXML
 	private ComboBox<CatEstatusOrdenDTO> estatusOrdenBusqueda;
-
 	@FXML
 	private TextField economicoOrdenBusqueda;
+	@FXML
+	private TextField folioOrdenBusqueda;
 
 	private IAgregarEditarOrdenBusinessApp agregarEditarOrdenBusinessApp = Login.appContext.getBean(AgregarEditarOrdenBusinessImpl.class);
 	private IAdministrarOrdenBusiness administrarOrdenBusiness = Login.appContext.getBean(AdministrarOrdenBusinessImpl.class);
@@ -107,6 +109,16 @@ public class AdministrarOrdenTrabajoController {
 	    	eliminarOrdenColumn.setCellFactory(new Callback<TableColumn<OrdenProperty, Boolean>, TableCell<OrdenProperty, Boolean>>() {
 	    		@Override public TableCell<OrdenProperty, Boolean> call(TableColumn<OrdenProperty, Boolean> personBooleanTableColumn) {
 	    			return new ButtonEliminarOrden(data, dto);
+	    		}
+    	    });
+	    	cerrarOrdenColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<OrdenProperty, Boolean>, ObservableValue<Boolean>>() {
+	    		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<OrdenProperty, Boolean> features) {
+	    			return new SimpleBooleanProperty(features.getValue() != null);
+    	      }
+    	    });
+	    	cerrarOrdenColumn.setCellFactory(new Callback<TableColumn<OrdenProperty, Boolean>, TableCell<OrdenProperty, Boolean>>() {
+	    		@Override public TableCell<OrdenProperty, Boolean> call(TableColumn<OrdenProperty, Boolean> personBooleanTableColumn) {
+	    			return new ButtonCerrarOrden(data, dto);
 	    		}
     	    });
 		}

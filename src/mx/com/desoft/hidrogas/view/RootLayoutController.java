@@ -17,15 +17,22 @@ import javafx.scene.paint.Color;
 import mx.com.desoft.hidrogas.Authenticator;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
+import mx.com.desoft.hidrogas.business.ISeguimientoOrdenBusiness;
+import mx.com.desoft.hidrogas.business.SeguimientoOrdenBusinessImpl;
+import mx.com.desoft.hidrogas.dto.SeguimientoOrdenDTO;
 import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
+import mx.com.desoft.hidrogas.util.DateUtil;
 
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
 public class RootLayoutController {
 
 	private static final Logger log = Logger.getLogger(RootLayoutController.class);
+
+	private ISeguimientoOrdenBusiness seguimientoOrdenBusiness = Login.appContext.getBean(SeguimientoOrdenBusinessImpl.class);
 
 	@FXML
 	private MenuItem administradorItem;
@@ -46,7 +53,7 @@ public class RootLayoutController {
     private void initialize() {
     	this.validarUsuarioLogin();
     	imagenCentral.setImage(new Image("file:resources/images/presentacion.png"));
-
+    	this.muestraOrdenesConReparacionMayor();
 	}
 
     @FXML
@@ -167,6 +174,22 @@ public class RootLayoutController {
     	administradorItem = new MenuItem();
     	reportesItem = new MenuItem();
     	imagenCentral = new ImageView();
+    }
+
+    private void muestraOrdenesConReparacionMayor(){
+    	List<SeguimientoOrdenDTO> listaOrdenesConReparacionMayor = seguimientoOrdenBusiness.getOrdenesConReparacionMayor();
+    	if(listaOrdenesConReparacionMayor.isEmpty()) {
+    		return;
+
+    	} else {
+    		StringBuilder mensaje = new StringBuilder();
+        	mensaje.append(Constantes.ORDENES_REPARACION_MAYOR + ": \n");
+        	mensaje.append("Folio\t\tFecha\n");
+    		for(SeguimientoOrdenDTO seguimiento : listaOrdenesConReparacionMayor) {
+    			mensaje.append(seguimiento.getFolio() + "\t\t" + DateUtil.getStringFromDate(seguimiento.getFechaReparacionMayor()) +"\n");
+    		}
+    		Alerta.crearAlertaUsuario(Constantes.NOTIFICACIONES, mensaje.toString(), AlertType.INFORMATION);
+    	}
     }
 
     private void validarUsuarioLogin(){

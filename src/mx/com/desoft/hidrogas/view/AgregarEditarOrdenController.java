@@ -2,6 +2,8 @@ package mx.com.desoft.hidrogas.view;
 
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -24,11 +26,13 @@ import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.model.Empleado;
+import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AgregarEditarOrdenController {
 
 	public static Stage stageOrden;
+	private static final Logger log = Logger.getLogger(AgregarEditarOrdenController.class);
 	private IAgregarEditarOrdenBusinessApp agregarEditarOrdenBusinessApp = Login.appContext.getBean(AgregarEditarOrdenBusinessImpl.class);
 	private OrdenTrabajoDTO ordenTrabajoTO;
 	private MainApp mainApp;
@@ -93,19 +97,21 @@ public class AgregarEditarOrdenController {
 			try {
 				agregarEditarOrdenBusinessApp.guardarOrden(ordenTrabajoTO);
 				this.limpiarCampos();
-				Alert alert = new Alert(AlertType.WARNING);
-	        	alert.setTitle("Guardando Orden de Trabajo");
-	        	alert.setHeaderText(null);
-	        	alert.setContentText("�El registro se guard� exitosamente!");
-	        	alert.showAndWait();
+				Alerta.crearAlertaUsuario("Guardando Orden de Trabajo", Constantes.MENSAJE_EXITOSO, AlertType.INFORMATION);
+//				Alert alert = new Alert(AlertType.WARNING);
+//	        	alert.setTitle("Guardando Orden de Trabajo");
+//	        	alert.setHeaderText(null);
+//	        	alert.setContentText(Constantes.MENSAJE_EXITOSO);
+//	        	alert.showAndWait();
 	        	mainApp.showAdministrarOrdenTrabajo();
 			} catch (Exception e) {
-    			e.printStackTrace();
-    			Alert alert = new Alert(AlertType.WARNING);
-            	alert.setTitle("Error");
-            	alert.setHeaderText(null);
-            	alert.setContentText("Ocurrio un error, " + e.getMessage());
-            	alert.showAndWait();
+    			Alerta.crearAlertaUsuario("Error", "Ocurrio un error. Favor de intentar nuevamente, si persiste el problema contactar al administrador.", AlertType.ERROR);
+//    			Alert alert = new Alert(AlertType.INFORMATION);
+//            	alert.setTitle("Error");
+//            	alert.setHeaderText(null);
+//            	alert.setContentText("Ocurrio un error, " + e.getMessage());
+//            	alert.showAndWait();
+    			log.error("Error: No se pudo guardar la orden");;
     		}
 		} else {
 			return;
@@ -115,40 +121,40 @@ public class AgregarEditarOrdenController {
 	private boolean validarFormulario() {
 		String errorMessage = "";
 		if(economico.getSelectionModel().getSelectedItem() == Constantes.NULL) {
-        	errorMessage = "Favor de seleccionar un Econ�mico.";
+        	errorMessage = "Favor de seleccionar un Econ" + Constantes.o + "mico.";
         }
 		if(nominaOperador.getText() == Constantes.NULL || nominaOperador.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Nomina de operador no puede ir vac�o.";
+			errorMessage = "El campo N" + Constantes.o + "mina de operador no puede ir vac" + Constantes.i + "o.";
 		}
 		if(!nominaOperador.getText().matches("[0-9]*")) {
-			errorMessage = "El campo Nomina de operador debe ser num�rico.";
+			errorMessage = "El campo N" + Constantes.o + "mina de operador debe ser num" + Constantes.e + "rico.";
 		}
 		if(nombreOperador.getText() == Constantes.NULL || nombreOperador.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Nombre no puede ir vac�o.";
+			errorMessage = "El campo Nombre no puede ir vac" + Constantes.i + "o.";
 		}
 		if(apellidoPaterno.getText() == Constantes.NULL || apellidoPaterno.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Apellido paterno no puede ir vac�o.";
+			errorMessage = "El campo Apellido paterno no puede ir vac" + Constantes.i + "o.";
 		}
 		if(apellidoMaterno.getText() == Constantes.NULL || apellidoMaterno.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Apellido materno de operador no puede ir vac�o.";
+			errorMessage = "El campo Apellido materno de operador no puede ir vac" + Constantes.i + "o.";
 		}
 		if(kilometrajeHoras.getText() == Constantes.NULL || kilometrajeHoras.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Kilometraje/Hrs de trabajo de operador no puede ir vac�o.";
+			errorMessage = "El campo Kilometraje/Hrs de trabajo de operador no puede ir vac" + Constantes.i + "o.";
 		}
 		if(!kilometrajeHoras.getText().matches("[0-9]*")) {
-			errorMessage = "El campo Kilometraje/Hrs de trabajo debe ser num�rico.";
+			errorMessage = "El campo Kilometraje/Hrs de trabajo debe ser num" + Constantes.e + "rico.";
 		}
 		if(tipoNecesidadOrden.getSelectionModel().getSelectedItem() == Constantes.NULL) {
         	errorMessage = "Favor de seleccionar un Tipo de necesidad ";
         }
 		if(fallaMecanica.getText() == Constantes.NULL || fallaMecanica.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Falla mecanica no puede ir vac�o.";
+			errorMessage = "El campo Falla mec" + Constantes.a + "nica no puede ir vac" + Constantes.i + "o.";
 		}
 		if(errorMessage.length() == Constantes.CERO) {
 			return true;
 		}
 		Alert alert = new Alert(AlertType.WARNING);
-    	alert.setTitle("Validando Formulario");
+    	alert.setTitle(Constantes.VALIDANDO_FORMULARIO);
     	alert.setHeaderText(null);
     	alert.setContentText(errorMessage);
     	alert.showAndWait();
