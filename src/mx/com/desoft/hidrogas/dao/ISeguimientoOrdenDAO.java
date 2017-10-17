@@ -12,4 +12,6 @@ public interface ISeguimientoOrdenDAO extends HibernateDAO<SeguimientoOrden, Int
 
 	SeguimientoOrden getSeguimientoByFolio(int folio);
 
+	List<SeguimientoOrden> getOrdenesConReparacionMayor();
+
 }

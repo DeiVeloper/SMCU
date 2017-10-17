@@ -1,5 +1,7 @@
 package mx.com.desoft.hidrogas.dao;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -11,6 +13,7 @@ import mx.com.desoft.hidrogas.model.HibernateUtil;
 import mx.com.desoft.hidrogas.model.ListaRefacciones;
 import mx.com.desoft.hidrogas.model.SeguimientoOrden;
 import mx.com.desoft.hidrogas.util.Constantes;
+import mx.com.desoft.hidrogas.util.DateUtil;
 
 @Repository
 public class SeguimientoOrdenImplDAO extends HibernateImplDAO<SeguimientoOrden, Integer> implements ISeguimientoOrdenDAO {
@@ -38,5 +41,17 @@ public class SeguimientoOrdenImplDAO extends HibernateImplDAO<SeguimientoOrden, 
 			criteria.add(Restrictions.eq("ordenTrabajo.folio", folio));
 		}
 		return (SeguimientoOrden)criteria.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SeguimientoOrden> getOrdenesConReparacionMayor() {
+		List<SeguimientoOrden> listaOrdenes = new ArrayList<>();
+		Criteria criteria = HibernateUtil.openSession().createCriteria(SeguimientoOrden.class);
+		criteria.add(Restrictions.le("fechaReparaMayor", DateUtil.plusDaysToDate(new Date(), 7L)));
+		criteria.createAlias("ordenTrabajo", "ordenTrabajo");
+		criteria.add(Restrictions.eq("ordenTrabajo.catEstatusOrden.estatusOrdenId", Constantes.ESTATUS_ORDEN_ACTIVA));
+		listaOrdenes = (List<SeguimientoOrden>)criteria.list();
+		return listaOrdenes;
 	}
 }
