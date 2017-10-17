@@ -10,16 +10,15 @@ import javafx.scene.control.TableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import mx.com.desoft.hidrogas.property.OrdenProperty;
-import mx.com.desoft.hidrogas.view.AdministrarOrdenTrabajoController;
 
-public class ButtonEliminarOrden extends TableCell<OrdenProperty, Boolean> {
+public class ButtonCerrarOrden extends TableCell<OrdenProperty, Boolean> {
 
-	private AdministrarOrdenTrabajoController administrarOrdenController;
-	final Image imageEliminar = new Image("file:resources/images/delete.png");
+//	private AdministrarOrdenTrabajoController administrarOrdenController;
+	final Image imageEliminar = new Image("file:resources/images/cerrar.png");
 	final Button cellButton = new Button("", new ImageView(imageEliminar));
-	private boolean elimina;
+//	private boolean elimina;
 
-	public ButtonEliminarOrden(ObservableList<OrdenProperty> dataOrdenes,
+	public ButtonCerrarOrden(ObservableList<OrdenProperty> dataOrdenes,
 			List<OrdenProperty> dtoPartesOrdenes) {
 
 		// Action when the button is pressed
@@ -27,16 +26,16 @@ public class ButtonEliminarOrden extends TableCell<OrdenProperty, Boolean> {
 
 			@Override
 			public void handle(ActionEvent t) {
-				administrarOrdenController = new AdministrarOrdenTrabajoController();
-				// get Selected Item
-				OrdenProperty orden = (OrdenProperty) ButtonEliminarOrden.this
-						.getTableView().getItems().get(ButtonEliminarOrden.this.getIndex());
-				elimina = administrarOrdenController.eliminaOrden(Integer.parseInt(orden.getFolioOrden().getValue()));
-				if(elimina) {
-					// remove selected item from the table list
-					dataOrdenes.remove(orden);
-					dtoPartesOrdenes.remove(orden);
-				}
+//				administrarOrdenController = new AdministrarOrdenTrabajoController();
+//				// get Selected Item
+//				OrdenProperty orden = (OrdenProperty) ButtonEliminarOrden.this
+//						.getTableView().getItems().get(ButtonEliminarOrden.this.getIndex());
+//				elimina = administrarOrdenController.eliminaOrden(Integer.parseInt(orden.getFolioOrden().getValue()));
+//				if(elimina) {
+//					// remove selected item from the table list
+//					dataOrdenes.remove(orden);
+//					dtoPartesOrdenes.remove(orden);
+//				}
 			}
 		});
 	}
