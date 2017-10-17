@@ -37,6 +37,13 @@ public class SeguimientoOrdenDTO {
 		this.listaPartesSolicitadas = listaPartesSolicitadas;
 	}
 
+	public SeguimientoOrdenDTO(int idSeguimiento, int folio, Date fechaReparacionMayor) {
+		super();
+		this.idSeguimiento = idSeguimiento;
+		this.folio = folio;
+		this.fechaReparacionMayor = fechaReparacionMayor;
+	}
+
 	public int getIdSeguimiento() {
 		return idSeguimiento;
 	}
