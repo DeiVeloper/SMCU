@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mx.com.desoft.hidrogas.Authenticator;
 import mx.com.desoft.hidrogas.business.IAgregarEditarOrdenBusinessApp;
 import mx.com.desoft.hidrogas.dao.AgregarEditarOrdenDAO;
 import mx.com.desoft.hidrogas.dao.CatEstatusOrdenDAO;
@@ -74,11 +75,11 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 	}
 
 	private OrdenTrabajo convertirDTOToEntidad(OrdenTrabajoDTO ordenTrabajoTO) {
-		final Empleado empleado = empleadosImplDAO.get(ordenTrabajoTO.getNominaOperador());
+		final Empleado empleadoRegistro = empleadosImplDAO.get(Authenticator.usuarioSesion.getNominaEmpleado());
 		final Economico economico = economicoImplDAO.get(ordenTrabajoTO.getEconomicoId());
 		final CatEstatusOrden estatus = catEstatusImplDAO.get(Constantes.N1);
 		final CatTipoNecesidad necesidad = catTipoNecesidadImplDAO.get(ordenTrabajoTO.getTipoNecesidadId());
-		final OrdenTrabajo ordenTrabajo = new OrdenTrabajo(ordenTrabajoTO.getApellidoMatOperador(), ordenTrabajoTO.getApellidoPatOperador(), ordenTrabajoTO.getFallaMecanica(), new Date(), ordenTrabajoTO.getKilometraje(), ordenTrabajoTO.getNombreOperador(), economico, estatus, empleado, empleado, necesidad);
+		final OrdenTrabajo ordenTrabajo = new OrdenTrabajo(ordenTrabajoTO.getApellidoMatOperador(), ordenTrabajoTO.getApellidoPatOperador(), ordenTrabajoTO.getFallaMecanica(), new Date(), ordenTrabajoTO.getKilometraje(), ordenTrabajoTO.getNombreOperador(), economico, estatus, ordenTrabajoTO.getNominaOperador(), empleadoRegistro, necesidad);
 		return ordenTrabajo;
 	}
 
