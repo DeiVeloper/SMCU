@@ -1,0 +1,39 @@
+.root   {
+ -fx-background-color: #F7BB26;
+ -fx-border-color: white;
+ -fx-padding: 10 10 10 10;
+
+}
+
+.root2   {
+ -fx-background-color: #175AB6;
+ -fx-border-color: white;
+ -fx-padding: 10 10 10 10;
+
+}
+
+.root3   {
+ -fx-background-color: #175AB6;
+ -fx-padding: 10 10 10 10;
+
+}
+
+.label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 0.6;
+}
+
+.table-view .label {
+	-fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+
+}
+
+.label-header {
+    -fx-font-size: 16pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 0.6;
+    -fx-padding: -10px;
+}
