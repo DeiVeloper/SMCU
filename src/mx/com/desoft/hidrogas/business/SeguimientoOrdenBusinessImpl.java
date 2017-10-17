@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,8 @@ import mx.com.desoft.hidrogas.util.Constantes;
 
 @Service
 public class SeguimientoOrdenBusinessImpl implements ISeguimientoOrdenBusiness {
+
+	private static final Logger log = Logger.getLogger(SeguimientoOrdenBusinessImpl.class);
 
 	@Autowired
 	private ISeguimientoOrdenDAO seguimientoDAO;
@@ -132,5 +135,18 @@ public class SeguimientoOrdenBusinessImpl implements ISeguimientoOrdenBusiness {
 			System.out.println(e);
 		}
 		return isEliminado;
+	}
+
+	@Override
+	public List<SeguimientoOrdenDTO> getOrdenesConReparacionMayor() {
+		List<SeguimientoOrdenDTO> listaOrdenesConReparacionMayor = new ArrayList<>();
+		try {
+			for(SeguimientoOrden seguimiento : seguimientoDAO.getOrdenesConReparacionMayor()) {
+				listaOrdenesConReparacionMayor.add(new SeguimientoOrdenDTO(seguimiento.getId_seguimiento(), seguimiento.getOrdenTrabajo().getFolio(), seguimiento.getFechaReparaMayor()));
+			}
+		} catch (Exception e) {
+			log.error("Error: No se pudo obtener las reparaciones mayores.", e);
+		}
+		return listaOrdenesConReparacionMayor;
 	}
 }

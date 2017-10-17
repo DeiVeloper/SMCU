@@ -18,4 +18,6 @@ public interface ISeguimientoOrdenBusiness {
 
 	OrdenTrabajo getOrdenByFolio(int folio);
 
+	List<SeguimientoOrdenDTO> getOrdenesConReparacionMayor();
+
 }
