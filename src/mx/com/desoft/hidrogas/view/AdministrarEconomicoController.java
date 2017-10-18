@@ -33,6 +33,7 @@ import mx.com.desoft.hidrogas.helper.CatalogosHelper;
 import mx.com.desoft.hidrogas.helper.CatalogosHelperImpl;
 import mx.com.desoft.hidrogas.property.EconomicoProperty;
 import mx.com.desoft.hidrogas.util.Alerta;
+import mx.com.desoft.hidrogas.util.DateUtil;
 
 
 public class AdministrarEconomicoController {
@@ -122,7 +123,7 @@ public class AdministrarEconomicoController {
     private void convertirCamposToDTO() {
     	economicoDTO.setEconomicoId(economicoComboBox.getSelectionModel().getSelectedItem() != null ?
     			economicoComboBox.getSelectionModel().getSelectedItem().getEconomicoId() : null );
-    	economicoDTO.setFechaRegistro(fechaRegistroField.getValue() != null ? java.sql.Date.valueOf(fechaRegistroField.getValue()) : null);
+    	economicoDTO.setFechaRegistro(fechaRegistroField.getValue() != null ? DateUtil.getFechaDatePicker(fechaRegistroField) : null);
 
     }
 
@@ -157,8 +158,8 @@ public class AdministrarEconomicoController {
     }
 
     public boolean eliminarEconomico(Integer id) {
-    	String context ="¿Esta seguro de eliminar el registro?";
-    	boolean resultado = Alerta.eliminarRegistro("Confirmación",context, AlertType.CONFIRMATION);
+    	String context ="ï¿½Esta seguro de eliminar el registro?";
+    	boolean resultado = Alerta.eliminarRegistro("Confirmaciï¿½n",context, AlertType.CONFIRMATION);
     	 if (resultado) {
     		 try {
     			 economicoBusinessImpl.eliminarEconomicoById(id);

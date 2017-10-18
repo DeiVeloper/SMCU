@@ -23,6 +23,7 @@ import mx.com.desoft.hidrogas.helper.CatalogosHelper;
 import mx.com.desoft.hidrogas.helper.CatalogosHelperImpl;
 import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
+import mx.com.desoft.hidrogas.util.DateUtil;
 import mx.com.desoft.hidrogas.util.IReportes;
 import mx.com.desoft.hidrogas.util.Reportes;
 
@@ -212,12 +213,12 @@ public class AdministrarReportesController {
 //					comboBoxEstatus.getSelectionModel().getSelectedItem().getId() : null);
 //			ordenTrabajoDTO.setTipoNecesidadId(!comboBoxTipoNecesidad.getSelectionModel().isEmpty()  ?
 //					comboBoxTipoNecesidad.getSelectionModel().getSelectedItem().getTipoNecesidadId() : null);
-			ordenTrabajoDTO.setFechaInicio(java.sql.Date.valueOf(datePickerFechaRegistroInicio.getValue()));
-			ordenTrabajoDTO.setFechaFin(java.sql.Date.valueOf(datePickerFechaRegistroFin.getValue()));
+			ordenTrabajoDTO.setFechaInicio(DateUtil.getFechaDatePicker(datePickerFechaRegistroInicio));
+			ordenTrabajoDTO.setFechaFin(DateUtil.getFechaDatePicker(datePickerFechaRegistroFin));
 
 		}else if(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.REPARACIONES)){
-			ordenTrabajoDTO.setFechaInicio(java.sql.Date.valueOf(datePickerFechaRegistroInicio.getValue()));
-			ordenTrabajoDTO.setFechaFin(java.sql.Date.valueOf(datePickerFechaRegistroFin.getValue()));
+			ordenTrabajoDTO.setFechaInicio(DateUtil.getFechaDatePicker(datePickerFechaRegistroInicio));
+			ordenTrabajoDTO.setFechaFin(DateUtil.getFechaDatePicker(datePickerFechaRegistroFin));
 		}
 	}
 

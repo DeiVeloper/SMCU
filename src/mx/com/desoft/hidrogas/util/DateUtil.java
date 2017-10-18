@@ -11,6 +11,8 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Locale;
 
+import javafx.scene.control.DatePicker;
+
 /**
  * Helper functions for handling dates.
  *
@@ -118,5 +120,9 @@ public class DateUtil {
     public static String convertirFechaToString(Date fecha){
     	Format formatter = new SimpleDateFormat("dd-MM-yyyy");
 	   return formatter.format(fecha);
+    }
+    
+    public static Date getFechaDatePicker(DatePicker fecha){
+    	return java.sql.Date.valueOf(fecha.getValue());
     }
 }
