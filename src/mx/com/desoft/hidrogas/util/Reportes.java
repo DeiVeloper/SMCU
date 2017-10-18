@@ -1,9 +1,24 @@
 package mx.com.desoft.hidrogas.util;
 
+import java.awt.Graphics;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -11,61 +26,139 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.formula.functions.T;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.springframework.stereotype.Component;
 
+import javafx.scene.control.Alert.AlertType;
+import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
+
 @Component
-public class Reportes implements IReportes {
+public class Reportes implements IReportes, Printable {
 
 	private static final Logger log = Logger.getLogger(Reportes.class);
+	private final String IMPRESORA = "Nombre_Impresora";
 
 	@Override
-	public void generarTicketOrdenServicio(List<T> lista){
-
+	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden){
+		StringBuilder ticket = new StringBuilder();
+		ticket.append("Folio orden: " + orden.getFolio() + "\n");
+		printString(IMPRESORA, ticket.toString());
 	}
 
 	@Override
-	public void generarReporteIncidencias(List<T> lista){
-		T[] miarray = new T[lista.size()];
+	public void generarReporteIncidencias(List<OrdenTrabajoDTO> lista) throws IOException{
+		OrdenTrabajoDTO[] miarray = new OrdenTrabajoDTO[lista.size()];
         miarray = lista.toArray(miarray);
 		HSSFWorkbook workbook = new HSSFWorkbook();
-		HSSFSheet    sheet    = workbook.createSheet("My Sheet");
+		HSSFSheet    sheet    = workbook.createSheet("Incidencias");
+
+		CellStyle headerStyle = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setBold(true);
+        headerStyle.setFont(font);
+
+        CellStyle style = workbook.createCellStyle();
+        style.setFillForegroundColor(IndexedColors.LIGHT_YELLOW.getIndex());
+//        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+		String[] headers = new String[]{"Folio",
+				"Mecanico", "Economico", "Operador", "Falla Mecanica",
+					"Fecha Registro", "Kilometraje", "Tipo Necesidad", "Observaciones", "Trabajos Realizados"};
+		HSSFRow headerRow = sheet.createRow(0);
+		for (int i = 0; i < headers.length; ++i) {
+			String header = headers[i];
+			HSSFCell cell = headerRow.createCell(i);
+			cell.setCellValue(header);
+        }
 
 		for (int i = 0; i < miarray.length; i++) {
-			T registros =  miarray[i];
-			HSSFRow      row      = sheet.createRow(i);
-			HSSFCell     cell = row.createCell(i);
-			cell.setCellValue(registros.toString());
+			OrdenTrabajoDTO registro =  miarray[i];
+			HSSFRow row = sheet.createRow(i + 1);
+			row.createCell(0).setCellValue(registro.getFolio());
+			row.createCell(1).setCellValue(registro.getMecanico().getNombreEmpleado());
+			row.createCell(2).setCellValue(registro.getEconomicoId());
+			row.createCell(3).setCellValue(registro.getNombreOperador().concat(" ")
+					.concat(registro.getApellidoPatOperador()).concat(" ").concat(registro.getApellidoMatOperador()));
+			row.createCell(4).setCellValue(registro.getFallaMecanica());
+			row.createCell(5).setCellValue(DateUtil.convertirFechaToString(registro.getFechaRegistro()));
+			row.createCell(6).setCellValue(registro.getKilometraje());
+			row.createCell(7).setCellValue(registro.getDescripcionTipoNecesidad());
+			row.createCell(8).setCellValue(registro.getSeguimiento().getObservaciones());
+			row.createCell(9).setCellValue(registro.getSeguimiento().getTrabajosRealizados());
 		}
 
-		try {
-			OutputStream out = new FileOutputStream("src/main/resources/SimpleExcel.xls");
-			workbook.write(out);
-			workbook.close();
-			out.flush();
-			out.close();
-		}
-		catch (IOException e) {
-			log.error("Error at file writing",e);
-		}
+		OutputStream out = new FileOutputStream("C:/Reportes/IncidenciasDel"+DateUtil.convertirFechaToString(new Date())+".xls");
+		workbook.write(out);
+		workbook.close();
+		out.flush();
+		out.close();
 	}
 
 	@Override
-	public void generarReporteTipoReparacion(List<T> lista){
+	public void generarReporteTipoReparacion(List<T> lista) throws IOException{
 		HSSFWorkbook workbook = new HSSFWorkbook();
-		HSSFSheet sheet = workbook.createSheet("My Sheet");
+		HSSFSheet sheet = workbook.createSheet("Reparaciones");
 		HSSFRow row = sheet.createRow(0);
 		HSSFCell cell = row.createCell(0);
 		cell.setCellValue("Hello, World!");
-		try {
-			OutputStream out = new FileOutputStream("src/main/resources/SimpleExcel.xls");
-			workbook.write(out);
-			workbook.close();
-			out.flush();
-			out.close();
-		}
-		catch (IOException e) {
-			log.error("Error at file writing",e);
-		}
+
+		OutputStream out = new FileOutputStream("C:/Reportes/Reparaciones.xls");
+		workbook.write(out);
+		workbook.close();
+		out.flush();
+		out.close();
 	}
+
+	@Override
+	public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private void printString(String printerName, String text) {
+		DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+		PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
+		PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
+		PrintService service = findPrintService(printerName, printService);
+		DocPrintJob job = service.createPrintJob();
+//		try {
+//			byte[] bytes;
+//			bytes = text.getBytes("CP437");
+//			Doc doc = new SimpleDoc(bytes, flavor, null);
+//			job.print(doc, null);
+//
+//		} catch (Exception e) {
+//			log.error("Erorr: al imprimir el ticket", e);
+//			Alerta.crearAlertaUsuario("Error", "Al imprimir el ticket, favor de intentar nuevamente", AlertType.ERROR);
+//		}
+
+	}
+
+	private PrintService findPrintService(String printerName,PrintService[] services) {
+		for (PrintService service : services) {
+			log.info("Impresora"+ service.getName());
+			if (service.getName().equalsIgnoreCase(printerName)) {
+				return service;
+			}
+		}
+		return null;
+	}
+
+//	public List<String> getPrinters(){
+//
+//		DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+//		PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
+//
+//		PrintService printServices[] = PrintServiceLookup.lookupPrintServices(
+//				flavor, pras);
+//
+//		List<String> printerList = new ArrayList<String>();
+//		for(PrintService printerService: printServices){
+//			printerList.add( printerService.getName());
+//		}
+//
+//		return printerList;
+//	}
 
 }

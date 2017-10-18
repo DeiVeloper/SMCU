@@ -1,6 +1,7 @@
 package mx.com.desoft.hidrogas.util;
 
 import java.text.DateFormat;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -99,7 +100,7 @@ public class DateUtil {
         }
         return date;
     }
-
+    
     public static Date plusDaysToDate(Date date, Long days) {
     	Date dateResult;
     	LocalDate localDate;
@@ -111,5 +112,11 @@ public class DateUtil {
     		dateResult = null;
 		}
     	return dateResult;
+    }
+    
+
+    public static String convertirFechaToString(Date fecha){
+    	Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+	   return formatter.format(fecha);
     }
 }
