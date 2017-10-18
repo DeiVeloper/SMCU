@@ -17,6 +17,10 @@ public class OrdenTrabajoDTO {
 	private int estatusOrden;
 	private Date fechaRegistro;
 	private int nominaRegistro;
+	private Date fechaInicio;
+	private Date fechaFin;
+	private EmpleadoDTO mecanico;
+	private SeguimientoOrdenDTO seguimiento;
 
 	public OrdenTrabajoDTO() {
 		super();
@@ -45,6 +49,25 @@ public class OrdenTrabajoDTO {
 		this.estatusOrden = estatusOrden;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
+	}
+
+	public OrdenTrabajoDTO(int folio, int economicoId, int nominaOperador, String nombreOperador,
+			String apellidoPatOperador, String apellidoMatOperador, String descripcionTipoNecesidad, int kilometraje,
+			String fallaMecanica, int estatusOrden, Date fechaRegistro, EmpleadoDTO mecanico, SeguimientoOrdenDTO seguimiento) {
+		super();
+		this.folio = folio;
+		this.economicoId = economicoId;
+		this.nominaOperador = nominaOperador;
+		this.nombreOperador = nombreOperador;
+		this.apellidoPatOperador = apellidoPatOperador;
+		this.apellidoMatOperador = apellidoMatOperador;
+		this.descripcionTipoNecesidad = descripcionTipoNecesidad;
+		this.kilometraje = kilometraje;
+		this.fallaMecanica = fallaMecanica;
+		this.estatusOrden = estatusOrden;
+		this.fechaRegistro = fechaRegistro;
+		this.mecanico =mecanico;
+		this.seguimiento = seguimiento;
 	}
 
 	public int getFolio() {
@@ -127,6 +150,38 @@ public class OrdenTrabajoDTO {
 	}
 	public void setNominaRegistro(int nominaRegistro) {
 		this.nominaRegistro = nominaRegistro;
+	}
+
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public EmpleadoDTO getMecanico() {
+		return mecanico;
+	}
+
+	public void setMecanico(EmpleadoDTO mecanico) {
+		this.mecanico = mecanico;
+	}
+
+	public SeguimientoOrdenDTO getSeguimiento() {
+		return seguimiento;
+	}
+
+	public void setSeguimiento(SeguimientoOrdenDTO seguimiento) {
+		this.seguimiento = seguimiento;
 	}
 
 }
