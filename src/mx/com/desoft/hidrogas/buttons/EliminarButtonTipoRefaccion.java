@@ -22,7 +22,7 @@ public class EliminarButtonTipoRefaccion extends TableCell<TipoRefaccionProperty
             @Override
             public void handle(ActionEvent t) {
             	TipoRefaccionProperty tipoRefaccion = (TipoRefaccionProperty) EliminarButtonTipoRefaccion.this.getTableView().getItems().get(EliminarButtonTipoRefaccion.this.getIndex());
-            	boolean bandera = controller.eliminarTipoNecesidad(Integer.parseInt(tipoRefaccion.getTipoRefaccionId().getValue().toString()));
+            	boolean bandera = controller.eliminarTipoRefaccion(Integer.parseInt(tipoRefaccion.getTipoRefaccionId().getValue().toString()));
             	if(bandera){
             		data.remove(tipoRefaccion);
             	}
