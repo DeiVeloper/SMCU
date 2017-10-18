@@ -38,7 +38,8 @@ import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 public class Reportes implements IReportes, Printable {
 
 	private static final Logger log = Logger.getLogger(Reportes.class);
-	private final String IMPRESORA = "Nombre_Impresora";
+	private Character o= '\\';
+	private final String IMPRESORA = o+""+o+"172.23.100.205"+o+"Lexmark";
 
 	@Override
 	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden){
@@ -101,7 +102,7 @@ public class Reportes implements IReportes, Printable {
         miarray = lista.toArray(miarray);
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFSheet sheet = workbook.createSheet("Reparaciones");
-		
+
 		String[] headers = new String[]{"Economico","Tipo Necesidad", "Total"};
 		HSSFRow headerRow = sheet.createRow(0);
 		for (int i = 0; i < headers.length; ++i) {
@@ -109,7 +110,7 @@ public class Reportes implements IReportes, Printable {
 			HSSFCell cell = headerRow.createCell(i);
 			cell.setCellValue(header);
         }
-		
+
 		for (int i = 0; i < miarray.length; i++) {
 			OrdenTrabajoDTO registro =  miarray[i];
 			HSSFRow row = sheet.createRow(i + 1);
@@ -132,27 +133,26 @@ public class Reportes implements IReportes, Printable {
 	}
 
 	private void printString(String printerName, String text) {
-		DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
-		PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
-		PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
-		PrintService service = findPrintService(printerName, printService);
-		DocPrintJob job = service.createPrintJob();
-//		try {
-//			byte[] bytes;
-//			bytes = text.getBytes("CP437");
-//			Doc doc = new SimpleDoc(bytes, flavor, null);
-//			job.print(doc, null);
-//
-//		} catch (Exception e) {
-//			log.error("Erorr: al imprimir el ticket", e);
-//			Alerta.crearAlertaUsuario("Error", "Al imprimir el ticket, favor de intentar nuevamente", AlertType.ERROR);
-//		}
+		try {
+			DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+			PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
+			PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
+			PrintService service = findPrintService(printerName, printService);
+			DocPrintJob job = service.createPrintJob();
+			byte[] bytes;
+			bytes = text.getBytes("CP437");
+			Doc doc = new SimpleDoc(bytes, flavor, null);
+			job.print(doc, null);
+
+		} catch (Exception e) {
+			log.error("Erorr: al imprimir el ticket", e);
+			Alerta.crearAlertaUsuario("Error", "Al imprimir el ticket, favor de intentar nuevamente", AlertType.ERROR);
+		}
 
 	}
 
 	private PrintService findPrintService(String printerName,PrintService[] services) {
 		for (PrintService service : services) {
-			log.info("Impresora"+ service.getName());
 			if (service.getName().equalsIgnoreCase(printerName)) {
 				return service;
 			}
