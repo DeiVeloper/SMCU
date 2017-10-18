@@ -20,6 +20,7 @@ import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
+import mx.com.desoft.hidrogas.dto.SeguimientoOrdenDTO;
 import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
 import mx.com.desoft.hidrogas.model.CatTipoEmpleado;
 import mx.com.desoft.hidrogas.model.CatTipoListaRefaccion;
@@ -28,6 +29,7 @@ import mx.com.desoft.hidrogas.model.CatTipoRefaccion;
 import mx.com.desoft.hidrogas.model.CatTipoReporte;
 import mx.com.desoft.hidrogas.model.Economico;
 import mx.com.desoft.hidrogas.model.Empleado;
+import mx.com.desoft.hidrogas.model.OrdenTrabajo;
 
 @Service
 public class CatalogoBusinessImpl implements ICatalogoBusiness {
@@ -52,7 +54,7 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 
 	@Autowired
 	private ICatTipoRefaccionDAO catTipoRefaccion;
-	
+
 	@Autowired
 	private EmpleadosDAO empleadoImplDAO;
 
@@ -138,18 +140,66 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 	public List<EmpleadoDTO> findAllOperadores() {
 		List<EmpleadoDTO> listaOperadores = new ArrayList<>();
 		for (Empleado lista : empleadoImplDAO.getAllOperadores()) {
-			EmpleadoDTO dto = new EmpleadoDTO(lista.getNominaEmpleado(), 
-					lista.getNombreEmpleado(), 
-					lista.getApellidoPatEmpleado(), 
-					lista.getApellidoMatEmpleado(), 
-					null, 
-					lista.getEconomico().getEconomicoId(), 
-					lista.getFechaRegistro(), 
-					lista.getNominaRegistro(), 
-					lista.getCatTipoEmpleado().getTipoEmpleadoId(), 
+			EmpleadoDTO dto = new EmpleadoDTO(lista.getNominaEmpleado(),
+					lista.getNombreEmpleado(),
+					lista.getApellidoPatEmpleado(),
+					lista.getApellidoMatEmpleado(),
+					null,
+					lista.getEconomico().getEconomicoId(),
+					lista.getFechaRegistro(),
+					lista.getNominaRegistro(),
+					lista.getCatTipoEmpleado().getTipoEmpleadoId(),
 					lista.getCatTipoEmpleado().getDescripcion());
 			listaOperadores.add(dto);
 		}
 		return listaOperadores;
+	}
+
+	@Override
+	public OrdenTrabajoDTO getOrdenById(Integer folio) {
+		OrdenTrabajo orden = ordenTrabajoImplDAO.get(folio);
+		return new OrdenTrabajoDTO(orden.getFolio(),
+				orden.getEconomico().getEconomicoId(),
+				orden.getNominaOperador(),
+				orden.getNombreOperador(),
+				orden.getApellidoPatOperador(),
+				orden.getApellidoMatOperador(),
+				orden.getCatTipoNecesidad().getTipoNecesidadId(),
+				orden.getKilometraje(),
+				orden.getFallaMecanica(),
+				orden.getCatEstatusOrden().getEstatusOrdenId(),
+				orden.getFechaRegistro(),
+				orden.getSeguimientoOrden().getNominaRegistro());
+	}
+
+	@Override
+	public List<OrdenTrabajoDTO> getIncidenciasOrdenes(OrdenTrabajoDTO ordenTrabajoDTO) {
+		List<OrdenTrabajoDTO> listaDTO = new ArrayList<>();
+		List<OrdenTrabajo> listaOrden = ordenTrabajoImplDAO.getIncidenciasOrden(ordenTrabajoDTO);
+		for (OrdenTrabajo lista : listaOrden) {
+			OrdenTrabajoDTO dto = new OrdenTrabajoDTO(lista.getFolio(),
+					lista.getEconomico().getEconomicoId(),
+					lista.getNominaOperador(),
+					lista.getNombreOperador(),
+					lista.getApellidoPatOperador(),
+					lista.getApellidoMatOperador(),
+					lista.getCatTipoNecesidad().getDescripcion(),
+					lista.getKilometraje(),
+					lista.getFallaMecanica(),
+					lista.getCatEstatusOrden().getEstatusOrdenId(),
+					lista.getFechaRegistro(),
+					new EmpleadoDTO(lista.getEmpleado2().getNominaEmpleado(),lista.getEmpleado2().getNombreEmpleado().concat(" ").concat(lista.getApellidoPatOperador()).concat(" ").concat(lista.getApellidoMatOperador()),0,
+							lista.getEmpleado2().getCatTipoEmpleado().getTipoEmpleadoId()),
+					new SeguimientoOrdenDTO(lista.getSeguimientoOrden().getId_seguimiento(), lista.getSeguimientoOrden().getOrdenTrabajo().getFolio(), lista.getSeguimientoOrden().getTrabajosRealizados(), lista.getSeguimientoOrden().getObservaciones(), lista.getSeguimientoOrden().getReparacionMayor(), lista.getSeguimientoOrden().getFechaReparaMayor(), lista.getSeguimientoOrden().getFechaRegistro(), lista.getSeguimientoOrden().getNominaRegistro()));
+			listaDTO.add(dto);
+		}
+		return  listaDTO;
+	}
+
+	@Override
+	public List<OrdenTrabajoDTO> getOrdenByTipoNecesidad(OrdenTrabajoDTO ordenTrabajoDTO) {
+		List<OrdenTrabajoDTO> listaDTO = new ArrayList<>();
+		ordenTrabajoImplDAO.getOrdenByTipoNecesidad(ordenTrabajoDTO);
+		return null;
 	}
 }
