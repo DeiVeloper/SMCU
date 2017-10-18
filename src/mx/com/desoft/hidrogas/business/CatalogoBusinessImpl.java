@@ -199,7 +199,13 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 	@Override
 	public List<OrdenTrabajoDTO> getOrdenByTipoNecesidad(OrdenTrabajoDTO ordenTrabajoDTO) {
 		List<OrdenTrabajoDTO> listaDTO = new ArrayList<>();
-		ordenTrabajoImplDAO.getOrdenByTipoNecesidad(ordenTrabajoDTO);
-		return null;
+		for(Object[] lista : ordenTrabajoImplDAO.getOrdenByTipoNecesidad(ordenTrabajoDTO)){
+			OrdenTrabajoDTO dto = new OrdenTrabajoDTO();
+			dto.setEconomicoId(Integer.parseInt(lista[0].toString()));
+			dto.setDescripcionTipoNecesidad(lista[1].toString());
+			dto.setTotal(Integer.parseInt(lista[2].toString()));
+			listaDTO.add(dto);
+		}
+		return listaDTO;
 	}
 }

@@ -21,6 +21,7 @@ public class OrdenTrabajoDTO {
 	private Date fechaFin;
 	private EmpleadoDTO mecanico;
 	private SeguimientoOrdenDTO seguimiento;
+	private Integer total;
 
 	public OrdenTrabajoDTO() {
 		super();
@@ -182,6 +183,14 @@ public class OrdenTrabajoDTO {
 
 	public void setSeguimiento(SeguimientoOrdenDTO seguimiento) {
 		this.seguimiento = seguimiento;
+	}
+
+	public Integer getTotal() {
+		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 
 }

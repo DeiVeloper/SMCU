@@ -38,7 +38,8 @@ public class MainApp  {
             primaryStage.setScene(scene);
             primaryStage.centerOnScreen();
             primaryStage.setMaximized(true);
-            primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.setResizable(false);
+//            primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.show();
         } catch (Exception e) {
         	log.error("Error: No se pudo iniciar el Layout.", e);

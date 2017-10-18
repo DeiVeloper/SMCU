@@ -105,7 +105,7 @@ public class AdministrarReportesController {
 					case Constantes.REPARACIONES:
 						List<OrdenTrabajoDTO> listaReparaciones = catalogoBusiness.getOrdenByTipoNecesidad(ordenTrabajoDTO);
 						if	(listaReparaciones != null && listaReparaciones.size() != Constantes.CERO)	{
-							reporte.generarReporteTipoReparacion(null);
+							reporte.generarReporteTipoReparacion(listaReparaciones);
 							Alerta.crearAlertaUsuario(Constantes.INFORMACION, Constantes.REPORTE_EXITOSO, AlertType.CONFIRMATION);
 						}	else	{
 							Alerta.crearAlertaUsuario(Constantes.INFORMACION, Constantes.RESULTADO_CONSULTA_REPORTE, AlertType.INFORMATION);

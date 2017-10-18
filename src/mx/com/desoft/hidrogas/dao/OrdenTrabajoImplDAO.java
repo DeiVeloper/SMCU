@@ -77,19 +77,14 @@ public class OrdenTrabajoImplDAO extends HibernateImplDAO<OrdenTrabajo, Integer>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrdenTrabajo> getOrdenByTipoNecesidad(OrdenTrabajoDTO ordenTrabajoDTO) {
+	public List<Object[]> getOrdenByTipoNecesidad(OrdenTrabajoDTO ordenTrabajoDTO) {
 		StringBuilder consulta = new StringBuilder();
 		consulta.append("SELECT ordenTrabajo.economico.economicoId, catTipoNecesidad.descripcion, count(*) FROM OrdenTrabajo ordenTrabajo, CatTipoNecesidad catTipoNecesidad");
-				consulta.append("where ordenTrabajo.catTipoNecesidad.tipoNecesidadId = catTipoNecesidad.tipoNecesidadId");
-				consulta.append("group by ordenTrabajo.economico.economicoId, catTipoNecesidad.descripcion");
+				consulta.append(" where ordenTrabajo.catTipoNecesidad.tipoNecesidadId = catTipoNecesidad.tipoNecesidadId");
+				consulta.append(" group by ordenTrabajo.economico.economicoId, catTipoNecesidad.descripcion");
 		Query query = HibernateUtil.openSession().createQuery(consulta.toString());
 		List<Object[]> listDatos = query.list();
-		for (Object[] datos : listDatos) {
-//			System.out.println(datos[0].toString());
-			System.out.println(datos[1].toString());
-//			System.out.println(datos[2].toString());
-		}
-		return null;
+		return listDatos != null ? listDatos : null;
 	}
 
 }

@@ -96,12 +96,27 @@ public class Reportes implements IReportes, Printable {
 	}
 
 	@Override
-	public void generarReporteTipoReparacion(List<T> lista) throws IOException{
+	public void generarReporteTipoReparacion(List<OrdenTrabajoDTO> lista) throws IOException{
+		OrdenTrabajoDTO[] miarray = new OrdenTrabajoDTO[lista.size()];
+        miarray = lista.toArray(miarray);
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFSheet sheet = workbook.createSheet("Reparaciones");
-		HSSFRow row = sheet.createRow(0);
-		HSSFCell cell = row.createCell(0);
-		cell.setCellValue("Hello, World!");
+		
+		String[] headers = new String[]{"Economico","Tipo Necesidad", "Total"};
+		HSSFRow headerRow = sheet.createRow(0);
+		for (int i = 0; i < headers.length; ++i) {
+			String header = headers[i];
+			HSSFCell cell = headerRow.createCell(i);
+			cell.setCellValue(header);
+        }
+		
+		for (int i = 0; i < miarray.length; i++) {
+			OrdenTrabajoDTO registro =  miarray[i];
+			HSSFRow row = sheet.createRow(i + 1);
+			row.createCell(0).setCellValue(registro.getEconomicoId());
+			row.createCell(1).setCellValue(registro.getDescripcionTipoNecesidad());
+			row.createCell(2).setCellValue(registro.getTotal());
+		}
 
 		OutputStream out = new FileOutputStream("C:/Reportes/Reparaciones.xls");
 		workbook.write(out);

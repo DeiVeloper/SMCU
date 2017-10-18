@@ -12,6 +12,6 @@ public interface IOrdenTrabajoDAO extends HibernateDAO<OrdenTrabajo, Integer> {
 
 	List<OrdenTrabajo> getIncidenciasOrden(OrdenTrabajoDTO ordenTrabajoDTO);
 
-	List<OrdenTrabajo> getOrdenByTipoNecesidad(OrdenTrabajoDTO ordenTrabajoDTO);
+	List<Object[]> getOrdenByTipoNecesidad(OrdenTrabajoDTO ordenTrabajoDTO);
 
 }
