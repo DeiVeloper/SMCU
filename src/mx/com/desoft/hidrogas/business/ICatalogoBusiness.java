@@ -27,7 +27,13 @@ public interface ICatalogoBusiness {
 	void imprimirReporte(OrdenTrabajoDTO ordenTrabajoDTO);
 
 	List<CatTipoRefaccionesDTO> findAllCatTipoRefacciones();
-	
+
 	List<EmpleadoDTO> findAllOperadores();
+
+	OrdenTrabajoDTO getOrdenById(Integer folio);
+
+	List<OrdenTrabajoDTO> getIncidenciasOrdenes(OrdenTrabajoDTO ordenTrabajoDTO);
+
+	List<OrdenTrabajoDTO> getOrdenByTipoNecesidad(OrdenTrabajoDTO ordenTrabajoDTO);
 
 }
