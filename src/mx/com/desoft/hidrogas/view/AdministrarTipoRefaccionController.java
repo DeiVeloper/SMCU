@@ -1,7 +1,6 @@
 package mx.com.desoft.hidrogas.view;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.log4j.Logger;
 
@@ -12,14 +11,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -120,6 +118,9 @@ public class AdministrarTipoRefaccionController {
              dialogStage.initModality(Modality.WINDOW_MODAL);
              Scene scene = new Scene(page);
              dialogStage.setScene(scene);
+             dialogStage.setResizable(false);
+             dialogStage.setTitle("HidroGas");
+             dialogStage.getIcons().add(new Image("file:resources/images/ic_launcher.png"));
              AgregarEditarTipoRefaccionesController controller = loader.getController();
              controller.setDialogStage(dialogStage);
              dialogStage.showAndWait();
@@ -134,20 +135,18 @@ public class AdministrarTipoRefaccionController {
     	catTipoRefaccionesDTO = new CatTipoRefaccionesDTO(tipoRefaccionField.getText());
     }
 
-    public boolean eliminarTipoNecesidad(Integer id) {
+    public boolean eliminarTipoRefaccion(Integer id) {
     	String context ="¿Esta seguro de eliminar el registro?";
-		ButtonType aceptar = new ButtonType("Aceptar");
-		ButtonType cancelar = new ButtonType("Cancelar");
-		Alert alert = new Alert(AlertType.CONFIRMATION,context, aceptar, cancelar);
-    	alert.setTitle("Confirmación");
-    	alert.setHeaderText(null);
-    	Optional<ButtonType> result = alert.showAndWait();
-    	 if (result.isPresent() && result.get().getText() == "Aceptar") {
-    		 tipoRefaccionesBusinessImpl.eliminarTipoRefaccionById(id);
-    	 }	else	{
-    		 return false;
+    	boolean resultado = Alerta.eliminarRegistro("Confirmación",context, AlertType.CONFIRMATION);
+    	 if (resultado) {
+    		 try {
+    			 tipoRefaccionesBusinessImpl.eliminarTipoRefaccionById(id);
+			} catch (Exception e) {
+				log.error("Error: Al eliminar un tipo de refaccion", e);
+				Alerta.crearAlertaUsuario("Error", e.getMessage(), AlertType.ERROR);
+			}
     	 }
-    	 return true;
+    	 return resultado;
     }
 
 }

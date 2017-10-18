@@ -1,10 +1,18 @@
 package mx.com.desoft.hidrogas.view;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import mx.com.desoft.hidrogas.Login;
+import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
+import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
 import mx.com.desoft.hidrogas.dto.CatEstatusOrdenDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
@@ -13,11 +21,14 @@ import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
 import mx.com.desoft.hidrogas.helper.CatalogosHelper;
 import mx.com.desoft.hidrogas.helper.CatalogosHelperImpl;
+import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
 import mx.com.desoft.hidrogas.util.IReportes;
 import mx.com.desoft.hidrogas.util.Reportes;
 
 public class AdministrarReportesController {
+
+	private static final Logger log = Logger.getLogger(AdministrarReportesController.class);
 
 	@FXML
 	private TextField textFiedlNofolio;
@@ -44,8 +55,10 @@ public class AdministrarReportesController {
 	private ComboBox<CatTipoNecesidadDTO> comboBoxTipoNecesidad;
 
 	private CatalogosHelper catalogosHelperImpl = Login.appContext.getBean(CatalogosHelperImpl.class);
+	private ICatalogoBusiness catalogoBusiness = Login.appContext.getBean(CatalogoBusinessImpl.class);
 	private IReportes reporte = Login.appContext.getBean(Reportes.class);
 	private OrdenTrabajoDTO ordenTrabajoDTO;
+	private String mensaje = "";
 
 	public AdministrarReportesController() {
 		textFiedlNofolio = new TextField();
@@ -67,25 +80,47 @@ public class AdministrarReportesController {
 	@FXML
 	private void imprimirReporte() {
 		if (validarCamposView()) {
-			switch (comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion()) {
-				case Constantes.ORDEN:
-					//busqueda
-					reporte.generarTicketOrdenServicio(null);
+			try {
+				switch (comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion()) {
+					case Constantes.ORDEN:
+						OrdenTrabajoDTO orden = catalogoBusiness.getOrdenById(Integer.parseInt(textFiedlNofolio.getText()));
+						if	(orden != null)	{
+							reporte.generarTicketOrdenServicio(orden);
+							Alerta.crearAlertaUsuario(Constantes.INFORMACION, Constantes.TICKET, AlertType.CONFIRMATION);
+						}	else	{
+							Alerta.crearAlertaUsuario(Constantes.INFORMACION, Constantes.RESULTADO_CONSULTA_REPORTE, AlertType.INFORMATION);
+						}
 					break;
 
-				case Constantes.INCIDENCIAS:
-					//busqueda
-					reporte.generarReporteIncidencias(null);
+					case Constantes.INCIDENCIAS:
+						List<OrdenTrabajoDTO> listaIncidencias = catalogoBusiness.getIncidenciasOrdenes(ordenTrabajoDTO);
+						if	(listaIncidencias != null && listaIncidencias.size() != Constantes.CERO)	{
+							reporte.generarReporteIncidencias(listaIncidencias);
+							Alerta.crearAlertaUsuario(Constantes.INFORMACION, Constantes.REPORTE_EXITOSO, AlertType.CONFIRMATION);
+						}	else	{
+							Alerta.crearAlertaUsuario(Constantes.INFORMACION, Constantes.RESULTADO_CONSULTA_REPORTE, AlertType.INFORMATION);
+						}
 					break;
 
-				case Constantes.REPARACIONES:
-					//busqueda
-					reporte.generarReporteTipoReparacion(null);
+					case Constantes.REPARACIONES:
+						List<OrdenTrabajoDTO> listaReparaciones = catalogoBusiness.getOrdenByTipoNecesidad(ordenTrabajoDTO);
+						if	(listaReparaciones != null && listaReparaciones.size() != Constantes.CERO)	{
+							reporte.generarReporteTipoReparacion(null);
+							Alerta.crearAlertaUsuario(Constantes.INFORMACION, Constantes.REPORTE_EXITOSO, AlertType.CONFIRMATION);
+						}	else	{
+							Alerta.crearAlertaUsuario(Constantes.INFORMACION, Constantes.RESULTADO_CONSULTA_REPORTE, AlertType.INFORMATION);
+						}
 					break;
 
-				default:
-					break;
+					default:
+						break;
+				}
+			}catch (IOException e) {
+				log.error("Error al generar reporte", e);
+				Alerta.crearAlertaUsuario(Constantes.ERROR, e.getMessage(), AlertType.ERROR);
 			}
+		}	else	{
+			Alerta.crearAlertaUsuario(Constantes.VALIDANDO_FORMULARIO, mensaje, AlertType.INFORMATION);
 		}
 	}
 
@@ -132,26 +167,58 @@ public class AdministrarReportesController {
 	}
 
 	private boolean validarCamposView() {
+		if	(!comboBoxTipoReporte.getSelectionModel().isEmpty()){
 
+			if	(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ORDEN)){
+				if(textFiedlNofolio.getText().isEmpty()){
+					mensaje = "Favor de capturar el folio de la orden.";
+					return false;
+				}
+			}else if(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.INCIDENCIAS) ||
+					comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.REPARACIONES)){
+				if(datePickerFechaRegistroInicio.getValue() == null){
+					mensaje = "Favor de capturar una fecha de inicio.";
+					return false;
+				}
+				if(datePickerFechaRegistroFin.getValue() == null){
+					mensaje = "Favor de capturar una fecha fin.";
+					return false;
+				}
+			}
+
+		}	else	{
+			mensaje = "Favor de seleccionar un tipo de reporte.";
+			return false;
+		}
 		this.convertirCamosToDTO();
 		return true;
 	}
 
 	private void convertirCamosToDTO() {
 		ordenTrabajoDTO = new OrdenTrabajoDTO();
-		System.out.println("textFiedlNofolio.getText()" + textFiedlNofolio.getText() != null
-				&& !textFiedlNofolio.getText().isEmpty());
-		System.out.println("textFiedlNofolio.getText()" + textFiedlNofolio.getText().length());
-		System.out.println("textFiedlNofolio.getText().isEmpty()" + !textFiedlNofolio.getText().isEmpty());
-		ordenTrabajoDTO.setFolio((textFiedlNofolio.getText() != null && !textFiedlNofolio.getText().isEmpty())
-				? Integer.parseInt(textFiedlNofolio.getText()) : 0);
-		// ordenTrabajoDTO.setNominaOperador(textFieldEmpleado.getText().length()
-		// > 0 ? Integer.parseInt(textFieldEconomico.getText()) : null);
-		// ordenTrabajoDTO.setEstatusOrden(comboBoxEstatus.getSelectionModel().getSelectedItem().getId());
-		// ordenTrabajoDTO.setFechaRegistro(datePickerFechaRegistro.getValue()
-		// != null ? java.sql.Date.valueOf(datePickerFechaRegistro.getValue()) :
-		// null);
-		// ordenTrabajoDTO.setTipoNecesidadId(comboBoxTipoNecesidad.getSelectionModel().getSelectedItem().getTipoNecesidadId());
+		if (comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ORDEN)) {
+			ordenTrabajoDTO.setFolio(Integer.parseInt(textFiedlNofolio.getText()));
+
+		}else if(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.INCIDENCIAS)){
+//			System.out.println(comboBoxEmpleado.getSelectionModel().isEmpty());
+//			System.out.println(comboBoxEconomico.getSelectionModel().isEmpty());
+//			System.out.println(comboBoxEstatus.getSelectionModel().isEmpty());
+//			System.out.println(comboBoxTipoNecesidad.getSelectionModel().isEmpty());
+//			ordenTrabajoDTO.setNominaOperador(!comboBoxEmpleado.getSelectionModel().isEmpty() ?
+//					comboBoxEmpleado.getSelectionModel().getSelectedItem().getNominaEmpleado() : null);
+//			ordenTrabajoDTO.setEconomicoId(!comboBoxEconomico.getSelectionModel().isEmpty() ?
+//					comboBoxEconomico.getSelectionModel().getSelectedItem().getEconomicoId() : null);
+//			ordenTrabajoDTO.setEstatusOrden(!comboBoxEstatus.getSelectionModel().isEmpty()  ?
+//					comboBoxEstatus.getSelectionModel().getSelectedItem().getId() : null);
+//			ordenTrabajoDTO.setTipoNecesidadId(!comboBoxTipoNecesidad.getSelectionModel().isEmpty()  ?
+//					comboBoxTipoNecesidad.getSelectionModel().getSelectedItem().getTipoNecesidadId() : null);
+			ordenTrabajoDTO.setFechaInicio(java.sql.Date.valueOf(datePickerFechaRegistroInicio.getValue()));
+			ordenTrabajoDTO.setFechaFin(java.sql.Date.valueOf(datePickerFechaRegistroFin.getValue()));
+
+		}else if(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.REPARACIONES)){
+			ordenTrabajoDTO.setFechaInicio(java.sql.Date.valueOf(datePickerFechaRegistroInicio.getValue()));
+			ordenTrabajoDTO.setFechaFin(java.sql.Date.valueOf(datePickerFechaRegistroFin.getValue()));
+		}
 	}
 
 	private void inicializarCombos(){

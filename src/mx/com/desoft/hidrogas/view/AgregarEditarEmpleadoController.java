@@ -124,7 +124,6 @@ public class AgregarEditarEmpleadoController {
     		passwordLabel.setVisible(false);
     		password.setVisible(false);
     	}
-    	System.out.println(catTipoEmpleadoDTO.getDescripcion());
 
     	if(catTipoEmpleadoDTO.getDescripcion().equals(Constantes.ADMINISTRADOR) || catTipoEmpleadoDTO.getDescripcion().equals(Constantes.MECANICO)) {
     		economico.setVisible(false);
