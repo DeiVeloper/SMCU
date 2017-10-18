@@ -8,12 +8,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import mx.com.desoft.hidrogas.Authenticator;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
@@ -63,8 +57,6 @@ public class RootLayoutController {
             loader.setLocation(MainApp.class.getResource("view/AdminEmpleados.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
             personOverview.getStylesheets().add("file:resources/css/style.css");
-            personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
         } catch (Exception e) {
            log.error("Error: No se puedo iniciar la pantalla de Aministracion de Empleados.", e);
@@ -78,8 +70,6 @@ public class RootLayoutController {
             loader.setLocation(MainApp.class.getResource("view/AdminEconomicos.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
             personOverview.getStylesheets().add("file:resources/css/style.css");
-            personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
         } catch (Exception e) {
         	log.error("Error: No se puedo iniciar la pantalla de Aministracion de Economicos.", e);
@@ -93,8 +83,6 @@ public class RootLayoutController {
             loader.setLocation(MainApp.class.getResource("view/AdminTipoNecesidad.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
             personOverview.getStylesheets().add("file:resources/css/style.css");
-            personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
         } catch (Exception e) {
         	log.error("Error: No se puedo iniciar la pantalla de Aministracion de Tipo de Necesidad.", e);
@@ -108,8 +96,6 @@ public class RootLayoutController {
             loader.setLocation(MainApp.class.getResource("view/AdminTipoRefacciones.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
             personOverview.getStylesheets().add("file:resources/css/style.css");
-            personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
         } catch (Exception e) {
         	log.error("Error: No se puedo iniciar la pantalla de Aministracion de Tipo de Refacciones.", e);
@@ -123,8 +109,6 @@ public class RootLayoutController {
             loader.setLocation(MainApp.class.getResource("view/AdminReportes.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
             personOverview.getStylesheets().add("file:resources/css/style.css");
-            personOverview.setBorder(new Border(new BorderStroke(Color.BLACK,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
             mainApp.getRootLayout().setCenter(personOverview);
         } catch (Exception e) {
         	log.error("Error: No se puedo iniciar la pantalla de Aministracion de Reportes.", e);
@@ -147,7 +131,7 @@ public class RootLayoutController {
     	String mensaje = "Sitema de Mantenimiento y Control de Unidades \n"
     			+ "Powered by DeSoft.inc\n"
     			+ "\n"
-    			+ "Admnistradores: \n"
+    			+ "Desarrolladores : \n"
     			+ "Ing. Erick Martinez Veneros, cirek_18@hotmail.com \n"
     			+ "Ing. Carlos David Castro Aguilar, david.c13@hotmail.com"
     			+ "\n";

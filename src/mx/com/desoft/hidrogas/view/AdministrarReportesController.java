@@ -62,14 +62,6 @@ public class AdministrarReportesController {
 	private String mensaje = "";
 
 	public AdministrarReportesController() {
-		textFiedlNofolio = new TextField();
-		comboBoxTipoReporte = new ComboBox<>();
-		comboBoxEmpleado = new ComboBox<>();
-		comboBoxEconomico = new ComboBox<>();
-		comboBoxEstatus = new ComboBox<>();
-		datePickerFechaRegistroInicio = new DatePicker();
-		datePickerFechaRegistroFin = new DatePicker();
-		comboBoxTipoNecesidad = new ComboBox<>();
 	}
 
 	@FXML
@@ -201,18 +193,16 @@ public class AdministrarReportesController {
 			ordenTrabajoDTO.setFolio(Integer.parseInt(textFiedlNofolio.getText()));
 
 		}else if(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.INCIDENCIAS)){
-//			System.out.println(comboBoxEmpleado.getSelectionModel().isEmpty());
-//			System.out.println(comboBoxEconomico.getSelectionModel().isEmpty());
-//			System.out.println(comboBoxEstatus.getSelectionModel().isEmpty());
-//			System.out.println(comboBoxTipoNecesidad.getSelectionModel().isEmpty());
-//			ordenTrabajoDTO.setNominaOperador(!comboBoxEmpleado.getSelectionModel().isEmpty() ?
-//					comboBoxEmpleado.getSelectionModel().getSelectedItem().getNominaEmpleado() : null);
-//			ordenTrabajoDTO.setEconomicoId(!comboBoxEconomico.getSelectionModel().isEmpty() ?
-//					comboBoxEconomico.getSelectionModel().getSelectedItem().getEconomicoId() : null);
-//			ordenTrabajoDTO.setEstatusOrden(!comboBoxEstatus.getSelectionModel().isEmpty()  ?
-//					comboBoxEstatus.getSelectionModel().getSelectedItem().getId() : null);
-//			ordenTrabajoDTO.setTipoNecesidadId(!comboBoxTipoNecesidad.getSelectionModel().isEmpty()  ?
-//					comboBoxTipoNecesidad.getSelectionModel().getSelectedItem().getTipoNecesidadId() : null);
+			System.out.println(comboBoxEmpleado.getSelectionModel().getSelectedItem());
+			ordenTrabajoDTO.setNominaOperador(comboBoxEmpleado.getSelectionModel().getSelectedItem() == Constantes.NULL ?
+					 null : comboBoxEmpleado.getSelectionModel().getSelectedItem().getNominaEmpleado() );
+
+			ordenTrabajoDTO.setEconomicoId(!comboBoxEconomico.getSelectionModel().isEmpty() ?
+					comboBoxEconomico.getSelectionModel().getSelectedItem().getEconomicoId() : null);
+			ordenTrabajoDTO.setEstatusOrden(!comboBoxEstatus.getSelectionModel().isEmpty()  ?
+					comboBoxEstatus.getSelectionModel().getSelectedItem().getId() : null);
+			ordenTrabajoDTO.setTipoNecesidadId(!comboBoxTipoNecesidad.getSelectionModel().isEmpty()  ?
+					comboBoxTipoNecesidad.getSelectionModel().getSelectedItem().getTipoNecesidadId() : null);
 			ordenTrabajoDTO.setFechaInicio(DateUtil.getFechaDatePicker(datePickerFechaRegistroInicio));
 			ordenTrabajoDTO.setFechaFin(DateUtil.getFechaDatePicker(datePickerFechaRegistroFin));
 
