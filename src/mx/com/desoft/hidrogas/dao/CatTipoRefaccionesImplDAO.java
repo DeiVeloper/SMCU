@@ -3,6 +3,7 @@ package mx.com.desoft.hidrogas.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -27,8 +28,7 @@ public class CatTipoRefaccionesImplDAO extends HibernateImplDAO<CatTipoListaRefa
 		if(catTipoRefaccionesDTO.getDescripcion() != Constantes.NULL && !catTipoRefaccionesDTO.getDescripcion().isEmpty()){
 			criteria.add(Restrictions.eq("descripcion", catTipoRefaccionesDTO.getDescripcion()));
 		}
+		criteria.addOrder(Order.asc("tipoRefaccionId"));
 		return (List<CatTipoListaRefaccion>) criteria.list();
 	}
-
-
 }

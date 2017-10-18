@@ -3,6 +3,7 @@ package mx.com.desoft.hidrogas.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +27,7 @@ public class EconomicoImplDAO extends HibernateImplDAO<Economico, Integer> imple
 		if(economicoDTO.getFechaRegistro() != Constantes.NULL) {
 			criteria.add(Restrictions.eq("fechaRegistro", economicoDTO.getFechaRegistro()));
 		}
+		criteria.addOrder(Order.asc("economicoId"));
 		return (List<Economico>)criteria.list();
 	}
 
