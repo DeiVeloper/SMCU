@@ -6,90 +6,98 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.SeguimientoOrdenTrabajoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.SeguimientoOrdenTrabajoController">
 	<children>
-   		<SplitPane dividerPositions="0.35, 0.5, 0.5" orientation="VERTICAL" prefHeight="650.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-   			<items>
-   				<AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="145.0" prefWidth="948.0" styleClass="root2">
-               		<children>
-               			<Label layoutX="14.0" layoutY="-5.0" styleClass="label-header" text="Seguimiento de Órden de Trabajo" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
-               				<font>
-                        		<Font size="20.0" />
-                     		</font>
-                     	</Label>
-				      	<Label layoutX="32.0" layoutY="35.0" text="Foilio" />
-				      	<Label layoutX="29.0" layoutY="114.0" text="Empleado" />
-				      	<Label layoutX="29.0" layoutY="76.0" text="Económico" />
-				      	<Label layoutX="280.0" layoutY="76.0" text="Fecha" />
-				      	<Label fx:id="folio" layoutX="129.0" layoutY="35.0" />
-				      	<Label fx:id="economico" layoutX="129.0" layoutY="76.0" />
-				      	<Label fx:id="empleado" layoutX="129.0" layoutY="114.0" />
-				      	<Label fx:id="fecha" layoutX="329.0" layoutY="76.0" />
-				      	<Label layoutX="618.0" layoutY="35.0" text="Trabajos realizados" />
-				      	<TextArea fx:id="trabajosRealizados" layoutX="515.0" layoutY="62.0" prefHeight="80.0" prefWidth="400.0" />
-				    </children>
-				</AnchorPane>
-				<AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="948.0" styleClass="root2">
-               		<children>
-               			<Label layoutX="14.0" layoutY="-5.0" styleClass="label-header" text="Listado de Partes Ulizadas" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
-               				<font>
-                        		<Font size="18.0" />
-                     		</font>
-                     	</Label>
-                     	<Label layoutX="578.0" layoutY="39.0" text="Cantidad" />
-				      	<Label layoutX="602.0" layoutY="96.0" text="Descripción" />
-				      	<TextField fx:id="cantidadPU" layoutX="634.0" layoutY="35.0" prefHeight="10.0" prefWidth="50.0" />
-				      	<TextArea fx:id="descripcionPU" layoutX="702.0" layoutY="70.0" prefHeight="80.0" prefWidth="220.0" />
-				      	<Button layoutX="831.0" layoutY="156.0" mnemonicParsing="false" onAction="#agregarPartesUsadas" text="Agregar parte" />
-				      	<TableView fx:id="tablaPartesUsadas" layoutX="21.0" layoutY="38.0" prefHeight="150.0" prefWidth="550.0">
-				        	<columns>
-                        		<TableColumn fx:id="tipoRefaccionUsadaColumn" prefWidth="100.0" text="Tipo" />
-				          		<TableColumn fx:id="cantidadUsadaColumn" prefWidth="60.0" text="Cantidad" />
-				            	<TableColumn fx:id="descripcionUsadaColumn" prefWidth="320.0" text="Descripción" />
-				            	<TableColumn fx:id="eliminarUsadaColumn" prefWidth="70.0" text="Eliminar" />
-				        	</columns>
-				      	</TableView>
-                  <Label layoutX="711.0" layoutY="39.0" text="Refacción" />
-                  <ComboBox fx:id="tipoRefaccionUsada" layoutX="771.0" layoutY="35.0" prefWidth="150.0" />
-               		</children>
-               	</AnchorPane>
-               	<AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="192.0" prefWidth="948.0" styleClass="root2">
-					<children>
-               			<Label layoutX="14.0" layoutY="-5.0" styleClass="label-header" text="Listado de Partes Ulizadas" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
-               				<font>
-                        		<Font size="18.0" />
-                     		</font>
-                     	</Label>
-                    </children>
-					<children>
-                       <TableView fx:id="tablaPartesSolicitadas" layoutX="24.0" layoutY="38.0" prefHeight="150.0" prefWidth="550.0">
-	   				       	<columns>
-                        		<TableColumn fx:id="tipoRefaccionSolicitadaColumn" prefWidth="100.0" text="Tipo" />
-	   				        	<TableColumn fx:id="cantidadSolicitadaColumn" prefWidth="60.0" text="Cantidad" />
-	   				            <TableColumn fx:id="descripcionSolicitadaColumn" prefWidth="320.0" text="Descripción" />
-	   				            <TableColumn fx:id="eliminarSolicitadaColumn" prefWidth="70.0" text="Eliminar" />
-	   				        </columns>
-   			      		</TableView>
-	   			      	<Button layoutX="832.0" layoutY="158.0" mnemonicParsing="false" onAction="#agregarPartesSolicitadas" text="Agregar parte" />
-	   			      	<TextField fx:id="cantidadPS" layoutX="632.0" layoutY="37.0" prefHeight="10.0" prefWidth="50.0" />
-	   			      	<TextArea fx:id="descripcionPS" layoutX="702.0" layoutY="72.0" prefHeight="80.0" prefWidth="220.0" />
-	   			      	<Label layoutX="600.0" layoutY="96.0" text="Descripción" />
-	   			      	<Label layoutX="576.0" layoutY="41.0" text="Cantidad" />
-	                  	<Label layoutX="711.0" layoutY="41.0" text="Refaccion" />
-	                  	<ComboBox fx:id="tipoRefaccionSolicitada" layoutX="772.0" layoutY="37.0" prefWidth="150.0" />
-                  	</children>
-				</AnchorPane>
-				<AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="80.0" prefWidth="948.0" styleClass="root3">
-					<children>
-						<Label layoutX="27.0" layoutY="18.0" text="Reparación mayor" />
-					    <DatePicker fx:id="reparacionMayor" layoutX="168.0" layoutY="14.0" />
-					    <Label layoutX="386.0" layoutY="20.0" text="Observaciones" />
-					    <TextArea fx:id="observaciones" layoutX="487.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0" />
-					    <Button layoutX="856.0" layoutY="50.0" mnemonicParsing="false" onAction="#guardarSeguimiento" text="Guardar" />
-					    <Button layoutX="784.0" layoutY="50.0" mnemonicParsing="false" onAction="#cancelarSeguimiento" text="Cancelar" />
-                    </children>
-                </AnchorPane>
-			</items>
-		</SplitPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="root2" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="root3" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+               <children>
+               		<SplitPane dividerPositions="0.35, 0.5, 0.5" orientation="VERTICAL" prefHeight="650.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               			<items>
+               				<AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="145.0" prefWidth="948.0">
+                           		<children>
+                           			<Label layoutX="14.0" layoutY="-5.0" styleClass="label-header" text="Seguimiento de Órden de Trabajo" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
+                           				<font>
+                                    		<Font size="20.0" />
+                                 		</font>
+                                 	</Label>
+            				      	<Label layoutX="32.0" layoutY="35.0" text="Foilio" />
+            				      	<Label layoutX="29.0" layoutY="114.0" text="Empleado" />
+            				      	<Label layoutX="29.0" layoutY="76.0" text="Económico" />
+            				      	<Label layoutX="280.0" layoutY="76.0" text="Fecha" />
+            				      	<Label fx:id="folio" layoutX="129.0" layoutY="35.0" />
+            				      	<Label fx:id="economico" layoutX="129.0" layoutY="76.0" />
+            				      	<Label fx:id="empleado" layoutX="129.0" layoutY="114.0" />
+            				      	<Label fx:id="fecha" layoutX="329.0" layoutY="76.0" />
+            				      	<Label layoutX="618.0" layoutY="35.0" text="Trabajos realizados" />
+            				      	<TextArea fx:id="trabajosRealizados" layoutX="515.0" layoutY="62.0" prefHeight="80.0" prefWidth="400.0" />
+            				    </children>
+            				</AnchorPane>
+            				<AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="948.0">
+                           		<children>
+                           			<Label layoutX="14.0" layoutY="-5.0" styleClass="label-header" text="Listado de Partes Utilizadas" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
+                           				<font>
+                                    		<Font size="18.0" />
+                                 		</font>
+                                 	</Label>
+                                 	<Label layoutX="578.0" layoutY="39.0" text="Cantidad" />
+            				      	<Label layoutX="602.0" layoutY="96.0" text="Descripción" />
+            				      	<TextField fx:id="cantidadPU" layoutX="634.0" layoutY="35.0" prefHeight="10.0" prefWidth="50.0" />
+            				      	<TextArea fx:id="descripcionPU" layoutX="702.0" layoutY="70.0" prefHeight="80.0" prefWidth="220.0" />
+            				      	<Button layoutX="831.0" layoutY="156.0" mnemonicParsing="false" onAction="#agregarPartesUsadas" text="Agregar parte" />
+            				      	<TableView fx:id="tablaPartesUsadas" layoutX="21.0" layoutY="38.0" prefHeight="150.0" prefWidth="550.0">
+            				        	<columns>
+                                    		<TableColumn fx:id="tipoRefaccionUsadaColumn" prefWidth="100.0" text="Tipo" />
+            				          		<TableColumn fx:id="cantidadUsadaColumn" prefWidth="60.0" text="Cantidad" />
+            				            	<TableColumn fx:id="descripcionUsadaColumn" prefWidth="320.0" text="Descripción" />
+            				            	<TableColumn fx:id="eliminarUsadaColumn" prefWidth="70.0" text="Eliminar" />
+            				        	</columns>
+            				      	</TableView>
+                              <Label layoutX="711.0" layoutY="39.0" text="Refacción" />
+                              <ComboBox fx:id="tipoRefaccionUsada" layoutX="771.0" layoutY="35.0" prefWidth="150.0" />
+                           		</children>
+                           	</AnchorPane>
+                           	<AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="192.0" prefWidth="961.0">
+            					<children>
+                           			<Label layoutX="14.0" layoutY="-5.0" styleClass="label-header" text="Listado de Partes Solicitadas" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0">
+                           				<font>
+                                    		<Font size="18.0" />
+                                 		</font>
+                                 	</Label>
+                                </children>
+            					<children>
+                                   <TableView fx:id="tablaPartesSolicitadas" layoutX="24.0" layoutY="38.0" prefHeight="150.0" prefWidth="550.0">
+            	   				       	<columns>
+                                    		<TableColumn fx:id="tipoRefaccionSolicitadaColumn" prefWidth="100.0" text="Tipo" />
+            	   				        	<TableColumn fx:id="cantidadSolicitadaColumn" prefWidth="60.0" text="Cantidad" />
+            	   				            <TableColumn fx:id="descripcionSolicitadaColumn" prefWidth="320.0" text="Descripción" />
+            	   				            <TableColumn fx:id="eliminarSolicitadaColumn" prefWidth="70.0" text="Eliminar" />
+            	   				        </columns>
+               			      		</TableView>
+            	   			      	<Button layoutX="832.0" layoutY="158.0" mnemonicParsing="false" onAction="#agregarPartesSolicitadas" text="Agregar parte" />
+            	   			      	<TextField fx:id="cantidadPS" layoutX="632.0" layoutY="37.0" prefHeight="10.0" prefWidth="50.0" />
+            	   			      	<TextArea fx:id="descripcionPS" layoutX="702.0" layoutY="72.0" prefHeight="80.0" prefWidth="220.0" />
+            	   			      	<Label layoutX="600.0" layoutY="96.0" text="Descripción" />
+            	   			      	<Label layoutX="579.0" layoutY="41.0" text="Cantidad" />
+            	                  	<Label layoutX="711.0" layoutY="41.0" text="Refaccion" />
+            	                  	<ComboBox fx:id="tipoRefaccionSolicitada" layoutX="772.0" layoutY="37.0" prefWidth="150.0" />
+                              	</children>
+            				</AnchorPane>
+            				<AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="978.0">
+            					<children>
+            						<Label layoutX="27.0" layoutY="18.0" text="Reparación mayor" />
+            					    <DatePicker fx:id="reparacionMayor" layoutX="168.0" layoutY="14.0" />
+            					    <Label layoutX="386.0" layoutY="20.0" text="Observaciones" />
+            					    <TextArea fx:id="observaciones" layoutX="487.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0" />
+            					    <Button layoutX="856.0" layoutY="50.0" mnemonicParsing="false" onAction="#guardarSeguimiento" prefHeight="30.0" prefWidth="70.0" text="Guardar" />
+            					    <Button layoutX="768.0" layoutY="51.0" mnemonicParsing="false" onAction="#cancelarSeguimiento" prefHeight="30.0" prefWidth="70.0" text="Cancelar" />
+                                </children>
+                            </AnchorPane>
+            			</items>
+            		</SplitPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
 	</children>
 </AnchorPane>

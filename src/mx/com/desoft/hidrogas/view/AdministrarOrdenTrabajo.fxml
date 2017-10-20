@@ -10,60 +10,68 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" styleClass="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.AdministrarOrdenTrabajoController">
    	<children>
-   		<SplitPane dividerPositions="0.35" orientation="VERTICAL" prefHeight="650.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-   			<items>
-   				<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="948.0" styleClass="root2">
-               		<children>
-               			<Label layoutX="14.0" layoutY="3.0" styleClass="label-header" text="Administrar Órdenes de Trabajo" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
-               				<font>
-                        		<Font size="20.0" />
-                     		</font>
-                     	</Label>
-                     	<Label layoutX="42.0" layoutY="65.0" text="Folio" />
-		                <TextField fx:id="folioOrdenBusqueda" layoutX="133.0" layoutY="62.0" />
-		                <Label layoutX="342.0" layoutY="65.0" text="Fecha" />
-					    <DatePicker fx:id="fechaOrdenBusqueda" layoutX="401.0" layoutY="62.0" />
-		                <Label layoutX="648.0" layoutY="65.0" text="Económico" />
-					    <TextField fx:id="economicoOrdenBusqueda" layoutX="750.0" layoutY="62.0" />
-					    <Label layoutX="42.0" layoutY="115.0" text="Empleado" />
-					    <TextField fx:id="empleadoOrdenBusqueda" layoutX="133.0" layoutY="111.0" />
-					    <Label layoutX="346.0" layoutY="115.0" text="Tipo" />
-					    <ComboBox fx:id="tipoNecesidadOrdenBusqueda" layoutX="401.0" layoutY="111.0" prefWidth="150.0" />
-					    <Label layoutX="648.0" layoutY="115.0" text="Estatus" />
-					    <ComboBox fx:id="estatusOrdenBusqueda" layoutX="750.0" layoutY="111.0" prefWidth="150.0" />
-      					<Button id="btnBuscar" layoutX="848.0" layoutY="157.0" mnemonicParsing="false" onAction="#buscarOrden" text="Buscar" textAlignment="CENTER" />
-               		</children>
-               	</AnchorPane>
-               	<BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="root2">
-              		<center>
-              			<TableView fx:id="tablaOrdenes" layoutX="41.0" layoutY="325.0" prefHeight="450.0" prefWidth="870.0">
-					        <columns>
-						    	<TableColumn fx:id="folioColumn" maxWidth="50.0" prefWidth="30.0" text="Folio" />
-						        <TableColumn fx:id="fechaColumn" maxWidth="90.0" text="Fecha" />
-						        <TableColumn fx:id="economicoColumn" maxWidth="70.0" text="Económico" />
-						        <TableColumn fx:id="empleadoColumn" maxWidth="330.0" text="Empleado" />
-						        <TableColumn fx:id="necesidadColumn" maxWidth="180.0" text="Tipo de necesidad" />
-						        <TableColumn fx:id="seguimientoColumn" maxWidth="90.0" text="Seguimiento" />
-						        <TableColumn fx:id="eliminarOrdenColumn" maxWidth="70.0" text="Eliminar" />
-                        		<TableColumn fx:id="cerrarOrdenColumn" maxWidth="70.0" prefWidth="75.0" text="Cerrar" />
-					        </columns>
-					        <columnResizePolicy>
-		                    	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-		                   	</columnResizePolicy>
-					    </TableView>
-              		</center>
-              		<top>
-                		<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="41.0" prefWidth="948.0" styleClass="root3" BorderPane.alignment="CENTER">
-                    		<children>
-                    			<Label layoutX="14.0" layoutY="12.0" text="Número de órdenes: " />
-                    			<Button id="btnAgregar" layoutX="763.0" layoutY="9.0" mnemonicParsing="false" onAction="#agregarOrden" text="Agregar " />
-      							<Button id="btnImprimir" layoutX="843.0" layoutY="9.0" mnemonicParsing="false" onAction="#limpiarCamposView" text="Limpiar" />
-                    		</children>
-                    	</AnchorPane>
-                    </top>
-              	</BorderPane>
-   			</items>
-   		</SplitPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="root2" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="root3" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+               <children>
+               		<SplitPane dividerPositions="0.35" orientation="VERTICAL" prefHeight="650.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               			<items>
+               				<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="948.0">
+                           		<children>
+                           			<Label layoutX="14.0" layoutY="3.0" styleClass="label-header" text="Administrar Órdenes de Trabajo" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
+                           				<font>
+                                    		<Font size="20.0" />
+                                 		</font>
+                                 	</Label>
+                                 	<Label layoutX="15.0" layoutY="66.0" text="Folio" />
+            		                <TextField fx:id="folioOrdenBusqueda" layoutX="106.0" layoutY="63.0" />
+            		                <Label layoutX="315.0" layoutY="66.0" text="Fecha" />
+            					    <DatePicker fx:id="fechaOrdenBusqueda" layoutX="374.0" layoutY="63.0" />
+            		                <Label layoutX="621.0" layoutY="66.0" text="Económico" />
+            					    <TextField fx:id="economicoOrdenBusqueda" layoutX="723.0" layoutY="63.0" />
+            					    <Label layoutX="15.0" layoutY="116.0" text="Empleado" />
+            					    <TextField fx:id="empleadoOrdenBusqueda" layoutX="106.0" layoutY="112.0" />
+            					    <Label layoutX="319.0" layoutY="116.0" text="Tipo" />
+            					    <ComboBox fx:id="tipoNecesidadOrdenBusqueda" layoutX="374.0" layoutY="112.0" prefWidth="150.0" />
+            					    <Label layoutX="621.0" layoutY="116.0" text="Estatus" />
+            					    <ComboBox fx:id="estatusOrdenBusqueda" layoutX="723.0" layoutY="112.0" prefWidth="150.0" />
+                  					<Button id="btnBuscar" layoutX="803.0" layoutY="156.0" mnemonicParsing="false" onAction="#buscarOrden" prefHeight="30.0" prefWidth="70.0" text="Buscar" textAlignment="CENTER" />
+                           		</children>
+                           	</AnchorPane>
+                           	<BorderPane prefHeight="200.0" prefWidth="200.0">
+                          		<center>
+                          			<TableView fx:id="tablaOrdenes" layoutX="41.0" layoutY="325.0" prefHeight="450.0" prefWidth="870.0">
+            					        <columns>
+            						    	<TableColumn fx:id="folioColumn" maxWidth="50.0" prefWidth="30.0" text="Folio" />
+            						        <TableColumn fx:id="fechaColumn" maxWidth="90.0" text="Fecha" />
+            						        <TableColumn fx:id="economicoColumn" maxWidth="70.0" text="Económico" />
+            						        <TableColumn fx:id="empleadoColumn" maxWidth="330.0" text="Empleado" />
+            						        <TableColumn fx:id="necesidadColumn" maxWidth="180.0" text="Tipo de necesidad" />
+            						        <TableColumn fx:id="seguimientoColumn" maxWidth="90.0" text="Seguimiento" />
+            						        <TableColumn fx:id="eliminarOrdenColumn" maxWidth="70.0" text="Eliminar" />
+                                    		<TableColumn fx:id="cerrarOrdenColumn" maxWidth="70.0" prefWidth="75.0" text="Cerrar" />
+            					        </columns>
+            					        <columnResizePolicy>
+            		                    	<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            		                   	</columnResizePolicy>
+            					    </TableView>
+                          		</center>
+                          		<top>
+                            		<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="41.0" prefWidth="948.0" BorderPane.alignment="CENTER">
+                                		<children>
+                                			<Label layoutX="14.0" layoutY="12.0" text="Número de órdenes: " AnchorPane.leftAnchor="5.0" />
+                                			<Button id="btnAgregar" layoutX="730.0" layoutY="6.0" mnemonicParsing="false" onAction="#agregarOrden" prefHeight="30.0" prefWidth="70.0" text="Agregar " />
+                  							<Button id="btnImprimir" layoutX="810.0" layoutY="6.0" mnemonicParsing="false" onAction="#limpiarCamposView" prefHeight="30.0" prefWidth="70.0" text="Limpiar" />
+                                		</children>
+                                	</AnchorPane>
+                                </top>
+                          	</BorderPane>
+               			</items>
+               		</SplitPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
 
    </children>
 </AnchorPane>

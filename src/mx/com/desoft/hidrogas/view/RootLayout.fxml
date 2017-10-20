@@ -13,9 +13,9 @@
         <menus>
             <Menu mnemonicParsing="false" text="Inicio">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About..." />
+                <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="Información" />
                   <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Salir" />
               </items>
             </Menu>
           <Menu fx:id="administradorItem" mnemonicParsing="false" text="Aministrador">
