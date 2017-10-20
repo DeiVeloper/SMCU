@@ -7,7 +7,6 @@ import java.awt.print.PrinterException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,10 +24,6 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.functions.T;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.IndexedColors;
 import org.springframework.stereotype.Component;
 
 import javafx.scene.control.Alert.AlertType;
@@ -38,8 +33,7 @@ import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 public class Reportes implements IReportes, Printable {
 
 	private static final Logger log = Logger.getLogger(Reportes.class);
-	private Character o= '\\';
-	private final String IMPRESORA = o+""+o+"172.23.100.205"+o+"Lexmark";
+	private final String IMPRESORA = "";
 
 	@Override
 	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden){
@@ -55,14 +49,6 @@ public class Reportes implements IReportes, Printable {
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFSheet    sheet    = workbook.createSheet("Incidencias");
 
-		CellStyle headerStyle = workbook.createCellStyle();
-        Font font = workbook.createFont();
-        font.setBold(true);
-        headerStyle.setFont(font);
-
-        CellStyle style = workbook.createCellStyle();
-        style.setFillForegroundColor(IndexedColors.LIGHT_YELLOW.getIndex());
-//        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 		String[] headers = new String[]{"Folio",
 				"Mecanico", "Economico", "Operador", "Falla Mecanica",
 					"Fecha Registro", "Kilometraje", "Tipo Necesidad", "Observaciones", "Trabajos Realizados"};
