@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import mx.com.desoft.hidrogas.dao.CatTipoNecesidadDAO;
 import mx.com.desoft.hidrogas.dao.EconomicoDAO;
 import mx.com.desoft.hidrogas.dao.EmpleadosDAO;
 import mx.com.desoft.hidrogas.dao.IListaRefaccionesDAO;
+import mx.com.desoft.hidrogas.dao.IOrdenTrabajoDAO;
 import mx.com.desoft.hidrogas.dao.ISeguimientoEmpleadosDAO;
 import mx.com.desoft.hidrogas.dao.ISeguimientoOrdenDAO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
@@ -34,6 +36,8 @@ import mx.com.desoft.hidrogas.util.Constantes;
 @Service
 public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusinessApp {
 
+	private static final Logger log = Logger.getLogger(AgregarEditarOrdenBusinessImpl.class);
+
 	@Autowired
 	private CatTipoNecesidadDAO catTipoNecesidadDAO;
 	@Autowired
@@ -52,6 +56,8 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 	private IListaRefaccionesDAO listaRefaccionesDAO;
 	@Autowired
 	private ISeguimientoEmpleadosDAO seguimientoEmpleadosDAO;
+	@Autowired
+	private IOrdenTrabajoDAO ordenTrabajoDAO;
 
 	@Override
 	public void AgregarOrden() {
@@ -125,9 +131,24 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 			agregarEditarOrdenImplDAO.delete(folioOrden);
 		} catch (Exception e) {
 			isEliminado = false;
-			System.out.println(e);
+			log.error("Error: No se pudo eliminar la orden.");
 		}
 		return isEliminado;
+	}
+
+	@Override
+	public boolean cerrarOrden(int folioOrden) {
+		boolean isCerrada = true;
+		try {
+			OrdenTrabajo orden = ordenTrabajoDAO.get(folioOrden);
+			CatEstatusOrden estatusOrden = catEstatusImplDAO.get(2);
+			orden.setCatEstatusOrden(estatusOrden);
+			ordenTrabajoDAO.saveOrUpdate(orden);
+		} catch (Exception e) {
+			isCerrada = false;
+			log.error("Error: No se pudo cerrar la orden.");
+		}
+		return isCerrada;
 	}
 
 }

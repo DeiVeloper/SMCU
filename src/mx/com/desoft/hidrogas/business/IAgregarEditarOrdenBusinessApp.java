@@ -19,4 +19,6 @@ public interface IAgregarEditarOrdenBusinessApp {
 
 	boolean eliminaOrden(int folioOrden);
 
+	boolean cerrarOrden(int folioOrden);
+
 }
