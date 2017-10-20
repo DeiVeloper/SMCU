@@ -124,8 +124,23 @@ public class AdministrarOrdenTrabajoController {
 		}
 	}
 
+	@FXML
+	private void limpiarCamposView() {
+		folioOrdenBusqueda.clear();
+		fechaOrdenBusqueda.setValue(null);
+		economicoOrdenBusqueda.clear();
+		empleadoOrdenBusqueda.clear();;
+		tipoNecesidadOrdenBusqueda.getSelectionModel().clearSelection();
+		estatusOrdenBusqueda.getSelectionModel().clearSelection();
+	}
+
 	private OrdenTrabajoDTO convertirCamposADTO() {
 		OrdenTrabajoDTO ordenTO = new OrdenTrabajoDTO();
+		if(folioOrdenBusqueda.getText() == Constantes.NULL || folioOrdenBusqueda.getText().length() == Constantes.CERO) {
+			ordenTO.setFolio(0);
+		} else {
+			ordenTO.setFolio(Integer.parseInt(folioOrdenBusqueda.getText()));
+		}
 		if(fechaOrdenBusqueda.getValue() == Constantes.NULL) {
 			ordenTO.setFechaRegistro(null);
 		} else {
@@ -159,17 +174,20 @@ public class AdministrarOrdenTrabajoController {
 
 	private boolean validarCampos() {
 		String errorMessage = "";
-		if(!empleadoOrdenBusqueda.getText().matches("[0-9]*")) {
+		boolean esCorrecto = false;
+		if(!folioOrdenBusqueda.getText().matches("[0-9]*")) {
+			errorMessage = "El campo Folio debe ser num" + Constantes.e + "rico.";
+		} else if(!economicoOrdenBusqueda.getText().matches("[0-9]*")) {
+			errorMessage = "El campo Econ" + Constantes.o + "mico debe ser num" + Constantes.e + "rico.";
+		} else if(!empleadoOrdenBusqueda.getText().matches("[0-9]*")) {
 			errorMessage = "El campo Empleado debe ser num" + Constantes.e + "rico.";
+		} else {
+			esCorrecto = true;
 		}
-		if(!economicoOrdenBusqueda.getText().matches("[0-9]*")) {
-			errorMessage = "El campo Econï¿½mico debe ser numï¿½rico.";
+		if(!esCorrecto) {
+			Alerta.crearAlertaUsuario("Validando Formulario", errorMessage, AlertType.WARNING);
 		}
-		if(errorMessage.length() == Constantes.CERO) {
-			return true;
-		}
-		Alerta.crearAlertaUsuario("Validando Formulario", errorMessage, AlertType.WARNING);
-		return false;
+		return esCorrecto;
 	}
 
 	private void llenarComboNecesidad() {
@@ -218,6 +236,16 @@ public class AdministrarOrdenTrabajoController {
 		boolean isCorrecto = true;
 		if(Alerta.eliminarRegistro("Confirmación", Constantes.ELIMINAR_REGISTRO, AlertType.CONFIRMATION)) {
 			isCorrecto = agregarEditarOrdenBusinessApp.eliminaOrden(folioOrden);
+		} else{
+			isCorrecto = false;
+		}
+		return isCorrecto;
+	}
+
+	public boolean cerrarOrden(int folioOrden) {
+		boolean isCorrecto = true;
+		if(Alerta.eliminarRegistro("Confirmación", Constantes.CERRAR_ORDEN + folioOrden + "?", AlertType.CONFIRMATION)) {
+			isCorrecto = agregarEditarOrdenBusinessApp.cerrarOrden(folioOrden);
 		} else{
 			isCorrecto = false;
 		}

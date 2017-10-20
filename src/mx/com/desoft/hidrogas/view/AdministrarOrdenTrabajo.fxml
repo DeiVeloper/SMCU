@@ -57,7 +57,7 @@
                     		<children>
                     			<Label layoutX="14.0" layoutY="12.0" text="Número de órdenes: " />
                     			<Button id="btnAgregar" layoutX="763.0" layoutY="9.0" mnemonicParsing="false" onAction="#agregarOrden" text="Agregar " />
-      							<Button id="btnImprimir" layoutX="840.0" layoutY="9.0" mnemonicParsing="false" text="Imprimir" />
+      							<Button id="btnImprimir" layoutX="843.0" layoutY="9.0" mnemonicParsing="false" onAction="#limpiarCamposView" text="Limpiar" />
                     		</children>
                     	</AnchorPane>
                     </top>
