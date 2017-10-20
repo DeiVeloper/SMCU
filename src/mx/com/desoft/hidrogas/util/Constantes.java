@@ -30,7 +30,8 @@ public class Constantes {
 	public static final String RESULTADO_CONSULTA_REPORTE = "No se encontraron registros para imprimir el reporte";
 	public static final String INFORMACION = "Informaci\u00F3n";
 	public static final String REPORTE_EXITOSO = "El reporte se genero con \u00E9xito, favor de verificar la ruta de descarga";
-	public static final String TICKET = "Su ticket se ha impreso con \u00E9xito";
+	public static final String TICKET = "Su ticket se ha impreso con \u00E9xitoxito";
+	public static final String CERRAR_ORDEN = "¿Est" + Constantes.a + " seguro de cerrar esta orden con folio: ";
 
 	public static final String ORDEN = "Orden de Servicio";
 	public static final String INCIDENCIAS = "Incidencias de Unidades";
