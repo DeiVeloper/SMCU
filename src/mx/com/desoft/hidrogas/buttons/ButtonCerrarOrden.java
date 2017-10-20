@@ -10,32 +10,26 @@ import javafx.scene.control.TableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import mx.com.desoft.hidrogas.property.OrdenProperty;
+import mx.com.desoft.hidrogas.view.AdministrarOrdenTrabajoController;
 
 public class ButtonCerrarOrden extends TableCell<OrdenProperty, Boolean> {
 
 //	private AdministrarOrdenTrabajoController administrarOrdenController;
 	final Image imageEliminar = new Image("file:resources/images/cerrar.png");
 	final Button cellButton = new Button("", new ImageView(imageEliminar));
-//	private boolean elimina;
+	private AdministrarOrdenTrabajoController administrarOrdenController;
 
-	public ButtonCerrarOrden(ObservableList<OrdenProperty> dataOrdenes,
-			List<OrdenProperty> dtoPartesOrdenes) {
+	public ButtonCerrarOrden(ObservableList<OrdenProperty> dataOrdenes, List<OrdenProperty> dtoPartesOrdenes) {
 
 		// Action when the button is pressed
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent t) {
-//				administrarOrdenController = new AdministrarOrdenTrabajoController();
-//				// get Selected Item
-//				OrdenProperty orden = (OrdenProperty) ButtonEliminarOrden.this
-//						.getTableView().getItems().get(ButtonEliminarOrden.this.getIndex());
-//				elimina = administrarOrdenController.eliminaOrden(Integer.parseInt(orden.getFolioOrden().getValue()));
-//				if(elimina) {
-//					// remove selected item from the table list
-//					dataOrdenes.remove(orden);
-//					dtoPartesOrdenes.remove(orden);
-//				}
+				administrarOrdenController = new AdministrarOrdenTrabajoController();
+				// get Selected Item
+				OrdenProperty orden = (OrdenProperty) ButtonCerrarOrden.this.getTableView().getItems().get(ButtonCerrarOrden.this.getIndex());
+				administrarOrdenController.cerrarOrden(Integer.parseInt(orden.getFolioOrden().getValue()));
 			}
 		});
 	}
