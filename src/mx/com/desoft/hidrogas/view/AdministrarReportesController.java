@@ -108,6 +108,7 @@ public class AdministrarReportesController {
 					default:
 						break;
 				}
+				this.limpiarCamposView();
 			}catch (IOException e) {
 				log.error("Error al generar reporte", e);
 				Alerta.crearAlertaUsuario(Constantes.ERROR, e.getMessage(), AlertType.ERROR);
@@ -193,16 +194,30 @@ public class AdministrarReportesController {
 			ordenTrabajoDTO.setFolio(Integer.parseInt(textFiedlNofolio.getText()));
 
 		}else if(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.INCIDENCIAS)){
-			System.out.println(comboBoxEmpleado.getSelectionModel().getSelectedItem());
-			ordenTrabajoDTO.setNominaOperador(comboBoxEmpleado.getSelectionModel().getSelectedItem() == Constantes.NULL ?
-					 null : comboBoxEmpleado.getSelectionModel().getSelectedItem().getNominaEmpleado() );
 
-			ordenTrabajoDTO.setEconomicoId(!comboBoxEconomico.getSelectionModel().isEmpty() ?
-					comboBoxEconomico.getSelectionModel().getSelectedItem().getEconomicoId() : null);
-			ordenTrabajoDTO.setEstatusOrden(!comboBoxEstatus.getSelectionModel().isEmpty()  ?
-					comboBoxEstatus.getSelectionModel().getSelectedItem().getId() : null);
-			ordenTrabajoDTO.setTipoNecesidadId(!comboBoxTipoNecesidad.getSelectionModel().isEmpty()  ?
-					comboBoxTipoNecesidad.getSelectionModel().getSelectedItem().getTipoNecesidadId() : null);
+			if	(comboBoxEmpleado.getSelectionModel().getSelectedItem() != Constantes.NULL){
+				ordenTrabajoDTO.setNominaOperador(comboBoxEmpleado.getSelectionModel().getSelectedItem().getNominaEmpleado() );
+			}	else	{
+				ordenTrabajoDTO.setNominaOperador(0);
+			}
+			if(comboBoxEconomico.getSelectionModel().getSelectedItem() != Constantes.NULL){
+				ordenTrabajoDTO.setEconomicoId(comboBoxEconomico.getSelectionModel().getSelectedItem().getEconomicoId());
+			}else	{
+				ordenTrabajoDTO.setEconomicoId(0);
+			}
+
+			if(comboBoxEstatus.getSelectionModel().getSelectedItem() != Constantes.NULL){
+				ordenTrabajoDTO.setEstatusOrden(comboBoxEstatus.getSelectionModel().getSelectedItem().getId());
+			}	else	{
+				ordenTrabajoDTO.setEstatusOrden(0);
+			}
+
+			if(comboBoxTipoNecesidad.getSelectionModel().getSelectedItem() != Constantes.NULL){
+				ordenTrabajoDTO.setTipoNecesidadId(comboBoxTipoNecesidad.getSelectionModel().getSelectedItem().getTipoNecesidadId());
+			}	else	{
+				ordenTrabajoDTO.setTipoNecesidadId(null);
+			}
+
 			ordenTrabajoDTO.setFechaInicio(DateUtil.getFechaDatePicker(datePickerFechaRegistroInicio));
 			ordenTrabajoDTO.setFechaFin(DateUtil.getFechaDatePicker(datePickerFechaRegistroFin));
 
