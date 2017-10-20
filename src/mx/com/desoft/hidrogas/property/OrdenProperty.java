@@ -15,11 +15,12 @@ public class OrdenProperty {
 	private StringProperty economicoOrden;
 	private StringProperty empleadoOrden;
 	private StringProperty necesidadOrden;
+	private int estatus;
 	private int empleadoOrdenId;
 	private Button seguimiento;
 
 	public OrdenProperty(StringProperty folioOrden, StringProperty fechaOrden, StringProperty economicoOrden,
-			StringProperty empleadoOrden, StringProperty necesidadOrden, int empleadoOrdenId, Button seguimiento, MainApp mainApp) {
+			StringProperty empleadoOrden, StringProperty necesidadOrden, int empleadoOrdenId,int estatus, Button seguimiento, MainApp mainApp) {
 		super();
 		this.folioOrden = folioOrden;
 		this.fechaOrden = fechaOrden;
@@ -27,6 +28,7 @@ public class OrdenProperty {
 		this.empleadoOrden = empleadoOrden;
 		this.necesidadOrden = necesidadOrden;
 		this.empleadoOrdenId = empleadoOrdenId;
+		this.estatus = estatus;
 		this.seguimiento = seguimiento;
 		seguimiento.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -79,6 +81,12 @@ public class OrdenProperty {
 	}
 	public void setSeguimiento(Button seguimiento) {
 		this.seguimiento = seguimiento;
+	}
+	public int getEstatus() {
+		return estatus;
+	}
+	public void setEstatus(int estatus) {
+		this.estatus = estatus;
 	}
 
 }
