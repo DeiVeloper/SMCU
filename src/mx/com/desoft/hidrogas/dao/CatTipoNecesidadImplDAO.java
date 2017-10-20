@@ -26,7 +26,7 @@ public class CatTipoNecesidadImplDAO extends HibernateImplDAO<CatTipoNecesidad, 
 	public List<CatTipoNecesidad> getTipoNecesidadByView(CatTipoNecesidadDTO catTipoNecesidadDTO) {
 		Criteria criteria = HibernateUtil.openSession().createCriteria(CatTipoNecesidad.class);
 		if(catTipoNecesidadDTO.getDescripcion() != Constantes.NULL && !catTipoNecesidadDTO.getDescripcion().isEmpty()){
-			criteria.add(Restrictions.eq("descripcion", catTipoNecesidadDTO.getDescripcion()));
+			criteria.add(Restrictions.like("descripcion", catTipoNecesidadDTO.getDescripcion()));
 		}
 		criteria.addOrder(Order.asc("tipoNecesidadId"));
 		return (List<CatTipoNecesidad>) criteria.list();

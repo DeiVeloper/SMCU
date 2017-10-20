@@ -26,7 +26,7 @@ public class CatTipoRefaccionesImplDAO extends HibernateImplDAO<CatTipoListaRefa
 	public List<CatTipoListaRefaccion> getTipoRefaccionByView(CatTipoRefaccionesDTO catTipoRefaccionesDTO) {
 		Criteria criteria = HibernateUtil.openSession().createCriteria(CatTipoListaRefaccion.class);
 		if(catTipoRefaccionesDTO.getDescripcion() != Constantes.NULL && !catTipoRefaccionesDTO.getDescripcion().isEmpty()){
-			criteria.add(Restrictions.eq("descripcion", catTipoRefaccionesDTO.getDescripcion()));
+			criteria.add(Restrictions.like("descripcion", catTipoRefaccionesDTO.getDescripcion()));
 		}
 		criteria.addOrder(Order.asc("tipoRefaccionId"));
 		return (List<CatTipoListaRefaccion>) criteria.list();
