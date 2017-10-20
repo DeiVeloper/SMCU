@@ -21,25 +21,25 @@ public class OrdenTrabajoImplDAO extends HibernateImplDAO<OrdenTrabajo, Integer>
 	@Override
 	public List<OrdenTrabajo> getOrdenByVista(OrdenTrabajoDTO ordenTrabajoDTO) {
 		Criteria criteria = HibernateUtil.openSession().createCriteria(OrdenTrabajo.class);
-		if	(ordenTrabajoDTO.getFechaRegistro() != Constantes.NULL)	{
+		if(ordenTrabajoDTO.getFolio() != Constantes.CERO) {
+			criteria.add(Restrictions.eq("folio", ordenTrabajoDTO.getFolio()));
+		}
+		if(ordenTrabajoDTO.getFechaRegistro() != Constantes.NULL) {
 			criteria.add(Restrictions.eq("fechaRegistro", ordenTrabajoDTO.getFechaRegistro()));
 		}
-
-		if	(ordenTrabajoDTO.getTipoNecesidadId() != Constantes.NULL)	{
+		if(ordenTrabajoDTO.getTipoNecesidadId() != Constantes.NULL) {
 			criteria.createAlias("catTipoNecesidad", "catTipoNecesidad");
 			criteria.add(Restrictions.eq("catTipoNecesidad.tipoNecesidadId", ordenTrabajoDTO.getTipoNecesidadId()));
 		}
-
-		if	(ordenTrabajoDTO.getNominaRegistro() != Constantes.CERO)	{
+		if(ordenTrabajoDTO.getNominaRegistro() != Constantes.CERO) {
 			criteria.createAlias("empleado2", "empleado2");
 			criteria.add(Restrictions.eq("empleado2.nominaEmpleado", ordenTrabajoDTO.getNominaRegistro()));
 		}
-
-		if	(ordenTrabajoDTO.getEstatusOrden() != Constantes.CERO)	{
+		if(ordenTrabajoDTO.getEstatusOrden() != Constantes.CERO) {
 			criteria.createAlias("catEstatusOrden", "catEstatusOrden");
 			criteria.add(Restrictions.eq("catEstatusOrden.estatusOrdenId", ordenTrabajoDTO.getEstatusOrden()));
 		}
-		if	(ordenTrabajoDTO.getEconomicoId() != Constantes.CERO)	{
+		if(ordenTrabajoDTO.getEconomicoId() != Constantes.CERO) {
 			criteria.createAlias("economico", "economico");
 			criteria.add(Restrictions.eq("economico.economicoId", ordenTrabajoDTO.getEconomicoId()));
 		}
