@@ -50,6 +50,12 @@ public class CatTipoRefaccion implements Serializable {
 		this.nominaRegistro = nominaRegistro;
 	}
 
+	public CatTipoRefaccion(String descripcion, Date fechaRegistro, int nominaRegistro) {
+		this.descripcion = descripcion;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = nominaRegistro;
+	}
+
 	public int getIdTipoRefaccion() {
 		return idTipoRefaccion;
 	}
