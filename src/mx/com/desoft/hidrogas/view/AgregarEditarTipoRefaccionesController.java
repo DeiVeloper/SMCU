@@ -38,7 +38,7 @@ public class AgregarEditarTipoRefaccionesController {
     private void guardarTipoRefaccion() {
     	if	(validarFormulario())	{
     		try {
-    			tipoRefaccionesBusinessImpl.guardarTipoRefaccion(catTipoRefaccionesDTO);
+    			tipoRefaccionesBusinessImpl.guardarRefaccion(catTipoRefaccionesDTO);
     			dialogStage.close();
     			Alerta.crearAlertaUsuario("Guardando", Constantes.MENSAJE_EXITOSO, AlertType.CONFIRMATION);
     		} catch (Exception e) {

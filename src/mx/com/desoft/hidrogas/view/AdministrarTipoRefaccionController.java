@@ -3,6 +3,7 @@ package mx.com.desoft.hidrogas.view;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
@@ -81,7 +82,7 @@ public class AdministrarTipoRefaccionController {
     @FXML
     private void buscarTipoRefaccion() {
 		convertirCamposToDTO();
-		List<TipoRefaccionProperty> dto = tipoRefaccionesBusinessImpl.getTipoRefaccionByView(catTipoRefaccionesDTO);
+		List<TipoRefaccionProperty> dto = tipoRefaccionesBusinessImpl.getRefaccionByView(catTipoRefaccionesDTO);
 		data.clear();
 		data.removeAll(data);
 		tipoRefaccionIdColumn.setCellValueFactory(cellData -> cellData.getValue().getTipoRefaccionId());
@@ -140,10 +141,12 @@ public class AdministrarTipoRefaccionController {
     	boolean resultado = Alerta.eliminarRegistro("Confirmación",context, AlertType.CONFIRMATION);
     	 if (resultado) {
     		 try {
-    			 tipoRefaccionesBusinessImpl.eliminarTipoRefaccionById(id);
-			} catch (Exception e) {
+    			 tipoRefaccionesBusinessImpl.eliminarRefaccionById(id);
+    			 resultado = true;
+			} catch (ConstraintViolationException e) {
+				resultado = false;
 				log.error("Error: Al eliminar un tipo de refaccion", e);
-				Alerta.crearAlertaUsuario("Error", e.getMessage(), AlertType.ERROR);
+				Alerta.crearAlertaUsuario("Error", "Ocurrio un errro al borrar el registro, favor de intentar nuevamnete", AlertType.ERROR);
 			}
     	 }
     	 return resultado;

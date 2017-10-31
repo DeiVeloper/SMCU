@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.RootLayoutController">
+<BorderPane prefHeight="701.0" prefWidth="1223.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -44,10 +44,10 @@
       </MenuBar>
    </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="imagenCentral" fitHeight="186.0" fitWidth="379.0" layoutX="573.0" layoutY="274.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="227.0" AnchorPane.leftAnchor="573.0" AnchorPane.rightAnchor="317.0" AnchorPane.topAnchor="274.0" />
-            <Label alignment="CENTER" layoutX="305.0" layoutY="525.0" prefHeight="61.0" prefWidth="964.0" text="Sistema de Mantenimiento y Control de Unidades">
+            <ImageView fx:id="imagenCentral" fitHeight="186.0" fitWidth="379.0" layoutX="573.0" layoutY="274.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="600.0" AnchorPane.topAnchor="300.0" />
+            <Label alignment="BOTTOM_CENTER" layoutX="305.0" layoutY="525.0" prefHeight="61.0" prefWidth="964.0" text="Sistema de Mantenimiento y Control de Unidades" AnchorPane.bottomAnchor="600.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="600.0">
                <font>
                   <Font size="36.0" />
                </font>
