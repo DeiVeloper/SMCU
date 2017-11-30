@@ -3,6 +3,8 @@ package mx.com.desoft.hidrogas.view;
 import java.io.IOException;
 import java.util.List;
 
+import javax.print.PrintException;
+
 import org.apache.log4j.Logger;
 
 import javafx.fxml.FXML;
@@ -108,14 +110,21 @@ public class AdministrarReportesController {
 					default:
 						break;
 				}
-				this.limpiarCamposView();
+
 			}catch (IOException e) {
 				log.error("Error al generar reporte", e);
-				Alerta.crearAlertaUsuario(Constantes.ERROR, e.getMessage(), AlertType.ERROR);
+				Alerta.crearAlertaUsuario(Constantes.ERROR, "Ocurrio un error al imprimir el ticket, favor de intentar nuevamente", AlertType.ERROR);
+			} catch (PrintException e) {
+				log.error("Error al generar reporte", e);
+				Alerta.crearAlertaUsuario(Constantes.ERROR, "Ocurrio un error al imprimir el ticket, favor de intentar nuevamente", AlertType.ERROR);
+			} catch (NullPointerException e) {
+				log.error("Error al generar reporte", e);
+				Alerta.crearAlertaUsuario(Constantes.ERROR, "Ocurrio un error al imprimir el ticket, favor de intentar nuevamente", AlertType.ERROR);
 			}
 		}	else	{
 			Alerta.crearAlertaUsuario(Constantes.VALIDANDO_FORMULARIO, mensaje, AlertType.INFORMATION);
 		}
+		this.limpiarCamposView();
 	}
 
 	@FXML
