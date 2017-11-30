@@ -27,10 +27,10 @@ public class Constantes {
 	public static final String ORDENES_REPARACION_MAYOR = "" + Constantes.O + "rdenes con reparaci" + Constantes.o + "n mayor";
 	public static final String NOTIFICACIONES = "Notificaciones";
 	public static final String ERROR = "Error";
-	public static final String RESULTADO_CONSULTA_REPORTE = "No se encontraron registros para imprimir el reporte";
+	public static final String RESULTADO_CONSULTA_REPORTE = "El n"+Constantes.u+"mero de orden no existe, favor de validar.";
 	public static final String INFORMACION = "Informaci\u00F3n";
 	public static final String REPORTE_EXITOSO = "El reporte se genero con \u00E9xito, favor de verificar la ruta de descarga";
-	public static final String TICKET = "Su ticket se ha impreso con \u00E9xitoxito";
+	public static final String TICKET = "Su ticket se ha impreso con \u00E9xito";
 	public static final String CERRAR_ORDEN = "¿Est" + Constantes.a + " seguro de cerrar esta orden con folio: ";
 
 	public static final String ORDEN = "Orden de Servicio";

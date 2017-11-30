@@ -7,12 +7,14 @@ import java.awt.print.PrinterException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
+import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.SimpleDoc;
@@ -26,7 +28,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Component;
 
-import javafx.scene.control.Alert.AlertType;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 
 @Component
@@ -36,7 +37,7 @@ public class Reportes implements IReportes, Printable {
 	private final String IMPRESORA = "";
 
 	@Override
-	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden){
+	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden) throws UnsupportedEncodingException, PrintException, NullPointerException{
 		StringBuilder ticket = new StringBuilder();
 		ticket.append("Folio orden: " + orden.getFolio() + "\n");
 		printString(IMPRESORA, ticket.toString());
@@ -114,12 +115,10 @@ public class Reportes implements IReportes, Printable {
 
 	@Override
 	public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	private void printString(String printerName, String text) {
-		try {
+	private void printString(String printerName, String text) throws UnsupportedEncodingException, PrintException, NullPointerException {
 			DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
 			PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
 			PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
@@ -130,15 +129,11 @@ public class Reportes implements IReportes, Printable {
 			Doc doc = new SimpleDoc(bytes, flavor, null);
 			job.print(doc, null);
 
-		} catch (Exception e) {
-			log.error("Erorr: al imprimir el ticket", e);
-			Alerta.crearAlertaUsuario("Error", "Al imprimir el ticket, favor de intentar nuevamente", AlertType.ERROR);
-		}
-
 	}
 
 	private PrintService findPrintService(String printerName,PrintService[] services) {
 		for (PrintService service : services) {
+			log.info("Nombre: " + service.getName());
 			if (service.getName().equalsIgnoreCase(printerName)) {
 				return service;
 			}
