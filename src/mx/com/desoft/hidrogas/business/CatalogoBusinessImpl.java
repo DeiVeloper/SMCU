@@ -158,6 +158,9 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 	@Override
 	public OrdenTrabajoDTO getOrdenById(Integer folio) {
 		OrdenTrabajo orden = ordenTrabajoImplDAO.get(folio);
+		if(orden == null){
+			return null;
+		}
 		return new OrdenTrabajoDTO(orden.getFolio(),
 				orden.getEconomico().getEconomicoId(),
 				orden.getNominaOperador(),
