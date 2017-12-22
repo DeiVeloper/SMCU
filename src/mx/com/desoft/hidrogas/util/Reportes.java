@@ -34,7 +34,7 @@ import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 public class Reportes implements IReportes, Printable {
 
 	private static final Logger log = Logger.getLogger(Reportes.class);
-	private final String IMPRESORA = "";
+	private final String IMPRESORA = "EPSON TM-U220 Receipt";
 
 	@Override
 	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden) throws UnsupportedEncodingException, PrintException, NullPointerException{
