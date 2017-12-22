@@ -172,7 +172,7 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 				orden.getFallaMecanica(),
 				orden.getCatEstatusOrden().getEstatusOrdenId(),
 				orden.getFechaRegistro(),
-				orden.getSeguimientoOrden().getNominaRegistro());
+				orden.getSeguimientoOrden() != null ? orden.getSeguimientoOrden().getNominaRegistro() : 0);
 	}
 
 	@Override
