@@ -58,7 +58,7 @@ public class AgregarEditarTipoNecesidadController {
 
 	private boolean validarFormulario() {
         if	(descripcionField.getText() == Constantes.NULL || descripcionField.getText().isEmpty()) {
-        	mensaje = "El Campo Descripción no puede ir vacio";
+        	mensaje = "El Campo Descripcion no puede ir vacio";
         	return false;
         }
         this.convertirCamposViewToDTO();

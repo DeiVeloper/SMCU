@@ -171,8 +171,8 @@ public class AdministrarEmpleadoController {
     }
 
     public boolean eliminarEmpleado(Integer id) {
-    	String context ="¿Esta seguro de eliminar el registro?";
-    	boolean resultado = Alerta.eliminarRegistro("Confirmación",context, AlertType.CONFIRMATION);
+    	String context ="Esta seguro de eliminar el registro?";
+    	boolean resultado = Alerta.eliminarRegistro("Confirmacion",context, AlertType.CONFIRMATION);
     	 if (resultado) {
     		 try {
     			 empleadoBusinessImpl.eliminarEmpleado(id);

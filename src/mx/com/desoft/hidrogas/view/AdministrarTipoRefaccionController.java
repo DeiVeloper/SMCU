@@ -137,8 +137,8 @@ public class AdministrarTipoRefaccionController {
     }
 
     public boolean eliminarTipoRefaccion(Integer id) {
-    	String context ="¿Esta seguro de eliminar el registro?";
-    	boolean resultado = Alerta.eliminarRegistro("Confirmación",context, AlertType.CONFIRMATION);
+    	String context ="Esta seguro de eliminar el registro?";
+    	boolean resultado = Alerta.eliminarRegistro("Confirmacion",context, AlertType.CONFIRMATION);
     	 if (resultado) {
     		 try {
     			 tipoRefaccionesBusinessImpl.eliminarRefaccionById(id);

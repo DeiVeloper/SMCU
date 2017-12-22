@@ -136,8 +136,8 @@ public class AdministrarTipoNecesidadController {
     }
 
     public boolean eliminarTipoNecesidad(Integer id) {
-    	String context ="¿Esta seguro de eliminar el registro?";
-    	boolean resultado = Alerta.eliminarRegistro("Confirmación",context, AlertType.CONFIRMATION);
+    	String context ="Esta seguro de eliminar el registro?";
+    	boolean resultado = Alerta.eliminarRegistro("Confirmacion",context, AlertType.CONFIRMATION);
     	 if (resultado) {
     		 try {
     			 tipoNecesidadBusinessImpl.eliminarTipoNecesidadById(id);

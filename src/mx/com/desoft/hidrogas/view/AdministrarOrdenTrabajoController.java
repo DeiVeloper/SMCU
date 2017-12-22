@@ -234,7 +234,7 @@ public class AdministrarOrdenTrabajoController {
 
 	public boolean eliminaOrden(int folioOrden) {
 		boolean isCorrecto = true;
-		if(Alerta.eliminarRegistro("Confirmación", Constantes.ELIMINAR_REGISTRO, AlertType.CONFIRMATION)) {
+		if(Alerta.eliminarRegistro("Confirmacion", Constantes.ELIMINAR_REGISTRO, AlertType.CONFIRMATION)) {
 			isCorrecto = agregarEditarOrdenBusinessApp.eliminaOrden(folioOrden);
 		} else{
 			isCorrecto = false;
@@ -244,7 +244,7 @@ public class AdministrarOrdenTrabajoController {
 
 	public boolean cerrarOrden(int folioOrden) {
 		boolean isCorrecto = true;
-		if(Alerta.eliminarRegistro("Confirmación", Constantes.CERRAR_ORDEN + folioOrden + "?", AlertType.CONFIRMATION)) {
+		if(Alerta.eliminarRegistro("Confirmacion", Constantes.CERRAR_ORDEN + folioOrden + "?", AlertType.CONFIRMATION)) {
 			isCorrecto = agregarEditarOrdenBusinessApp.cerrarOrden(folioOrden);
 		} else{
 			isCorrecto = false;

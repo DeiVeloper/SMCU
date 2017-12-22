@@ -284,7 +284,7 @@ public class SeguimientoOrdenTrabajoController {
 		if(trabajosRealizados.getText() == Constantes.NULL || trabajosRealizados.getText().length() == Constantes.CERO) {
 			errorMessage = "El campo Trabajos Realizados no puede ir vac" + Constantes.i + "o.";
 		} else if(observaciones.getText() == Constantes.NULL || observaciones.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Observaciones no puede ir vacío.";
+			errorMessage = "El campo Observaciones no puede ir vacio.";
 		} else if(trabajosRealizados.getText().length() > 300) {
 			errorMessage = "El campo Trabajos Realizados no puede tener m" + Constantes.a + "s de 300 caracteres.";
 		} else if(observaciones.getText().length() > 300) {
