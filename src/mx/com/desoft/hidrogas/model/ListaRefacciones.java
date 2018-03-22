@@ -33,9 +33,6 @@ public class ListaRefacciones implements Serializable {
 //	@Column(name="marca")
 //	private String marca;
 
-	@Column(name="descripcion")
-	private String descripcion;
-
 	//bi-directional many-to-one association to CatTipoListaRefaccion
 	@ManyToOne
 	@JoinColumn(name="tipo_lista_refaccion_id")
@@ -64,13 +61,12 @@ public class ListaRefacciones implements Serializable {
 		this.id_refaccion = id_refaccion;
 	}
 
-	public ListaRefacciones(OrdenTrabajo ordenTrabajo, int cantidad, CatTipoRefaccion catTipoRefaccion, String descripcion,
+	public ListaRefacciones(OrdenTrabajo ordenTrabajo, int cantidad, CatTipoRefaccion catTipoRefaccion,
 			CatTipoListaRefaccion catTipoListaRefaccion, Date fechaRegistro, int nominaRegistro) {
 		super();
 		this.ordenTrabajo = ordenTrabajo;
 		this.cantidad = cantidad;
 		this.catTipoRefaccion = catTipoRefaccion;
-		this.descripcion = descripcion;
 		this.catTipoListaRefaccion = catTipoListaRefaccion;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
@@ -96,13 +92,7 @@ public class ListaRefacciones implements Serializable {
 		this.cantidad = cantidad;
 	}
 
-	public String getDescripcion() {
-		return this.descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+	
 
 	public Date getFechaRegistro() {
 		return this.fechaRegistro;

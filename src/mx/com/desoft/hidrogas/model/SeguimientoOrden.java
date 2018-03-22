@@ -43,6 +43,12 @@ public class SeguimientoOrden implements Serializable {
 
 	@Column(name="nomina_registro")
 	private int nominaRegistro;
+        
+        @Column(name="descripcion_pu")
+	private String descripcionPu;
+        
+        @Column(name="descripcion_ps")
+	private String descripcionPs;
 
 	//bi-directional many-to-one association to SeguimientosEmpleado
 //	@OneToMany(mappedBy="seguimientoOrden")
@@ -76,6 +82,21 @@ public class SeguimientoOrden implements Serializable {
 		this.nominaRegistro = nominaRegistro;
 	}
 
+        public SeguimientoOrden(int id_seguimiento, OrdenTrabajo ordenTrabajo, String trabajosRealizados, String observaciones, int reparacionMayor, Date fechaReparaMayor, Date fechaRegistro, int nominaRegistro, String descripcionPu, String descripcionPs) {
+            this.id_seguimiento = id_seguimiento;
+            this.ordenTrabajo = ordenTrabajo;
+            this.trabajosRealizados = trabajosRealizados;
+            this.observaciones = observaciones;
+            this.reparacionMayor = reparacionMayor;
+            this.fechaReparaMayor = fechaReparaMayor;
+            this.fechaRegistro = fechaRegistro;
+            this.nominaRegistro = nominaRegistro;
+            this.descripcionPu = descripcionPu;
+            this.descripcionPs = descripcionPs;
+        }
+        
+   
+
 	public int getId_seguimiento() {
 		return id_seguimiento;
 	}
@@ -84,6 +105,7 @@ public class SeguimientoOrden implements Serializable {
 		this.id_seguimiento = id_seguimiento;
 	}
 
+        
 	public Date getFechaRegistro() {
 		return this.fechaRegistro;
 	}
@@ -139,6 +161,35 @@ public class SeguimientoOrden implements Serializable {
 	public void setOrdenTrabajo(OrdenTrabajo ordenTrabajo) {
 		this.ordenTrabajo = ordenTrabajo;
 	}
+        
+        /**
+         * @return the descripcionPu
+         */
+        public String getDescripcionPu() {
+            return descripcionPu;
+        }
+
+        /**
+         * @param descripcionPu the descripcionPu to set
+         */
+        public void setDescripcionPu(String descripcionPu) {
+            this.descripcionPu = descripcionPu;
+        }
+
+        /**
+         * @return the descripcionPs
+         */
+        public String getDescripcionPs() {
+            return descripcionPs;
+        }
+
+        /**
+         * @param descripcionPs the descripcionPs to set
+         */
+        public void setDescripcionPs(String descripcionPs) {
+            this.descripcionPs = descripcionPs;
+        }
+
 
 //	public List<SeguimientosEmpleado> getSeguimientosEmpleados() {
 //		return this.seguimientosEmpleados;
