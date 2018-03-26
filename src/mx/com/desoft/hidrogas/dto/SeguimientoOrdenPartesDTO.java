@@ -8,7 +8,7 @@ public class SeguimientoOrdenPartesDTO {
 	private int folio;
 	private int cantidad;
 	private int idCatTipoRefaccion;
-	private String descripcion;
+//	private String descripcion;
 	private int tipoRefaccionId;
 	private Date fechaRegistro;
 	private int nominaRegistro;
@@ -17,13 +17,13 @@ public class SeguimientoOrdenPartesDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SeguimientoOrdenPartesDTO(int folio, int cantidad, int idCatTipoRefaccion, String descripcion,
+	public SeguimientoOrdenPartesDTO(int folio, int cantidad, int idCatTipoRefaccion, //String descripcion,
 			int tipoRefaccionId, Date fechaRegistro, int nominaRegistro) {
 		super();
 		this.folio = folio;
 		this.cantidad = cantidad;
 		this.idCatTipoRefaccion = idCatTipoRefaccion;
-		this.descripcion = descripcion;
+//		this.descripcion = descripcion;
 		this.tipoRefaccionId = tipoRefaccionId;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
@@ -65,13 +65,13 @@ public class SeguimientoOrdenPartesDTO {
 		this.idCatTipoRefaccion = idCatTipoRefaccion;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+//	public String getDescripcion() {
+//		return descripcion;
+//	}
+//
+//	public void setDescripcion(String descripcion) {
+//		this.descripcion = descripcion;
+//	}
 
 	public int getTipoRefaccionId() {
 		return tipoRefaccionId;

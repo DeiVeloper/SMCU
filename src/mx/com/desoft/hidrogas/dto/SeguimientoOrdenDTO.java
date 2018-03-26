@@ -13,6 +13,8 @@ public class SeguimientoOrdenDTO {
 	private Date fechaReparacionMayor;
 	private Date fechaRegistro;
 	private int nominaRegistro;
+	private String descripcionPU;
+	private String descripcionPS;
 	private List<SeguimientoOrdenPartesDTO> listaPartesUsadas;
 	private List<SeguimientoOrdenPartesDTO> listaPartesSolicitadas;
 
@@ -22,8 +24,8 @@ public class SeguimientoOrdenDTO {
 	}
 
 	public SeguimientoOrdenDTO(int idSeguimiento, int folio, String trabajosRealizados, String observaciones, int reparacionMayor,
-			Date fechaReparacionMayor, Date fechaRegistro, int nominaRegistro,
-			List<SeguimientoOrdenPartesDTO> listaPartesUsadas, List<SeguimientoOrdenPartesDTO> listaPartesSolicitadas) {
+			Date fechaReparacionMayor, Date fechaRegistro, int nominaRegistro, List<SeguimientoOrdenPartesDTO> listaPartesUsadas,
+			List<SeguimientoOrdenPartesDTO> listaPartesSolicitadas, String descripcionPU, String descripcionPS) {
 		super();
 		this.idSeguimiento = idSeguimiento;
 		this.folio = folio;
@@ -35,8 +37,10 @@ public class SeguimientoOrdenDTO {
 		this.nominaRegistro = nominaRegistro;
 		this.listaPartesUsadas = listaPartesUsadas;
 		this.listaPartesSolicitadas = listaPartesSolicitadas;
+		this.descripcionPU = descripcionPU;
+		this.descripcionPS= descripcionPS;
 	}
-	
+
 	public SeguimientoOrdenDTO(int idSeguimiento, int folio, Date fechaReparacionMayor) {
 		super();
 		this.idSeguimiento = idSeguimiento;
@@ -127,6 +131,22 @@ public class SeguimientoOrdenDTO {
 
 	public void setListaPartesUsadas(List<SeguimientoOrdenPartesDTO> listaPartesUsadas) {
 		this.listaPartesUsadas = listaPartesUsadas;
+	}
+
+	public String getDescripcionPU() {
+		return descripcionPU;
+	}
+
+	public void setDescripcionPU(String descripcionPU) {
+		this.descripcionPU = descripcionPU;
+	}
+
+	public String getDescripcionPS() {
+		return descripcionPS;
+	}
+
+	public void setDescripcionPS(String descripcionPS) {
+		this.descripcionPS = descripcionPS;
 	}
 
 	public List<SeguimientoOrdenPartesDTO> getListaPartesSolicitadas() {

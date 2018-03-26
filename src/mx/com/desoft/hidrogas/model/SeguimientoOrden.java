@@ -43,10 +43,10 @@ public class SeguimientoOrden implements Serializable {
 
 	@Column(name="nomina_registro")
 	private int nominaRegistro;
-        
+
         @Column(name="descripcion_pu")
 	private String descripcionPu;
-        
+
         @Column(name="descripcion_ps")
 	private String descripcionPs;
 
@@ -58,7 +58,7 @@ public class SeguimientoOrden implements Serializable {
 	}
 
 	public SeguimientoOrden(int id_seguimiento, OrdenTrabajo ordenTrabajo, String trabajosRealizados, String observaciones,
-			int reparacionMayor, Date fechaReparaMayor, Date fechaRegistro, int nominaRegistro) {
+			int reparacionMayor, Date fechaReparaMayor, Date fechaRegistro, int nominaRegistro, String descripcionPu, String descripcionPs) {
 		super();
 		this.id_seguimiento = id_seguimiento;
 		this.ordenTrabajo = ordenTrabajo;
@@ -68,10 +68,12 @@ public class SeguimientoOrden implements Serializable {
 		this.fechaReparaMayor = fechaReparaMayor;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
+		this.descripcionPu = descripcionPu;
+        this.descripcionPs = descripcionPs;
 	}
 
 	public SeguimientoOrden(OrdenTrabajo ordenTrabajo, String trabajosRealizados, String observaciones,
-			int reparacionMayor, Date fechaReparaMayor, Date fechaRegistro, int nominaRegistro) {
+			int reparacionMayor, Date fechaReparaMayor, Date fechaRegistro, int nominaRegistro, String descripcionPu, String descripcionPs) {
 		super();
 		this.ordenTrabajo = ordenTrabajo;
 		this.trabajosRealizados = trabajosRealizados;
@@ -80,22 +82,24 @@ public class SeguimientoOrden implements Serializable {
 		this.fechaReparaMayor = fechaReparaMayor;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
+		this.descripcionPu = descripcionPu;
+        this.descripcionPs = descripcionPs;
 	}
 
-        public SeguimientoOrden(int id_seguimiento, OrdenTrabajo ordenTrabajo, String trabajosRealizados, String observaciones, int reparacionMayor, Date fechaReparaMayor, Date fechaRegistro, int nominaRegistro, String descripcionPu, String descripcionPs) {
-            this.id_seguimiento = id_seguimiento;
-            this.ordenTrabajo = ordenTrabajo;
-            this.trabajosRealizados = trabajosRealizados;
-            this.observaciones = observaciones;
-            this.reparacionMayor = reparacionMayor;
-            this.fechaReparaMayor = fechaReparaMayor;
-            this.fechaRegistro = fechaRegistro;
-            this.nominaRegistro = nominaRegistro;
-            this.descripcionPu = descripcionPu;
-            this.descripcionPs = descripcionPs;
-        }
-        
-   
+//        public SeguimientoOrden(int id_seguimiento, OrdenTrabajo ordenTrabajo, String trabajosRealizados, String observaciones, int reparacionMayor, Date fechaReparaMayor, Date fechaRegistro, int nominaRegistro, String descripcionPu, String descripcionPs) {
+//            this.id_seguimiento = id_seguimiento;
+//            this.ordenTrabajo = ordenTrabajo;
+//            this.trabajosRealizados = trabajosRealizados;
+//            this.observaciones = observaciones;
+//            this.reparacionMayor = reparacionMayor;
+//            this.fechaReparaMayor = fechaReparaMayor;
+//            this.fechaRegistro = fechaRegistro;
+//            this.nominaRegistro = nominaRegistro;
+//            this.descripcionPu = descripcionPu;
+//            this.descripcionPs = descripcionPs;
+//        }
+
+
 
 	public int getId_seguimiento() {
 		return id_seguimiento;
@@ -105,7 +109,7 @@ public class SeguimientoOrden implements Serializable {
 		this.id_seguimiento = id_seguimiento;
 	}
 
-        
+
 	public Date getFechaRegistro() {
 		return this.fechaRegistro;
 	}
@@ -161,7 +165,7 @@ public class SeguimientoOrden implements Serializable {
 	public void setOrdenTrabajo(OrdenTrabajo ordenTrabajo) {
 		this.ordenTrabajo = ordenTrabajo;
 	}
-        
+
         /**
          * @return the descripcionPu
          */

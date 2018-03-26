@@ -11,13 +11,13 @@ public class SeguimientoOrdenPartesProperty {
 	private StringProperty descripcionTipoRefaccion;
 	private StringProperty descripcion;
 
-	public SeguimientoOrdenPartesProperty(int idRefaccion, StringProperty cantidad, int idTipoRefaccion, StringProperty descripcionTipoRefaccion, StringProperty descripcion) {
+	public SeguimientoOrdenPartesProperty(int idRefaccion, StringProperty cantidad, int idTipoRefaccion, StringProperty descripcionTipoRefaccion) {
 		super();
 		this.idRefaccion = idRefaccion;
 		this.cantidad = cantidad;
 		this.idTipoRefaccion = idTipoRefaccion;
 		this.descripcionTipoRefaccion = descripcionTipoRefaccion;
-		this.descripcion = descripcion;
+//		this.descripcion = descripcion;
 	}
 
 //	public SeguimientoOrdenPartesProperty(StringProperty cantidad, StringProperty parte, StringProperty marca,

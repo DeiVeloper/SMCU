@@ -63,8 +63,8 @@ public class SeguimientoOrdenTrabajoController {
     private TableColumn<SeguimientoOrdenPartesProperty, String> tipoRefaccionUsadaColumn;
 	@FXML
     private TableColumn<SeguimientoOrdenPartesProperty, String> cantidadUsadaColumn;
-    @FXML
-    private TableColumn<SeguimientoOrdenPartesProperty, String> descripcionUsadaColumn;
+//    @FXML
+//    private TableColumn<SeguimientoOrdenPartesProperty, String> descripcionUsadaColumn;
     @FXML
     private TableColumn<SeguimientoOrdenPartesProperty, Boolean> eliminarUsadaColumn;
 
@@ -80,8 +80,8 @@ public class SeguimientoOrdenTrabajoController {
     private TableColumn<SeguimientoOrdenPartesProperty, String> tipoRefaccionSolicitadaColumn;
     @FXML
     private TableColumn<SeguimientoOrdenPartesProperty, String> cantidadSolicitadaColumn;
-    @FXML
-    private TableColumn<SeguimientoOrdenPartesProperty, String> descripcionSolicitadaColumn;
+//    @FXML
+//    private TableColumn<SeguimientoOrdenPartesProperty, String> descripcionSolicitadaColumn;
     @FXML
     private TableColumn<SeguimientoOrdenPartesProperty, Boolean> eliminarSolicitadaColumn;
 
@@ -123,7 +123,15 @@ public class SeguimientoOrdenTrabajoController {
 		seguimientoDTO = new SeguimientoOrdenDTO();
 		dtoTablaPartesUsadas = new ArrayList<>();
 		dtoTablaPartesSolicitadas = new ArrayList<>();
+		observaciones.setDisable(true);
 		this.llenarComboTipoRefaccion();
+		reparacionMayor.setOnAction(e -> {
+			if(reparacionMayor.getValue() == Constantes.NULL) {
+				observaciones.setDisable(true);
+			} else {
+				observaciones.setDisable(false);
+			}
+		});
 	}
 
 	public void cargarInformacion() {
@@ -136,6 +144,8 @@ public class SeguimientoOrdenTrabajoController {
 		if(seguimientoDTO.getIdSeguimiento() != Constantes.CERO) {
 			trabajosRealizados.setText(seguimientoDTO.getTrabajosRealizados());
 			observaciones.setText(seguimientoDTO.getObservaciones());
+			descripcionPU.setText(seguimientoDTO.getDescripcionPU());
+			descripcionPS.setText(seguimientoDTO.getDescripcionPS());
 			if(seguimientoDTO.getFechaReparacionMayor() != Constantes.NULL) {
 				reparacionMayor.setValue(DateUtil.getLocalDateFromSQLDate(seguimientoDTO.getFechaReparacionMayor()));
 			}
@@ -154,7 +164,7 @@ public class SeguimientoOrdenTrabajoController {
 	public void agregarPartesUsadas() {
 		if(this.validarAgregarPartes((byte)Constantes.N1)) {
 			dtoTablaPartesUsadas.add(new SeguimientoOrdenPartesProperty(Constantes.CERO, new SimpleStringProperty(cantidadPU.getText()), tipoRefaccionUsada.getSelectionModel().getSelectedItem().getTipoRefaccionId(),
-					new SimpleStringProperty(tipoRefaccionUsada.getSelectionModel().getSelectedItem().getDescripcion()), new SimpleStringProperty(descripcionPU.getText())));
+					new SimpleStringProperty(tipoRefaccionUsada.getSelectionModel().getSelectedItem().getDescripcion())));
 			this.cargarInformacionRefacciones(Constantes.N1);
 			this.limpiaDatosDeRefaccion(Constantes.N1);
 		}
@@ -164,7 +174,7 @@ public class SeguimientoOrdenTrabajoController {
 	public void agregarPartesSolicitadas() {
 		if(this.validarAgregarPartes((byte)Constantes.N2)) {
 			dtoTablaPartesSolicitadas.add(new SeguimientoOrdenPartesProperty(Constantes.CERO, new SimpleStringProperty(cantidadPS.getText()), tipoRefaccionSolicitada.getSelectionModel().getSelectedItem().getTipoRefaccionId(),
-					new SimpleStringProperty(tipoRefaccionSolicitada.getSelectionModel().getSelectedItem().getDescripcion()), new SimpleStringProperty(descripcionPS.getText())));
+					new SimpleStringProperty(tipoRefaccionSolicitada.getSelectionModel().getSelectedItem().getDescripcion())));
 			this.cargarInformacionRefacciones(Constantes.N2);
 			this.limpiaDatosDeRefaccion(Constantes.N2);
 		}
@@ -180,8 +190,6 @@ public class SeguimientoOrdenTrabajoController {
 						errorMessage = "El campo Cantidad no puede ir vac" + Constantes.i + "o.";
 					} else if(tipoRefaccionUsada.getSelectionModel().getSelectedItem() == Constantes.NULL){
 						errorMessage = "Debe seleccionar una Refacci" + Constantes.o + "n";
-					} else if(descripcionPU.getText() == Constantes.NULL || descripcionPU.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Descripci" + Constantes.o + "n no puede ir vac" + Constantes.i + "o.";
 					} else if(Integer.parseInt(cantidadPU.getText()) > 99) {
 						errorMessage = "El campo Cantidad no puede tener m" + Constantes.a + "s de 99.";
 					} else if(descripcionPU.getText().length() > 300) {
@@ -199,8 +207,6 @@ public class SeguimientoOrdenTrabajoController {
 						errorMessage = "El campo Cantidad no puede ir vac" + Constantes.i + "o.";
 					} else if(tipoRefaccionSolicitada.getSelectionModel().getSelectedItem() == Constantes.NULL){
 						errorMessage = "Debe seleccionar una Refacci" + Constantes.o + "n";
-					} else if(descripcionPS.getText() == Constantes.NULL || descripcionPS.getText().length() == Constantes.CERO) {
-						errorMessage = "El campo Descripci" + Constantes.o + "n no puede ir vac" + Constantes.i + "o.";
 					} else if(Integer.parseInt(cantidadPS.getText()) > 99) {
 						errorMessage = "El campo Cantidad no puede tener m" + Constantes.a + "s de 99.";
 					} else if(descripcionPS.getText().length() > 300) {
@@ -228,7 +234,7 @@ public class SeguimientoOrdenTrabajoController {
 			tablaPartesUsadas.setItems(getDataPartesUsadas());
 			tipoRefaccionUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcionTipoRefaccion());
 	    	cantidadUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getCantidad());
-	    	descripcionUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
+//	    	descripcionUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
 	    	eliminarUsadaColumn.setSortable(false);
 	    	eliminarUsadaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean>, ObservableValue<Boolean>>() {
 	    		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean> features) {
@@ -246,7 +252,7 @@ public class SeguimientoOrdenTrabajoController {
 			tablaPartesSolicitadas.setItems(getDataPartesSolicitadas());
 			tipoRefaccionSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcionTipoRefaccion());
 	    	cantidadSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getCantidad());
-	    	descripcionSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
+//	    	descripcionSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
 	    	eliminarSolicitadaColumn.setSortable(false);
 
 	    	eliminarSolicitadaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean>, ObservableValue<Boolean>>() {
@@ -283,8 +289,6 @@ public class SeguimientoOrdenTrabajoController {
 		boolean esCorrecto = false;
 		if(trabajosRealizados.getText() == Constantes.NULL || trabajosRealizados.getText().length() == Constantes.CERO) {
 			errorMessage = "El campo Trabajos Realizados no puede ir vac" + Constantes.i + "o.";
-		} else if(observaciones.getText() == Constantes.NULL || observaciones.getText().length() == Constantes.CERO) {
-			errorMessage = "El campo Observaciones no puede ir vacio.";
 		} else if(trabajosRealizados.getText().length() > 300) {
 			errorMessage = "El campo Trabajos Realizados no puede tener m" + Constantes.a + "s de 300 caracteres.";
 		} else if(observaciones.getText().length() > 300) {
@@ -302,6 +306,8 @@ public class SeguimientoOrdenTrabajoController {
 		seguimientoDTO.setFolio(ordenDTO.getFolio());
 		seguimientoDTO.setTrabajosRealizados(trabajosRealizados.getText());
 		seguimientoDTO.setObservaciones(observaciones.getText());
+		seguimientoDTO.setDescripcionPU(descripcionPU.getText());
+		seguimientoDTO.setDescripcionPS(descripcionPS.getText());
 		if(reparacionMayor.getValue() == Constantes.NULL) {
 			seguimientoDTO.setReparacionMayor(Constantes.CERO);
 			seguimientoDTO.setFechaReparacionMayor(null);
@@ -318,13 +324,13 @@ public class SeguimientoOrdenTrabajoController {
 		for(SeguimientoOrdenPartesProperty parteUsada : dtoTablaPartesUsadas) {
 			if(parteUsada.getIdRefaccion() == Constantes.CERO) {
 				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getIdTipoRefaccion(),
-						parteUsada.getDescripcion().getValue(), Constantes.N1, new Date(), Authenticator.usuarioSesion.getNominaEmpleado()));
+						Constantes.N1, new Date(), Authenticator.usuarioSesion.getNominaEmpleado()));
 			}
 		}
 		for(SeguimientoOrdenPartesProperty parteSolicitada : dtoTablaPartesSolicitadas) {
 			if(parteSolicitada.getIdRefaccion() == Constantes.CERO) {
 				dtoPartesSolicitadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteSolicitada.getCantidad().getValue()), parteSolicitada.getIdTipoRefaccion(),
-						parteSolicitada.getDescripcion().getValue(), Constantes.N2, new Date(), Authenticator.usuarioSesion.getNominaEmpleado()));
+						Constantes.N2, new Date(), Authenticator.usuarioSesion.getNominaEmpleado()));
 			}
 		}
 		seguimientoDTO.setListaPartesUsadas(dtoPartesUsadas);
@@ -346,10 +352,10 @@ public class SeguimientoOrdenTrabajoController {
 	private void limpiaDatosDeRefaccion(int tipo) {
 		if(tipo == Constantes.N1) {
 			cantidadPU.setText("");
-			descripcionPU.setText("");
+//			descripcionPU.setText("");
 		} else {
 			cantidadPS.setText("");
-			descripcionPS.setText("");
+//			descripcionPS.setText("");
 		}
 	}
 

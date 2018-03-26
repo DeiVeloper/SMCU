@@ -41,16 +41,15 @@
                                  		</font>
                                  	</Label>
                                  	<Label layoutX="578.0" layoutY="39.0" text="Cantidad" />
-            				      	<Label layoutX="602.0" layoutY="96.0" text="Descripción" />
+            				      	<Label layoutX="478.0" layoutY="96.0" text="Descripción" />
             				      	<TextField fx:id="cantidadPU" layoutX="634.0" layoutY="35.0" prefHeight="10.0" prefWidth="50.0" />
-            				      	<TextArea fx:id="descripcionPU" layoutX="702.0" layoutY="70.0" prefHeight="80.0" prefWidth="220.0" />
+            				      	<TextArea fx:id="descripcionPU" layoutX="578.0" layoutY="70.0" prefHeight="80.0" prefWidth="220.0" />
             				      	<Button layoutX="831.0" layoutY="156.0" mnemonicParsing="false" onAction="#agregarPartesUsadas" text="Agregar parte" />
-            				      	<TableView fx:id="tablaPartesUsadas" layoutX="21.0" layoutY="38.0" prefHeight="150.0" prefWidth="550.0">
+            				      	<TableView fx:id="tablaPartesUsadas" layoutX="21.0" layoutY="38.0" prefHeight="150.0" prefWidth="400.0">
             				        	<columns>
-                                    		<TableColumn fx:id="tipoRefaccionUsadaColumn" prefWidth="100.0" text="Tipo" />
-            				          		<TableColumn fx:id="cantidadUsadaColumn" prefWidth="60.0" text="Cantidad" />
-            				            	<TableColumn fx:id="descripcionUsadaColumn" prefWidth="320.0" text="Descripción" />
-            				            	<TableColumn fx:id="eliminarUsadaColumn" prefWidth="70.0" text="Eliminar" />
+                                    		<TableColumn fx:id="tipoRefaccionUsadaColumn" prefWidth="200.0" text="Tipo" />
+            				          		<TableColumn fx:id="cantidadUsadaColumn" prefWidth="100.0" text="Cantidad" />
+            				            	<TableColumn fx:id="eliminarUsadaColumn" prefWidth="100.0" text="Eliminar" />
             				        	</columns>
             				      	</TableView>
                               <Label layoutX="711.0" layoutY="39.0" text="Refacción" />
@@ -66,18 +65,17 @@
                                  	</Label>
                                 </children>
             					<children>
-                                   <TableView fx:id="tablaPartesSolicitadas" layoutX="24.0" layoutY="38.0" prefHeight="150.0" prefWidth="550.0">
+                                   <TableView fx:id="tablaPartesSolicitadas" layoutX="24.0" layoutY="38.0" prefHeight="150.0" prefWidth="400.0">
             	   				       	<columns>
-                                    		<TableColumn fx:id="tipoRefaccionSolicitadaColumn" prefWidth="100.0" text="Tipo" />
-            	   				        	<TableColumn fx:id="cantidadSolicitadaColumn" prefWidth="60.0" text="Cantidad" />
-            	   				            <TableColumn fx:id="descripcionSolicitadaColumn" prefWidth="320.0" text="Descripción" />
-            	   				            <TableColumn fx:id="eliminarSolicitadaColumn" prefWidth="70.0" text="Eliminar" />
+                                    		<TableColumn fx:id="tipoRefaccionSolicitadaColumn" prefWidth="200.0" text="Tipo" />
+            	   				        	<TableColumn fx:id="cantidadSolicitadaColumn" prefWidth="100.0" text="Cantidad" />
+            	   				            <TableColumn fx:id="eliminarSolicitadaColumn" prefWidth="100.0" text="Eliminar" />
             	   				        </columns>
                			      		</TableView>
             	   			      	<Button layoutX="832.0" layoutY="158.0" mnemonicParsing="false" onAction="#agregarPartesSolicitadas" text="Agregar parte" />
             	   			      	<TextField fx:id="cantidadPS" layoutX="632.0" layoutY="37.0" prefHeight="10.0" prefWidth="50.0" />
-            	   			      	<TextArea fx:id="descripcionPS" layoutX="702.0" layoutY="72.0" prefHeight="80.0" prefWidth="220.0" />
-            	   			      	<Label layoutX="600.0" layoutY="96.0" text="Descripción" />
+            	   			      	<TextArea fx:id="descripcionPS" layoutX="578.0" layoutY="72.0" prefHeight="80.0" prefWidth="220.0" />
+            	   			      	<Label layoutX="478.0" layoutY="96.0" text="Descripción" />
             	   			      	<Label layoutX="579.0" layoutY="41.0" text="Cantidad" />
             	                  	<Label layoutX="711.0" layoutY="41.0" text="Refaccion" />
             	                  	<ComboBox fx:id="tipoRefaccionSolicitada" layoutX="772.0" layoutY="37.0" prefWidth="150.0" />

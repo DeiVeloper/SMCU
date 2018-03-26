@@ -69,17 +69,17 @@ public class SeguimientoOrdenBusinessImpl implements ISeguimientoOrdenBusiness {
 
 	private SeguimientoOrden convertirDTOToEntidad(SeguimientoOrdenDTO seguimientoOrdenTO) {
 		OrdenTrabajo ordenTrabajo = ordenTrabajoDAO.get(seguimientoOrdenTO.getFolio());
-		return seguimientoOrdenTO.getIdSeguimiento() == 0 ? new SeguimientoOrden(ordenTrabajo, seguimientoOrdenTO.getTrabajosRealizados(), seguimientoOrdenTO.getObservaciones(),
-				seguimientoOrdenTO.getReparacionMayor(), seguimientoOrdenTO.getFechaReparacionMayor(), seguimientoOrdenTO.getFechaRegistro(), seguimientoOrdenTO.getNominaRegistro()) :
-				new SeguimientoOrden(seguimientoOrdenTO.getIdSeguimiento(), ordenTrabajo, seguimientoOrdenTO.getTrabajosRealizados(), seguimientoOrdenTO.getObservaciones(),
-						seguimientoOrdenTO.getReparacionMayor(), seguimientoOrdenTO.getFechaReparacionMayor(), seguimientoOrdenTO.getFechaRegistro(), seguimientoOrdenTO.getNominaRegistro());
+		return seguimientoOrdenTO.getIdSeguimiento() == 0 ? new SeguimientoOrden(ordenTrabajo, seguimientoOrdenTO.getTrabajosRealizados(), seguimientoOrdenTO.getObservaciones(), seguimientoOrdenTO.getReparacionMayor(),
+				seguimientoOrdenTO.getFechaReparacionMayor(), seguimientoOrdenTO.getFechaRegistro(), seguimientoOrdenTO.getNominaRegistro(), seguimientoOrdenTO.getDescripcionPU(), seguimientoOrdenTO.getDescripcionPS()) :
+				new SeguimientoOrden(seguimientoOrdenTO.getIdSeguimiento(), ordenTrabajo, seguimientoOrdenTO.getTrabajosRealizados(), seguimientoOrdenTO.getObservaciones(), seguimientoOrdenTO.getReparacionMayor(),
+					seguimientoOrdenTO.getFechaReparacionMayor(), seguimientoOrdenTO.getFechaRegistro(), seguimientoOrdenTO.getNominaRegistro(), seguimientoOrdenTO.getDescripcionPU(), seguimientoOrdenTO.getDescripcionPS());
 	}
 
 	private ListaRefacciones convertirDTOToEntidadRefacciones(SeguimientoOrdenPartesDTO listaRefacciones, int tipoRefaccion) {
 		OrdenTrabajo ordenTrabajo = ordenTrabajoDAO.get(listaRefacciones.getFolio());
 		CatTipoListaRefaccion catTipoListaRefaccion = catTipoRefacciones.get(listaRefacciones.getTipoRefaccionId());
 		CatTipoRefaccion catTipoRefaccion = catTipoRefaccionDAO.get(listaRefacciones.getIdCatTipoRefaccion());
-		return new ListaRefacciones(ordenTrabajo, listaRefacciones.getCantidad(), catTipoRefaccion, listaRefacciones.getDescripcion(),
+		return new ListaRefacciones(ordenTrabajo, listaRefacciones.getCantidad(), catTipoRefaccion,
 				catTipoListaRefaccion, listaRefacciones.getFechaRegistro(), listaRefacciones.getNominaRegistro());
 	}
 
@@ -93,18 +93,19 @@ public class SeguimientoOrdenBusinessImpl implements ISeguimientoOrdenBusiness {
 			if(!listaPartesUsadas.isEmpty()) {
 				for(ListaRefacciones refaccion : listaPartesUsadas) {
 					listaPartesUsadasDTO.add(new SeguimientoOrdenPartesDTO(refaccion.getOrdenTrabajo().getFolio(), refaccion.getCantidad(), refaccion.getCatTipoRefaccion().getIdTipoRefaccion(),
-							refaccion.getDescripcion(), refaccion.getCatTipoListaRefaccion().getTipoRefaccionId(), refaccion.getFechaRegistro(), refaccion.getNominaRegistro()));
+							refaccion.getCatTipoListaRefaccion().getTipoRefaccionId(), refaccion.getFechaRegistro(), refaccion.getNominaRegistro()));
 				}
 			}
 			List<ListaRefacciones> listaPartesSolicitadas = seguimientoDAO.getListaRefaccionesByFolioTipo(folio, Constantes.N2);
 			if(!listaPartesSolicitadas.isEmpty()) {
 				for(ListaRefacciones refaccion : listaPartesSolicitadas) {
 					listaPartesSolicitadasDTO.add(new SeguimientoOrdenPartesDTO(refaccion.getOrdenTrabajo().getFolio(), refaccion.getCantidad(), refaccion.getCatTipoRefaccion().getIdTipoRefaccion(),
-							refaccion.getDescripcion(), refaccion.getCatTipoListaRefaccion().getTipoRefaccionId(), refaccion.getFechaRegistro(), refaccion.getNominaRegistro()));
+							refaccion.getCatTipoListaRefaccion().getTipoRefaccionId(), refaccion.getFechaRegistro(), refaccion.getNominaRegistro()));
 				}
 			}
-			seguimientoDTO = new SeguimientoOrdenDTO(seguimiento.getId_seguimiento(), seguimiento.getOrdenTrabajo().getFolio(), seguimiento.getTrabajosRealizados(), seguimiento.getObservaciones(),
-					seguimiento.getReparacionMayor(), seguimiento.getFechaReparaMayor(), seguimiento.getFechaRegistro(), seguimiento.getNominaRegistro(), listaPartesUsadasDTO, listaPartesSolicitadasDTO);
+			seguimientoDTO = new SeguimientoOrdenDTO(seguimiento.getId_seguimiento(), seguimiento.getOrdenTrabajo().getFolio(), seguimiento.getTrabajosRealizados(),
+				seguimiento.getObservaciones(),	seguimiento.getReparacionMayor(), seguimiento.getFechaReparaMayor(), seguimiento.getFechaRegistro(),
+				seguimiento.getNominaRegistro(), listaPartesUsadasDTO, listaPartesSolicitadasDTO, seguimiento.getDescripcionPu(), seguimiento.getDescripcionPs());
 		}
 
 		return seguimientoDTO;
@@ -115,7 +116,7 @@ public class SeguimientoOrdenBusinessImpl implements ISeguimientoOrdenBusiness {
 		List<ListaRefacciones> listaPartesModel = seguimientoDAO.getListaRefaccionesByFolioTipo(folio, tipo);
 		for(ListaRefacciones refaccion : listaPartesModel) {
 			listaPartes.add(new SeguimientoOrdenPartesProperty(refaccion.getId_refaccion(), new SimpleStringProperty(String.valueOf(refaccion.getCantidad())),
-					refaccion.getCatTipoRefaccion().getIdTipoRefaccion(), new SimpleStringProperty(refaccion.getCatTipoRefaccion().getDescripcion()), new SimpleStringProperty(refaccion.getDescripcion())));
+					refaccion.getCatTipoRefaccion().getIdTipoRefaccion(), new SimpleStringProperty(refaccion.getCatTipoRefaccion().getDescripcion())));
 		}
 		return listaPartes;
 	}
