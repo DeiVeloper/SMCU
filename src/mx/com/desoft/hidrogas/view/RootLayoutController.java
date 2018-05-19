@@ -177,7 +177,8 @@ public class RootLayoutController {
     }
 
     private void validarUsuarioLogin(){
-    	if(Authenticator.usuarioSesion.getDescripcionTipoEmpleado().equals(Constantes.ADMINISTRADOR))	{
+    	if(Authenticator.usuarioSesion.getDescripcionTipoEmpleado().equals(Constantes.ADMINISTRADOR) || 
+    			Authenticator.usuarioSesion.getDescripcionTipoEmpleado().equals(Constantes.JEFETALLER) )	{
     		administradorItem.setVisible(true);
     		reportesItem.setVisible(true);
     	}else	{
