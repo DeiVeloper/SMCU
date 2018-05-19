@@ -168,6 +168,7 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 				orden.getApellidoPatOperador(),
 				orden.getApellidoMatOperador(),
 				orden.getCatTipoNecesidad().getTipoNecesidadId(),
+				orden.getCatTipoNecesidad().getDescripcion(),
 				orden.getKilometraje(),
 				orden.getFallaMecanica(),
 				orden.getCatEstatusOrden().getEstatusOrdenId(),
