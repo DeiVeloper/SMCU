@@ -39,7 +39,29 @@ public class Reportes implements IReportes, Printable {
 	@Override
 	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden) throws UnsupportedEncodingException, PrintException, NullPointerException{
 		StringBuilder ticket = new StringBuilder();
-		ticket.append("Folio orden: " + orden.getFolio() + "\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("Fecha de Impresi"+Constantes.o+"n: " + DateUtil.getStringFromDate(new Date())+ "\n");
+		ticket.append("Folio Orden: " + orden.getFolio() + "\n");
+		ticket.append("Fecha Orden: " + DateUtil.getStringFromDate(orden.getFechaRegistro()) + "\n");
+		ticket.append("Econ"+Constantes.o+"mico: " + orden.getEconomicoId() + "\n");
+		ticket.append("Empleado: " + orden.getNombreOperador().concat(" ")
+		.concat(orden.getApellidoPatOperador().concat(" ").concat(orden.getApellidoMatOperador())) + "\n");
+		ticket.append("Tipo Neccesidad: "+ orden.getDescripcionTipoNecesidad() + "\n");
+		//ticket.append("Trabajos Realizados: " + orden.getSeguimiento().getTrabajosRealizados() + "\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("\n");
+		ticket.append("\n");
 		printString(IMPRESORA, ticket.toString());
 	}
 
