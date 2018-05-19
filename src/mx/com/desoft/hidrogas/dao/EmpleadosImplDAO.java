@@ -24,8 +24,8 @@ public class EmpleadosImplDAO extends HibernateImplDAO<Empleado, Integer> implem
 		 Criteria criteria = HibernateUtil.openSession().createCriteria(Empleado.class);
 		 criteria.add(Restrictions.eq("nominaEmpleado", usuario)).add(Restrictions.eq("password", password));
 		 criteria.createAlias("catTipoEmpleado", "catTipoEmpleado");
-		 criteria.add(Restrictions.or(Restrictions.eq("catTipoEmpleado.descripcion", Constantes.ADMINISTRADOR),
-				 Restrictions.eq("catTipoEmpleado.descripcion", Constantes.MECANICO)));
+		 String [] restricciones = {Constantes.ADMINISTRADOR,Constantes.MECANICO,Constantes.JEFETALLER}; 
+		 criteria.add(Restrictions.in("catTipoEmpleado.descripcion",restricciones));
 		 return criteria.uniqueResult() != Constantes.NULL ? true : false;
 	}
 
