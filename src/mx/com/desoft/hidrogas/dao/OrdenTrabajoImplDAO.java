@@ -57,9 +57,9 @@ public class OrdenTrabajoImplDAO extends HibernateImplDAO<OrdenTrabajo, Integer>
 			criteria.add(Restrictions.eq("catTipoNecesidad.tipoNecesidadId", ordenTrabajoDTO.getTipoNecesidadId()));
 		}
 
-		if	(ordenTrabajoDTO.getNominaRegistro() != Constantes.CERO)	{
+		if	(ordenTrabajoDTO.getNominaOperador() != Constantes.CERO)	{
 			criteria.createAlias("empleado2", "empleado2");
-			criteria.add(Restrictions.eq("empleado2.nominaEmpleado", ordenTrabajoDTO.getNominaRegistro()));
+			criteria.add(Restrictions.eq("empleado2.nominaEmpleado", ordenTrabajoDTO.getNominaOperador()));
 		}
 
 		if	(ordenTrabajoDTO.getEstatusOrden() != Constantes.CERO)	{
