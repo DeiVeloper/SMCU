@@ -7,6 +7,7 @@ public class Constantes {
 	public static final String OPERADOR = "Operador";
 	public static final String AYUDANTE = "Ayudante";
 	public static final String SUPLENTE = "Suplente";
+	public static final String JEFETALLER = "Jefe Taller";
 	public static final Object NULL = null;
 	public static final int CERO = 0;
 	public static final int N1 = 1;
@@ -27,7 +28,7 @@ public class Constantes {
 	public static final String ORDENES_REPARACION_MAYOR = "" + Constantes.O + "rdenes con reparaci" + Constantes.o + "n mayor";
 	public static final String NOTIFICACIONES = "Notificaciones";
 	public static final String ERROR = "Error";
-	public static final String RESULTADO_CONSULTA_REPORTE = "El n"+Constantes.u+"mero de orden no existe, favor de validar.";
+	public static final String RESULTADO_CONSULTA_REPORTE = "No existe un n"+Constantes.u+"mero de orden para el econ"+ Constantes.o +"mico seleccionado, favor de validar.";
 	public static final String INFORMACION = "Informaci\u00F3n";
 	public static final String REPORTE_EXITOSO = "El reporte se genero con \u00E9xito, favor de verificar la ruta de descarga";
 	public static final String TICKET = "Su ticket se ha impreso con \u00E9xito";
