@@ -12,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
 import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
@@ -56,6 +57,9 @@ public class AdministrarReportesController {
 
 	@FXML
 	private ComboBox<CatTipoNecesidadDTO> comboBoxTipoNecesidad;
+	
+	@FXML
+	private Button exportarImprimir;
 
 	private CatalogosHelper catalogosHelperImpl = Login.appContext.getBean(CatalogosHelperImpl.class);
 	private ICatalogoBusiness catalogoBusiness = Login.appContext.getBean(CatalogoBusinessImpl.class);
@@ -113,13 +117,13 @@ public class AdministrarReportesController {
 
 			}catch (IOException e) {
 				log.error("Error al generar reporte", e);
-				Alerta.crearAlertaUsuario(Constantes.ERROR, "Ocurrio un error al imprimir el ticket, favor de intentar nuevamente", AlertType.ERROR);
+				Alerta.crearAlertaUsuario(Constantes.ERROR, "Ocurrio un error al generar el reporte, favor de intentar nuevamente", AlertType.ERROR);
 			} catch (PrintException e) {
 				log.error("Error al generar reporte", e);
 				Alerta.crearAlertaUsuario(Constantes.ERROR, "Ocurrio un error al imprimir el ticket, favor de intentar nuevamente", AlertType.ERROR);
 			} catch (NullPointerException e) {
 				log.error("Error al generar reporte", e);
-				Alerta.crearAlertaUsuario(Constantes.ERROR, "Ocurrio un error al imprimir el ticket, favor de intentar nuevamente", AlertType.ERROR);
+				Alerta.crearAlertaUsuario(Constantes.ERROR, "Ocurrio un error, favor de intentar nuevamente", AlertType.ERROR);
 			}
 		}	else	{
 			Alerta.crearAlertaUsuario(Constantes.VALIDANDO_FORMULARIO, mensaje, AlertType.INFORMATION);
@@ -152,14 +156,17 @@ public class AdministrarReportesController {
 		if(comboBoxTipoReporte.getSelectionModel().getSelectedItem() != null){
 			switch (comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion()) {
 				case Constantes.ORDEN:
+					exportarImprimir.setText("Imprimir");
 					this.componentesOrden();
 					break;
 
 				case Constantes.INCIDENCIAS:
+					exportarImprimir.setText("Exportar");
 					this.componentesIncidencias();
 					break;
 
 				case Constantes.REPARACIONES:
+					exportarImprimir.setText("Exportar");
 					this.componentesReparaciones();
 					break;
 
@@ -179,11 +186,15 @@ public class AdministrarReportesController {
 				}
 			}else if(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.INCIDENCIAS) ||
 					comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.REPARACIONES)){
-				if(datePickerFechaRegistroInicio.getValue() == null){
+				if(comboBoxEconomico.getSelectionModel().getSelectedItem() == Constantes.NULL) {
+					mensaje = "Favor de seleccionar un Econ"+Constantes.o+"mico.";
+					return false;
+				}
+				if(datePickerFechaRegistroInicio.getValue() == Constantes.NULL){
 					mensaje = "Favor de capturar una fecha de inicio.";
 					return false;
 				}
-				if(datePickerFechaRegistroFin.getValue() == null){
+				if(datePickerFechaRegistroFin.getValue() == Constantes.NULL){
 					mensaje = "Favor de capturar una fecha fin.";
 					return false;
 				}
@@ -264,6 +275,7 @@ public class AdministrarReportesController {
 		comboBoxTipoNecesidad.setDisable(false);
 		datePickerFechaRegistroInicio.setDisable(false);
 		datePickerFechaRegistroFin.setDisable(false);
+	
 	}
 
 	private void componentesReparaciones(){
