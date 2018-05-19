@@ -70,6 +70,27 @@ public class OrdenTrabajoDTO {
 		this.mecanico =mecanico;
 		this.seguimiento = seguimiento;
 	}
+	
+	
+
+	public OrdenTrabajoDTO(int folio, Integer economicoId, int nominaOperador, String nombreOperador,
+			String apellidoPatOperador, String apellidoMatOperador, Long tipoNecesidadId, String descripcionTipoNecesidad,
+			int kilometraje, String fallaMecanica, int estatusOrden, Date fechaRegistro, int seguimiento) {
+		this.folio = folio;
+		this.economicoId = economicoId;
+		this.nominaOperador = nominaOperador;
+		this.nombreOperador = nombreOperador;
+		this.apellidoPatOperador = apellidoPatOperador;
+		this.apellidoMatOperador = apellidoMatOperador;
+		this.tipoNecesidadId = tipoNecesidadId;
+		this.descripcionTipoNecesidad = descripcionTipoNecesidad;
+		this.kilometraje = kilometraje;
+		this.fallaMecanica = fallaMecanica;
+		this.estatusOrden = estatusOrden;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = seguimiento;
+	
+	}
 
 	public int getFolio() {
 		return folio;
