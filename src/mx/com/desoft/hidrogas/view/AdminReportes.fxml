@@ -55,7 +55,7 @@
                   <ComboBox fx:id="comboBoxEconomico" prefHeight="25.0" prefWidth="200.0" promptText="Seleccione ..." GridPane.columnIndex="3" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button layoutX="466.0" layoutY="465.0" mnemonicParsing="false" onAction="#imprimirReporte" prefHeight="30.0" prefWidth="70.0" text="Imprimir" />
+            <Button fx:id="exportarImprimir" layoutX="466.0" layoutY="465.0" mnemonicParsing="false" onAction="#imprimirReporte" prefHeight="30.0" prefWidth="70.0" text="Imprimir" />
             <Button layoutX="608.0" layoutY="465.0" mnemonicParsing="false" onAction="#limpiarCamposView" prefHeight="30.0" prefWidth="70.0" text="Limpiar" />
              </children>
                   </AnchorPane>
