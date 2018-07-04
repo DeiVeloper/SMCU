@@ -18,6 +18,8 @@ public class AgregarEditarTipoRefaccionesController {
 	private static final Logger log = Logger.getLogger(AgregarEditarTipoNecesidadController.class);
 
 	@FXML
+	private TextField idRefaccionField;
+	@FXML
 	private TextField descripcionField;
 
 	private ITipoRefaccionesBusiness tipoRefaccionesBusinessImpl = Login.appContext.getBean(TipoRefaccionesBusinessImpl.class);
@@ -31,7 +33,7 @@ public class AgregarEditarTipoRefaccionesController {
 
 	@FXML
     private void initialize() {
-
+		idRefaccionField.setVisible(false);
     }
 
 	@FXML
@@ -50,6 +52,11 @@ public class AgregarEditarTipoRefaccionesController {
     	}
 
     }
+	
+	public void setearEdicionRefaccion(CatTipoRefaccionesDTO refaccion) {
+		idRefaccionField.setText(Integer.toString(refaccion.getTipoRefaccionId()));
+		descripcionField.setText(refaccion.getDescripcion().toString());
+    }
 
 	@FXML
     private void handleCancel() {
@@ -64,9 +71,15 @@ public class AgregarEditarTipoRefaccionesController {
         this.convertirCamposViewToDTO();
         return true;
     }
-
-	 private void convertirCamposViewToDTO() {
-		 catTipoRefaccionesDTO = new CatTipoRefaccionesDTO(descripcionField.getText());
+				 
+	 public CatTipoRefaccionesDTO convertirCamposViewToDTO() {
+		 System.out.println("id: " + idRefaccionField.getText());
+		 if(idRefaccionField.getText() != null && !idRefaccionField.getText().isEmpty()) {
+			 catTipoRefaccionesDTO = new CatTipoRefaccionesDTO(Integer.parseInt(idRefaccionField.getText()), descripcionField.getText()); 
+		 } else {
+			 catTipoRefaccionesDTO = new CatTipoRefaccionesDTO(descripcionField.getText()); 
+		 }
+		 return catTipoRefaccionesDTO;
     }
 
 	public Stage getDialogStage() {

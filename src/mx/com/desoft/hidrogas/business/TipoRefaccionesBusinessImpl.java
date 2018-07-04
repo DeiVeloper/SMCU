@@ -81,7 +81,13 @@ public class TipoRefaccionesBusinessImpl implements ITipoRefaccionesBusiness {
 	}
 
 	private CatTipoRefaccion convertirRefaccionDTOToEntidad(CatTipoRefaccionesDTO catTipoRefaccionesDTO) {
-		return new CatTipoRefaccion(catTipoRefaccionesDTO.getDescripcion(), new Date(), Authenticator.usuarioSesion.getNominaEmpleado());
+		CatTipoRefaccion catTipoRefaccion;
+		if(catTipoRefaccionesDTO.getTipoRefaccionId() > 0) {
+			catTipoRefaccion = new CatTipoRefaccion(catTipoRefaccionesDTO.getTipoRefaccionId(), catTipoRefaccionesDTO.getDescripcion(), new Date(), Authenticator.usuarioSesion.getNominaEmpleado());
+		} else {
+			catTipoRefaccion = new CatTipoRefaccion(catTipoRefaccionesDTO.getDescripcion(), new Date(), Authenticator.usuarioSesion.getNominaEmpleado());
+		}
+		return catTipoRefaccion;
 	}
 
 }

@@ -18,6 +18,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+            <TextField fx:id="idRefaccionField" GridPane.columnIndex="1" />
             <Label text="Descripción" />
             <TextField fx:id="descripcionField" GridPane.columnIndex="1" />
          </children>

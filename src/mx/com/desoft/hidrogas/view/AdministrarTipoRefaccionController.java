@@ -27,8 +27,12 @@ import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
 import mx.com.desoft.hidrogas.business.ITipoRefaccionesBusiness;
 import mx.com.desoft.hidrogas.business.TipoRefaccionesBusinessImpl;
+import mx.com.desoft.hidrogas.buttons.EditarButtonEmpleado;
+import mx.com.desoft.hidrogas.buttons.EditarButtonTipoRefaccion;
 import mx.com.desoft.hidrogas.buttons.EliminarButtonTipoRefaccion;
 import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
+import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
+import mx.com.desoft.hidrogas.property.EmpleadoProperty;
 import mx.com.desoft.hidrogas.property.TipoRefaccionProperty;
 import mx.com.desoft.hidrogas.util.Alerta;
 
@@ -53,6 +57,9 @@ public class AdministrarTipoRefaccionController {
 
     @FXML
     private TableColumn<TipoRefaccionProperty, Boolean> eliminarColumn;
+    
+    @FXML
+    private TableColumn<TipoRefaccionProperty, Boolean> editarColumn;
 
 
     private ITipoRefaccionesBusiness tipoRefaccionesBusinessImpl = Login.appContext.getBean(TipoRefaccionesBusinessImpl.class);
@@ -68,6 +75,7 @@ public class AdministrarTipoRefaccionController {
     	tipoRefaccionIdColumn = new TableColumn<TipoRefaccionProperty, String>();
     	descripcionColumn = new TableColumn<TipoRefaccionProperty, String>();
     	eliminarColumn = new TableColumn<TipoRefaccionProperty, Boolean>();
+    	editarColumn = new TableColumn<TipoRefaccionProperty, Boolean>();
     	contadorLista = new Label();
     }
 
@@ -87,6 +95,18 @@ public class AdministrarTipoRefaccionController {
 		data.removeAll(data);
 		tipoRefaccionIdColumn.setCellValueFactory(cellData -> cellData.getValue().getTipoRefaccionId());
     	descripcionColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
+    	editarColumn.setSortable(false);
+    	editarColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TipoRefaccionProperty, Boolean>, ObservableValue<Boolean>>() {
+    		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<TipoRefaccionProperty, Boolean> features) {
+    			return new SimpleBooleanProperty(features.getValue() != null);
+	      }
+	    });
+    	editarColumn.setCellFactory(new Callback<TableColumn<TipoRefaccionProperty, Boolean>, TableCell<TipoRefaccionProperty, Boolean>>() {
+    		@Override public TableCell<TipoRefaccionProperty, Boolean> call(TableColumn<TipoRefaccionProperty, Boolean> personBooleanTableColumn) {
+    			return new EditarButtonTipoRefaccion(data);
+    		}
+	    });
+    	editarColumn.setStyle("-fx-alignment: CENTER;");
     	eliminarColumn.setStyle("-fx-alignment: CENTER;");
     	eliminarColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TipoRefaccionProperty, Boolean>, ObservableValue<Boolean>>() {
     		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<TipoRefaccionProperty, Boolean> features) {
@@ -102,6 +122,33 @@ public class AdministrarTipoRefaccionController {
     	tablaTipoRefaccion.setItems(data);
     	contadorLista.setText(dto.size() + "");
     }
+    
+    public CatTipoRefaccionesDTO handleEditRefaccion(CatTipoRefaccionesDTO refaccion) {
+    	AgregarEditarTipoRefaccionesController controller = null;
+    	try {
+
+        	FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AgregarEditarTipoRefacciones.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
+            dialogStage.setTitle("HidroGas");
+            dialogStage.getIcons().add(new Image("file:resources/images/ic_launcher.png"));
+            controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setearEdicionRefaccion(refaccion);
+            dialogStage.showAndWait();
+
+    	} catch (Exception e) {
+    		log.error(e);
+    		Alerta.crearAlertaUsuario("Error", e.getMessage(), AlertType.ERROR);
+		}
+    	return controller.convertirCamposViewToDTO();
+    }
+    
     @FXML
     private void limpiarCamposView() {
     	tipoRefaccionField.clear();
