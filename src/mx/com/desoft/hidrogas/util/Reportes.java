@@ -51,6 +51,7 @@ public class Reportes implements IReportes, Printable {
 		ticket.append("Empleado: " + orden.getNombreOperador().concat(" ")
 		.concat(orden.getApellidoPatOperador().concat(" ").concat(orden.getApellidoMatOperador())) + "\n");
 		ticket.append("Tipo Neccesidad: "+ orden.getDescripcionTipoNecesidad() + "\n");
+		ticket.append("Falla: " + orden.getFallaMecanica());
 		//ticket.append("Trabajos Realizados: " + orden.getSeguimiento().getTrabajosRealizados() + "\n");
 		ticket.append("\n");
 		ticket.append("\n");

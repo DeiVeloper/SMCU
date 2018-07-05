@@ -9,4 +9,5 @@ import mx.com.desoft.hidrogas.model.CatTipoRefaccion;
 public interface ICatTipoRefaccionDAO extends HibernateDAO<CatTipoRefaccion, Integer> {
 
 	List<CatTipoRefaccion> getTipoRefaccionByView(CatTipoRefaccionesDTO catTipoRefaccionesDTO);
+	List<CatTipoRefaccion> getAllTipoRefaccion();
 }
