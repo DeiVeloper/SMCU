@@ -60,6 +60,11 @@ public class SeguimientoOrdenDTO {
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
 	}
+	
+	public SeguimientoOrdenDTO(String trabajosRealizados) {
+		super();
+		this.trabajosRealizados = trabajosRealizados;
+	}
 
 	public int getIdSeguimiento() {
 		return idSeguimiento;

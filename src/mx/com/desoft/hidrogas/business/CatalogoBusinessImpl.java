@@ -14,6 +14,7 @@ import mx.com.desoft.hidrogas.dao.EconomicoDAO;
 import mx.com.desoft.hidrogas.dao.EmpleadosDAO;
 import mx.com.desoft.hidrogas.dao.ICatTipoRefaccionDAO;
 import mx.com.desoft.hidrogas.dao.IOrdenTrabajoDAO;
+import mx.com.desoft.hidrogas.dao.ISeguimientoOrdenDAO;
 import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoEmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
@@ -21,6 +22,7 @@ import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenDTO;
+import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
 import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
 import mx.com.desoft.hidrogas.model.CatTipoEmpleado;
 import mx.com.desoft.hidrogas.model.CatTipoListaRefaccion;
@@ -29,7 +31,9 @@ import mx.com.desoft.hidrogas.model.CatTipoRefaccion;
 import mx.com.desoft.hidrogas.model.CatTipoReporte;
 import mx.com.desoft.hidrogas.model.Economico;
 import mx.com.desoft.hidrogas.model.Empleado;
+import mx.com.desoft.hidrogas.model.ListaRefacciones;
 import mx.com.desoft.hidrogas.model.OrdenTrabajo;
+import mx.com.desoft.hidrogas.util.Constantes;
 
 @Service
 public class CatalogoBusinessImpl implements ICatalogoBusiness {
@@ -57,7 +61,10 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 
 	@Autowired
 	private EmpleadosDAO empleadoImplDAO;
-
+	
+	@Autowired
+	private ISeguimientoOrdenDAO seguimientoDAO;
+	
 	@Override
 	public List<CatTipoEmpleadoDTO> findAllTipoEmpleados() {
 		List<CatTipoEmpleadoDTO> listCatTipoEmpleado = new ArrayList<>();
@@ -158,6 +165,11 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 	@Override
 	public OrdenTrabajoDTO getOrdenById(Integer folio) {
 		OrdenTrabajo orden = ordenTrabajoImplDAO.get(folio);
+		List<ListaRefacciones> listaRefacciones = seguimientoDAO.getListaRefaccionesByFolioTipo(folio, Constantes.N2);
+		List<SeguimientoOrdenPartesDTO> listaRefaccionesDTO = new ArrayList<SeguimientoOrdenPartesDTO>();
+		for(ListaRefacciones refaccion : listaRefacciones) {
+			listaRefaccionesDTO.add(new SeguimientoOrdenPartesDTO(refaccion.getCantidad(), refaccion.getCatTipoRefaccion().getDescripcion()));
+		}
 		if(orden == null){
 			return null;
 		}
@@ -173,7 +185,8 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 				orden.getFallaMecanica(),
 				orden.getCatEstatusOrden().getEstatusOrdenId(),
 				orden.getFechaRegistro(),
-				orden.getSeguimientoOrden() != null ? orden.getSeguimientoOrden().getNominaRegistro() : 0);
+				new SeguimientoOrdenDTO(orden.getSeguimientoOrden() != null ? orden.getSeguimientoOrden().getTrabajosRealizados() : ""),
+				listaRefaccionesDTO);
 	}
 
 	@Override

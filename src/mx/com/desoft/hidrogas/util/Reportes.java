@@ -29,6 +29,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Component;
 
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
+import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
 
 @Component
 public class Reportes implements IReportes, Printable {
@@ -51,8 +52,12 @@ public class Reportes implements IReportes, Printable {
 		ticket.append("Empleado: " + orden.getNombreOperador().concat(" ")
 		.concat(orden.getApellidoPatOperador().concat(" ").concat(orden.getApellidoMatOperador())) + "\n");
 		ticket.append("Tipo Neccesidad: "+ orden.getDescripcionTipoNecesidad() + "\n");
-		ticket.append("Falla: " + orden.getFallaMecanica());
-		//ticket.append("Trabajos Realizados: " + orden.getSeguimiento().getTrabajosRealizados() + "\n");
+		ticket.append("Falla: " + orden.getFallaMecanica() + "\n");
+		ticket.append("Trabajo realizado: " + orden.getSeguimiento().getTrabajosRealizados() + "\n");
+		ticket.append("Refacciones: \n");
+		for(SeguimientoOrdenPartesDTO refaccion : orden.getListaRefaccionesDTO()) {
+			ticket.append(refaccion.getCantidad() + " " + refaccion.getDescripcion() + " \n");
+		}
 		ticket.append("\n");
 		ticket.append("\n");
 		ticket.append("\n");
@@ -62,8 +67,8 @@ public class Reportes implements IReportes, Printable {
 		ticket.append("\n");
 		ticket.append("\n");
 		ticket.append("\n");
-		ticket.append("\n");
-		printString(IMPRESORA, ticket.toString());
+//		printString(IMPRESORA, ticket.toString());
+		System.out.println(ticket);
 	}
 
 	@Override

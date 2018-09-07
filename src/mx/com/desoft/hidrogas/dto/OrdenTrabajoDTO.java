@@ -1,6 +1,7 @@
 package mx.com.desoft.hidrogas.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class OrdenTrabajoDTO {
 
@@ -22,6 +23,7 @@ public class OrdenTrabajoDTO {
 	private EmpleadoDTO mecanico;
 	private SeguimientoOrdenDTO seguimiento;
 	private Integer total;
+	private List<SeguimientoOrdenPartesDTO> listaRefaccionesDTO;
 
 	public OrdenTrabajoDTO() {
 		super();
@@ -73,9 +75,9 @@ public class OrdenTrabajoDTO {
 	
 	
 
-	public OrdenTrabajoDTO(int folio, Integer economicoId, int nominaOperador, String nombreOperador,
-			String apellidoPatOperador, String apellidoMatOperador, Long tipoNecesidadId, String descripcionTipoNecesidad,
-			int kilometraje, String fallaMecanica, int estatusOrden, Date fechaRegistro, int seguimiento) {
+	public OrdenTrabajoDTO(int folio, Integer economicoId, int nominaOperador, String nombreOperador, String apellidoPatOperador, 
+			String apellidoMatOperador, Long tipoNecesidadId, String descripcionTipoNecesidad, int kilometraje, String fallaMecanica, 
+			int estatusOrden, Date fechaRegistro, SeguimientoOrdenDTO seguimiento, List<SeguimientoOrdenPartesDTO> listaRefaccionesDTO) {
 		this.folio = folio;
 		this.economicoId = economicoId;
 		this.nominaOperador = nominaOperador;
@@ -88,8 +90,8 @@ public class OrdenTrabajoDTO {
 		this.fallaMecanica = fallaMecanica;
 		this.estatusOrden = estatusOrden;
 		this.fechaRegistro = fechaRegistro;
-		this.nominaRegistro = seguimiento;
-	
+		this.seguimiento = seguimiento;
+		this.listaRefaccionesDTO = listaRefaccionesDTO;
 	}
 
 	public int getFolio() {
@@ -212,6 +214,15 @@ public class OrdenTrabajoDTO {
 
 	public void setTotal(Integer total) {
 		this.total = total;
+	}
+
+	public List<SeguimientoOrdenPartesDTO> getListaRefaccionesDTO() {
+		return listaRefaccionesDTO;
+	}
+
+	public void setListaRefaccionesDTO(
+			List<SeguimientoOrdenPartesDTO> listaRefaccionesDTO) {
+		this.listaRefaccionesDTO = listaRefaccionesDTO;
 	}
 
 }

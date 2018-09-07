@@ -8,7 +8,7 @@ public class SeguimientoOrdenPartesDTO {
 	private int folio;
 	private int cantidad;
 	private int idCatTipoRefaccion;
-//	private String descripcion;
+	private String descripcion;
 	private int tipoRefaccionId;
 	private Date fechaRegistro;
 	private int nominaRegistro;
@@ -27,6 +27,12 @@ public class SeguimientoOrdenPartesDTO {
 		this.tipoRefaccionId = tipoRefaccionId;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
+	}
+	
+	public SeguimientoOrdenPartesDTO(int cantidad, String descripcion) {
+		super();
+		this.cantidad = cantidad;
+		this.descripcion = descripcion;
 	}
 
 //	public SeguimientoOrdenPartesDTO(int folio, int cantidad, String marca, String descripcion, int tipoRefaccionId,
@@ -65,13 +71,13 @@ public class SeguimientoOrdenPartesDTO {
 		this.idCatTipoRefaccion = idCatTipoRefaccion;
 	}
 
-//	public String getDescripcion() {
-//		return descripcion;
-//	}
-//
-//	public void setDescripcion(String descripcion) {
-//		this.descripcion = descripcion;
-//	}
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
 	public int getTipoRefaccionId() {
 		return tipoRefaccionId;
