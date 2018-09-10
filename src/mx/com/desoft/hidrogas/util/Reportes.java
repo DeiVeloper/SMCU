@@ -67,8 +67,7 @@ public class Reportes implements IReportes, Printable {
 		ticket.append("\n");
 		ticket.append("\n");
 		ticket.append("\n");
-//		printString(IMPRESORA, ticket.toString());
-		System.out.println(ticket);
+		printString(IMPRESORA, ticket.toString());
 	}
 
 	@Override
