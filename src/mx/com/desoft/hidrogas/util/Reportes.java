@@ -54,8 +54,12 @@ public class Reportes implements IReportes, Printable {
 		ticket.append("Tipo Neccesidad: "+ orden.getDescripcionTipoNecesidad() + "\n");
 		ticket.append("Falla: " + orden.getFallaMecanica() + "\n");
 		ticket.append("Trabajo realizado: " + orden.getSeguimiento().getTrabajosRealizados() + "\n");
-		ticket.append("Refacciones: \n");
-		for(SeguimientoOrdenPartesDTO refaccion : orden.getListaRefaccionesDTO()) {
+		ticket.append("Refacciones utilizadas: \n");
+		for(SeguimientoOrdenPartesDTO refaccion : orden.getSeguimiento().getListaPartesUsadas()) {
+			ticket.append(refaccion.getCantidad() + " " + refaccion.getDescripcion() + " \n");
+		}
+		ticket.append("Refacciones solicitadas: \n");
+		for(SeguimientoOrdenPartesDTO refaccion : orden.getSeguimiento().getListaPartesSolicitadas()) {
 			ticket.append(refaccion.getCantidad() + " " + refaccion.getDescripcion() + " \n");
 		}
 		ticket.append("\n");
