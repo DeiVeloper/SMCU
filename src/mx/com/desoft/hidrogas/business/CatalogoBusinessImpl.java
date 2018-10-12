@@ -165,10 +165,15 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 	@Override
 	public OrdenTrabajoDTO getOrdenById(Integer folio) {
 		OrdenTrabajo orden = ordenTrabajoImplDAO.get(folio);
-		List<ListaRefacciones> listaRefacciones = seguimientoDAO.getListaRefaccionesByFolioTipo(folio, Constantes.N2);
-		List<SeguimientoOrdenPartesDTO> listaRefaccionesDTO = new ArrayList<SeguimientoOrdenPartesDTO>();
-		for(ListaRefacciones refaccion : listaRefacciones) {
-			listaRefaccionesDTO.add(new SeguimientoOrdenPartesDTO(refaccion.getCantidad(), refaccion.getCatTipoRefaccion().getDescripcion()));
+		List<ListaRefacciones> listaRefaccionesUtilizadas = seguimientoDAO.getListaRefaccionesByFolioTipo(folio, Constantes.N1);
+		List<ListaRefacciones> listaRefaccionesSolicitadas = seguimientoDAO.getListaRefaccionesByFolioTipo(folio, Constantes.N2);
+		List<SeguimientoOrdenPartesDTO> listaRefaccionesDTOUtilizadas = new ArrayList<SeguimientoOrdenPartesDTO>();
+		for(ListaRefacciones refaccion : listaRefaccionesUtilizadas) {
+			listaRefaccionesDTOUtilizadas.add(new SeguimientoOrdenPartesDTO(refaccion.getCantidad(), refaccion.getCatTipoRefaccion().getDescripcion()));
+		}
+		List<SeguimientoOrdenPartesDTO> listaRefaccionesDTOSolicitadas = new ArrayList<SeguimientoOrdenPartesDTO>();
+		for(ListaRefacciones refaccion : listaRefaccionesSolicitadas) {
+			listaRefaccionesDTOSolicitadas.add(new SeguimientoOrdenPartesDTO(refaccion.getCantidad(), refaccion.getCatTipoRefaccion().getDescripcion()));
 		}
 		if(orden == null){
 			return null;
@@ -185,8 +190,7 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 				orden.getFallaMecanica(),
 				orden.getCatEstatusOrden().getEstatusOrdenId(),
 				orden.getFechaRegistro(),
-				new SeguimientoOrdenDTO(orden.getSeguimientoOrden() != null ? orden.getSeguimientoOrden().getTrabajosRealizados() : ""),
-				listaRefaccionesDTO);
+				orden.getSeguimientoOrden() != null ? new SeguimientoOrdenDTO(orden.getSeguimientoOrden().getTrabajosRealizados(), listaRefaccionesDTOUtilizadas, listaRefaccionesDTOSolicitadas) : new SeguimientoOrdenDTO("", listaRefaccionesDTOUtilizadas, listaRefaccionesDTOSolicitadas));
 	}
 
 	@Override

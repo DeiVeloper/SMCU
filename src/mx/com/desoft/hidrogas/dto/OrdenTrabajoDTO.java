@@ -77,7 +77,7 @@ public class OrdenTrabajoDTO {
 
 	public OrdenTrabajoDTO(int folio, Integer economicoId, int nominaOperador, String nombreOperador, String apellidoPatOperador, 
 			String apellidoMatOperador, Long tipoNecesidadId, String descripcionTipoNecesidad, int kilometraje, String fallaMecanica, 
-			int estatusOrden, Date fechaRegistro, SeguimientoOrdenDTO seguimiento, List<SeguimientoOrdenPartesDTO> listaRefaccionesDTO) {
+			int estatusOrden, Date fechaRegistro, SeguimientoOrdenDTO seguimiento) {
 		this.folio = folio;
 		this.economicoId = economicoId;
 		this.nominaOperador = nominaOperador;
@@ -91,7 +91,7 @@ public class OrdenTrabajoDTO {
 		this.estatusOrden = estatusOrden;
 		this.fechaRegistro = fechaRegistro;
 		this.seguimiento = seguimiento;
-		this.listaRefaccionesDTO = listaRefaccionesDTO;
+//		this.listaRefaccionesDTO = listaRefaccionesDTO;
 	}
 
 	public int getFolio() {

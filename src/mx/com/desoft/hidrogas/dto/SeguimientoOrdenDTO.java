@@ -61,9 +61,11 @@ public class SeguimientoOrdenDTO {
 		this.nominaRegistro = nominaRegistro;
 	}
 	
-	public SeguimientoOrdenDTO(String trabajosRealizados) {
+	public SeguimientoOrdenDTO(String trabajosRealizados, List<SeguimientoOrdenPartesDTO> listaPartesUsadas, List<SeguimientoOrdenPartesDTO> listaPartesSolicitadas) {
 		super();
 		this.trabajosRealizados = trabajosRealizados;
+		this.listaPartesUsadas = listaPartesUsadas;
+		this.listaPartesSolicitadas = listaPartesSolicitadas;
 	}
 
 	public int getIdSeguimiento() {
