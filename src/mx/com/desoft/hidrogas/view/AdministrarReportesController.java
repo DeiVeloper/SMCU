@@ -186,7 +186,7 @@ public class AdministrarReportesController {
 				}
 			}else if(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.INCIDENCIAS) ||
 					comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.REPARACIONES)){
-				if(comboBoxEconomico.getSelectionModel().getSelectedItem() == Constantes.NULL) {
+				/*if(comboBoxEconomico.getSelectionModel().getSelectedItem() == Constantes.NULL) {
 					mensaje = "Favor de seleccionar un Econ"+Constantes.o+"mico.";
 					return false;
 				}
@@ -197,7 +197,7 @@ public class AdministrarReportesController {
 				if(datePickerFechaRegistroFin.getValue() == Constantes.NULL){
 					mensaje = "Favor de capturar una fecha fin.";
 					return false;
-				}
+				}*/
 			}
 
 		}	else	{
@@ -237,13 +237,24 @@ public class AdministrarReportesController {
 			}	else	{
 				ordenTrabajoDTO.setTipoNecesidadId(null);
 			}
-
-			ordenTrabajoDTO.setFechaInicio(DateUtil.getFechaDatePicker(datePickerFechaRegistroInicio));
-			ordenTrabajoDTO.setFechaFin(DateUtil.getFechaDatePicker(datePickerFechaRegistroFin));
+			if(datePickerFechaRegistroInicio.getValue() != Constantes.NULL && datePickerFechaRegistroFin.getValue() != Constantes.NULL) {
+				ordenTrabajoDTO.setFechaInicio(DateUtil.getFechaDatePicker(datePickerFechaRegistroInicio));
+				ordenTrabajoDTO.setFechaFin(DateUtil.getFechaDatePicker(datePickerFechaRegistroFin));
+				
+			} else {
+				ordenTrabajoDTO.setFechaInicio(null);
+				ordenTrabajoDTO.setFechaFin(null);
+			}
 
 		}else if(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.REPARACIONES)){
-			ordenTrabajoDTO.setFechaInicio(DateUtil.getFechaDatePicker(datePickerFechaRegistroInicio));
-			ordenTrabajoDTO.setFechaFin(DateUtil.getFechaDatePicker(datePickerFechaRegistroFin));
+			if(datePickerFechaRegistroInicio.getValue() != Constantes.NULL && datePickerFechaRegistroFin.getValue() != Constantes.NULL) {
+				ordenTrabajoDTO.setFechaInicio(DateUtil.getFechaDatePicker(datePickerFechaRegistroInicio));
+				ordenTrabajoDTO.setFechaFin(DateUtil.getFechaDatePicker(datePickerFechaRegistroFin));
+				
+			} else {
+				ordenTrabajoDTO.setFechaInicio(null);
+				ordenTrabajoDTO.setFechaFin(null);
+			}
 		}
 	}
 

@@ -79,35 +79,59 @@ public class Reportes implements IReportes, Printable {
 		OrdenTrabajoDTO[] miarray = new OrdenTrabajoDTO[lista.size()];
         miarray = lista.toArray(miarray);
 		HSSFWorkbook workbook = new HSSFWorkbook();
-		HSSFSheet    sheet    = workbook.createSheet("Incidencias");
-
-		String[] headers = new String[]{"Folio",
-				"Mecanico", "Economico", "Operador", "Falla Mecanica",
-					"Fecha Registro", "Kilometraje", "Tipo Necesidad", "Observaciones", "Trabajos Realizados"};
-		HSSFRow headerRow = sheet.createRow(0);
-		for (int i = 0; i < headers.length; ++i) {
-			String header = headers[i];
-			HSSFCell cell = headerRow.createCell(i);
-			cell.setCellValue(header);
-        }
-
+		HSSFSheet    sheet = null;
+		boolean primera = true;
 		for (int i = 0; i < miarray.length; i++) {
-			OrdenTrabajoDTO registro =  miarray[i];
-			HSSFRow row = sheet.createRow(i + 1);
-			row.createCell(0).setCellValue(registro.getFolio());
-			row.createCell(1).setCellValue(registro.getMecanico().getNombreEmpleado());
-			row.createCell(2).setCellValue(registro.getEconomicoId());
-			row.createCell(3).setCellValue(registro.getNombreOperador().concat(" ")
-					.concat(registro.getApellidoPatOperador()).concat(" ").concat(registro.getApellidoMatOperador()));
-			row.createCell(4).setCellValue(registro.getFallaMecanica());
-			row.createCell(5).setCellValue(DateUtil.convertirFechaToString(registro.getFechaRegistro()));
-			row.createCell(6).setCellValue(registro.getKilometraje());
-			row.createCell(7).setCellValue(registro.getDescripcionTipoNecesidad());
-			row.createCell(8).setCellValue(registro.getSeguimiento().getObservaciones());
-			row.createCell(9).setCellValue(registro.getSeguimiento().getTrabajosRealizados());
+			if(sheet == null && primera) {
+				sheet = workbook.createSheet(String.valueOf(miarray[i].getEconomicoId()));
+				primera = false;
+						
+			}else {
+				if(miarray[i-1].getEconomicoId() == miarray[i].getEconomicoId()) {
+					break;
+				} else {
+					sheet = workbook.createSheet(String.valueOf(miarray[i].getEconomicoId()));
+					
+				}
+			}
+	
+			String[] headers = new String[]{"Folio",
+					"Mecanico", "Economico", "Operador", "Falla Mecanica",
+						"Fecha Registro", "Kilometraje", "Tipo Necesidad", "Observaciones", "Trabajos Realizados"};
+			HSSFRow headerRow = sheet.createRow(0);
+			for (int x = 0; x < headers.length; ++x) {
+				String header = headers[x];
+				HSSFCell cell = headerRow.createCell(x);
+				cell.setCellValue(header);
+	        }
+	
+			int contador = 1;
+			for (int y = 0; y < miarray.length; y++) {
+				OrdenTrabajoDTO registro =  miarray[y];
+				if(miarray[i].getEconomicoId() == registro.getEconomicoId()) {
+					
+					HSSFRow row = sheet.createRow(contador);
+					
+					row.createCell(0).setCellValue(registro.getFolio());
+					row.createCell(1).setCellValue(registro.getMecanico().getNombreEmpleado());
+					row.createCell(2).setCellValue(registro.getEconomicoId());
+					row.createCell(3).setCellValue(registro.getNombreOperador().concat(" ")
+							.concat(registro.getApellidoPatOperador()).concat(" ").concat(registro.getApellidoMatOperador()));
+					row.createCell(4).setCellValue(registro.getFallaMecanica());
+					row.createCell(5).setCellValue(DateUtil.convertirFechaToString(registro.getFechaRegistro()));
+					row.createCell(6).setCellValue(registro.getKilometraje());
+					row.createCell(7).setCellValue(registro.getDescripcionTipoNecesidad());
+					row.createCell(8).setCellValue(registro.getSeguimiento().getObservaciones());
+					row.createCell(9).setCellValue(registro.getSeguimiento().getTrabajosRealizados());
+					contador++;
+				}
+			}
+		
+		for (int z = 0; z < headers.length; sheet.autoSizeColumn(z++));
 		}
+		 
 
-		OutputStream out = new FileOutputStream("C:/Reportes/IncidenciasDel"+DateUtil.convertirFechaToString(new Date())+".xls");
+		OutputStream out = new FileOutputStream("C:/Reportes/IncidenciasDel"+DateUtil.convertirFechaHoraToString(new Date())+".xls");
 		workbook.write(out);
 		workbook.close();
 		out.flush();
@@ -136,8 +160,10 @@ public class Reportes implements IReportes, Printable {
 			row.createCell(1).setCellValue(registro.getDescripcionTipoNecesidad());
 			row.createCell(2).setCellValue(registro.getTotal());
 		}
+		
+		for (int i = 0; i < headers.length; sheet.autoSizeColumn(i++));
 
-		OutputStream out = new FileOutputStream("C:/Reportes/Reparaciones.xls");
+		OutputStream out = new FileOutputStream("C:/Reportes/Reparaciones"+DateUtil.convertirFechaHoraToString(new Date())+".xls");
 		workbook.write(out);
 		workbook.close();
 		out.flush();

@@ -51,7 +51,6 @@ public class OrdenTrabajoImplDAO extends HibernateImplDAO<OrdenTrabajo, Integer>
 	@Override
 	public List<OrdenTrabajo> getIncidenciasOrden(OrdenTrabajoDTO ordenTrabajoDTO) {
 		Criteria criteria = HibernateUtil.openSession().createCriteria(OrdenTrabajo.class);
-		criteria.add(Restrictions.between("fechaRegistro", ordenTrabajoDTO.getFechaInicio(), ordenTrabajoDTO.getFechaFin()));
 		if	(ordenTrabajoDTO.getTipoNecesidadId() != Constantes.NULL)	{
 			criteria.createAlias("catTipoNecesidad", "catTipoNecesidad");
 			criteria.add(Restrictions.eq("catTipoNecesidad.tipoNecesidadId", ordenTrabajoDTO.getTipoNecesidadId()));
@@ -69,6 +68,10 @@ public class OrdenTrabajoImplDAO extends HibernateImplDAO<OrdenTrabajo, Integer>
 		if	(ordenTrabajoDTO.getEconomicoId() != Constantes.CERO)	{
 			criteria.createAlias("economico", "economico");
 			criteria.add(Restrictions.eq("economico.economicoId", ordenTrabajoDTO.getEconomicoId()));
+		}
+		if (ordenTrabajoDTO.getFechaInicio() != Constantes.NULL && ordenTrabajoDTO.getFechaFin() != Constantes.NULL) {
+			criteria.add(Restrictions.between("fechaRegistro", ordenTrabajoDTO.getFechaInicio(), ordenTrabajoDTO.getFechaFin()));
+			
 		}
 		criteria.addOrder(Order.asc("folio"));
 

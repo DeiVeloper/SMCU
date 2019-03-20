@@ -122,6 +122,11 @@ public class DateUtil {
 	   return formatter.format(fecha);
     }
     
+    public static String convertirFechaHoraToString(Date fecha){
+    	Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+	   return formatter.format(fecha);
+    }
+    
     public static Date getFechaDatePicker(DatePicker fecha){
     	return java.sql.Date.valueOf(fecha.getValue());
     }
