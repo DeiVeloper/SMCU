@@ -1,5 +1,6 @@
 package mx.com.desoft.hidrogas.view;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -79,6 +80,7 @@ public class AdministrarReportesController {
 	@FXML
 	private void imprimirReporte() {
 		if (validarCamposView()) {
+			validarRuta();
 			try {
 				switch (comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion()) {
 					case Constantes.ORDEN:
@@ -299,5 +301,12 @@ public class AdministrarReportesController {
 		datePickerFechaRegistroInicio.setDisable(false);
 		datePickerFechaRegistroFin.setDisable(false);
 
+	}
+
+	private void validarRuta (){
+		File directorio = new File(Constantes.PATH);
+		if (!directorio.exists()) {
+			directorio.mkdir();
+		}
 	}
 }

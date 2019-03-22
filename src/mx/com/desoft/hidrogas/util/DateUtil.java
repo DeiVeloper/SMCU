@@ -123,7 +123,7 @@ public class DateUtil {
     }
     
     public static String convertirFechaHoraToString(Date fecha){
-    	Format formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    	Format formatter = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
 	   return formatter.format(fecha);
     }
     

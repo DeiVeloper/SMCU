@@ -4,10 +4,7 @@ import java.awt.Graphics;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +33,7 @@ public class Reportes implements IReportes, Printable {
 
 	private static final Logger log = Logger.getLogger(Reportes.class);
 	private final String IMPRESORA = "EPSON TM-U220 Receipt";
+
 
 	@Override
 	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden) throws UnsupportedEncodingException, PrintException, NullPointerException{
@@ -131,7 +129,7 @@ public class Reportes implements IReportes, Printable {
 		}
 		 
 
-		OutputStream out = new FileOutputStream("C:/Reportes/IncidenciasDel"+DateUtil.convertirFechaHoraToString(new Date())+".xls");
+		OutputStream out = new FileOutputStream(Constantes.PATH+"IncidenciasDel"+DateUtil.convertirFechaHoraToString(new Date())+".xls");
 		workbook.write(out);
 		workbook.close();
 		out.flush();
@@ -163,7 +161,7 @@ public class Reportes implements IReportes, Printable {
 		
 		for (int i = 0; i < headers.length; sheet.autoSizeColumn(i++));
 
-		OutputStream out = new FileOutputStream("C:/Reportes/Reparaciones"+DateUtil.convertirFechaHoraToString(new Date())+".xls");
+		OutputStream out = new FileOutputStream(Constantes.PATH+"Reparaciones"+DateUtil.convertirFechaHoraToString(new Date())+".xls");
 		workbook.write(out);
 		workbook.close();
 		out.flush();
@@ -197,6 +195,7 @@ public class Reportes implements IReportes, Printable {
 		}
 		return null;
 	}
+
 
 //	public List<String> getPrinters(){
 //
