@@ -61,10 +61,10 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 
 	@Autowired
 	private EmpleadosDAO empleadoImplDAO;
-	
+
 	@Autowired
 	private ISeguimientoOrdenDAO seguimientoDAO;
-	
+
 	@Override
 	public List<CatTipoEmpleadoDTO> findAllTipoEmpleados() {
 		List<CatTipoEmpleadoDTO> listCatTipoEmpleado = new ArrayList<>();
@@ -198,20 +198,37 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 		List<OrdenTrabajoDTO> listaDTO = new ArrayList<>();
 		List<OrdenTrabajo> listaOrden = ordenTrabajoImplDAO.getIncidenciasOrden(ordenTrabajoDTO);
 		for (OrdenTrabajo lista : listaOrden) {
-			OrdenTrabajoDTO dto = new OrdenTrabajoDTO(lista.getFolio(),
-					lista.getEconomico().getEconomicoId(),
-					lista.getNominaOperador(),
-					lista.getNombreOperador(),
-					lista.getApellidoPatOperador(),
-					lista.getApellidoMatOperador(),
-					lista.getCatTipoNecesidad().getDescripcion(),
-					lista.getKilometraje(),
-					lista.getFallaMecanica(),
-					lista.getCatEstatusOrden().getEstatusOrdenId(),
-					lista.getFechaRegistro(),
-					new EmpleadoDTO(lista.getEmpleado2().getNominaEmpleado(),lista.getEmpleado2().getNombreEmpleado().concat(" ").concat(lista.getApellidoPatOperador()).concat(" ").concat(lista.getApellidoMatOperador()),0,
-							lista.getEmpleado2().getCatTipoEmpleado().getTipoEmpleadoId()),
-					new SeguimientoOrdenDTO(lista.getSeguimientoOrden().getId_seguimiento(), lista.getSeguimientoOrden().getOrdenTrabajo().getFolio(), lista.getSeguimientoOrden().getTrabajosRealizados(), lista.getSeguimientoOrden().getObservaciones(), lista.getSeguimientoOrden().getReparacionMayor(), lista.getSeguimientoOrden().getFechaReparaMayor(), lista.getSeguimientoOrden().getFechaRegistro(), lista.getSeguimientoOrden().getNominaRegistro()));
+			OrdenTrabajoDTO dto = null;
+			if(lista.getSeguimientoOrden() == null) {
+				dto = new OrdenTrabajoDTO(lista.getFolio(),
+						lista.getEconomico().getEconomicoId(),
+						lista.getNominaOperador(),
+						lista.getNombreOperador(),
+						lista.getApellidoPatOperador(),
+						lista.getApellidoMatOperador(),
+						lista.getCatTipoNecesidad().getDescripcion(),
+						lista.getKilometraje(),
+						lista.getFallaMecanica(),
+						lista.getCatEstatusOrden().getEstatusOrdenId(),
+						lista.getFechaRegistro(),
+						new EmpleadoDTO(lista.getEmpleado2().getNominaEmpleado(),lista.getEmpleado2().getNombreEmpleado().concat(" ").concat(lista.getApellidoPatOperador()).concat(" ").concat(lista.getApellidoMatOperador()),0,
+								lista.getEmpleado2().getCatTipoEmpleado().getTipoEmpleadoId()), null);
+			} else {
+				dto = new OrdenTrabajoDTO(lista.getFolio(),
+						lista.getEconomico().getEconomicoId(),
+						lista.getNominaOperador(),
+						lista.getNombreOperador(),
+						lista.getApellidoPatOperador(),
+						lista.getApellidoMatOperador(),
+						lista.getCatTipoNecesidad().getDescripcion(),
+						lista.getKilometraje(),
+						lista.getFallaMecanica(),
+						lista.getCatEstatusOrden().getEstatusOrdenId(),
+						lista.getFechaRegistro(),
+						new EmpleadoDTO(lista.getEmpleado2().getNominaEmpleado(),lista.getEmpleado2().getNombreEmpleado().concat(" ").concat(lista.getApellidoPatOperador()).concat(" ").concat(lista.getApellidoMatOperador()),0,
+								lista.getEmpleado2().getCatTipoEmpleado().getTipoEmpleadoId()),
+						new SeguimientoOrdenDTO(lista.getSeguimientoOrden().getId_seguimiento(), lista.getSeguimientoOrden().getOrdenTrabajo().getFolio(), lista.getSeguimientoOrden().getTrabajosRealizados(), lista.getSeguimientoOrden().getObservaciones(), lista.getSeguimientoOrden().getReparacionMayor(), lista.getSeguimientoOrden().getFechaReparaMayor(), lista.getSeguimientoOrden().getFechaRegistro(), lista.getSeguimientoOrden().getNominaRegistro()));
+			}
 			listaDTO.add(dto);
 		}
 		return  listaDTO;
