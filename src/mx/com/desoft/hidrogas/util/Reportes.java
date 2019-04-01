@@ -86,7 +86,7 @@ public class Reportes implements IReportes, Printable {
 
 			}else {
 				if(miarray[i-1].getEconomicoId() == miarray[i].getEconomicoId()) {
-					break;
+					continue;
 				} else {
 					sheet = workbook.createSheet(String.valueOf(miarray[i].getEconomicoId()));
 
