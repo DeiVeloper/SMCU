@@ -73,7 +73,9 @@ public class OrdenTrabajoImplDAO extends HibernateImplDAO<OrdenTrabajo, Integer>
 			criteria.add(Restrictions.between("fechaRegistro", ordenTrabajoDTO.getFechaInicio(), ordenTrabajoDTO.getFechaFin()));
 			
 		}
+		criteria.addOrder(Order.asc("economico.economicoId"));
 		criteria.addOrder(Order.asc("folio"));
+		
 
 		return criteria.list() != null ? (List<OrdenTrabajo>)criteria.list() : null;
 	}
