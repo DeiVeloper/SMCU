@@ -123,15 +123,17 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 				listaRefaccionesDAO.delete(refaccion.getId_refaccion());
 			}
 			SeguimientoOrden seguimiento = seguimientoDAO.getSeguimientoByFolio(folioOrden);
-			List<SeguimientosEmpleado> listaEmpleados = seguimientoEmpleadosDAO.getListaEmpleadosBySeguimiento(seguimiento.getId_seguimiento());
-			for(SeguimientosEmpleado seguimientoEmpleado : listaEmpleados) {
-				seguimientoEmpleadosDAO.delete(seguimientoEmpleado.getId());
+			if(seguimiento != null) {
+				List<SeguimientosEmpleado> listaEmpleados = seguimientoEmpleadosDAO.getListaEmpleadosBySeguimiento(seguimiento.getId_seguimiento());
+				for(SeguimientosEmpleado seguimientoEmpleado : listaEmpleados) {
+					seguimientoEmpleadosDAO.delete(seguimientoEmpleado.getId());
+				}
+				seguimientoDAO.delete(seguimiento.getId_seguimiento());
 			}
-			seguimientoDAO.delete(seguimiento.getId_seguimiento());
 			agregarEditarOrdenImplDAO.delete(folioOrden);
 		} catch (Exception e) {
 			isEliminado = false;
-			log.error("Error: No se pudo eliminar la orden.");
+			log.error("Error: No se pudo eliminar la orden.", e);
 		}
 		return isEliminado;
 	}

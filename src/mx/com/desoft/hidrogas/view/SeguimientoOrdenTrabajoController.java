@@ -29,6 +29,7 @@ import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
 import mx.com.desoft.hidrogas.business.ISeguimientoOrdenBusiness;
 import mx.com.desoft.hidrogas.business.SeguimientoOrdenBusinessImpl;
 import mx.com.desoft.hidrogas.buttons.ButtonCell;
+import mx.com.desoft.hidrogas.buttons.ButtonUsarPzaSolicitada;
 import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenDTO;
@@ -63,9 +64,8 @@ public class SeguimientoOrdenTrabajoController {
     private TableColumn<SeguimientoOrdenPartesProperty, String> tipoRefaccionUsadaColumn;
 	@FXML
     private TableColumn<SeguimientoOrdenPartesProperty, String> cantidadUsadaColumn;
-//    @FXML
-//    private TableColumn<SeguimientoOrdenPartesProperty, String> descripcionUsadaColumn;
-    @FXML
+
+	@FXML
     private TableColumn<SeguimientoOrdenPartesProperty, Boolean> eliminarUsadaColumn;
 
     @FXML
@@ -80,10 +80,12 @@ public class SeguimientoOrdenTrabajoController {
     private TableColumn<SeguimientoOrdenPartesProperty, String> tipoRefaccionSolicitadaColumn;
     @FXML
     private TableColumn<SeguimientoOrdenPartesProperty, String> cantidadSolicitadaColumn;
-//    @FXML
-//    private TableColumn<SeguimientoOrdenPartesProperty, String> descripcionSolicitadaColumn;
+
     @FXML
     private TableColumn<SeguimientoOrdenPartesProperty, Boolean> eliminarSolicitadaColumn;
+    
+    @FXML
+    private TableColumn<SeguimientoOrdenPartesProperty, Boolean> utilizarSolicitadaColumn;
 
     @FXML
 	private TextField cantidadPS;
@@ -164,7 +166,7 @@ public class SeguimientoOrdenTrabajoController {
 	public void agregarPartesUsadas() {
 		if(this.validarAgregarPartes((byte)Constantes.N1)) {
 			dtoTablaPartesUsadas.add(new SeguimientoOrdenPartesProperty(Constantes.CERO, new SimpleStringProperty(cantidadPU.getText()), tipoRefaccionUsada.getSelectionModel().getSelectedItem().getTipoRefaccionId(),
-					new SimpleStringProperty(tipoRefaccionUsada.getSelectionModel().getSelectedItem().getDescripcion())));
+					new SimpleStringProperty(tipoRefaccionUsada.getSelectionModel().getSelectedItem().getDescripcion()), Constantes.N1));
 			this.cargarInformacionRefacciones(Constantes.N1);
 			this.limpiaDatosDeRefaccion(Constantes.N1);
 		}
@@ -174,7 +176,7 @@ public class SeguimientoOrdenTrabajoController {
 	public void agregarPartesSolicitadas() {
 		if(this.validarAgregarPartes((byte)Constantes.N2)) {
 			dtoTablaPartesSolicitadas.add(new SeguimientoOrdenPartesProperty(Constantes.CERO, new SimpleStringProperty(cantidadPS.getText()), tipoRefaccionSolicitada.getSelectionModel().getSelectedItem().getTipoRefaccionId(),
-					new SimpleStringProperty(tipoRefaccionSolicitada.getSelectionModel().getSelectedItem().getDescripcion())));
+					new SimpleStringProperty(tipoRefaccionSolicitada.getSelectionModel().getSelectedItem().getDescripcion()), Constantes.N2));
 			this.cargarInformacionRefacciones(Constantes.N2);
 			this.limpiaDatosDeRefaccion(Constantes.N2);
 		}
@@ -234,7 +236,6 @@ public class SeguimientoOrdenTrabajoController {
 			tablaPartesUsadas.setItems(getDataPartesUsadas());
 			tipoRefaccionUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcionTipoRefaccion());
 	    	cantidadUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getCantidad());
-//	    	descripcionUsadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
 	    	eliminarUsadaColumn.setSortable(false);
 	    	eliminarUsadaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean>, ObservableValue<Boolean>>() {
 	    		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean> features) {
@@ -252,8 +253,8 @@ public class SeguimientoOrdenTrabajoController {
 			tablaPartesSolicitadas.setItems(getDataPartesSolicitadas());
 			tipoRefaccionSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcionTipoRefaccion());
 	    	cantidadSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getCantidad());
-//	    	descripcionSolicitadaColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
 	    	eliminarSolicitadaColumn.setSortable(false);
+	    	utilizarSolicitadaColumn.setSortable(false);
 
 	    	eliminarSolicitadaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean>, ObservableValue<Boolean>>() {
 	    		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean> features) {
@@ -261,8 +262,18 @@ public class SeguimientoOrdenTrabajoController {
 	    		}
     	    });
 	    	eliminarSolicitadaColumn.setCellFactory(new Callback<TableColumn<SeguimientoOrdenPartesProperty, Boolean>, TableCell<SeguimientoOrdenPartesProperty, Boolean>>() {
-	    		@Override public TableCell<SeguimientoOrdenPartesProperty, Boolean> call(TableColumn<SeguimientoOrdenPartesProperty, Boolean> personBooleanTableColumn) {
+	    		@Override public TableCell<SeguimientoOrdenPartesProperty, Boolean> call(TableColumn<SeguimientoOrdenPartesProperty, Boolean> valores) {
 	    			return new ButtonCell(dataPartesSolicitadas, dtoTablaPartesSolicitadas);
+	    		}
+    	    });
+	    	utilizarSolicitadaColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean>, ObservableValue<Boolean>>() {
+	    		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<SeguimientoOrdenPartesProperty, Boolean> features) {
+	    			return new SimpleBooleanProperty(features.getValue() != null);
+	    		}
+    	    });
+	    	utilizarSolicitadaColumn.setCellFactory(new Callback<TableColumn<SeguimientoOrdenPartesProperty, Boolean>, TableCell<SeguimientoOrdenPartesProperty, Boolean>>() {
+	    		@Override public TableCell<SeguimientoOrdenPartesProperty, Boolean> call(TableColumn<SeguimientoOrdenPartesProperty, Boolean> valores) {
+	    			return new ButtonUsarPzaSolicitada(dataPartesSolicitadas, dtoTablaPartesSolicitadas, dataPartesUsadas, dtoTablaPartesUsadas);
 	    		}
     	    });
 		}
@@ -324,6 +335,10 @@ public class SeguimientoOrdenTrabajoController {
 		for(SeguimientoOrdenPartesProperty parteUsada : dtoTablaPartesUsadas) {
 			if(parteUsada.getIdRefaccion() == Constantes.CERO) {
 				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getIdTipoRefaccion(),
+						Constantes.N1, new Date(), Authenticator.usuarioSesion.getNominaEmpleado()));
+			}
+			if(parteUsada.getIdRefaccion() != Constantes.CERO && parteUsada.getIdTipoListaRefaccion() == Constantes.N2) {
+				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(parteUsada.getIdRefaccion(), ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getIdTipoRefaccion(),
 						Constantes.N1, new Date(), Authenticator.usuarioSesion.getNominaEmpleado()));
 			}
 		}

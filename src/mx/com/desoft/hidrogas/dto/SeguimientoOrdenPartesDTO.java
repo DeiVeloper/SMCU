@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class SeguimientoOrdenPartesDTO {
 
+	private int idRefaccion;
 	private int folio;
 	private int cantidad;
 	private int idCatTipoRefaccion;
@@ -23,7 +24,6 @@ public class SeguimientoOrdenPartesDTO {
 		this.folio = folio;
 		this.cantidad = cantidad;
 		this.idCatTipoRefaccion = idCatTipoRefaccion;
-//		this.descripcion = descripcion;
 		this.tipoRefaccionId = tipoRefaccionId;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
@@ -35,17 +35,17 @@ public class SeguimientoOrdenPartesDTO {
 		this.descripcion = descripcion;
 	}
 
-//	public SeguimientoOrdenPartesDTO(int folio, int cantidad, String marca, String descripcion, int tipoRefaccionId,
-//			Date fechaRegistro, int nominaRegistro) {
-//		super();
-//		this.folio = folio;
-//		this.cantidad = cantidad;
-//		this.marca = marca;
-//		this.descripcion = descripcion;
-//		this.tipoRefaccionId = tipoRefaccionId;
-//		this.fechaRegistro = fechaRegistro;
-//		this.nominaRegistro = nominaRegistro;
-//	}
+	public SeguimientoOrdenPartesDTO(int idRefaccion, int folio, int cantidad, int idCatTipoRefaccion, //String descripcion,
+			int tipoRefaccionId, Date fechaRegistro, int nominaRegistro) {
+		super();
+		this.idRefaccion = idRefaccion;
+		this.folio = folio;
+		this.cantidad = cantidad;
+		this.idCatTipoRefaccion = idCatTipoRefaccion;
+		this.tipoRefaccionId = tipoRefaccionId;
+		this.fechaRegistro = fechaRegistro;
+		this.nominaRegistro = nominaRegistro;
+	}
 
 	public int getFolio() {
 		return folio;
@@ -103,6 +103,12 @@ public class SeguimientoOrdenPartesDTO {
 		this.nominaRegistro = nominaRegistro;
 	}
 
+	public int getIdRefaccion() {
+		return idRefaccion;
+	}
 
+	public void setIdRefaccion(int idRefaccion) {
+		this.idRefaccion = idRefaccion;
+	}
 
 }

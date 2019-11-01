@@ -43,7 +43,7 @@ public class OrdenTrabajoImplDAO extends HibernateImplDAO<OrdenTrabajo, Integer>
 			criteria.createAlias("economico", "economico");
 			criteria.add(Restrictions.eq("economico.economicoId", ordenTrabajoDTO.getEconomicoId()));
 		}
-
+		criteria.addOrder(Order.asc("folio"));
 		return (List<OrdenTrabajo>)criteria.list();
 	}
 
