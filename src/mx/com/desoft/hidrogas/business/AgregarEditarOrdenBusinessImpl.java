@@ -85,7 +85,20 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 		final Economico economico = economicoImplDAO.get(ordenTrabajoTO.getEconomicoId());
 		final CatEstatusOrden estatus = catEstatusImplDAO.get(Constantes.N1);
 		final CatTipoNecesidad necesidad = catTipoNecesidadImplDAO.get(ordenTrabajoTO.getTipoNecesidadId());
-		final OrdenTrabajo ordenTrabajo = new OrdenTrabajo(ordenTrabajoTO.getApellidoMatOperador(), ordenTrabajoTO.getApellidoPatOperador(), ordenTrabajoTO.getFallaMecanica(), new Date(), ordenTrabajoTO.getKilometraje(), ordenTrabajoTO.getNombreOperador(), economico, estatus, ordenTrabajoTO.getNominaOperador(), empleadoRegistro, necesidad);
+		final OrdenTrabajo ordenTrabajo = new OrdenTrabajo(
+				ordenTrabajoTO.getNominaOperador(), 
+				ordenTrabajoTO.getNombreOperador(), 
+				ordenTrabajoTO.getApellidoPatOperador(), 
+				ordenTrabajoTO.getApellidoMatOperador(), 
+				ordenTrabajoTO.getFallaMecanica(), 
+				ordenTrabajoTO.getKilometraje(), 
+				new Date(),
+				new Date(),
+				new Date(),
+				empleadoRegistro, 
+				economico, 
+				estatus, 
+				necesidad);
 		return ordenTrabajo;
 	}
 

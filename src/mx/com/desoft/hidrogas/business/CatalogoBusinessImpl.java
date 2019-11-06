@@ -190,7 +190,12 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 				orden.getFallaMecanica(),
 				orden.getCatEstatusOrden().getEstatusOrdenId(),
 				orden.getFechaRegistro(),
-				orden.getSeguimientoOrden() != null ? new SeguimientoOrdenDTO(orden.getSeguimientoOrden().getTrabajosRealizados(), listaRefaccionesDTOUtilizadas, listaRefaccionesDTOSolicitadas) : new SeguimientoOrdenDTO("", listaRefaccionesDTOUtilizadas, listaRefaccionesDTOSolicitadas));
+				orden.getSeguimientoOrden() != null ? 
+						new SeguimientoOrdenDTO(orden.getSeguimientoOrden().getTrabajosRealizados(), 
+								listaRefaccionesDTOUtilizadas, 
+								listaRefaccionesDTOSolicitadas)
+		: new SeguimientoOrdenDTO("", listaRefaccionesDTOUtilizadas, listaRefaccionesDTOSolicitadas),
+		orden.getFechaOrden(),orden.getFechaTerminacion());
 	}
 
 	@Override
@@ -211,7 +216,7 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 						lista.getFallaMecanica(),
 						lista.getCatEstatusOrden().getEstatusOrdenId(),
 						lista.getFechaRegistro(),
-						new EmpleadoDTO(lista.getEmpleado2().getNominaEmpleado(),lista.getEmpleado2().getNombreEmpleado().concat(" ").concat(lista.getApellidoPatOperador()).concat(" ").concat(lista.getApellidoMatOperador()),0,
+						new EmpleadoDTO(lista.getEmpleado2().getNominaEmpleado(),lista.getEmpleado2().getNombreEmpleado().concat(" ").concat(lista.getEmpleado2().getApellidoPatEmpleado()).concat(" ").concat(lista.getEmpleado2().getApellidoMatEmpleado()),0,
 								lista.getEmpleado2().getCatTipoEmpleado().getTipoEmpleadoId()), null);
 			} else {
 				dto = new OrdenTrabajoDTO(lista.getFolio(),
@@ -225,7 +230,7 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 						lista.getFallaMecanica(),
 						lista.getCatEstatusOrden().getEstatusOrdenId(),
 						lista.getFechaRegistro(),
-						new EmpleadoDTO(lista.getEmpleado2().getNominaEmpleado(),lista.getEmpleado2().getNombreEmpleado().concat(" ").concat(lista.getApellidoPatOperador()).concat(" ").concat(lista.getApellidoMatOperador()),0,
+						new EmpleadoDTO(lista.getEmpleado2().getNominaEmpleado(),lista.getEmpleado2().getNombreEmpleado().concat(" ").concat(lista.getEmpleado2().getApellidoPatEmpleado()).concat(" ").concat(lista.getEmpleado2().getApellidoMatEmpleado()),0,
 								lista.getEmpleado2().getCatTipoEmpleado().getTipoEmpleadoId()),
 						new SeguimientoOrdenDTO(lista.getSeguimientoOrden().getId_seguimiento(), lista.getSeguimientoOrden().getOrdenTrabajo().getFolio(), lista.getSeguimientoOrden().getTrabajosRealizados(), lista.getSeguimientoOrden().getObservaciones(), lista.getSeguimientoOrden().getReparacionMayor(), lista.getSeguimientoOrden().getFechaReparaMayor(), lista.getSeguimientoOrden().getFechaRegistro(), lista.getSeguimientoOrden().getNominaRegistro()));
 			}

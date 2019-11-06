@@ -45,7 +45,9 @@ public class Reportes implements IReportes, Printable {
 		ticket.append("\n");
 		ticket.append("Fecha de Impresi"+Constantes.o+"n: " + DateUtil.getStringFromDate(new Date())+ "\n");
 		ticket.append("Folio Orden: " + orden.getFolio() + "\n");
-		ticket.append("Fecha Orden: " + DateUtil.getStringFromDate(orden.getFechaRegistro()) + "\n");
+		ticket.append("Fecha Registro: " + DateUtil.getStringFromDate(orden.getFechaRegistro()) + "\n");
+		ticket.append("Fecha Orden: " + DateUtil.getStringFromDate(orden.getFechaOrden()) + "\n");
+		ticket.append("Fecha Teminacion: " + DateUtil.getStringFromDate(orden.getFechaTerminacion()) + "\n");
 		ticket.append("Econ"+Constantes.o+"mico: " + orden.getEconomicoId() + "\n");
 		ticket.append("Empleado: " + orden.getNombreOperador().concat(" ")
 		.concat(orden.getApellidoPatOperador().concat(" ").concat(orden.getApellidoMatOperador())) + "\n");
@@ -95,7 +97,7 @@ public class Reportes implements IReportes, Printable {
 
 			String[] headers = new String[]{"Folio",
 					"Mecanico", "Economico", "Operador", "Falla Mecanica",
-						"Fecha Registro", "Kilometraje", "Tipo Necesidad", "Observaciones", "Trabajos Realizados"};
+						"Fecha Registro","Fecha Orden","Fecha Terminacion", "Kilometraje", "Tipo Necesidad", "Observaciones", "Trabajos Realizados"};
 			HSSFRow headerRow = sheet.createRow(0);
 			for (int x = 0; x < headers.length; ++x) {
 				String header = headers[x];
@@ -117,14 +119,16 @@ public class Reportes implements IReportes, Printable {
 							.concat(registro.getApellidoPatOperador()).concat(" ").concat(registro.getApellidoMatOperador()));
 					row.createCell(4).setCellValue(registro.getFallaMecanica());
 					row.createCell(5).setCellValue(DateUtil.convertirFechaToString(registro.getFechaRegistro()));
-					row.createCell(6).setCellValue(registro.getKilometraje());
-					row.createCell(7).setCellValue(registro.getDescripcionTipoNecesidad());
+					row.createCell(6).setCellValue(DateUtil.convertirFechaToString(registro.getFechaOrden()));
+					row.createCell(7).setCellValue(DateUtil.convertirFechaToString(registro.getFechaTerminacion()));
+					row.createCell(8).setCellValue(registro.getKilometraje());
+					row.createCell(9).setCellValue(registro.getDescripcionTipoNecesidad());
 					if(registro.getSeguimiento() == null) {
-						row.createCell(8).setCellValue("Sin seguimiento");
-						row.createCell(9).setCellValue("Sin seguimiento");
+						row.createCell(10).setCellValue("Sin seguimiento");
+						row.createCell(11).setCellValue("Sin seguimiento");
 					} else {
-						row.createCell(8).setCellValue(registro.getSeguimiento().getObservaciones());
-						row.createCell(9).setCellValue(registro.getSeguimiento().getTrabajosRealizados());
+						row.createCell(10).setCellValue(registro.getSeguimiento().getObservaciones());
+						row.createCell(11).setCellValue(registro.getSeguimiento().getTrabajosRealizados());
 					}
 					contador++;
 				}

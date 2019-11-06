@@ -24,6 +24,8 @@ public class OrdenTrabajoDTO {
 	private SeguimientoOrdenDTO seguimiento;
 	private Integer total;
 	private List<SeguimientoOrdenPartesDTO> listaRefaccionesDTO;
+	private Date fechaOrden;
+	private Date fechaTerminacion;
 
 	public OrdenTrabajoDTO() {
 		super();
@@ -72,12 +74,10 @@ public class OrdenTrabajoDTO {
 		this.mecanico =mecanico;
 		this.seguimiento = seguimiento;
 	}
-	
-	
 
 	public OrdenTrabajoDTO(int folio, Integer economicoId, int nominaOperador, String nombreOperador, String apellidoPatOperador, 
 			String apellidoMatOperador, Long tipoNecesidadId, String descripcionTipoNecesidad, int kilometraje, String fallaMecanica, 
-			int estatusOrden, Date fechaRegistro, SeguimientoOrdenDTO seguimiento) {
+			int estatusOrden, Date fechaRegistro, SeguimientoOrdenDTO seguimiento, Date fechaOrden, Date fechaTerminacion) {
 		this.folio = folio;
 		this.economicoId = economicoId;
 		this.nominaOperador = nominaOperador;
@@ -91,6 +91,8 @@ public class OrdenTrabajoDTO {
 		this.estatusOrden = estatusOrden;
 		this.fechaRegistro = fechaRegistro;
 		this.seguimiento = seguimiento;
+		this.fechaOrden = fechaOrden;
+		this.fechaTerminacion = fechaTerminacion;
 //		this.listaRefaccionesDTO = listaRefaccionesDTO;
 	}
 
@@ -223,6 +225,22 @@ public class OrdenTrabajoDTO {
 	public void setListaRefaccionesDTO(
 			List<SeguimientoOrdenPartesDTO> listaRefaccionesDTO) {
 		this.listaRefaccionesDTO = listaRefaccionesDTO;
+	}
+
+	public Date getFechaOrden() {
+		return fechaOrden;
+	}
+
+	public void setFechaOrden(Date fechaOrden) {
+		this.fechaOrden = fechaOrden;
+	}
+
+	public Date getFechaTerminacion() {
+		return fechaTerminacion;
+	}
+
+	public void setFechaTerminacion(Date fechaTerminacion) {
+		this.fechaTerminacion = fechaTerminacion;
 	}
 
 }
