@@ -20,7 +20,7 @@ public class SeguimientoOrden implements Serializable {
 	private int id_seguimiento;
 
 	//bi-directional one-to-one association to OrdenTrabajo
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="folio", referencedColumnName = "folio", nullable = false)
 	private OrdenTrabajo ordenTrabajo;
 

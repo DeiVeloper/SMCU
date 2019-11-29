@@ -67,16 +67,13 @@ public class OrdenTrabajo implements Serializable {
 	@JoinColumn(name="tipo_necesidad_id")
 	private CatTipoNecesidad catTipoNecesidad;
 
-	@OneToOne(mappedBy="ordenTrabajo")
-	private SeguimientoOrden seguimientoOrden;
-
 	public OrdenTrabajo() {
 	}
 
 	public OrdenTrabajo(int nominaOperador, String nombreOperador,
 			String apellidoPatOperador, String apellidoMatOperador,
 			String fallaMecanica, int kilometraje, Date fechaRegistro,
-			Date fechaOrden, Date fechaTerminacion, Empleado empleado2,
+			Date fechaOrden, Empleado empleado2,
 			Economico economico, CatEstatusOrden catEstatusOrden,
 			CatTipoNecesidad catTipoNecesidad) {
 		super();
@@ -88,7 +85,6 @@ public class OrdenTrabajo implements Serializable {
 		this.kilometraje = kilometraje;
 		this.fechaRegistro = fechaRegistro;
 		this.fechaOrden = fechaOrden;
-		this.fechaTerminacion = fechaTerminacion;
 		this.empleado2 = empleado2;
 		this.economico = economico;
 		this.catEstatusOrden = catEstatusOrden;
@@ -206,14 +202,5 @@ public class OrdenTrabajo implements Serializable {
 	public void setCatTipoNecesidad(CatTipoNecesidad catTipoNecesidad) {
 		this.catTipoNecesidad = catTipoNecesidad;
 	}
-
-	public SeguimientoOrden getSeguimientoOrden() {
-		return seguimientoOrden;
-	}
-
-	public void setSeguimientoOrden(SeguimientoOrden seguimientoOrden) {
-		this.seguimientoOrden = seguimientoOrden;
-	}
-
 
 }

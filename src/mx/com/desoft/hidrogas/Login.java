@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Login extends Application {
@@ -14,7 +15,7 @@ public class Login extends Application {
 	private static final Logger log = Logger.getLogger(Login.class);
 
 	public static Stage stageLogin;
-	private BorderPane login;
+	private Pane login;
 	public static AnnotationConfigApplicationContext appContext;
 
 	@Override
@@ -37,7 +38,7 @@ public class Login extends Application {
 		try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("view/LoginLayout.fxml"));
-            login = (BorderPane) loader.load();
+            login = (Pane) loader.load();
             Scene scene = new Scene(login);
             scene.getStylesheets().add("file:resources/css/login.css");
             stageLogin.setScene(scene);

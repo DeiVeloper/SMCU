@@ -93,8 +93,7 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 				ordenTrabajoTO.getFallaMecanica(), 
 				ordenTrabajoTO.getKilometraje(), 
 				new Date(),
-				new Date(),
-				new Date(),
+				ordenTrabajoTO.getFechaOrden(),
 				empleadoRegistro, 
 				economico, 
 				estatus, 
@@ -154,10 +153,13 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 	@Override
 	public boolean cerrarOrden(int folioOrden) {
 		boolean isCerrada = true;
+		log.error("orden2:. " + folioOrden);
 		try {
 			OrdenTrabajo orden = ordenTrabajoDAO.get(folioOrden);
+			log.error("orden:. " + orden.getFolio());
 			CatEstatusOrden estatusOrden = catEstatusImplDAO.get(2);
 			orden.setCatEstatusOrden(estatusOrden);
+			orden.setFechaTerminacion(new Date());
 			ordenTrabajoDAO.saveOrUpdate(orden);
 		} catch (Exception e) {
 			isCerrada = false;
