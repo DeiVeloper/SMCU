@@ -46,8 +46,12 @@ public class Reportes implements IReportes, Printable {
 		ticket.append("Fecha de Impresi"+Constantes.o+"n: " + DateUtil.getStringFromDate(new Date())+ "\n");
 		ticket.append("Folio Orden: " + orden.getFolio() + "\n");
 		ticket.append("Fecha Registro: " + DateUtil.getStringFromDate(orden.getFechaRegistro()) + "\n");
-		ticket.append("Fecha Orden: " + DateUtil.getStringFromDate(orden.getFechaOrden()) + "\n");
-		ticket.append("Fecha Teminacion: " + DateUtil.getStringFromDate(orden.getFechaTerminacion()) + "\n");
+		if(orden.getFechaOrden() != null){
+			ticket.append("Fecha Orden: " + DateUtil.getStringFromDate(orden.getFechaOrden()) + "\n");
+		}
+		if(orden.getFechaTerminacion() != null){
+			ticket.append("Fecha Terminacion: " + DateUtil.getStringFromDate(orden.getFechaTerminacion()) + "\n");
+		}
 		ticket.append("Econ"+Constantes.o+"mico: " + orden.getEconomicoId() + "\n");
 		ticket.append("Empleado: " + orden.getNombreOperador().concat(" ")
 		.concat(orden.getApellidoPatOperador().concat(" ").concat(orden.getApellidoMatOperador())) + "\n");
