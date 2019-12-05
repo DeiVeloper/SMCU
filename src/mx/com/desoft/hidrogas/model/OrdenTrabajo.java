@@ -67,6 +67,9 @@ public class OrdenTrabajo implements Serializable {
 	@JoinColumn(name="tipo_necesidad_id")
 	private CatTipoNecesidad catTipoNecesidad;
 
+	@OneToOne(mappedBy="ordenTrabajo")
+	private SeguimientoOrden seguimientoOrden;
+
 	public OrdenTrabajo() {
 	}
 
@@ -202,5 +205,14 @@ public class OrdenTrabajo implements Serializable {
 	public void setCatTipoNecesidad(CatTipoNecesidad catTipoNecesidad) {
 		this.catTipoNecesidad = catTipoNecesidad;
 	}
+
+	public SeguimientoOrden getSeguimientoOrden() {
+		return seguimientoOrden;
+	}
+
+	public void setSeguimientoOrden(SeguimientoOrden seguimientoOrden) {
+		this.seguimientoOrden = seguimientoOrden;
+	}
+
 
 }

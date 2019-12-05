@@ -132,7 +132,7 @@ public class RootLayoutController {
     			+ "Powered by DeSoft.inc\n"
     			+ "\n"
     			+ "Desarrolladores : \n"
-    			+ "Ing. Erick Martinez Veneros, cirek_18@hotmail.com \n"
+    			+ "Ing. Erick Martinez Veneros, erick.martinezv@hotmail.com \n"
     			+ "Ing. Carlos David Castro Aguilar, david.c13@hotmail.com"
     			+ "\n";
     	Alerta.crearAlertaUsuario("DeSoft.inc", mensaje, AlertType.INFORMATION);

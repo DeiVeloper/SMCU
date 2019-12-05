@@ -119,8 +119,12 @@ public class Reportes implements IReportes, Printable {
 							.concat(registro.getApellidoPatOperador()).concat(" ").concat(registro.getApellidoMatOperador()));
 					row.createCell(4).setCellValue(registro.getFallaMecanica());
 					row.createCell(5).setCellValue(DateUtil.convertirFechaToString(registro.getFechaRegistro()));
-					row.createCell(6).setCellValue(DateUtil.convertirFechaToString(registro.getFechaOrden()));
-					row.createCell(7).setCellValue(DateUtil.convertirFechaToString(registro.getFechaTerminacion()));
+					if(registro.getFechaOrden() != null) {
+						row.createCell(6).setCellValue(DateUtil.convertirFechaToString(registro.getFechaOrden()));	
+					}
+					if(registro.getFechaTerminacion() != null) {
+						row.createCell(7).setCellValue(DateUtil.convertirFechaToString(registro.getFechaTerminacion()));
+					}
 					row.createCell(8).setCellValue(registro.getKilometraje());
 					row.createCell(9).setCellValue(registro.getDescripcionTipoNecesidad());
 					if(registro.getSeguimiento() == null) {

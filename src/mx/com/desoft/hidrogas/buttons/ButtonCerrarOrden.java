@@ -32,6 +32,7 @@ public class ButtonCerrarOrden extends TableCell<OrdenProperty, Boolean> {
 				boolean cerrado = administrarOrdenController.cerrarOrden(Integer.parseInt(orden.getFolioOrden().getValue()));
 				if(cerrado){
 					cellButton.setVisible(false);
+					orden.getSeguimiento().setVisible(false);
 				}
 				dtoPartesOrdenes.set(ButtonCerrarOrden.this.getIndex(), orden);
 			}
