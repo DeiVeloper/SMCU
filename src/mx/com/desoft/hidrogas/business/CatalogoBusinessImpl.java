@@ -251,4 +251,9 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 		}
 		return listaDTO;
 	}
+	
+	@Override
+	public CatTipoRefaccion obtieneTipoRefaccion(int idTipoRefaccion) {
+		return catTipoRefaccion.get(idTipoRefaccion);
+	}
 }

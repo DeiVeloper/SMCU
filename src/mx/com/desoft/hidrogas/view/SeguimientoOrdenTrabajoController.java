@@ -34,6 +34,7 @@ import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
+import mx.com.desoft.hidrogas.model.CatTipoRefaccion;
 import mx.com.desoft.hidrogas.model.OrdenTrabajo;
 import mx.com.desoft.hidrogas.property.SeguimientoOrdenPartesProperty;
 import mx.com.desoft.hidrogas.util.Alerta;
@@ -280,7 +281,7 @@ public class SeguimientoOrdenTrabajoController {
 	}
 
 	public void guardarSeguimiento() {
-		if(this.validarFormulario()) {
+		if(this.validarFormulario() && validarExistenciaInventario()) {
 			this.convertirCamposDTO();
 			try {
 				seguimientoOrdenBusiness.guardarSeguimiento(seguimientoDTO);
@@ -407,6 +408,28 @@ public class SeguimientoOrdenTrabajoController {
 				return null;
 			}
 		});
+	}
+	
+	private CatTipoRefaccion obtieneTipoRefaccion(int idTipoRefaccion) {
+		return catalogoBusiness.obtieneTipoRefaccion(idTipoRefaccion);
+	}
+	
+	private boolean validarExistenciaInventario() {
+		boolean existencia = true;
+		int cantidadExistente = 0;
+		for(SeguimientoOrdenPartesProperty parteUsada : dtoTablaPartesUsadas) {
+			System.out.println("parteUsada.getIdRefaccion(): " + parteUsada.getIdTipoRefaccion());
+			if(parteUsada.getIdRefaccion() == Constantes.CERO || (parteUsada.getIdRefaccion() != Constantes.CERO && parteUsada.getIdTipoListaRefaccion() == Constantes.N2)) {
+				System.out.println("parteUsada.getIdRefaccion()2: " + parteUsada.getIdTipoRefaccion());
+				cantidadExistente = this.obtieneTipoRefaccion(parteUsada.getIdTipoRefaccion()).getCantidad();
+				if(Integer.parseInt(parteUsada.getCantidad().getValue()) > cantidadExistente) {
+					Alerta.crearAlertaUsuario("Validando Formulario", "Error! La refacci" + Constantes.o + "n " + parteUsada.getDescripcionTipoRefaccion().getValue() + " solo cuenta con " + cantidadExistente + " piezas en el inventario.", AlertType.WARNING);
+					existencia = false;
+					break;
+				}
+			}
+		}
+		return existencia;
 	}
 
 	/**

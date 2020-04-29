@@ -9,6 +9,7 @@ import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.TipoReporteDTO;
+import mx.com.desoft.hidrogas.model.CatTipoRefaccion;
 
 public interface ICatalogoBusiness {
 
@@ -35,5 +36,7 @@ public interface ICatalogoBusiness {
 	List<OrdenTrabajoDTO> getIncidenciasOrdenes(OrdenTrabajoDTO ordenTrabajoDTO);
 
 	List<OrdenTrabajoDTO> getOrdenByTipoNecesidad(OrdenTrabajoDTO ordenTrabajoDTO);
+	
+	CatTipoRefaccion obtieneTipoRefaccion(int idTipoRefaccion);
 
 }

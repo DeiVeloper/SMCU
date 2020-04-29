@@ -16,7 +16,7 @@
                		<items>
                			<AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="145.0" prefWidth="948.0">
                         	<children>
-                        		<Label layoutX="406.0" layoutY="26.0" styleClass="label-header" text="Agregar Órden de Trabajo" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
+                        		<Label layoutX="406.0" layoutY="26.0" styleClass="label-header" text="Agregar Orden de Compra" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
                         			<font>
                                   		<Font size="20.0" />
                                		</font>
