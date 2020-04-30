@@ -23,24 +23,31 @@
                                     		<Font size="20.0" />
                                  		</font>
                                  	</Label>
-                  					<Label layoutX="535.0" layoutY="77.0" text="Nómina operador" />
+                  					
+                  					<Label layoutX="36.0" layoutY="77.0" text="Económico" />
                   					<ComboBox fx:id="economico" layoutX="169.0" layoutY="73.0" prefWidth="150.0" />
-            				      	<TextField id="txtNombre" fx:id="nominaOperador" layoutX="722.0" layoutY="73.0" />
-            				      	<TextField id="txtApellidos" fx:id="nombreOperador" layoutX="168.0" layoutY="123.0" />
-            				      	<TextField id="txtEconomico" fx:id="apellidoPaterno" layoutX="723.0" layoutY="125.0" />
-            				      	<TextField fx:id="apellidoMaterno" layoutX="168.0" layoutY="170.0" />
-            				      	<TextField id="txtKilometraje" fx:id="kilometrajeHoras" layoutX="722.0" layoutY="170.0" />
+                  					<Label layoutX="36.0" layoutY="127.0" text="Nombre" />
+            				      	<TextField id="txtNombre" fx:id="nombreOperador" layoutX="168.0" layoutY="123.0" />
+            				      	<Label layoutX="36.0" layoutY="174.0" text="Apellido Materno" />
+            				      	<TextField id="txtApellidoMat" fx:id="apellidoMaterno" layoutX="168.0" layoutY="170.0" />
+									<Label layoutX="36.0" layoutY="220.0" text="Tipo de necesidad" />
             				      	<ComboBox id="lstTipoNecesidad" fx:id="tipoNecesidadOrden" layoutX="169.0" layoutY="216.0" prefWidth="150.0" />
-            				      	<TextArea id="txtAFalla" fx:id="fallaMecanica" layoutX="168.0" layoutY="276.0" prefHeight="100.0" prefWidth="500.0" />
-            				      	<Label layoutX="36.0" layoutY="77.0" text="Económico" />
-            				      	<Label layoutX="538.0" layoutY="174.0" text="Kilometraje/Hrs de trabajo" />
-            				      	<Label layoutX="32.0" layoutY="220.0" text="Tipo de necesidad" />
+                  					
+                  					<Label layoutX="490.0" layoutY="77.0" text="Nómina operador" />
+                  					<TextField id="txtNomina" fx:id="nominaOperador" layoutX="670.0" layoutY="73.0" />
+            				      	<Label layoutX="490.0" layoutY="127.0" text="Apellido paterno" />
+            				      	<TextField id="txtApellidoPat" fx:id="apellidoPaterno" layoutX="670.0" layoutY="125.0" />
+            				      	<Label layoutX="490.0" layoutY="174.0" text="Kilometraje/Hrs de trabajo" />
+            				      	<TextField id="txtKilometraje" fx:id="kilometrajeHoras" layoutX="670.0" layoutY="170.0" />
+            				      	<Label layoutX="490.0" layoutY="220.0" text="Fecha" />
+            				      	<DatePicker fx:id="fechaOrden" layoutX="670.0" layoutY="220.0" />
+            				      	
             				      	<Label layoutX="34.0" layoutY="318.0" text="Falla mecánica" />
-            				      	<Label layoutX="36.0" layoutY="127.0" text="Nombre" />
-            				      	<Label layoutX="538.0" layoutY="127.0" text="Apellido paterno" />
+            				      	<TextArea id="txtAFalla" fx:id="fallaMecanica" layoutX="168.0" layoutY="276.0" prefHeight="100.0" prefWidth="500.0" />
+
             				      	<Button id="btnGuardar" layoutX="766.0" layoutY="523.0" mnemonicParsing="false" onAction="#guardarOrden" prefHeight="30.0" prefWidth="100.0" text="Guardar Orden" />
             				      	<Button id="btnCancelar" layoutX="678.0" layoutY="523.0" mnemonicParsing="false" onAction="#cancelarOrden" prefHeight="30.0" prefWidth="70.0" text="Cancelar" />
-            				      	<Label layoutX="36.0" layoutY="174.0" text="Apellido Materno" />
+            				      	
                            		</children>
                            	</AnchorPane>
                        	</items>

@@ -132,7 +132,7 @@ public class RootLayoutController {
     			+ "Powered by DeSoft.inc\n"
     			+ "\n"
     			+ "Desarrolladores : \n"
-    			+ "Ing. Erick Martinez Veneros, cirek_18@hotmail.com \n"
+    			+ "Ing. Erick Martinez Veneros, erick.martinezv@hotmail.com \n"
     			+ "Ing. Carlos David Castro Aguilar, david.c13@hotmail.com"
     			+ "\n";
     	Alerta.crearAlertaUsuario("DeSoft.inc", mensaje, AlertType.INFORMATION);
@@ -177,8 +177,8 @@ public class RootLayoutController {
     }
 
     private void validarUsuarioLogin(){
-    	if(Authenticator.usuarioSesion.getDescripcionTipoEmpleado().equals(Constantes.ADMINISTRADOR) || 
-    			Authenticator.usuarioSesion.getDescripcionTipoEmpleado().equals(Constantes.JEFETALLER) )	{
+    	if(Authenticator.getUsuarioSesion().getDescripcionTipoEmpleado().equals(Constantes.ADMINISTRADOR) || 
+    			Authenticator.getUsuarioSesion().getDescripcionTipoEmpleado().equals(Constantes.JEFETALLER) )	{
     		administradorItem.setVisible(true);
     		reportesItem.setVisible(true);
     	}else	{

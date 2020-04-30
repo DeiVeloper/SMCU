@@ -117,27 +117,20 @@ public class AgregarEditarEmpleadoController {
     @FXML
     private void eventoTipoEmpleado() {
     	catTipoEmpleadoDTO = tipoEmpleado.getSelectionModel().getSelectedItem();
-    	if(catTipoEmpleadoDTO.getDescripcion().equals(Constantes.ADMINISTRADOR) || catTipoEmpleadoDTO.getDescripcion().equals(Constantes.MECANICO))	{
+    	if(catTipoEmpleadoDTO.getDescripcion().equals(Constantes.ADMINISTRADOR) || 
+    			catTipoEmpleadoDTO.getDescripcion().equals(Constantes.JEFETALLER) || catTipoEmpleadoDTO.getDescripcion().equals(Constantes.MECANICO))	{
     		passwordLabel.setVisible(true);
     		password.setVisible(true);
-    	}	else	{
-    		passwordLabel.setVisible(false);
-    		password.setVisible(false);
-    	}
-
-    	if(catTipoEmpleadoDTO.getDescripcion().equals(Constantes.ADMINISTRADOR) || catTipoEmpleadoDTO.getDescripcion().equals(Constantes.MECANICO)) {
     		economico.setVisible(false);
     		economicoLabel.setVisible(false);
-    	}	else{
+    	}	else if(catTipoEmpleadoDTO.getDescripcion().equals(Constantes.OPERADOR) || catTipoEmpleadoDTO.getDescripcion().equals(Constantes.AYUDANTE)) {
     		economico.setVisible(true);
     		economicoLabel.setVisible(true);
-    	}
-
-    	if(catTipoEmpleadoDTO.getDescripcion().equals(Constantes.SUPLENTE)){
-    		passwordLabel.setVisible(false);
-    		password.setVisible(false);
+    	}	else{
     		economico.setVisible(false);
     		economicoLabel.setVisible(false);
+    		passwordLabel.setVisible(false);
+    		password.setVisible(false);
     	}
 
     }
@@ -174,16 +167,18 @@ public class AgregarEditarEmpleadoController {
         }
 
         if	(!economico.isDisabled() &&
-        		!tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ADMINISTRADOR)
+        		(!tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ADMINISTRADOR)
+        				&& !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.JEFETALLER)
         		&& !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.MECANICO)
-        			&& !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.SUPLENTE)
+        			&& !tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.SUPLENTE))
         				&& (economico.getSelectionModel().getSelectedItem() == Constantes.NULL)) {
         	mensaje =  "Favor de seleccionar un Economico ";
         	return false;
         }
 
-        if	(!password.isDisabled() && tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ADMINISTRADOR)
-        		&& tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.MECANICO)
+        if	(!password.isDisabled() && (tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.ADMINISTRADOR)
+        		&& tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.JEFETALLER) && 
+        		tipoEmpleado.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.MECANICO))
         			&& (password.getText() == Constantes.NULL || password.getText().length() == Constantes.CERO)) {
         	mensaje =  "Favor de capturar su contraseÃ±a ";
         	return false;
@@ -213,7 +208,7 @@ public class AgregarEditarEmpleadoController {
     }
 
     private void inciciarComponentes() {
-    	noNominaRegistro.setText(Authenticator.usuarioSesion.getNominaEmpleado().toString());
+    	noNominaRegistro.setText(Authenticator.getUsuarioSesion().getNominaEmpleado().toString());
     	noNominaRegistro.setDisable(true);
     	passwordLabel.setVisible(false);
     	password.setVisible(false);

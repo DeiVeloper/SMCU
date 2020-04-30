@@ -27,18 +27,16 @@ import mx.com.desoft.hidrogas.Login;
 import mx.com.desoft.hidrogas.MainApp;
 import mx.com.desoft.hidrogas.business.ITipoRefaccionesBusiness;
 import mx.com.desoft.hidrogas.business.TipoRefaccionesBusinessImpl;
-import mx.com.desoft.hidrogas.buttons.EditarButtonEmpleado;
 import mx.com.desoft.hidrogas.buttons.EditarButtonTipoRefaccion;
 import mx.com.desoft.hidrogas.buttons.EliminarButtonTipoRefaccion;
 import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
-import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
-import mx.com.desoft.hidrogas.property.EmpleadoProperty;
 import mx.com.desoft.hidrogas.property.TipoRefaccionProperty;
 import mx.com.desoft.hidrogas.util.Alerta;
 
 public class AdministrarTipoRefaccionController {
 
 	private static final Logger log = Logger.getLogger(AdministrarTipoRefaccionController.class);
+	private static final String ERROR = "Error";
 
 	@FXML
 	private TextField tipoRefaccionField;
@@ -54,6 +52,9 @@ public class AdministrarTipoRefaccionController {
 
     @FXML
     private TableColumn<TipoRefaccionProperty, String> descripcionColumn;
+    
+    @FXML
+    private TableColumn<TipoRefaccionProperty, String> cantidadColumn;
 
     @FXML
     private TableColumn<TipoRefaccionProperty, Boolean> eliminarColumn;
@@ -72,10 +73,11 @@ public class AdministrarTipoRefaccionController {
      */
     public AdministrarTipoRefaccionController() {
     	tablaTipoRefaccion = new TableView<>(data);
-    	tipoRefaccionIdColumn = new TableColumn<TipoRefaccionProperty, String>();
-    	descripcionColumn = new TableColumn<TipoRefaccionProperty, String>();
-    	eliminarColumn = new TableColumn<TipoRefaccionProperty, Boolean>();
-    	editarColumn = new TableColumn<TipoRefaccionProperty, Boolean>();
+    	tipoRefaccionIdColumn = new TableColumn<>();
+    	descripcionColumn = new TableColumn<>();
+    	cantidadColumn = new TableColumn<>();
+    	eliminarColumn = new TableColumn<>();
+    	editarColumn = new TableColumn<>();
     	contadorLista = new Label();
     }
 
@@ -92,10 +94,12 @@ public class AdministrarTipoRefaccionController {
 		convertirCamposToDTO();
 		List<TipoRefaccionProperty> dto = tipoRefaccionesBusinessImpl.getRefaccionByView(catTipoRefaccionesDTO);
 		data.clear();
-		data.removeAll(data);
+		data.stream().close();
 		tipoRefaccionIdColumn.setCellValueFactory(cellData -> cellData.getValue().getTipoRefaccionId());
     	descripcionColumn.setCellValueFactory(cellData -> cellData.getValue().getDescripcion());
+    	cantidadColumn.setCellValueFactory(cellData -> cellData.getValue().getCantidad());
     	editarColumn.setSortable(false);
+
     	editarColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TipoRefaccionProperty, Boolean>, ObservableValue<Boolean>>() {
     		@Override public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<TipoRefaccionProperty, Boolean> features) {
     			return new SimpleBooleanProperty(features.getValue() != null);
@@ -144,7 +148,7 @@ public class AdministrarTipoRefaccionController {
 
     	} catch (Exception e) {
     		log.error(e);
-    		Alerta.crearAlertaUsuario("Error", e.getMessage(), AlertType.ERROR);
+    		Alerta.crearAlertaUsuario(ERROR, e.getMessage(), AlertType.ERROR);
 		}
     	return controller.convertirCamposViewToDTO();
     }
@@ -174,7 +178,7 @@ public class AdministrarTipoRefaccionController {
              dialogStage.showAndWait();
 		} catch (Exception e) {
 			log.error("Ocurrio un error al agregar un nuevo tipo de refaccion",e);
-			Alerta.crearAlertaUsuario("Error", e.getMessage(), AlertType.ERROR);
+			Alerta.crearAlertaUsuario(ERROR, e.getMessage(), AlertType.ERROR);
 
 		}
     }
@@ -193,7 +197,7 @@ public class AdministrarTipoRefaccionController {
 			} catch (ConstraintViolationException e) {
 				resultado = false;
 				log.error("Error: Al eliminar un tipo de refaccion", e);
-				Alerta.crearAlertaUsuario("Error", "Ocurrio un errro al borrar el registro, favor de intentar nuevamnete", AlertType.ERROR);
+				Alerta.crearAlertaUsuario(ERROR, "Ocurrio un errro al borrar el registro, favor de intentar nuevamnete", AlertType.ERROR);
 			}
     	 }
     	 return resultado;

@@ -1,5 +1,6 @@
 package mx.com.desoft.hidrogas.view;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -10,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -28,6 +30,7 @@ import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.model.Empleado;
 import mx.com.desoft.hidrogas.util.Alerta;
 import mx.com.desoft.hidrogas.util.Constantes;
+import mx.com.desoft.hidrogas.util.DateUtil;
 
 public class AgregarEditarOrdenController {
 
@@ -62,12 +65,16 @@ public class AgregarEditarOrdenController {
 
 	@FXML
 	private TextArea fallaMecanica;
+	
+	@FXML
+	private DatePicker fechaOrden;
 
 	@FXML
 	public void initialize () {
 		ordenTrabajoTO = new OrdenTrabajoDTO();
 		this.llenarComboNecesidad();
 		this.llenarComboEconomico();
+		this.fechaOrden.setValue(LocalDate.now());
 		nominaOperador.focusedProperty().addListener(new ChangeListener<Boolean>(){
 		    @Override
 		    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue){
@@ -98,19 +105,9 @@ public class AgregarEditarOrdenController {
 				agregarEditarOrdenBusinessApp.guardarOrden(ordenTrabajoTO);
 				this.limpiarCampos();
 				Alerta.crearAlertaUsuario("Guardando Orden de Trabajo", Constantes.MENSAJE_EXITOSO, AlertType.INFORMATION);
-//				Alert alert = new Alert(AlertType.WARNING);
-//	        	alert.setTitle("Guardando Orden de Trabajo");
-//	        	alert.setHeaderText(null);
-//	        	alert.setContentText(Constantes.MENSAJE_EXITOSO);
-//	        	alert.showAndWait();
 	        	mainApp.showAdministrarOrdenTrabajo();
 			} catch (Exception e) {
     			Alerta.crearAlertaUsuario("Error", "Ocurrio un error. Favor de intentar nuevamente, si persiste el problema contactar al administrador.", AlertType.ERROR);
-//    			Alert alert = new Alert(AlertType.INFORMATION);
-//            	alert.setTitle("Error");
-//            	alert.setHeaderText(null);
-//            	alert.setContentText("Ocurrio un error, " + e.getMessage());
-//            	alert.showAndWait();
     			log.error("Error: No se pudo guardar la orden");;
     		}
 		} else {
@@ -150,6 +147,9 @@ public class AgregarEditarOrdenController {
 		if(fallaMecanica.getText() == Constantes.NULL || fallaMecanica.getText().length() == Constantes.CERO) {
 			errorMessage = "El campo Falla mec" + Constantes.a + "nica no puede ir vac" + Constantes.i + "o.";
 		}
+		if(fechaOrden.getValue() == Constantes.NULL) {
+			errorMessage = "El campo Fecha no puede ir vac" + Constantes.i + "o.";
+		}
 		if(errorMessage.length() == Constantes.CERO) {
 			return true;
 		}
@@ -171,7 +171,8 @@ public class AgregarEditarOrdenController {
 		ordenTrabajoTO.setKilometraje(Integer.parseInt(kilometrajeHoras.getText()));
 		ordenTrabajoTO.setFallaMecanica(fallaMecanica.getText());
 		ordenTrabajoTO.setFechaRegistro(new Date());
-		ordenTrabajoTO.setNominaRegistro(Authenticator.usuarioSesion.getNominaRegistro());
+		ordenTrabajoTO.setNominaRegistro(Authenticator.getUsuarioSesion().getNominaRegistro());
+		ordenTrabajoTO.setFechaOrden(DateUtil.getDateFromLocalDate(fechaOrden.getValue()));
 	}
 
 	private void llenarComboNecesidad() {
@@ -222,6 +223,7 @@ public class AgregarEditarOrdenController {
 		tipoNecesidadOrden.getSelectionModel().getSelectedItem().setTipoNecesidadId(null);
 		kilometrajeHoras.setText("");
 		fallaMecanica.setText("");
+		fechaOrden.setValue(LocalDate.now());
 	}
 
 

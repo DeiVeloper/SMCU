@@ -30,6 +30,8 @@ public class CatTipoRefaccion implements Serializable {
 
 	private String descripcion;
 
+	@Column(name="cantidad")
+	private int cantidad;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_registro")
@@ -42,16 +44,18 @@ public class CatTipoRefaccion implements Serializable {
 		super();
 	}
 
-	public CatTipoRefaccion(int idTipoRefaccion, String descripcion, Date fechaRegistro, int nominaRegistro) {
+	public CatTipoRefaccion(int idTipoRefaccion, String descripcion, int cantidad,Date fechaRegistro, int nominaRegistro) {
 		super();
 		this.idTipoRefaccion = idTipoRefaccion;
 		this.descripcion = descripcion;
+		this.cantidad = cantidad;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
 	}
 
-	public CatTipoRefaccion(String descripcion, Date fechaRegistro, int nominaRegistro) {
+	public CatTipoRefaccion(String descripcion,int cantidad, Date fechaRegistro, int nominaRegistro) {
 		this.descripcion = descripcion;
+		this.cantidad = cantidad;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
 	}
@@ -70,6 +74,14 @@ public class CatTipoRefaccion implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	public Date getFechaRegistro() {

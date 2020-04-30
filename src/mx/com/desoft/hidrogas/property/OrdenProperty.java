@@ -30,6 +30,8 @@ public class OrdenProperty {
 		this.empleadoOrdenId = empleadoOrdenId;
 		this.estatus = estatus;
 		this.seguimiento = seguimiento;
+		if(estatus == 2)
+			seguimiento.setVisible(false);
 		seguimiento.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override

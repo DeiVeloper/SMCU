@@ -81,11 +81,23 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 	}
 
 	private OrdenTrabajo convertirDTOToEntidad(OrdenTrabajoDTO ordenTrabajoTO) {
-		final Empleado empleadoRegistro = empleadosImplDAO.get(Authenticator.usuarioSesion.getNominaEmpleado());
+		final Empleado empleadoRegistro = empleadosImplDAO.get(Authenticator.getUsuarioSesion().getNominaEmpleado());
 		final Economico economico = economicoImplDAO.get(ordenTrabajoTO.getEconomicoId());
 		final CatEstatusOrden estatus = catEstatusImplDAO.get(Constantes.N1);
 		final CatTipoNecesidad necesidad = catTipoNecesidadImplDAO.get(ordenTrabajoTO.getTipoNecesidadId());
-		final OrdenTrabajo ordenTrabajo = new OrdenTrabajo(ordenTrabajoTO.getApellidoMatOperador(), ordenTrabajoTO.getApellidoPatOperador(), ordenTrabajoTO.getFallaMecanica(), new Date(), ordenTrabajoTO.getKilometraje(), ordenTrabajoTO.getNombreOperador(), economico, estatus, ordenTrabajoTO.getNominaOperador(), empleadoRegistro, necesidad);
+		final OrdenTrabajo ordenTrabajo = new OrdenTrabajo(
+				ordenTrabajoTO.getNominaOperador(), 
+				ordenTrabajoTO.getNombreOperador(), 
+				ordenTrabajoTO.getApellidoPatOperador(), 
+				ordenTrabajoTO.getApellidoMatOperador(), 
+				ordenTrabajoTO.getFallaMecanica(), 
+				ordenTrabajoTO.getKilometraje(), 
+				new Date(),
+				ordenTrabajoTO.getFechaOrden(),
+				empleadoRegistro, 
+				economico, 
+				estatus, 
+				necesidad);
 		return ordenTrabajo;
 	}
 
@@ -123,15 +135,17 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 				listaRefaccionesDAO.delete(refaccion.getId_refaccion());
 			}
 			SeguimientoOrden seguimiento = seguimientoDAO.getSeguimientoByFolio(folioOrden);
-			List<SeguimientosEmpleado> listaEmpleados = seguimientoEmpleadosDAO.getListaEmpleadosBySeguimiento(seguimiento.getId_seguimiento());
-			for(SeguimientosEmpleado seguimientoEmpleado : listaEmpleados) {
-				seguimientoEmpleadosDAO.delete(seguimientoEmpleado.getId());
+			if(seguimiento != null) {
+				List<SeguimientosEmpleado> listaEmpleados = seguimientoEmpleadosDAO.getListaEmpleadosBySeguimiento(seguimiento.getId_seguimiento());
+				for(SeguimientosEmpleado seguimientoEmpleado : listaEmpleados) {
+					seguimientoEmpleadosDAO.delete(seguimientoEmpleado.getId());
+				}
+				seguimientoDAO.delete(seguimiento.getId_seguimiento());
 			}
-			seguimientoDAO.delete(seguimiento.getId_seguimiento());
 			agregarEditarOrdenImplDAO.delete(folioOrden);
 		} catch (Exception e) {
 			isEliminado = false;
-			log.error("Error: No se pudo eliminar la orden.");
+			log.error("Error: No se pudo eliminar la orden.", e);
 		}
 		return isEliminado;
 	}
@@ -139,10 +153,13 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 	@Override
 	public boolean cerrarOrden(int folioOrden) {
 		boolean isCerrada = true;
+		log.error("orden2:. " + folioOrden);
 		try {
 			OrdenTrabajo orden = ordenTrabajoDAO.get(folioOrden);
+			log.error("orden:. " + orden.getFolio());
 			CatEstatusOrden estatusOrden = catEstatusImplDAO.get(2);
 			orden.setCatEstatusOrden(estatusOrden);
+			orden.setFechaTerminacion(new Date());
 			ordenTrabajoDAO.saveOrUpdate(orden);
 		} catch (Exception e) {
 			isCerrada = false;

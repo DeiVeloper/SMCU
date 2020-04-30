@@ -76,11 +76,19 @@ public class SeguimientoOrdenBusinessImpl implements ISeguimientoOrdenBusiness {
 	}
 
 	private ListaRefacciones convertirDTOToEntidadRefacciones(SeguimientoOrdenPartesDTO listaRefacciones, int tipoRefaccion) {
-		OrdenTrabajo ordenTrabajo = ordenTrabajoDAO.get(listaRefacciones.getFolio());
+		ListaRefacciones refaccion = null;
 		CatTipoListaRefaccion catTipoListaRefaccion = catTipoRefacciones.get(listaRefacciones.getTipoRefaccionId());
-		CatTipoRefaccion catTipoRefaccion = catTipoRefaccionDAO.get(listaRefacciones.getIdCatTipoRefaccion());
-		return new ListaRefacciones(ordenTrabajo, listaRefacciones.getCantidad(), catTipoRefaccion,
-				catTipoListaRefaccion, listaRefacciones.getFechaRegistro(), listaRefacciones.getNominaRegistro());
+		if(listaRefacciones.getIdRefaccion() != Constantes.CERO) {
+			refaccion = listaRefaccionesDAO.get(listaRefacciones.getIdRefaccion());
+			refaccion.setCatTipoListaRefaccion(catTipoListaRefaccion);
+		} else {
+			OrdenTrabajo ordenTrabajo = ordenTrabajoDAO.get(listaRefacciones.getFolio());
+			catTipoListaRefaccion = catTipoRefacciones.get(listaRefacciones.getTipoRefaccionId());
+			CatTipoRefaccion catTipoRefaccion = catTipoRefaccionDAO.get(listaRefacciones.getIdCatTipoRefaccion());
+			refaccion = new ListaRefacciones(ordenTrabajo, listaRefacciones.getCantidad(), catTipoRefaccion,
+					catTipoListaRefaccion, listaRefacciones.getFechaRegistro(), listaRefacciones.getNominaRegistro());
+		}
+		return refaccion;
 	}
 
 	public SeguimientoOrdenDTO getSeguimientoOrdenByFolio(int folio) {
@@ -116,7 +124,7 @@ public class SeguimientoOrdenBusinessImpl implements ISeguimientoOrdenBusiness {
 		List<ListaRefacciones> listaPartesModel = seguimientoDAO.getListaRefaccionesByFolioTipo(folio, tipo);
 		for(ListaRefacciones refaccion : listaPartesModel) {
 			listaPartes.add(new SeguimientoOrdenPartesProperty(refaccion.getId_refaccion(), new SimpleStringProperty(String.valueOf(refaccion.getCantidad())),
-					refaccion.getCatTipoRefaccion().getIdTipoRefaccion(), new SimpleStringProperty(refaccion.getCatTipoRefaccion().getDescripcion())));
+					refaccion.getCatTipoRefaccion().getIdTipoRefaccion(), new SimpleStringProperty(refaccion.getCatTipoRefaccion().getDescripcion()), tipo));
 		}
 		return listaPartes;
 	}

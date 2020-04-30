@@ -6,14 +6,17 @@ import java.util.List;
 
 import javax.print.PrintException;
 
+import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 
 public interface IReportes {
 
-	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden) throws UnsupportedEncodingException, PrintException, NullPointerException;
+	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden) throws UnsupportedEncodingException, PrintException;
 
 	public void generarReporteIncidencias(List<OrdenTrabajoDTO> lista) throws IOException;
 
 	public void generarReporteTipoReparacion(List<OrdenTrabajoDTO> lista) throws IOException;
+	
+	public void generarReporteInventarioRefacciones(List<CatTipoRefaccionesDTO> lista) throws IOException;
 
 }

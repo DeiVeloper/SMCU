@@ -25,9 +25,13 @@ public class EditarButtonTipoRefaccion extends TableCell<TipoRefaccionProperty, 
 	        public void handle(ActionEvent t) {
 				TipoRefaccionProperty refaccion = (TipoRefaccionProperty) EditarButtonTipoRefaccion.this.getTableView().getItems().get(EditarButtonTipoRefaccion.this.getIndex());
 				CatTipoRefaccionesDTO refaccionDto = administrarTipoRefaccionController.handleEditRefaccion(new CatTipoRefaccionesDTO(
-						Integer.parseInt(refaccion.getTipoRefaccionId().getValue()), refaccion.getDescripcion().getValue()));
-				TipoRefaccionProperty refaccionPro = new TipoRefaccionProperty(new SimpleStringProperty(Integer.toString(refaccionDto.getTipoRefaccionId())),
-						new SimpleStringProperty(refaccionDto.getDescripcion()));
+						Integer.parseInt(refaccion.getTipoRefaccionId().getValue()), 
+						refaccion.getDescripcion().getValue(),
+						Integer.parseInt(refaccion.getCantidad().getValue())));
+				TipoRefaccionProperty refaccionPro = new TipoRefaccionProperty(
+						new SimpleStringProperty(Integer.toString(refaccionDto.getTipoRefaccionId())),
+						new SimpleStringProperty(refaccionDto.getDescripcion()),
+						new SimpleStringProperty(Integer.toString(refaccionDto.getCantidad())));
 				dataRefaccion.set(EditarButtonTipoRefaccion.this.getIndex(), refaccionPro);
 			}
 		});

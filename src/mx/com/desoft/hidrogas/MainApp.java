@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.view.SeguimientoOrdenTrabajoController;
 import mx.com.desoft.hidrogas.view.AdministrarOrdenTrabajoController;
@@ -39,7 +38,6 @@ public class MainApp  {
             primaryStage.centerOnScreen();
             primaryStage.setMaximized(true);
             primaryStage.setResizable(false);
-//            primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.show();
         } catch (Exception e) {
         	log.error("Error: No se pudo iniciar el Layout.", e);

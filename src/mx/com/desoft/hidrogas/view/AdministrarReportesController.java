@@ -19,6 +19,7 @@ import mx.com.desoft.hidrogas.business.CatalogoBusinessImpl;
 import mx.com.desoft.hidrogas.business.ICatalogoBusiness;
 import mx.com.desoft.hidrogas.dto.CatEstatusOrdenDTO;
 import mx.com.desoft.hidrogas.dto.CatTipoNecesidadDTO;
+import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
 import mx.com.desoft.hidrogas.dto.EconomicoDTO;
 import mx.com.desoft.hidrogas.dto.EmpleadoDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
@@ -61,12 +62,16 @@ public class AdministrarReportesController {
 	
 	@FXML
 	private Button exportarImprimir;
+	
+	@FXML
+	private Button buttonLimpiar;
 
 	private CatalogosHelper catalogosHelperImpl = Login.appContext.getBean(CatalogosHelperImpl.class);
 	private ICatalogoBusiness catalogoBusiness = Login.appContext.getBean(CatalogoBusinessImpl.class);
 	private IReportes reporte = Login.appContext.getBean(Reportes.class);
 	private OrdenTrabajoDTO ordenTrabajoDTO;
 	private String mensaje = "";
+	private static final String ERROR = "Error al generar reporte";
 
 	public AdministrarReportesController() {
 	}
@@ -112,19 +117,30 @@ public class AdministrarReportesController {
 							Alerta.crearAlertaUsuario(Constantes.INFORMACION, Constantes.RESULTADO_CONSULTA_REPORTE, AlertType.INFORMATION);
 						}
 					break;
+					
+					case Constantes.INVENTARIO:
+						List<CatTipoRefaccionesDTO> listaInventario = catalogoBusiness.findAllCatTipoRefacciones();
+						if(listaInventario !=null && listaInventario.size() != Constantes.CERO) {
+							reporte.generarReporteInventarioRefacciones(listaInventario);
+							Alerta.crearAlertaUsuario(Constantes.INFORMACION, Constantes.REPORTE_EXITOSO, AlertType.CONFIRMATION);
+						}	else	{
+							Alerta.crearAlertaUsuario(Constantes.INFORMACION, Constantes.RESULTADO_CONSULTA_REPORTE, AlertType.INFORMATION);
+						}
+						
+					break;
 
 					default:
 						break;
 				}
 
 			}catch (IOException e) {
-				log.error("Error al generar reporte", e);
+				log.error(ERROR, e);
 				Alerta.crearAlertaUsuario(Constantes.ERROR, "Ocurrio un error al generar el reporte, favor de intentar nuevamente", AlertType.ERROR);
 			} catch (PrintException e) {
-				log.error("Error al generar reporte", e);
+				log.error(ERROR, e);
 				Alerta.crearAlertaUsuario(Constantes.ERROR, "Ocurrio un error al imprimir el ticket, favor de intentar nuevamente", AlertType.ERROR);
 			} catch (NullPointerException e) {
-				log.error("Error al generar reporte", e);
+				log.error(ERROR, e);
 				Alerta.crearAlertaUsuario(Constantes.ERROR, "Ocurrio un error, favor de intentar nuevamente", AlertType.ERROR);
 			}
 		}	else	{
@@ -171,6 +187,10 @@ public class AdministrarReportesController {
 					exportarImprimir.setText("Exportar");
 					this.componentesReparaciones();
 					break;
+				case Constantes.INVENTARIO:
+					exportarImprimir.setText("Exportar");
+					this.componentesInventario();
+					break;
 
 				default:
 					break;
@@ -186,9 +206,9 @@ public class AdministrarReportesController {
 					mensaje = "Favor de capturar el folio de la orden.";
 					return false;
 				}
-			}else if(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.INCIDENCIAS) ||
+			}/*else if(comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.INCIDENCIAS) ||
 					comboBoxTipoReporte.getSelectionModel().getSelectedItem().getDescripcion().equals(Constantes.REPARACIONES)){
-				/*if(comboBoxEconomico.getSelectionModel().getSelectedItem() == Constantes.NULL) {
+				if(comboBoxEconomico.getSelectionModel().getSelectedItem() == Constantes.NULL) {
 					mensaje = "Favor de seleccionar un Econ"+Constantes.o+"mico.";
 					return false;
 				}
@@ -199,9 +219,9 @@ public class AdministrarReportesController {
 				if(datePickerFechaRegistroFin.getValue() == Constantes.NULL){
 					mensaje = "Favor de capturar una fecha fin.";
 					return false;
-				}*/
+				}
 			}
-
+			 */
 		}	else	{
 			mensaje = "Favor de seleccionar un tipo de reporte.";
 			return false;
@@ -300,6 +320,19 @@ public class AdministrarReportesController {
 		comboBoxTipoNecesidad.setDisable(true);
 		datePickerFechaRegistroInicio.setDisable(false);
 		datePickerFechaRegistroFin.setDisable(false);
+
+	}
+	
+	private void componentesInventario(){
+		textFiedlNofolio.clear();
+		textFiedlNofolio.setDisable(true);
+		comboBoxEmpleado.setDisable(true);
+		comboBoxEconomico.setDisable(true);
+		comboBoxEstatus.setDisable(true);
+		comboBoxTipoNecesidad.setDisable(true);
+		datePickerFechaRegistroInicio.setDisable(true);
+		datePickerFechaRegistroFin.setDisable(true);
+		buttonLimpiar.setDisable(true);
 
 	}
 

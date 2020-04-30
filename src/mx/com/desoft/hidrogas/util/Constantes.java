@@ -37,6 +37,7 @@ public class Constantes {
 	public static final String ORDEN = "Orden de Servicio";
 	public static final String INCIDENCIAS = "Incidencias de Unidades";
 	public static final String REPARACIONES = "Tipo de Reparaciones";
+	public static final String INVENTARIO = "Inventario Refacciones";
 	public static final int ESTATUS_ORDEN_ACTIVA = 1;
 	public static final int ESTATUS_ORDEN_CERRADA = 2;
 
@@ -53,6 +54,6 @@ public class Constantes {
 	public static final String ene = "\u00F1";
 	public static final String ENE = "\u00D1";
 	public static final String ADMIRACION = "\u00A1";
-	public static final String PATH = "C:/Reportes/Incidencias/";
+	public static final String PATH = "/Users/deiveloper/Documents/";//"C:/Reportes/Incidencias/";
 
 }
