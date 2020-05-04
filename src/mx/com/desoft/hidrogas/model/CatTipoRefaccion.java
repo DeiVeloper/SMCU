@@ -29,7 +29,7 @@ public class CatTipoRefaccion implements Serializable {
 	private int idTipoRefaccion;
 
 	private String descripcion;
-
+	
 	@Column(name="cantidad")
 	private int cantidad;
 

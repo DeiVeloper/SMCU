@@ -342,6 +342,10 @@ public class SeguimientoOrdenTrabajoController {
 				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(parteUsada.getIdRefaccion(), ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getIdTipoRefaccion(),
 						Constantes.N1, new Date(), Authenticator.getUsuarioSesion().getNominaEmpleado()));
 			}
+			if(parteUsada.getIdRefaccion() != Constantes.CERO && parteUsada.getIdTipoListaRefaccion() == Constantes.N2) {
+				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(parteUsada.getIdRefaccion(), ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getIdTipoRefaccion(),
+						Constantes.N1, new Date(), Authenticator.usuarioSesion.getNominaEmpleado()));
+			}
 		}
 		for(SeguimientoOrdenPartesProperty parteSolicitada : dtoTablaPartesSolicitadas) {
 			if(parteSolicitada.getIdRefaccion() == Constantes.CERO) {
