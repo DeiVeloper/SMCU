@@ -54,6 +54,6 @@ public class Constantes {
 	public static final String ene = "\u00F1";
 	public static final String ENE = "\u00D1";
 	public static final String ADMIRACION = "\u00A1";
-	public static final String PATH = "C:/Reportes/Incidencias/";
+	public static final String PATH = "/Users/deiveloper/Documents/";//"C:/Reportes/Incidencias/";
 
 }
