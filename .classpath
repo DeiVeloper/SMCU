@@ -24,6 +24,6 @@
 	<classpathentry kind="lib" path="lib/poi-3.17.jar"/>
 	<classpathentry kind="lib" path="lib/jfoenix-8.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/jfxrt.jar"/>
-	<classpathentry kind="lib" path="lib/mysql-connector-java-8.0.11.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.43-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
