@@ -23,5 +23,7 @@
 	<classpathentry kind="lib" path="lib/commons-logging-api-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/apache-logging-log4j.jar"/>
 	<classpathentry kind="lib" path="lib/poi-3.17.jar"/>
+	<classpathentry kind="lib" path="lib/jfoenix-8.0.8.jar"/>
+	<classpathentry kind="lib" path="lib/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
