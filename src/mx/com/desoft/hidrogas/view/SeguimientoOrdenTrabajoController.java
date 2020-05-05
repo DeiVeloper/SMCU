@@ -330,23 +330,23 @@ public class SeguimientoOrdenTrabajoController {
 		if(seguimientoDTO.getIdSeguimiento() == Constantes.CERO) {
 			seguimientoDTO.setFechaRegistro(new Date());
 		}
-		seguimientoDTO.setNominaRegistro(Authenticator.usuarioSesion.getNominaEmpleado());
+		seguimientoDTO.setNominaRegistro(Authenticator.getUsuarioSesion().getNominaEmpleado());
 		dtoPartesUsadas = new ArrayList<>();
 		dtoPartesSolicitadas = new ArrayList<>();
 		for(SeguimientoOrdenPartesProperty parteUsada : dtoTablaPartesUsadas) {
 			if(parteUsada.getIdRefaccion() == Constantes.CERO) {
 				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getIdTipoRefaccion(),
-						Constantes.N1, new Date(), Authenticator.usuarioSesion.getNominaEmpleado()));
+						Constantes.N1, new Date(), Authenticator.getUsuarioSesion().getNominaEmpleado()));
 			}
 			if(parteUsada.getIdRefaccion() != Constantes.CERO && parteUsada.getIdTipoListaRefaccion() == Constantes.N2) {
 				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(parteUsada.getIdRefaccion(), ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getIdTipoRefaccion(),
-						Constantes.N1, new Date(), Authenticator.usuarioSesion.getNominaEmpleado()));
+						Constantes.N1, new Date(), Authenticator.getUsuarioSesion().getNominaEmpleado()));
 			}
 		}
 		for(SeguimientoOrdenPartesProperty parteSolicitada : dtoTablaPartesSolicitadas) {
 			if(parteSolicitada.getIdRefaccion() == Constantes.CERO) {
 				dtoPartesSolicitadas.add(new SeguimientoOrdenPartesDTO(ordenDTO.getFolio(), Integer.parseInt(parteSolicitada.getCantidad().getValue()), parteSolicitada.getIdTipoRefaccion(),
-						Constantes.N2, new Date(), Authenticator.usuarioSesion.getNominaEmpleado()));
+						Constantes.N2, new Date(), Authenticator.getUsuarioSesion().getNominaEmpleado()));
 			}
 		}
 		seguimientoDTO.setListaPartesUsadas(dtoPartesUsadas);

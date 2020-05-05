@@ -15,21 +15,20 @@ import mx.com.desoft.hidrogas.util.Constantes;
 
 public class AgregarEditarTipoRefaccionesController {
 
-	private static final Logger log = Logger.getLogger(AgregarEditarTipoNecesidadController.class);
+	private static final Logger log = Logger.getLogger(AgregarEditarTipoRefaccionesController.class);
 
 	@FXML
 	private TextField idRefaccionField;
 	@FXML
 	private TextField descripcionField;
+	@FXML
+	private TextField cantidadField;
+	
 
 	private ITipoRefaccionesBusiness tipoRefaccionesBusinessImpl = Login.appContext.getBean(TipoRefaccionesBusinessImpl.class);
 	private CatTipoRefaccionesDTO catTipoRefaccionesDTO;
 	private Stage dialogStage;
 	private String mensaje = "";
-
-	public AgregarEditarTipoRefaccionesController() {
-
-	}
 
 	@FXML
     private void initialize() {
@@ -55,7 +54,8 @@ public class AgregarEditarTipoRefaccionesController {
 	
 	public void setearEdicionRefaccion(CatTipoRefaccionesDTO refaccion) {
 		idRefaccionField.setText(Integer.toString(refaccion.getTipoRefaccionId()));
-		descripcionField.setText(refaccion.getDescripcion().toString());
+		descripcionField.setText(refaccion.getDescripcion());
+		cantidadField.setText(Integer.toString(refaccion.getCantidad()));
     }
 
 	@FXML
@@ -67,17 +67,22 @@ public class AgregarEditarTipoRefaccionesController {
         if	(descripcionField.getText() == Constantes.NULL || descripcionField.getText().isEmpty()) {
         	mensaje = "El Campo Descripcion no puede ir vacio";
         	return false;
+        } else if(cantidadField.getText() == Constantes.NULL || cantidadField.getText().isEmpty()) {
+        	mensaje = "El Campo Cantidad no puede ir vacio";
         }
         this.convertirCamposViewToDTO();
         return true;
     }
 				 
 	 public CatTipoRefaccionesDTO convertirCamposViewToDTO() {
-		 System.out.println("id: " + idRefaccionField.getText());
 		 if(idRefaccionField.getText() != null && !idRefaccionField.getText().isEmpty()) {
-			 catTipoRefaccionesDTO = new CatTipoRefaccionesDTO(Integer.parseInt(idRefaccionField.getText()), descripcionField.getText()); 
+			 catTipoRefaccionesDTO = new CatTipoRefaccionesDTO(
+					 Integer.parseInt(idRefaccionField.getText()), 
+					 descripcionField.getText(),
+					 Integer.parseInt(cantidadField.getText())); 
 		 } else {
-			 catTipoRefaccionesDTO = new CatTipoRefaccionesDTO(descripcionField.getText()); 
+			 catTipoRefaccionesDTO = new CatTipoRefaccionesDTO(descripcionField.getText(), 
+					 Integer.parseInt(cantidadField.getText())); 
 		 }
 		 return catTipoRefaccionesDTO;
     }

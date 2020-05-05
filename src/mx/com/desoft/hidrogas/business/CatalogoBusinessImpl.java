@@ -138,7 +138,8 @@ public class CatalogoBusinessImpl implements ICatalogoBusiness {
 	public List<CatTipoRefaccionesDTO> findAllCatTipoRefacciones() {
 		List<CatTipoRefaccionesDTO> listaRefacciones = new ArrayList<>();
 		for(CatTipoRefaccion refaccion : catTipoRefaccion.getAllTipoRefaccion()) {
-			listaRefacciones.add(new CatTipoRefaccionesDTO(refaccion.getIdTipoRefaccion(), refaccion.getDescripcion()));
+			listaRefacciones.add(new CatTipoRefaccionesDTO(refaccion.getIdTipoRefaccion(), refaccion.getDescripcion(), 
+					refaccion.getCantidad()));
 		}
 		return listaRefacciones;
 	}

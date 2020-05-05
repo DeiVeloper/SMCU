@@ -11,17 +11,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.com.desoft.hidrogas.view.LoginController">
    <children>
-      <Pane layoutX="58.0" layoutY="50.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #0341B4;" AnchorPane.bottomAnchor="0.5" AnchorPane.leftAnchor="0.5" AnchorPane.rightAnchor="0.5" AnchorPane.topAnchor="0.5">
+      <Pane layoutX="58.0" layoutY="50.0" prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #008FC5;" AnchorPane.bottomAnchor="0.5" AnchorPane.leftAnchor="0.5" AnchorPane.rightAnchor="0.5" AnchorPane.topAnchor="0.5">
          <children>
-            <JFXTextField fx:id="userNameField" alignment="CENTER" focusColor="WHITE" labelFloat="true" layoutX="208.0" layoutY="164.0" prefHeight="50.0" prefWidth="157.0" promptText="USUARIO" unFocusColor="#fffa01">
+            <JFXTextField fx:id="userNameField" alignment="CENTER" focusColor="WHITE" labelFloat="true" layoutX="208.0" layoutY="164.0" prefHeight="50.0" prefWidth="157.0" promptText="USUARIO" unFocusColor="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
             </JFXTextField>
-            <JFXPasswordField fx:id="passordField" alignment="CENTER" focusColor="WHITE" labelFloat="true" layoutX="208.0" layoutY="253.0" prefHeight="50.0" prefWidth="157.0" promptText="CONTRASEÑA" unFocusColor="#fffa01">
+            <JFXPasswordField fx:id="passordField" alignment="CENTER" focusColor="WHITE" labelFloat="true" layoutX="208.0" layoutY="253.0" prefHeight="50.0" prefWidth="157.0" promptText="CONTRASEÑA" unFocusColor="WHITE">
                <font>
                   <Font size="13.0" />
                </font>

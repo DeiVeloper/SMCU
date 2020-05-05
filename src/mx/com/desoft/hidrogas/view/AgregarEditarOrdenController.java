@@ -171,7 +171,7 @@ public class AgregarEditarOrdenController {
 		ordenTrabajoTO.setKilometraje(Integer.parseInt(kilometrajeHoras.getText()));
 		ordenTrabajoTO.setFallaMecanica(fallaMecanica.getText());
 		ordenTrabajoTO.setFechaRegistro(new Date());
-		ordenTrabajoTO.setNominaRegistro(Authenticator.usuarioSesion.getNominaRegistro());
+		ordenTrabajoTO.setNominaRegistro(Authenticator.getUsuarioSesion().getNominaRegistro());
 		ordenTrabajoTO.setFechaOrden(DateUtil.getDateFromLocalDate(fechaOrden.getValue()));
 	}
 

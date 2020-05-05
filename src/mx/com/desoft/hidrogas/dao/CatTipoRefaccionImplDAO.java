@@ -31,8 +31,8 @@ public class CatTipoRefaccionImplDAO extends HibernateImplDAO<CatTipoRefaccion, 
 	@Override
 	public List<CatTipoRefaccion> getAllTipoRefaccion() {
 		Criteria criteria = HibernateUtil.openSession().createCriteria(CatTipoRefaccion.class);
-		criteria.addOrder(Order.asc("descripcion"));
-		return (List<CatTipoRefaccion>) criteria.list();
+		criteria.addOrder(Order.asc("idTipoRefaccion"));
+		return criteria.list();
 	}
 
 }

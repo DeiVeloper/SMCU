@@ -41,7 +41,7 @@ public class TipoRefaccionesBusinessImpl implements ITipoRefaccionesBusiness {
 		List<TipoRefaccionProperty> listaDTO = new ArrayList<>();
 		for (CatTipoListaRefaccion lts : catTipoRefaccionesImplDAO.getTipoRefaccionByView(catTipoRefaccionesDTO)) {
 			TipoRefaccionProperty dto = new TipoRefaccionProperty(new SimpleStringProperty(String.valueOf(lts.getTipoRefaccionId())),
-					new SimpleStringProperty(lts.getDescripcion()));
+					new SimpleStringProperty(lts.getDescripcion()),new SimpleStringProperty());
 			listaDTO.add(dto);
 		}
 		return listaDTO;
@@ -68,7 +68,8 @@ public class TipoRefaccionesBusinessImpl implements ITipoRefaccionesBusiness {
 		List<TipoRefaccionProperty> listaDTO = new ArrayList<>();
 		for (CatTipoRefaccion lts : catTipoRefaccionImplDAO.getTipoRefaccionByView(catTipoRefaccionesDTO)) {
 			TipoRefaccionProperty dto = new TipoRefaccionProperty(new SimpleStringProperty(String.valueOf(lts.getIdTipoRefaccion())),
-					new SimpleStringProperty(lts.getDescripcion()));
+					new SimpleStringProperty(lts.getDescripcion()), 
+					new SimpleStringProperty(String.valueOf(lts.getCantidad())));
 			listaDTO.add(dto);
 		}
 		return listaDTO;
@@ -83,9 +84,12 @@ public class TipoRefaccionesBusinessImpl implements ITipoRefaccionesBusiness {
 	private CatTipoRefaccion convertirRefaccionDTOToEntidad(CatTipoRefaccionesDTO catTipoRefaccionesDTO) {
 		CatTipoRefaccion catTipoRefaccion;
 		if(catTipoRefaccionesDTO.getTipoRefaccionId() > 0) {
-			catTipoRefaccion = new CatTipoRefaccion(catTipoRefaccionesDTO.getTipoRefaccionId(), catTipoRefaccionesDTO.getDescripcion(), new Date(), Authenticator.usuarioSesion.getNominaEmpleado());
+			catTipoRefaccion = new CatTipoRefaccion(catTipoRefaccionesDTO.getTipoRefaccionId(), 
+					catTipoRefaccionesDTO.getDescripcion(), catTipoRefaccionesDTO.getCantidad(),
+					new Date(), Authenticator.getUsuarioSesion().getNominaEmpleado());
 		} else {
-			catTipoRefaccion = new CatTipoRefaccion(catTipoRefaccionesDTO.getDescripcion(), new Date(), Authenticator.usuarioSesion.getNominaEmpleado());
+			catTipoRefaccion = new CatTipoRefaccion(catTipoRefaccionesDTO.getDescripcion(), 
+					catTipoRefaccionesDTO.getCantidad(),new Date(), Authenticator.getUsuarioSesion().getNominaEmpleado());
 		}
 		return catTipoRefaccion;
 	}

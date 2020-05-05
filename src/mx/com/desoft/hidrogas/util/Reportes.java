@@ -25,6 +25,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Component;
 
+import mx.com.desoft.hidrogas.dto.CatTipoRefaccionesDTO;
 import mx.com.desoft.hidrogas.dto.OrdenTrabajoDTO;
 import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
 
@@ -32,11 +33,11 @@ import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
 public class Reportes implements IReportes, Printable {
 
 	private static final Logger log = Logger.getLogger(Reportes.class);
-	private final String IMPRESORA = "EPSON TM-U220 Receipt";
+	private static final String IMPRESORA = "EPSON TM-U220 Receipt";
 
 
 	@Override
-	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden) throws UnsupportedEncodingException, PrintException, NullPointerException{
+	public void generarTicketOrdenServicio(OrdenTrabajoDTO orden) throws UnsupportedEncodingException, PrintException{
 		StringBuilder ticket = new StringBuilder();
 		ticket.append("\n");
 		ticket.append("\n");
@@ -58,14 +59,15 @@ public class Reportes implements IReportes, Printable {
 		ticket.append("Tipo Neccesidad: "+ orden.getDescripcionTipoNecesidad() + "\n");
 		ticket.append("Falla: " + orden.getFallaMecanica() + "\n");
 		ticket.append("Trabajo realizado: " + orden.getSeguimiento().getTrabajosRealizados() + "\n");
-		ticket.append("Refacciones utilizadas: \n");
-		for(SeguimientoOrdenPartesDTO refaccion : orden.getSeguimiento().getListaPartesUsadas()) {
-			ticket.append(refaccion.getCantidad() + " " + refaccion.getDescripcion() + " \n");
-		}
 		ticket.append("Refacciones solicitadas: \n");
 		for(SeguimientoOrdenPartesDTO refaccion : orden.getSeguimiento().getListaPartesSolicitadas()) {
 			ticket.append(refaccion.getCantidad() + " " + refaccion.getDescripcion() + " \n");
 		}
+		ticket.append("Refacciones utilizadas: \n");
+		for(SeguimientoOrdenPartesDTO refaccion : orden.getSeguimiento().getListaPartesUsadas()) {
+			ticket.append(refaccion.getCantidad() + " " + refaccion.getDescripcion() + " \n");
+		}
+		
 		ticket.append("\n");
 		ticket.append("\n");
 		ticket.append("\n");
@@ -184,12 +186,45 @@ public class Reportes implements IReportes, Printable {
 		out.flush();
 		out.close();
 	}
+	
+	@Override
+	public void generarReporteInventarioRefacciones(List<CatTipoRefaccionesDTO> lista) throws IOException {
+		CatTipoRefaccionesDTO[] miarray = new CatTipoRefaccionesDTO[lista.size()];
+        miarray = lista.toArray(miarray);
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		HSSFSheet sheet = workbook.createSheet("Reparaciones");
+
+		String[] headers = new String[]{"Folio Refaccion","Descripcion Refaccion", "Cantidad"};
+		HSSFRow headerRow = sheet.createRow(0);
+		for (int i = 0; i < headers.length; ++i) {
+			String header = headers[i];
+			HSSFCell cell = headerRow.createCell(i);
+			cell.setCellValue(header);
+        }
+
+		for (int i = 0; i < miarray.length; i++) {
+			CatTipoRefaccionesDTO registro =  miarray[i];
+			HSSFRow row = sheet.createRow(i + 1);
+			row.createCell(0).setCellValue(registro.getTipoRefaccionId());
+			row.createCell(1).setCellValue(registro.getDescripcion());
+			row.createCell(2).setCellValue(registro.getCantidad());
+		}
+
+		for (int i = 0; i < headers.length; sheet.autoSizeColumn(i++));
+
+		OutputStream out = new FileOutputStream(Constantes.PATH+"Inventario_Refacciones"+DateUtil.convertirFechaHoraToString(new Date())+".xls");
+		workbook.write(out);
+		workbook.close();
+		out.flush();
+		out.close();
+		
+	}
 
 	@Override
 	public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
 		return 0;
 	}
-
+	
 	private void printString(String printerName, String text) throws UnsupportedEncodingException, PrintException, NullPointerException {
 			DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
 			PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
@@ -212,7 +247,6 @@ public class Reportes implements IReportes, Printable {
 		}
 		return null;
 	}
-
 
 //	public List<String> getPrinters(){
 //

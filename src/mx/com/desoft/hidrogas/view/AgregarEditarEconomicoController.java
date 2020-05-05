@@ -38,7 +38,7 @@ public class AgregarEditarEconomicoController {
 
 	@FXML
     private void initialize() {
-		noNominaRegistroField.setText(Authenticator.usuarioSesion.getNominaEmpleado().toString());
+		noNominaRegistroField.setText(Authenticator.getUsuarioSesion().getNominaEmpleado().toString());
 		noNominaRegistroField.setDisable(true);
     }
 

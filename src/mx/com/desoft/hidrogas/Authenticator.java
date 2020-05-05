@@ -10,6 +10,13 @@ public class Authenticator implements Serializable {
 	 *
 	 */
 	private static final long serialVersionUID = 1044512398864299120L;
-	public static EmpleadoDTO usuarioSesion;
+	private static EmpleadoDTO usuarioSesion;
+	
+	public static EmpleadoDTO getUsuarioSesion() {
+		return usuarioSesion;
+	}
+	public static void setUsuarioSesion(EmpleadoDTO usuarioSesion) {
+		Authenticator.usuarioSesion = usuarioSesion;
+	}
 
 }

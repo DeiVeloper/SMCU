@@ -81,7 +81,7 @@ public class AgregarEditarOrdenBusinessImpl implements IAgregarEditarOrdenBusine
 	}
 
 	private OrdenTrabajo convertirDTOToEntidad(OrdenTrabajoDTO ordenTrabajoTO) {
-		final Empleado empleadoRegistro = empleadosImplDAO.get(Authenticator.usuarioSesion.getNominaEmpleado());
+		final Empleado empleadoRegistro = empleadosImplDAO.get(Authenticator.getUsuarioSesion().getNominaEmpleado());
 		final Economico economico = economicoImplDAO.get(ordenTrabajoTO.getEconomicoId());
 		final CatEstatusOrden estatus = catEstatusImplDAO.get(Constantes.N1);
 		final CatTipoNecesidad necesidad = catTipoNecesidadImplDAO.get(ordenTrabajoTO.getTipoNecesidadId());

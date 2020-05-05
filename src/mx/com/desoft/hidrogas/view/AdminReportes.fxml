@@ -56,7 +56,7 @@
                </children>
             </GridPane>
             <Button fx:id="exportarImprimir" layoutX="466.0" layoutY="465.0" mnemonicParsing="false" onAction="#imprimirReporte" prefHeight="30.0" prefWidth="70.0" text="Imprimir" />
-            <Button layoutX="608.0" layoutY="465.0" mnemonicParsing="false" onAction="#limpiarCamposView" prefHeight="30.0" prefWidth="70.0" text="Limpiar" />
+            <Button fx:id="buttonLimpiar" layoutX="608.0" layoutY="465.0" mnemonicParsing="false" onAction="#limpiarCamposView" prefHeight="30.0" prefWidth="70.0" text="Limpiar" />
              </children>
                   </AnchorPane>
          </children>

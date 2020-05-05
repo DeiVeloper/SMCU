@@ -122,6 +122,6 @@ public class LoginController {
 	}
 	
 	private void setearSesion(int noNomina){
-		Authenticator.usuarioSesion = loginBussinesServiceImpl.getEmpleadoSesion(noNomina);
+		Authenticator.setUsuarioSesion(loginBussinesServiceImpl.getEmpleadoSesion(noNomina));
 	}
 }
