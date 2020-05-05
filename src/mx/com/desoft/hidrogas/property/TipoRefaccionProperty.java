@@ -1,5 +1,6 @@
 package mx.com.desoft.hidrogas.property;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
 public class TipoRefaccionProperty {
