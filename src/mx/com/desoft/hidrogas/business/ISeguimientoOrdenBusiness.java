@@ -14,7 +14,7 @@ public interface ISeguimientoOrdenBusiness {
 
 	List<SeguimientoOrdenPartesProperty> getListaPartesByFolioTipo(int folio, int tipo);
 
-	boolean eliminaRefaccion(int idRefaccion);
+	boolean eliminaRefaccion(SeguimientoOrdenPartesProperty refaccion);
 
 	OrdenTrabajo getOrdenByFolio(int folio);
 
