@@ -29,10 +29,10 @@ public class ButtonUsarPzaSolicitada extends TableCell<SeguimientoOrdenPartesPro
 			public void handle(ActionEvent t) {
 				refaccion = (SeguimientoOrdenPartesProperty) ButtonUsarPzaSolicitada.this
 						.getTableView().getItems().get(ButtonUsarPzaSolicitada.this.getIndex());
-				dataPartesSolicitadas.remove(refaccion);
-				dtoPartesSolicitadas.remove(refaccion);
 				dataPartesUsadas.add(refaccion);
 				dtoPartesUsadas.add(refaccion);
+				dataPartesSolicitadas.remove(refaccion);
+				dtoPartesSolicitadas.remove(refaccion);
 			}
 		});
 	}

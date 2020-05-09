@@ -13,6 +13,7 @@ public class SeguimientoOrdenPartesDTO {
 	private int tipoRefaccionId;
 	private Date fechaRegistro;
 	private int nominaRegistro;
+	private Boolean deSolicitadaAUsada;
 	public SeguimientoOrdenPartesDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -36,7 +37,7 @@ public class SeguimientoOrdenPartesDTO {
 	}
 
 	public SeguimientoOrdenPartesDTO(int idRefaccion, int folio, int cantidad, int idCatTipoRefaccion, //String descripcion,
-			int tipoRefaccionId, Date fechaRegistro, int nominaRegistro) {
+			int tipoRefaccionId, Date fechaRegistro, int nominaRegistro, Boolean deSolicitadaAUsada) {
 		super();
 		this.idRefaccion = idRefaccion;
 		this.folio = folio;
@@ -45,6 +46,7 @@ public class SeguimientoOrdenPartesDTO {
 		this.tipoRefaccionId = tipoRefaccionId;
 		this.fechaRegistro = fechaRegistro;
 		this.nominaRegistro = nominaRegistro;
+		this.deSolicitadaAUsada = deSolicitadaAUsada;
 	}
 
 	public int getFolio() {
@@ -109,6 +111,14 @@ public class SeguimientoOrdenPartesDTO {
 
 	public void setIdRefaccion(int idRefaccion) {
 		this.idRefaccion = idRefaccion;
+	}
+
+	public Boolean isDeSolicitadaAUsada() {
+		return deSolicitadaAUsada;
+	}
+
+	public void setDeSolicitadaAUsada(Boolean deSolicitadaAUsada) {
+		this.deSolicitadaAUsada = deSolicitadaAUsada;
 	}
 
 }

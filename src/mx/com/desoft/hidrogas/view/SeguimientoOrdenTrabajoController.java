@@ -153,9 +153,9 @@ public class SeguimientoOrdenTrabajoController {
 				reparacionMayor.setValue(DateUtil.getLocalDateFromSQLDate(seguimientoDTO.getFechaReparacionMayor()));
 			}
 			dtoTablaPartesUsadas = seguimientoOrdenBusiness.getListaPartesByFolioTipo(ordenDTO.getFolio(), Constantes.N1);
-			if(!dtoTablaPartesUsadas.isEmpty()) {
+//			if(!dtoTablaPartesUsadas.isEmpty()) {
 				this.cargarInformacionRefacciones(Constantes.N1);
-			}
+//			}
 			dtoTablaPartesSolicitadas = seguimientoOrdenBusiness.getListaPartesByFolioTipo(ordenDTO.getFolio(), Constantes.N2);
 			if(!dtoTablaPartesSolicitadas.isEmpty()) {
 				this.cargarInformacionRefacciones(Constantes.N2);
@@ -340,7 +340,7 @@ public class SeguimientoOrdenTrabajoController {
 			}
 			if(parteUsada.getIdRefaccion() != Constantes.CERO && parteUsada.getIdTipoListaRefaccion() == Constantes.N2) {
 				dtoPartesUsadas.add(new SeguimientoOrdenPartesDTO(parteUsada.getIdRefaccion(), ordenDTO.getFolio(), Integer.parseInt(parteUsada.getCantidad().getValue()), parteUsada.getIdTipoRefaccion(),
-						Constantes.N1, new Date(), Authenticator.getUsuarioSesion().getNominaEmpleado()));
+						Constantes.N1, new Date(), Authenticator.getUsuarioSesion().getNominaEmpleado(), true));
 			}
 		}
 		for(SeguimientoOrdenPartesProperty parteSolicitada : dtoTablaPartesSolicitadas) {
@@ -353,11 +353,11 @@ public class SeguimientoOrdenTrabajoController {
 		seguimientoDTO.setListaPartesSolicitadas(dtoPartesSolicitadas);
 	}
 
-	public boolean eliminaRefaccion(int idRefaccion) {
+	public boolean eliminaRefaccion(SeguimientoOrdenPartesProperty refaccion) {
 		boolean isCorecto = true;
 		if(Alerta.eliminarRegistro("Confirmaci" + Constantes.o + "n", Constantes.ELIMINAR_REGISTRO, AlertType.CONFIRMATION)) {
-			if(idRefaccion != Constantes.CERO) {
-				isCorecto = seguimientoOrdenBusiness.eliminaRefaccion(idRefaccion);
+			if(refaccion.getIdRefaccion() != Constantes.CERO) {
+				isCorecto = seguimientoOrdenBusiness.eliminaRefaccion(refaccion);
 			}
 		} else {
 			isCorecto = false;
@@ -418,9 +418,7 @@ public class SeguimientoOrdenTrabajoController {
 		boolean existencia = true;
 		int cantidadExistente = 0;
 		for(SeguimientoOrdenPartesProperty parteUsada : dtoTablaPartesUsadas) {
-			System.out.println("parteUsada.getIdRefaccion(): " + parteUsada.getIdTipoRefaccion());
 			if(parteUsada.getIdRefaccion() == Constantes.CERO || (parteUsada.getIdRefaccion() != Constantes.CERO && parteUsada.getIdTipoListaRefaccion() == Constantes.N2)) {
-				System.out.println("parteUsada.getIdRefaccion()2: " + parteUsada.getIdTipoRefaccion());
 				cantidadExistente = this.obtieneTipoRefaccion(parteUsada.getIdTipoRefaccion()).getCantidad();
 				if(Integer.parseInt(parteUsada.getCantidad().getValue()) > cantidadExistente) {
 					Alerta.crearAlertaUsuario("Validando Formulario", "Error! La refacci" + Constantes.o + "n " + parteUsada.getDescripcionTipoRefaccion().getValue() + " solo cuenta con " + cantidadExistente + " piezas en el inventario.", AlertType.WARNING);

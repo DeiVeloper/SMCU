@@ -56,6 +56,11 @@ public class SeguimientoOrdenBusinessImpl implements ISeguimientoOrdenBusiness {
 		final SeguimientoOrden seguimiento = this.convertirDTOToEntidad(seguimientoOrdenTO);
 		seguimientoDAO.saveOrUpdate(seguimiento);
 		for(SeguimientoOrdenPartesDTO parteUsada : seguimientoOrdenTO.getListaPartesUsadas()) {
+			if(parteUsada.getIdRefaccion() == Constantes.CERO || (parteUsada.getIdRefaccion() != Constantes.CERO && parteUsada.isDeSolicitadaAUsada())) {
+				CatTipoRefaccion catTipoRefaccion = catTipoRefaccionDAO.get(parteUsada.getIdCatTipoRefaccion());
+				catTipoRefaccion.setCantidad(catTipoRefaccion.getCantidad()-parteUsada.getCantidad());
+				catTipoRefaccionDAO.saveOrUpdate(catTipoRefaccion);
+			}
 			listaRefaccionesDAO.saveOrUpdate(this.convertirDTOToEntidadRefacciones(parteUsada, parteUsada.getTipoRefaccionId()));
 		}
 		for(SeguimientoOrdenPartesDTO parteSolicitada : seguimientoOrdenTO.getListaPartesSolicitadas()) {
@@ -135,10 +140,15 @@ public class SeguimientoOrdenBusinessImpl implements ISeguimientoOrdenBusiness {
 	}
 
 	@Override
-	public boolean eliminaRefaccion(int idRefaccion) {
+	public boolean eliminaRefaccion(SeguimientoOrdenPartesProperty refaccion) {
 		boolean isEliminado = true;
 		try {
-			listaRefaccionesDAO.delete(idRefaccion);
+			if(refaccion.getIdTipoListaRefaccion() == Constantes.N1) {
+				CatTipoRefaccion catTipoRefaccion = catTipoRefaccionDAO.get(refaccion.getIdTipoRefaccion());
+				catTipoRefaccion.setCantidad(catTipoRefaccion.getCantidad()+Integer.parseInt(refaccion.getCantidad().getValue()));
+				catTipoRefaccionDAO.saveOrUpdate(catTipoRefaccion);
+			}
+			listaRefaccionesDAO.delete(refaccion.getIdRefaccion());
 		} catch (Exception e) {
 			isEliminado = false;
 			System.out.println(e);

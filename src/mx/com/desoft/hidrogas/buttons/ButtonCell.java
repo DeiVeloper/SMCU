@@ -32,7 +32,7 @@ public class ButtonCell extends TableCell<SeguimientoOrdenPartesProperty, Boolea
 				// get Selected Item
 				SeguimientoOrdenPartesProperty refaccion = (SeguimientoOrdenPartesProperty) ButtonCell.this
 						.getTableView().getItems().get(ButtonCell.this.getIndex());
-				elimina = seguimientoController.eliminaRefaccion(refaccion.getIdRefaccion());
+				elimina = seguimientoController.eliminaRefaccion(refaccion);
 				if(elimina) {
 					// remove selected item from the table list
 					dataPartesUsadas.remove(refaccion);
