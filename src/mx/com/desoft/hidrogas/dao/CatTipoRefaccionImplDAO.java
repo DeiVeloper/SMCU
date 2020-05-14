@@ -23,7 +23,7 @@ public class CatTipoRefaccionImplDAO extends HibernateImplDAO<CatTipoRefaccion, 
 		if(catTipoRefaccionesDTO.getDescripcion() != Constantes.NULL && !catTipoRefaccionesDTO.getDescripcion().isEmpty()){
 			criteria.add(Restrictions.like("descripcion", catTipoRefaccionesDTO.getDescripcion()));
 		}
-		criteria.addOrder(Order.asc("idTipoRefaccion"));
+		criteria.addOrder(Order.asc("descripcion"));
 		return (List<CatTipoRefaccion>) criteria.list();
 	}
 	
@@ -31,7 +31,7 @@ public class CatTipoRefaccionImplDAO extends HibernateImplDAO<CatTipoRefaccion, 
 	@Override
 	public List<CatTipoRefaccion> getAllTipoRefaccion() {
 		Criteria criteria = HibernateUtil.openSession().createCriteria(CatTipoRefaccion.class);
-		criteria.addOrder(Order.asc("idTipoRefaccion"));
+		criteria.addOrder(Order.asc("descripcion"));
 		return criteria.list();
 	}
 
