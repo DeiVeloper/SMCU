@@ -33,7 +33,7 @@ import mx.com.desoft.hidrogas.dto.SeguimientoOrdenPartesDTO;
 public class Reportes implements IReportes, Printable {
 
 	private static final Logger log = Logger.getLogger(Reportes.class);
-	private static final String IMPRESORA = "EPSON TM-U220 Receipt";
+	private static final String IMPRESORA = "EPSON TM-T20 ReceiptE4";
 
 
 	@Override
