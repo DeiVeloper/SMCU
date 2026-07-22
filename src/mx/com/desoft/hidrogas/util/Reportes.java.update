@@ -1,0 +1,19 @@
+// En el método generarTicketOrdenServicio, después de la línea: ticket.append("Econ"+Constantes.o+"mico: " + orden.getEconomicoId() + "\n");
+// Agregar:
+ticket.append("Ruta: " + orden.getRutaId() + "\n");
+ticket.append("Kilometraje: " + orden.getKilometraje() + "\n");
+
+// En el método generarReporteIncidencias, modificar la línea de headers:
+// String[] headers = new String[]{"Folio",
+//     "Mecanico", "Economico", "Operador", "Falla Mecanica",
+//         "Fecha Registro","Fecha Orden","Fecha Terminacion", "Kilometraje", "Tipo Necesidad", "Observaciones", "Trabajos Realizados"};
+// A:
+String[] headers = new String[]{"Folio",
+    "Mecanico", "Economico", "Ruta", "Operador", "Falla Mecanica",
+        "Fecha Registro","Fecha Orden","Fecha Terminacion", "Kilometraje", "Tipo Necesidad", "Observaciones", "Trabajos Realizados"};
+
+// Y agregar después de row.createCell(2).setCellValue(registro.getEconomicoId());
+// La línea:
+row.createCell(3).setCellValue(registro.getRutaId());
+
+// Ajustar los índices de las demás celdas incrementándolos en 1

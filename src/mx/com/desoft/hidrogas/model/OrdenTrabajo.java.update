@@ -1,0 +1,15 @@
+// Agregar el siguiente campo a la clase OrdenTrabajo después del campo 'economico':
+
+@ManyToOne
+@JoinColumn(name="ruta_id")
+private Ruta ruta;
+
+// Agregar también los getters y setters:
+
+public Ruta getRuta() {
+	return ruta;
+}
+
+public void setRuta(Ruta ruta) {
+	this.ruta = ruta;
+}

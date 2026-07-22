@@ -1,0 +1,8 @@
+<!-- Agregar después de:
+<Label layoutX="36.0" layoutY="77.0" text="Económico" />
+<ComboBox fx:id="economico" layoutX="169.0" layoutY="73.0" prefWidth="150.0" />
+
+Esta nueva línea para agregar el combo de ruta:
+-->
+<Label layoutX="36.0" layoutY="77.0" text="Ruta" />
+<ComboBox fx:id="ruta" layoutX="169.0" layoutY="73.0" prefWidth="150.0" />

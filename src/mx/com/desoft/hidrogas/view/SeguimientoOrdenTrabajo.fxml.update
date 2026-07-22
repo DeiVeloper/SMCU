@@ -1,0 +1,10 @@
+<!-- Agregar después de:
+<Label layoutX="29.0" layoutY="76.0" text="Económico" />
+<Label fx:id="economico" layoutX="129.0" layoutY="76.0" />
+
+Estas nuevas líneas para mostrar ruta y kilometraje:
+-->
+<Label layoutX="280.0" layoutY="35.0" text="Ruta" />
+<Label fx:id="ruta" layoutX="329.0" layoutY="35.0" />
+<Label layoutX="500.0" layoutY="35.0" text="Kilometraje" />
+<Label fx:id="kilometraje" layoutX="630.0" layoutY="35.0" />
